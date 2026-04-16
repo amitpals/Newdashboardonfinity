@@ -756,7 +756,7 @@ function Frame4() {
 
 function Component1X4() {
   return (
-    <div className="bg-gradient-to-b col-1 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[12px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
+    <div className="bg-gradient-to-b col-1 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[12px] row-1 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-start justify-between p-[20px] relative size-full">
           <MaterialSymbolsMarkEmailUnreadOutlineRounded />
@@ -962,7 +962,7 @@ function Frame23() {
 
 function Component2X3() {
   return (
-    <div className="bg-gradient-to-b col-[1/span_2] from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-[1/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
+    <div className="bg-gradient-to-b col-[2/span_2] from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-[1/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center p-[16px] relative size-full">
           <Frame23 />
@@ -998,7 +998,7 @@ function Frame27() {
 
 function Component1X5() {
   return (
-    <div className="bg-gradient-to-b col-4 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
+    <div className="bg-gradient-to-b col-6 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-start justify-between p-[20px] relative size-full">
           <Frame6 />
@@ -1035,7 +1035,7 @@ function Frame29() {
 
 function Component1X6() {
   return (
-    <div className="bg-gradient-to-b col-3 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
+    <div className="bg-gradient-to-b col-5 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-start justify-between p-[20px] relative size-full">
           <Frame28 />
@@ -1096,7 +1096,7 @@ function Frame31() {
 
 function Component1X7() {
   return (
-    <div className="bg-gradient-to-b col-2 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
+    <div className="bg-gradient-to-b col-4 from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-3 self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="1x1">
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-start justify-between p-[20px] relative size-full">
           <Frame30 />
@@ -1323,7 +1323,7 @@ function Frame33() {
 
 function Component2X4() {
   return (
-    <div className="bg-gradient-to-b col-[3/span_3] from-[rgba(255,255,255,0.7)] h-[412px] justify-self-stretch relative rounded-[12px] row-[1/span_2] self-start shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
+    <div className="bg-gradient-to-b col-[1/span_3] from-[rgba(255,255,255,0.7)] h-[412px] justify-self-stretch relative rounded-[12px] row-[3/span_2] self-start shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center p-[16px] relative size-full">
           <Frame33 />
@@ -1543,9 +1543,210 @@ function Frame37() {
   );
 }
 
+function Frame80() {
+  return (
+    <div className="relative shrink-0 size-[24px]" data-name="website-icon">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
+        <g id="website-icon">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="var(--fill-0, #1F83FF)" id="Vector" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Frame81() {
+  return (
+    <div className="relative shrink-0 size-[24px]" data-name="linkedin-icon">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
+        <g id="linkedin-icon">
+          <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" fill="var(--fill-0, #0077B5)" id="Vector" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Frame82() {
+  return (
+    <div className="relative shrink-0 size-[24px]" data-name="email-icon">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
+        <g id="email-icon">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="var(--fill-0, #EA4335)" id="Vector" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Frame83() {
+  return (
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center leading-[normal] relative shrink-0 text-black text-center whitespace-nowrap">
+      <p className="font-['Roboto:Regular',sans-serif] font-normal relative shrink-0 text-[16px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        Website
+      </p>
+      <p className="font-['Roboto:Bold',sans-serif] font-bold relative shrink-0 text-[32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        128
+      </p>
+    </div>
+  );
+}
+
+function Frame84() {
+  return (
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center leading-[normal] relative shrink-0 text-black text-center whitespace-nowrap">
+      <p className="font-['Roboto:Regular',sans-serif] font-normal relative shrink-0 text-[16px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        LinkedIn
+      </p>
+      <p className="font-['Roboto:Bold',sans-serif] font-bold relative shrink-0 text-[32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        86
+      </p>
+    </div>
+  );
+}
+
+function Frame85() {
+  return (
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center leading-[normal] relative shrink-0 text-black text-center whitespace-nowrap">
+      <p className="font-['Roboto:Regular',sans-serif] font-normal relative shrink-0 text-[16px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        Email Campaign
+      </p>
+      <p className="font-['Roboto:Bold',sans-serif] font-bold relative shrink-0 text-[32px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        54
+      </p>
+    </div>
+  );
+}
+
+function Frame86() {
+  return (
+    <div className="relative shrink-0 w-full">
+      <div className="flex flex-row items-center min-w-[inherit] overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex gap-[12px] items-center justify-between min-w-[inherit] p-[16px] relative w-full">
+          <Frame80 />
+          <Frame83 />
+        </div>
+      </div>
+      <div aria-hidden="true" className="absolute border-[#e2e2e2] border-b border-solid inset-0 pointer-events-none" />
+    </div>
+  );
+}
+
+function Frame87() {
+  return (
+    <div className="relative shrink-0 w-full">
+      <div className="flex flex-row items-center min-w-[inherit] overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex gap-[12px] items-center justify-between min-w-[inherit] p-[16px] relative w-full">
+          <Frame81 />
+          <Frame84 />
+        </div>
+      </div>
+      <div aria-hidden="true" className="absolute border-[#e2e2e2] border-b border-solid inset-0 pointer-events-none" />
+    </div>
+  );
+}
+
+function Frame88() {
+  return (
+    <div className="relative shrink-0 w-full">
+      <div className="flex flex-row items-center min-w-[inherit] overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex gap-[12px] items-center justify-between min-w-[inherit] p-[16px] relative w-full">
+          <Frame82 />
+          <Frame85 />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Frame79() {
+  return (
+    <div className="flex-[1_0_0] min-h-px min-w-px relative rounded-[4px] w-full">
+      <div className="content-stretch flex flex-col items-start justify-between py-[24px] relative size-full">
+        <Frame86 />
+        <Frame87 />
+        <Frame88 />
+      </div>
+    </div>
+  );
+}
+
+function Component3X2LeadSources() {
+  const leadSources = [
+    { source: "Website", count: 128, percentage: 40, accent: "#1F83FF" },
+    { source: "LinkedIn", count: 86, percentage: 27, accent: "#0077B5" },
+    { source: "Email Campaign", count: 54, percentage: 17, accent: "#EA4335" },
+    { source: "Referral", count: 32, percentage: 10, accent: "#22C55E" },
+    { source: "Walk-In", count: 20, percentage: 6, accent: "#F59E0B" },
+  ];
+
+  return (
+    <div className="bg-gradient-to-b col-[4/span_3] from-[rgba(255,255,255,0.7)] relative rounded-[12px] row-[1/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="3x2">
+      <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[16px] items-center p-[16px] relative size-full">
+          <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+            <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[18px] text-black text-center whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Lead Sources
+              </p>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[12px] text-[#717182] text-center whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Count and contribution share
+              </p>
+            </div>
+            <div className="bg-white/70 border border-white/80 rounded-[10px] px-[12px] py-[8px] shrink-0">
+              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[11px] text-[#717182] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Total Leads
+              </p>
+              <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[22px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                320
+              </p>
+            </div>
+          </div>
+          <div className="content-stretch flex items-center justify-between px-[12px] relative shrink-0 w-full">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[12px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Leads by Source
+            </p>
+            <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[12px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Count / %
+            </p>
+          </div>
+          <div className="content-stretch flex flex-col gap-[10px] relative shrink-0 w-full">
+            {leadSources.map((item) => (
+              <div className="bg-white/65 border border-white/70 rounded-[10px] relative shrink-0 w-full" key={item.source}>
+                <div className="content-stretch flex items-center justify-between px-[12px] py-[10px] relative w-full">
+                  <div className="content-stretch flex items-center gap-[10px] min-w-0 relative shrink-0">
+                    <div className="rounded-full shrink-0 size-[10px]" style={{ backgroundColor: item.accent }} />
+                    <div className="content-stretch flex flex-col gap-[6px] min-w-0 relative shrink-0 w-[220px]">
+                      <div className="content-stretch flex items-center justify-between gap-[8px] relative shrink-0 w-full">
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] min-w-0 overflow-hidden text-[14px] text-black text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.source}
+                        </p>
+                        <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[14px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.count}
+                        </p>
+                      </div>
+                      <div className="bg-[#dbe8f1] h-[6px] overflow-hidden relative rounded-full shrink-0 w-full">
+                        <div className="absolute inset-y-0 left-0 rounded-full" style={{ backgroundColor: item.accent, width: `${item.percentage}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[14px] text-[#0f172a] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.percentage}%
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[12px]" />
+    </div>
+  );
+}
+
 function Component2X5() {
   return (
-    <div className="bg-gradient-to-b col-[6/span_3] from-[rgba(255,255,255,0.7)] h-[412px] justify-self-stretch relative rounded-[12px] row-[1/span_2] self-start shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
+    <div className="bg-gradient-to-b col-[7/span_3] from-[rgba(255,255,255,0.7)] h-[412px] justify-self-stretch relative rounded-[12px] row-[1/span_2] self-start shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center p-[16px] relative size-full">
           <Frame37 />
@@ -1705,7 +1906,7 @@ function SocialMediaWidget() {
 
 function ComponentSocialMedia() {
   return (
-    <div className="bg-gradient-to-b col-[5/span_3] from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[12px] row-[3/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="social-media">
+    <div className="bg-gradient-to-b col-[7/span_3] from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[12px] row-[3/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="social-media">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center p-[16px] relative size-full">
           <SocialMediaWidget />
@@ -1727,6 +1928,7 @@ function Frame2() {
       <Component2X4 />
       <Component2X5 />
       <ComponentSocialMedia />
+      <Component3X2LeadSources />
     </div>
   );
 }
