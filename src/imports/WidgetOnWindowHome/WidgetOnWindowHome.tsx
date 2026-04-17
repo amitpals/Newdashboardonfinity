@@ -1,4 +1,20 @@
 import { useState } from "react";
+import {
+  ArrowLeft,
+  CalendarClock,
+  Download,
+  Eye,
+  FilePlus2,
+  HardDrive,
+  HardDriveDownload,
+  Home,
+  Pencil,
+  Percent,
+  RotateCcw,
+  Send,
+  Trash2,
+  UserRound,
+} from "lucide-react";
 import svgPaths from "./svg-gcxtz2mw3y";
 import imgImage34 from "./67915b5281a364c5879b410415ba1e8e9e7f1129.png";
 import imgImage1 from "./87402428326e6bea6b5827a28016e524d9e0f446.png";
@@ -1710,31 +1726,32 @@ function Component3X2LeadSources() {
               Count / %
             </p>
           </div>
-          <div className="content-stretch flex flex-col gap-[10px] relative shrink-0 w-full">
-            {leadSources.map((item) => (
-              <div className="bg-white/65 border border-white/70 rounded-[10px] relative shrink-0 w-full" key={item.source}>
-                <div className="content-stretch flex items-center justify-between px-[12px] py-[10px] relative w-full">
+          <div className="content-stretch flex flex-col relative shrink-0 w-full">
+            {leadSources.map((item, index) => (
+              <>
+                <div className="content-stretch flex items-center justify-between px-[12px] py-[8px] relative w-full">
                   <div className="content-stretch flex items-center gap-[10px] min-w-0 relative shrink-0">
                     <div className="rounded-full shrink-0 size-[10px]" style={{ backgroundColor: item.accent }} />
-                    <div className="content-stretch flex flex-col gap-[6px] min-w-0 relative shrink-0 w-[220px]">
-                      <div className="content-stretch flex items-center justify-between gap-[8px] relative shrink-0 w-full">
-                        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] min-w-0 overflow-hidden text-[14px] text-black text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <div className="content-stretch flex flex-col gap-[4px] min-w-0 relative shrink-0 w-[220px]">
+                      <div className="content-stretch flex items-center justify-between gap-[6px] relative shrink-0 w-full">
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] min-w-0 overflow-hidden text-[13px] text-black text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.source}
                         </p>
-                        <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[14px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[13px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.count}
                         </p>
                       </div>
-                      <div className="bg-[#dbe8f1] h-[6px] overflow-hidden relative rounded-full shrink-0 w-full">
+                      <div className="bg-[#dbe8f1] h-[4px] overflow-hidden relative rounded-full shrink-0 w-full">
                         <div className="absolute inset-y-0 left-0 rounded-full" style={{ backgroundColor: item.accent, width: `${item.percentage}%` }} />
                       </div>
                     </div>
                   </div>
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[14px] text-[#0f172a] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[13px] text-[#0f172a] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.percentage}%
                   </p>
                 </div>
-              </div>
+                {index < leadSources.length - 1 && <div className="h-[1px] bg-[#e2e2e2] w-full my-[4px]" />}
+              </>
             ))}
           </div>
         </div>
@@ -1750,6 +1767,102 @@ function Component2X5() {
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center p-[16px] relative size-full">
           <Frame37 />
+        </div>
+      </div>
+      <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[12px]" />
+    </div>
+  );
+}
+
+function Component6X2OpportunityFunnel() {
+  const funnelStages = [
+    { label: "Leads", count: 320, rate: "100%", accent: "#1F83FF", width: "100%" },
+    { label: "Qualified", count: 214, rate: "67%", accent: "#38BDF8", width: "78%" },
+    { label: "Proposal", count: 126, rate: "39%", accent: "#34D399", width: "58%" },
+    { label: "Negotiation", count: 74, rate: "23%", accent: "#F59E0B", width: "38%" },
+    { label: "Deals Won", count: 31, rate: "10%", accent: "#0F9D89", width: "20%" },
+  ];
+
+  return (
+    <div className="bg-gradient-to-b col-[4/span_6] from-[rgba(255,255,255,0.7)] relative rounded-[12px] row-[5/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="6x2">
+      <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
+        <div className="content-stretch flex flex-col gap-[18px] items-center p-[18px] relative size-full">
+          <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
+            <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[20px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Opportunity Funnel
+              </p>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[12px] text-[#717182] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Lead to deal flow across the current pipeline
+              </p>
+            </div>
+            <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
+              <div className="bg-white/75 border border-white/80 rounded-[10px] px-[12px] py-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Win Rate
+                </p>
+                <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[20px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  9.7%
+                </p>
+              </div>
+              <div className="bg-white/75 border border-white/80 rounded-[10px] px-[12px] py-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Avg. Deal Cycle
+                </p>
+                <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[20px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  24 Days
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+            {funnelStages.map((stage, index) => (
+              <div className="content-stretch flex items-center flex-[1_0_0] gap-[10px] relative" key={stage.label}>
+                <div className="bg-white/65 border border-white/70 rounded-[12px] flex-[1_0_0] min-h-[128px] min-w-0 relative">
+                  <div className="content-stretch flex flex-col gap-[14px] items-start p-[14px] relative size-full">
+                    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+                      <div className="content-stretch flex items-center gap-[8px] min-w-0 relative shrink-0">
+                        <div className="rounded-full shrink-0 size-[10px]" style={{ backgroundColor: stage.accent }} />
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] min-w-0 overflow-hidden text-[14px] text-black text-ellipsis whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {stage.label}
+                        </p>
+                      </div>
+                      <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[13px] text-[#717182] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {stage.rate}
+                      </p>
+                    </div>
+                    <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[34px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {stage.count}
+                    </p>
+                    <div className="bg-[#deebf4] h-[8px] overflow-hidden relative rounded-full shrink-0 w-full">
+                      <div className="absolute inset-y-0 left-0 rounded-full" style={{ backgroundColor: stage.accent, width: stage.width }} />
+                    </div>
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[11px] text-[#717182] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {index === 0 ? "All captured opportunities" : `Conversion from ${funnelStages[index - 1].label}`}
+                    </p>
+                  </div>
+                </div>
+                {index < funnelStages.length - 1 && (
+                  <div className="flex items-center justify-center shrink-0 w-[18px]">
+                    <svg className="h-[18px] w-[18px]" fill="none" viewBox="0 0 18 18">
+                      <path d="M4 9H14" stroke="#9FB6C8" strokeLinecap="round" strokeWidth="1.8" />
+                      <path d="M10.5 5.5L14 9L10.5 12.5" stroke="#9FB6C8" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-white/55 border border-white/70 rounded-[12px] content-stretch flex items-center justify-between px-[16px] py-[12px] relative shrink-0 w-full">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Biggest drop-off appears between qualified opportunities and proposal-ready deals.
+            </p>
+            <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[14px] text-[#0F9D89] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Focus area: Qualification to Proposal
+            </p>
+          </div>
         </div>
       </div>
       <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[12px]" />
@@ -1929,6 +2042,7 @@ function Frame2() {
       <Component2X5 />
       <ComponentSocialMedia />
       <Component3X2LeadSources />
+      <Component6X2OpportunityFunnel />
     </div>
   );
 }
@@ -2246,18 +2360,82 @@ function IconWithTooltip({ children, label }: { children: React.ReactNode; label
   );
 }
 
-function LeftMenu() {
+type AppView = "dashboard" | "salesProposal";
+
+type ProposalStatus = "Accepted" | "Rejected" | "Draft" | "Sent";
+
+type ProposalRecord = {
+  id: string;
+  company: string;
+  clientName: string;
+  contactPerson: string;
+  title: string;
+  amount: string;
+  status: ProposalStatus;
+  owner: string;
+  ownerRole: string;
+  updatedAt: string;
+  lastViewed: string;
+  validUntil: string;
+  probability: string;
+  notes: string;
+  sections: Array<{ label: string; value: string }>;
+  lineItems: Array<{
+    item: string;
+    quantity: number;
+    price: string;
+    discount: string;
+    total: string;
+  }>;
+  totals: {
+    subtotal: string;
+    tax: string;
+    total: string;
+  };
+  activities: Array<{
+    title: string;
+    meta: string;
+    actor: string;
+    description: string;
+    changes?: string[];
+  }>;
+};
+
+function parseCurrency(value: string) {
+  const numeric = Number(value.replace(/[^0-9.-]+/g, ""));
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
+function parseDiscount(value: string) {
+  const numeric = Number(value.replace(/[^0-9.-]+/g, ""));
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
+function formatCurrency(value: number) {
+  return `$ ${value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+function LeftMenu({
+  activeView,
+  onNavigate,
+}: {
+  activeView: AppView;
+  onNavigate: (view: AppView) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const menuItems = [
-    { label: "Inbox", icon: <Slot2 /> },
-    { label: "Customers", icon: <Slot3 /> },
-    { label: "Calendar", icon: <Slot4 /> },
-    { label: "Tasks", icon: <Slot5 /> },
-    { label: "Prospects", icon: <Slot6 /> },
-    { label: "Sales Proposal", icon: <Slot7 /> },
-    { label: "Opportunities", icon: <Slot8 /> },
-    { label: "Settings", icon: <Slot9 /> },
+    { label: "Inbox", icon: <Slot2 />, view: "dashboard" as AppView },
+    { label: "Customers", icon: <Slot3 />, view: "dashboard" as AppView },
+    { label: "Calendar", icon: <Slot4 />, view: "dashboard" as AppView },
+    { label: "Tasks", icon: <Slot5 />, view: "dashboard" as AppView },
+    { label: "Prospects", icon: <Slot6 />, view: "dashboard" as AppView },
+    { label: "Sales Proposal", icon: <Slot7 />, view: "salesProposal" as AppView },
+    { label: "Opportunities", icon: <Slot8 />, view: "dashboard" as AppView },
+    { label: "Settings", icon: <Slot9 />, view: "dashboard" as AppView },
   ];
 
   return (
@@ -2281,9 +2459,16 @@ function LeftMenu() {
 
         {/* Regular Menu Icons */}
         {menuItems.map((item, index) => (
-          <IconWithTooltip key={index} label={item.label}>
-            {item.icon}
-          </IconWithTooltip>
+          <button
+            key={index}
+            className={`rounded-[8px] ${activeView === item.view && item.label === "Sales Proposal" ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
+            onClick={() => onNavigate(item.view)}
+            type="button"
+          >
+            <IconWithTooltip label={item.label}>
+              {item.icon}
+            </IconWithTooltip>
+          </button>
         ))}
       </div>
 
@@ -2307,9 +2492,14 @@ function LeftMenu() {
 
           {/* Menu Items with Labels */}
           {menuItems.map((item, index) => (
-            <div 
+            <button 
               key={index}
-              className="flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group"
+              className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${activeView === item.view && item.label === "Sales Proposal" ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
+              onClick={() => {
+                onNavigate(item.view);
+                setIsExpanded(false);
+              }}
+              type="button"
             >
               <div className="overflow-clip size-[24px] shrink-0">
                 {item.icon}
@@ -2317,7 +2507,7 @@ function LeftMenu() {
               <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {item.label}
               </p>
-            </div>
+            </button>
           ))}
         </div>
       )}
@@ -2325,13 +2515,933 @@ function LeftMenu() {
   );
 }
 
+function ProposalStatusChip({ status }: { status: ProposalStatus }) {
+  const styles = {
+    Accepted: "bg-[#ccefdd] text-[#0c5d38]",
+    Rejected: "bg-[#fad7d7] text-[#8f2d2d]",
+    Draft: "bg-[#e1e1e1] text-[#505050]",
+    Sent: "bg-[#d9ecff] text-[#0e5da8]",
+  };
+
+  return (
+    <div className={`content-stretch flex items-center justify-center rounded-[999px] px-[12px] py-[6px] ${styles[status]}`}>
+      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {status}
+      </p>
+    </div>
+  );
+}
+
+function ProposalListRow({
+  proposal,
+  isSelected,
+  onSelect,
+}: {
+  proposal: ProposalRecord;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      className={`content-stretch flex flex-col gap-[16px] items-start justify-center overflow-clip px-[18px] py-[20px] relative w-full text-left border-b border-solid transition-all ${
+        isSelected
+          ? "border-[#0083da] bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] shadow-[inset_4px_0_0_0_#0083da,0_12px_24px_rgba(31,131,255,0.10)]"
+          : "border-[#ebebeb] bg-[#fcfcfc] hover:bg-[#f7fbff]"
+      }`}
+      onClick={onSelect}
+      type="button"
+    >
+      <div className="content-stretch flex items-start justify-between relative w-full">
+        <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] underline ${isSelected ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+          Proposal #{proposal.id}
+        </p>
+        {isSelected && (
+          <div className="bg-[#0083da] rounded-full size-[10px] shrink-0 mt-[4px]" />
+        )}
+      </div>
+      <div className="content-stretch flex items-start justify-between leading-[normal] relative w-full">
+        <div className="content-stretch flex flex-col gap-[4px] items-start justify-center min-w-0 relative">
+          <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[18px] ${isSelected ? "text-[#0b3558]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+            {proposal.company}
+          </p>
+          <p className={`font-['Roboto:Regular',sans-serif] font-normal text-[16px] ${isSelected ? "text-[#24506d]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+            {proposal.title}
+          </p>
+        </div>
+        <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[18px] whitespace-nowrap ${isSelected ? "text-[#0b3558]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+          {proposal.amount}
+        </p>
+      </div>
+      <ProposalStatusChip status={proposal.status} />
+    </button>
+  );
+}
+
+function ProposalActionButton({
+  children,
+  label,
+}: {
+  children: React.ReactNode;
+  label?: string;
+}) {
+  return (
+    <button
+      className={`content-stretch flex items-center justify-center rounded-[8px] transition-all hover:bg-white/80 ${
+        label ? "gap-[8px] px-[10px] py-[8px]" : "size-[32px]"
+      }`}
+      type="button"
+    >
+      {children}
+      {label ? (
+        <span
+          className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-black whitespace-nowrap"
+          style={{ fontVariationSettings: "'wdth' 100" }}
+        >
+          {label}
+        </span>
+      ) : null}
+    </button>
+  );
+}
+
+function ProposalFooter({
+  totalRecords,
+  currentPage,
+  totalPages,
+}: {
+  totalRecords: number;
+  currentPage: number;
+  totalPages: number;
+}) {
+  return (
+    <div className="bg-white border-t border-solid border-[#e5e7eb] content-stretch flex items-center justify-between px-[18px] py-[8px] relative shrink-0 w-full">
+      <p
+        className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#141414] whitespace-nowrap"
+        style={{ fontVariationSettings: "'wdth' 100" }}
+      >
+        Navigate or Update record
+      </p>
+
+      <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+        <p
+          className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#1f83ff] whitespace-nowrap"
+          style={{ fontVariationSettings: "'wdth' 100" }}
+        >
+          -1/0
+        </p>
+        <div className="h-[28px] w-px bg-[#d6d6d6]" />
+        <p
+          className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#141414] whitespace-nowrap"
+          style={{ fontVariationSettings: "'wdth' 100" }}
+        >
+          Showing Result 0-0 of {totalRecords}
+        </p>
+
+        <div className="content-stretch flex items-center overflow-hidden rounded-[10px] border border-solid border-[#d9d9d9] bg-[#fcfcfc] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+          <button className="content-stretch flex items-center justify-center size-[46px] border-r border-solid border-[#d9d9d9] text-[#b2b8bf]" type="button">
+            <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+              <path d="M11 4L6 9L11 14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" />
+            </svg>
+          </button>
+          <button className="content-stretch flex items-center justify-center gap-[8px] min-w-[88px] px-[16px] py-[11px] text-[#141414]" type="button">
+            <span
+              className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] whitespace-nowrap"
+              style={{ fontVariationSettings: "'wdth' 100" }}
+            >
+              {currentPage}
+            </span>
+            <svg className="size-[16px] text-[#1f83ff]" fill="none" viewBox="0 0 16 16">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+            </svg>
+          </button>
+          <button className="content-stretch flex items-center justify-center size-[46px] border-l border-solid border-[#d9d9d9] text-[#9aa3ad]" type="button">
+            <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+              <path d="M7 4L12 9L7 14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ActivityChangesModal({
+  activity,
+  onClose,
+}: {
+  activity: { title: string; changes?: string[] } | null;
+  onClose: () => void;
+}) {
+  if (!activity || !activity.changes?.length) {
+    return null;
+  }
+
+  return (
+    <div className="absolute inset-0 z-[120] flex items-center justify-center bg-[rgba(15,23,42,0.20)]">
+      <div className="w-[420px] rounded-[16px] border border-solid border-[#dfe8ef] bg-white p-[20px] shadow-[0_20px_60px_rgba(15,23,42,0.18)]">
+        <div className="content-stretch flex items-start justify-between gap-[12px]">
+          <div>
+            <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {activity.title}
+            </p>
+            <p className="mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Revision changes
+            </p>
+          </div>
+          <button className="flex size-[28px] items-center justify-center rounded-[8px] text-[#5f6b7a] hover:bg-[#f4f7fa]" onClick={onClose} type="button">
+            <svg className="size-[16px]" fill="none" viewBox="0 0 16 16">
+              <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
+            </svg>
+          </button>
+        </div>
+        <div className="mt-[16px] flex flex-col gap-[10px]">
+          {activity.changes.map((change) => (
+            <div className="rounded-[12px] border border-solid border-[#edf2f6] bg-[#fbfdff] px-[14px] py-[12px]" key={change}>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {change}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProposalHeaderAction({
+  icon,
+  label,
+  onClick,
+  variant = "secondary",
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+  variant?: "primary" | "secondary";
+}) {
+  return (
+    <button
+      className={`content-stretch flex items-center gap-[8px] rounded-[999px] border border-solid px-[14px] py-[9px] transition-all ${
+        variant === "primary"
+          ? "border-[#0083da] bg-[#0083da] text-white shadow-[0_8px_18px_rgba(0,131,218,0.24)] hover:bg-[#0073c0]"
+          : "border-[#0083da] bg-white text-[#0083da] hover:bg-[#f2f9ff]"
+      }`}
+      onClick={onClick}
+      type="button"
+    >
+      {icon}
+      <span className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {label}
+      </span>
+    </button>
+  );
+}
+
+function SalesProposalView({
+  proposals,
+  selectedProposalId,
+  onSelectProposal,
+  onClose,
+  onSaveProposalLines,
+}: {
+  proposals: ProposalRecord[];
+  selectedProposalId: string;
+  onSelectProposal: (proposalId: string) => void;
+  onClose: () => void;
+  onSaveProposalLines: (proposalId: string, lineItems: ProposalRecord["lineItems"]) => void;
+}) {
+  const selectedProposal =
+    proposals.find((proposal) => proposal.id === selectedProposalId) ?? proposals[0];
+  const [activeTab, setActiveTab] = useState<"lines" | "activities">("lines");
+  const [activeActivity, setActiveActivity] = useState<{
+    title: string;
+    changes?: string[];
+  } | null>(null);
+  const [editedLineItems, setEditedLineItems] = useState<Record<string, ProposalRecord["lineItems"]>>({});
+  const [editingProposalId, setEditingProposalId] = useState<string | null>(null);
+  const activeLineItems = editedLineItems[selectedProposal.id] ?? selectedProposal.lineItems;
+  const isDraftProposal = selectedProposal.status === "Draft";
+  const isEditingCurrentDraft = isDraftProposal && editingProposalId === selectedProposal.id;
+  const lineSubtotal = activeLineItems.reduce((sum, line) => sum + parseCurrency(line.total), 0);
+  const lineTax = Math.max(lineSubtotal * 0.038, 0);
+  const lineTotals = {
+    subtotal: formatCurrency(lineSubtotal),
+    tax: formatCurrency(lineTax),
+    total: formatCurrency(lineSubtotal + lineTax),
+  };
+
+  const updateDraftLine = (
+    index: number,
+    field: keyof ProposalRecord["lineItems"][number],
+    value: string,
+  ) => {
+    setEditedLineItems((current) => {
+      const proposalLines = [...(current[selectedProposal.id] ?? selectedProposal.lineItems)];
+      const nextLine = {
+        ...proposalLines[index],
+        [field]: field === "quantity" ? Number(value) || 0 : value,
+      };
+      const quantity = Number(nextLine.quantity) || 0;
+      const price = parseCurrency(nextLine.price);
+      const discount = parseDiscount(nextLine.discount);
+      const total = quantity * price * (1 - discount / 100);
+
+      proposalLines[index] = {
+        ...nextLine,
+        total: formatCurrency(total),
+      };
+
+      return {
+        ...current,
+        [selectedProposal.id]: proposalLines,
+      };
+    });
+  };
+
+  const beginEditingLines = () => {
+    setEditedLineItems((current) => ({
+      ...current,
+      [selectedProposal.id]: current[selectedProposal.id] ?? selectedProposal.lineItems.map((line) => ({ ...line })),
+    }));
+    setEditingProposalId(selectedProposal.id);
+    setActiveTab("lines");
+  };
+
+  const cancelEditingLines = () => {
+    setEditedLineItems((current) => {
+      const next = { ...current };
+      delete next[selectedProposal.id];
+      return next;
+    });
+    setEditingProposalId(null);
+  };
+
+  const saveEditingLines = () => {
+    onSaveProposalLines(selectedProposal.id, activeLineItems);
+    setEditingProposalId(null);
+  };
+
+  return (
+    <div className="content-stretch flex flex-col h-full items-start relative w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Sales Proposal
+            </p>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+        <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0 w-full">
+          <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+            <ProposalActionButton>
+              <Home className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <ArrowLeft className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <RotateCcw className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton label="New Record">
+              <FilePlus2 className="size-[18px] text-[#141414]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <Trash2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <HardDrive className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <HardDriveDownload className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <FilePlus2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+          </div>
+
+          <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+            <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[320px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+              <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[12px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[56px]">
+                <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+                  <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                  <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                </svg>
+              </div>
+              <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[12px] relative">
+                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[16px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Search
+                </p>
+                <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
+                  <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                    <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                  </svg>
+                  <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                    <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                    <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+              <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+            </svg>
+            <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+              <circle cx="9" cy="5" fill="#141414" r="1.4" />
+              <circle cx="9" cy="9" fill="#141414" r="1.4" />
+              <circle cx="9" cy="13" fill="#141414" r="1.4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div className="content-stretch flex flex-[1_0_0] items-start min-h-0 relative w-full">
+        <div className="bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 w-[380px]">
+          {proposals.map((proposal) => (
+            <ProposalListRow
+              isSelected={selectedProposal.id === proposal.id}
+              key={proposal.id}
+              onSelect={() => onSelectProposal(proposal.id)}
+              proposal={proposal}
+            />
+          ))}
+        </div>
+
+        <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
+          <div className="content-stretch flex flex-col gap-[18px] h-full items-start overflow-auto px-[24px] py-[22px] relative">
+            <div className="bg-[#fbfdff] border border-solid border-[#e4edf4] rounded-[18px] content-stretch flex flex-col gap-[18px] items-start px-[22px] py-[20px] relative shrink-0 w-full shadow-[0_10px_30px_rgba(15,35,52,0.05)]">
+              <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
+                <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
+                  <div className="content-stretch flex items-center gap-[10px] relative shrink-0">
+                    <p className="font-['Roboto:Bold',sans-serif] font-bold text-[26px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {selectedProposal.clientName}
+                    </p>
+                    <ProposalStatusChip status={selectedProposal.status} />
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-[#4b6477]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedProposal.title}
+                  </p>
+                </div>
+
+                <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
+                  <ProposalHeaderAction icon={<Send className="size-[16px]" strokeWidth={1.8} />} label="Send" />
+                  <ProposalHeaderAction icon={<Download className="size-[16px]" strokeWidth={1.8} />} label="Download" />
+                </div>
+              </div>
+
+              <div className="content-stretch flex items-center flex-wrap gap-x-[20px] gap-y-[10px] relative shrink-0">
+                <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+                  <div className="content-stretch flex items-center gap-[6px]">
+                    <UserRound className="size-[14px] text-[#748494]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Contact Person
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedProposal.contactPerson}
+                  </p>
+                </div>
+                <div className="h-[34px] w-px bg-[#d9e5ee]" />
+                <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Proposal ID
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    #{selectedProposal.id}
+                  </p>
+                </div>
+                <div className="h-[34px] w-px bg-[#d9e5ee]" />
+                <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Total Value
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedProposal.amount}
+                  </p>
+                </div>
+                <div className="h-[34px] w-px bg-[#d9e5ee]" />
+                <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+                  <div className="content-stretch flex items-center gap-[6px]">
+                    <CalendarClock className="size-[14px] text-[#748494]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Valid Until
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedProposal.validUntil}
+                  </p>
+                </div>
+                <div className="h-[34px] w-px bg-[#d9e5ee]" />
+                <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+                  <div className="content-stretch flex items-center gap-[6px]">
+                    <Eye className="size-[14px] text-[#748494]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Last Viewed
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedProposal.lastViewed}
+                  </p>
+                </div>
+                <div className="h-[34px] w-px bg-[#d9e5ee]" />
+                <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
+                  <div className="content-stretch flex items-center gap-[6px]">
+                    <Percent className="size-[14px] text-[#748494]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Probability
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedProposal.probability}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white border border-solid border-[#e7edf2] rounded-[16px] content-stretch flex flex-col gap-[16px] items-start px-[18px] py-[18px] relative shrink-0 w-full">
+              <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+                <div className="bg-[#f3f7fa] rounded-[12px] p-[4px] content-stretch flex items-center gap-[4px] relative shrink-0">
+                  <button
+                    className={`rounded-[10px] px-[18px] py-[9px] text-[14px] transition-all ${activeTab === "lines" ? "bg-white text-[#102c3f] shadow-[0_2px_8px_rgba(16,44,63,0.10)]" : "bg-transparent text-[#41576a]"}`}
+                    onClick={() => setActiveTab("lines")}
+                    type="button"
+                  >
+                    Lines
+                  </button>
+                  <button
+                    className={`rounded-[10px] px-[18px] py-[9px] text-[14px] transition-all ${activeTab === "activities" ? "bg-white text-[#102c3f] shadow-[0_2px_8px_rgba(16,44,63,0.10)]" : "bg-transparent text-[#41576a]"}`}
+                    onClick={() => setActiveTab("activities")}
+                    type="button"
+                  >
+                    Activities
+                  </button>
+                </div>
+
+                {isDraftProposal && activeTab === "lines" ? (
+                  <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
+                    {isEditingCurrentDraft ? (
+                      <>
+                        <ProposalHeaderAction
+                          icon={<HardDrive className="size-[16px]" strokeWidth={1.8} />}
+                          label="Save"
+                          onClick={saveEditingLines}
+                          variant="primary"
+                        />
+                        <ProposalHeaderAction
+                          icon={<ArrowLeft className="size-[16px]" strokeWidth={1.8} />}
+                          label="Cancel"
+                          onClick={cancelEditingLines}
+                          variant="secondary"
+                        />
+                      </>
+                    ) : (
+                      <ProposalHeaderAction
+                        icon={<Pencil className="size-[16px]" strokeWidth={1.8} />}
+                        label="Edit Lines"
+                        onClick={beginEditingLines}
+                        variant="primary"
+                      />
+                    )}
+                  </div>
+                ) : null}
+              </div>
+
+              {activeTab === "lines" ? (
+                <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
+                  {isEditingCurrentDraft ? (
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Draft proposal: edit line items inline.
+                    </p>
+                  ) : null}
+                  <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] pb-[8px] border-b border-solid border-[#e8eef3]">
+                    {["Item", "Quantity", "Price", "Discount", "Total"].map((heading) => (
+                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {heading}
+                      </p>
+                    ))}
+                  </div>
+                  {activeLineItems.map((line, index) => (
+                    <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] py-[12px] border-b border-solid border-[#edf2f6]" key={line.item}>
+                      {isEditingCurrentDraft ? (
+                        <input
+                          className="rounded-[8px] border border-solid border-[#dbe7f1] px-[10px] py-[8px] text-[14px] text-[#102c3f] outline-none focus:border-[#0083da]"
+                          onChange={(event) => updateDraftLine(index, "item", event.target.value)}
+                          value={line.item}
+                        />
+                      ) : (
+                        <p className="font-['Roboto:Bold',sans-serif] font-bold text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {line.item}
+                        </p>
+                      )}
+                      {isEditingCurrentDraft ? (
+                        <input
+                          className="rounded-[8px] border border-solid border-[#dbe7f1] px-[10px] py-[8px] text-[14px] text-[#102c3f] outline-none focus:border-[#0083da]"
+                          onChange={(event) => updateDraftLine(index, "quantity", event.target.value)}
+                          type="number"
+                          value={line.quantity}
+                        />
+                      ) : (
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {line.quantity}
+                        </p>
+                      )}
+                      {isEditingCurrentDraft ? (
+                        <input
+                          className="rounded-[8px] border border-solid border-[#dbe7f1] px-[10px] py-[8px] text-[14px] text-[#102c3f] outline-none focus:border-[#0083da]"
+                          onChange={(event) => updateDraftLine(index, "price", event.target.value)}
+                          value={line.price}
+                        />
+                      ) : (
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {line.price}
+                        </p>
+                      )}
+                      {isEditingCurrentDraft ? (
+                        <input
+                          className="rounded-[8px] border border-solid border-[#dbe7f1] px-[10px] py-[8px] text-[14px] text-[#102c3f] outline-none focus:border-[#0083da]"
+                          onChange={(event) => updateDraftLine(index, "discount", event.target.value)}
+                          value={line.discount}
+                        />
+                      ) : (
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {line.discount}
+                        </p>
+                      )}
+                      <p className="font-['Roboto:Bold',sans-serif] font-bold text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {line.total}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="self-end w-[320px] px-[12px] py-[8px]">
+                    {[
+                      { label: "Subtotal", value: isEditingCurrentDraft ? lineTotals.subtotal : selectedProposal.totals.subtotal },
+                      { label: "Tax", value: isEditingCurrentDraft ? lineTotals.tax : selectedProposal.totals.tax },
+                      { label: "Total", value: isEditingCurrentDraft ? lineTotals.total : selectedProposal.totals.total },
+                    ].map((row) => (
+                      <div className="content-stretch flex items-center justify-between py-[6px] w-full" key={row.label}>
+                        <p className={`font-['Roboto:Regular',sans-serif] ${row.label === "Total" ? "font-bold text-[16px] text-[#102c3f]" : "font-normal text-[14px] text-[#748494]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {row.label}
+                        </p>
+                        <p className={`font-['Roboto:Regular',sans-serif] ${row.label === "Total" ? "font-bold text-[16px] text-[#102c3f]" : "font-normal text-[14px] text-[#102c3f]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {row.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="content-stretch flex flex-col gap-[14px] items-start relative shrink-0 w-full">
+                  {selectedProposal.activities.map((activity, index) => (
+                    <div className="w-full border-b border-solid border-[#edf2f6] px-[6px] py-[12px]" key={`${activity.title}-${index}`}>
+                      <div className="content-stretch flex items-start justify-between gap-[16px] w-full">
+                        <div className="min-w-0">
+                          <div className="content-stretch flex items-center gap-[8px]">
+                            <div className="bg-[#0083da] rounded-full size-[8px] shrink-0" />
+                            <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {activity.title}
+                            </p>
+                          </div>
+                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {activity.description}
+                          </p>
+                          <div className="mt-[8px] flex items-center gap-[10px]">
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              By {activity.actor}
+                            </p>
+                            {activity.changes?.length ? (
+                              <button
+                                className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#0083da] underline"
+                                onClick={() => setActiveActivity(activity)}
+                                type="button"
+                              >
+                                View changes
+                              </button>
+                            ) : null}
+                          </div>
+                        </div>
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {activity.meta}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="bg-[#fcfcfc] border border-[#ebebeb] rounded-[14px] content-stretch flex flex-col gap-[12px] items-start px-[18px] py-[18px] relative shrink-0 w-full">
+              <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+                <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Proposal Notes
+                </p>
+                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Last updated {selectedProposal.updatedAt}
+                </p>
+              </div>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[15px] leading-[24px] text-black whitespace-pre-line" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {selectedProposal.notes}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ProposalFooter currentPage={1} totalPages={1} totalRecords={proposals.length} />
+      <ActivityChangesModal activity={activeActivity} onClose={() => setActiveActivity(null)} />
+    </div>
+  );
+}
+
 function Frame59() {
+  const [activeView, setActiveView] = useState<AppView>("dashboard");
+  const [selectedProposalId, setSelectedProposalId] = useState("485932");
+  const [proposals, setProposals] = useState<ProposalRecord[]>([
+    {
+      id: "485932",
+      company: "Kumaan Pvt. Ltd.",
+      clientName: "Kumaan Pvt. Ltd.",
+      contactPerson: "Parkash Chaudary",
+      title: "Q2 Renewal",
+      amount: "$ 99,3942.00",
+      status: "Accepted",
+      owner: "Parkash Chaudary",
+      ownerRole: "Manager",
+      updatedAt: "Today, 11:20 AM",
+      lastViewed: "Today, 2:15 PM",
+      validUntil: "30 Apr 2026",
+      probability: "82%",
+      notes:
+        "Renewal proposal for the Q2 staffing and operations package. Client approved pricing subject to revised onboarding timeline.\n\nKey dependencies include revised implementation dates, support coverage, and legal sign-off for the SLA addendum.",
+      sections: [
+        { label: "Proposal ID", value: "#485932" },
+        { label: "Account", value: "Kumaan Pvt. Ltd." },
+        { label: "Prepared By", value: "Parkash Chaudary" },
+        { label: "Stage", value: "Accepted by client" },
+      ],
+      lineItems: [
+        { item: "Staffing Renewal Package", quantity: 1, price: "$ 58,000.00", discount: "5%", total: "$ 55,100.00" },
+        { item: "Support & Monitoring", quantity: 12, price: "$ 2,150.00", discount: "0%", total: "$ 25,800.00" },
+        { item: "Implementation Services", quantity: 1, price: "$ 15,420.00", discount: "3%", total: "$ 14,957.40" },
+      ],
+      totals: {
+        subtotal: "$ 95,857.40",
+        tax: "$ 3,536.80",
+        total: "$ 99,394.20",
+      },
+      activities: [
+        { title: "Viewed by client", meta: "14 Apr 2026, 2:15 PM", actor: "Kumaan Procurement Team", description: "Client opened the proposal and reviewed the commercial summary and SLA details." },
+        {
+          title: "Revision 2 saved",
+          meta: "12 Apr 2026, 5:40 PM",
+          actor: "Parkash Chaudary",
+          description: "Commercial terms and onboarding schedule updated before final send-out.",
+          changes: [
+            "Revised onboarding timeline from 14 days to 21 days.",
+            "Updated support coverage to include Saturday escalation support.",
+            "Adjusted implementation services line item discount from 0% to 3%.",
+          ],
+        },
+        { title: "Sent to client", meta: "12 Apr 2026, 9:10 AM", actor: "Parkash Chaudary", description: "Proposal emailed to procurement and operations stakeholders for approval." },
+        {
+          title: "Revision 1 saved",
+          meta: "10 Apr 2026, 4:20 PM",
+          actor: "Maya Chen",
+          description: "Updated implementation scope and revised support coverage after internal review.",
+          changes: [
+            "Added support and monitoring service block for 12 months.",
+            "Clarified SLA addendum notes in proposal summary.",
+          ],
+        },
+        { title: "Proposal created", meta: "08 Apr 2026, 10:30 AM", actor: "Parkash Chaudary", description: "Initial renewal proposal drafted and linked to the Q2 opportunity pipeline." },
+      ],
+    },
+    {
+      id: "485947",
+      company: "Northwind Energy",
+      clientName: "Northwind Energy",
+      contactPerson: "Rina Patel",
+      title: "Plant Audit Package",
+      amount: "$ 52,180.00",
+      status: "Rejected",
+      owner: "Maya Chen",
+      ownerRole: "Senior Sales Lead",
+      updatedAt: "Yesterday, 5:40 PM",
+      lastViewed: "Yesterday, 3:50 PM",
+      validUntil: "22 Apr 2026",
+      probability: "28%",
+      notes:
+        "Client declined the current commercial structure after reviewing implementation scope.\n\nThe next iteration should reduce the first-phase audit team and offer a phased rollout model.",
+      sections: [
+        { label: "Proposal ID", value: "#485947" },
+        { label: "Account", value: "Northwind Energy" },
+        { label: "Prepared By", value: "Maya Chen" },
+        { label: "Stage", value: "Commercial feedback received" },
+      ],
+      lineItems: [
+        { item: "Site Audit Team", quantity: 1, price: "$ 31,500.00", discount: "8%", total: "$ 28,980.00" },
+        { item: "Process Mapping Workshop", quantity: 2, price: "$ 8,400.00", discount: "0%", total: "$ 16,800.00" },
+        { item: "Risk Assessment Report", quantity: 1, price: "$ 5,800.00", discount: "0%", total: "$ 5,800.00" },
+      ],
+      totals: {
+        subtotal: "$ 51,580.00",
+        tax: "$ 600.00",
+        total: "$ 52,180.00",
+      },
+      activities: [
+        { title: "Rejected by client", meta: "15 Apr 2026, 5:40 PM", actor: "Northwind Energy", description: "Client declined the package due to budget concerns and phased rollout preference." },
+        { title: "Sent to client", meta: "07 Apr 2026, 10:20 AM", actor: "Maya Chen", description: "Proposal delivered to operations leadership for review." },
+        {
+          title: "Revision saved",
+          meta: "05 Apr 2026, 2:45 PM",
+          actor: "Maya Chen",
+          description: "Commercial team reduced the workshop scope and adjusted service fees.",
+          changes: [
+            "Reduced workshop sessions from 3 to 2.",
+            "Applied 8% discount to site audit team line item.",
+          ],
+        },
+        { title: "Proposal created", meta: "03 Apr 2026, 11:10 AM", actor: "Maya Chen", description: "Plant audit package drafted for the first-phase assessment engagement." },
+      ],
+    },
+    {
+      id: "486011",
+      company: "UrbanAxis Retail",
+      clientName: "UrbanAxis Retail",
+      contactPerson: "Kevin Howard",
+      title: "Warehouse Automation",
+      amount: "$ 128,450.00",
+      status: "Draft",
+      owner: "Kevin Smith",
+      ownerRole: "Business Consultant",
+      updatedAt: "Today, 9:05 AM",
+      lastViewed: "Today, 12:30 PM",
+      validUntil: "03 May 2026",
+      probability: "61%",
+      notes:
+        "Draft proposal in progress for warehouse automation and inventory forecasting.\n\nNeed confirmation on hardware leasing options and whether installation should be included in phase one.",
+      sections: [
+        { label: "Proposal ID", value: "#486011" },
+        { label: "Account", value: "UrbanAxis Retail" },
+        { label: "Prepared By", value: "Kevin Smith" },
+        { label: "Stage", value: "Awaiting internal review" },
+      ],
+      lineItems: [
+        { item: "Automation Blueprint", quantity: 1, price: "$ 42,000.00", discount: "0%", total: "$ 42,000.00" },
+        { item: "Forecasting Engine Setup", quantity: 1, price: "$ 54,500.00", discount: "4%", total: "$ 52,320.00" },
+        { item: "On-site Training", quantity: 3, price: "$ 9,800.00", discount: "0%", total: "$ 29,400.00" },
+      ],
+      totals: {
+        subtotal: "$ 123,720.00",
+        tax: "$ 4,730.00",
+        total: "$ 128,450.00",
+      },
+      activities: [
+        { title: "Draft reviewed", meta: "16 Apr 2026, 9:05 AM", actor: "Kevin Smith", description: "Internal review requested final confirmation on leasing and installation terms." },
+        {
+          title: "Revision saved",
+          meta: "12 Apr 2026, 1:10 PM",
+          actor: "Kevin Smith",
+          description: "Forecasting engine setup and training services added to the scope.",
+          changes: [
+            "Added forecasting engine setup line item.",
+            "Added 3 on-site training sessions.",
+          ],
+        },
+        { title: "Proposal created", meta: "11 Apr 2026, 8:55 AM", actor: "Kevin Smith", description: "Initial warehouse automation proposal created from the linked opportunity." },
+      ],
+    },
+    {
+      id: "486025",
+      company: "Apex Med Systems",
+      clientName: "Apex Med Systems",
+      contactPerson: "Diana Morris",
+      title: "Service Expansion",
+      amount: "$ 74,900.00",
+      status: "Sent",
+      owner: "Mack Rod",
+      ownerRole: "Regional Manager",
+      updatedAt: "Today, 1:35 PM",
+      lastViewed: "Today, 4:05 PM",
+      validUntil: "06 May 2026",
+      probability: "54%",
+      notes:
+        "Proposal sent to the procurement and operations stakeholders.\n\nAwaiting confirmation on final facility count before the implementation timeline can be locked.",
+      sections: [
+        { label: "Proposal ID", value: "#486025" },
+        { label: "Account", value: "Apex Med Systems" },
+        { label: "Prepared By", value: "Mack Rod" },
+        { label: "Stage", value: "Sent for approval" },
+      ],
+      lineItems: [
+        { item: "Facility Expansion Audit", quantity: 1, price: "$ 24,500.00", discount: "0%", total: "$ 24,500.00" },
+        { item: "Service Rollout Package", quantity: 1, price: "$ 38,400.00", discount: "5%", total: "$ 36,480.00" },
+        { item: "Support Retainer", quantity: 6, price: "$ 2,650.00", discount: "0%", total: "$ 15,900.00" },
+      ],
+      totals: {
+        subtotal: "$ 76,880.00",
+        tax: "-$ 1,980.00",
+        total: "$ 74,900.00",
+      },
+      activities: [
+        { title: "Sent to client", meta: "17 Apr 2026, 1:35 PM", actor: "Mack Rod", description: "Proposal sent to procurement and operations stakeholders for review." },
+        {
+          title: "Revision saved",
+          meta: "14 Apr 2026, 6:20 PM",
+          actor: "Mack Rod",
+          description: "Adjusted facility count assumptions and updated support retainer coverage.",
+          changes: [
+            "Updated facility count assumptions from 8 to 6 sites.",
+            "Expanded support retainer coverage wording for after-hours requests.",
+          ],
+        },
+        { title: "Proposal created", meta: "13 Apr 2026, 9:45 AM", actor: "Mack Rod", description: "Service expansion proposal prepared for multi-site rollout." },
+      ],
+    },
+  ]);
+
+  const handleSaveProposalLines = (proposalId: string, lineItems: ProposalRecord["lineItems"]) => {
+    const subtotal = lineItems.reduce((sum, line) => sum + parseCurrency(line.total), 0);
+    const tax = Math.max(subtotal * 0.038, 0);
+
+    setProposals((current) =>
+      current.map((proposal) =>
+        proposal.id === proposalId
+          ? {
+              ...proposal,
+              lineItems,
+              totals: {
+                subtotal: formatCurrency(subtotal),
+                tax: formatCurrency(tax),
+                total: formatCurrency(subtotal + tax),
+              },
+              updatedAt: "Just now",
+            }
+          : proposal,
+      ),
+    );
+  };
+
   return (
     <div className="h-full relative shrink-0 w-full">
       <div className="absolute h-full left-[72px] overflow-auto top-[8px] w-[calc(100%-84px)]" data-name="Canvas_WH">
-        <Frame2 />
+        {activeView === "salesProposal" ? (
+          <SalesProposalView
+            onClose={() => setActiveView("dashboard")}
+            onSaveProposalLines={handleSaveProposalLines}
+            onSelectProposal={setSelectedProposalId}
+            proposals={proposals}
+            selectedProposalId={selectedProposalId}
+          />
+        ) : (
+          <Frame2 />
+        )}
       </div>
-      <LeftMenu />
+      <LeftMenu activeView={activeView} onNavigate={setActiveView} />
     </div>
   );
 }
