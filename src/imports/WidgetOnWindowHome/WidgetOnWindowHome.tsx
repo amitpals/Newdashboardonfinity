@@ -1,23 +1,36 @@
-import { useState } from "react";
+import { Fragment, useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import {
   ArrowLeft,
+  BadgeCheck,
   CalendarClock,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
   Download,
   Eye,
+  ExternalLink,
   FilePlus2,
+  Github,
+  GraduationCap,
   HardDrive,
   HardDriveDownload,
+  Hourglass,
   Home,
+  Mail,
+  NotebookText,
+  Package2,
   Pencil,
   Percent,
+  Phone,
+  Plus,
   RotateCcw,
   Send,
+  Ticket,
   Trash2,
   UserRound,
 } from "lucide-react";
 import svgPaths from "./svg-gcxtz2mw3y";
 import imgImage34 from "./67915b5281a364c5879b410415ba1e8e9e7f1129.png";
-import imgImage1 from "./87402428326e6bea6b5827a28016e524d9e0f446.png";
 import { imgImage33, imgGroup97, imgGroup100 } from "./svg-k0rdy";
 
 function MaterialSymbolsMenu() {
@@ -178,7 +191,7 @@ function Frame76() {
   return (
     <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full">
       <MingcuteGridFill />
-      <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "18" } as React.CSSProperties}>
+      <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "18" } as CSSProperties}>
         <div className="flex-none rotate-90">
           <div className="h-0 relative w-[17px]">
             <div className="absolute inset-[-1px_0_0_0]">
@@ -206,11 +219,11 @@ function IwwaArrowUp() {
   );
 }
 
-function Frame77() {
+function Frame77({ label }: { label: string }) {
   return (
     <div className="content-stretch flex gap-[20px] items-center relative shrink-0">
       <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        CRM
+        {label}
       </p>
       <div className="content-stretch flex flex-col items-start overflow-clip px-[12px] relative shrink-0 w-[96px]">
         <Frame76 />
@@ -232,13 +245,24 @@ function MaterialSymbolsClose() {
   );
 }
 
-function Frame73() {
+function Frame73({
+  onGoHome,
+}: {
+  onGoHome: () => void;
+}) {
   return (
-    <div className="relative shrink-0 w-full">
-      <div className="flex flex-row items-center overflow-clip rounded-[inherit] size-full">
-        
+    <div className="content-stretch flex items-center overflow-clip relative shrink-0">
+      <div className="content-stretch flex gap-[12px] items-center relative shrink-0">
+        <button className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[rgba(0,0,0,0.4)]" onClick={onGoHome} style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+          Home
+        </button>
+        <div className="flex h-[24px] items-center justify-center text-black">
+          <ChevronRight className="size-[14px]" strokeWidth={2.2} />
+        </div>
+        <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+          CRM
+        </p>
       </div>
-      
     </div>
   );
 }
@@ -677,7 +701,7 @@ function Frame22() {
       <div className="absolute bg-[#9da6d9] h-[36px] left-[105px] top-[127px] w-[107px]" />
       <div className="absolute bg-[#bdc3e5] h-[36px] left-[105px] top-[223px] w-[58px]" />
       <div className="absolute bg-[#9da6d9] h-[36px] left-[105px] top-[175px] w-[83px]" />
-      <div className="absolute flex h-[253px] items-center justify-center left-[102px] top-[24px] w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "18" } as React.CSSProperties}>
+      <div className="absolute flex h-[253px] items-center justify-center left-[102px] top-[24px] w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "18" } as CSSProperties}>
         <div className="flex-none rotate-90">
           <div className="h-0 relative w-[253px]">
             <div className="absolute inset-[-1px_0_0_0]">
@@ -978,7 +1002,7 @@ function Frame23() {
 
 function Component2X3() {
   return (
-    <div className="bg-gradient-to-b col-[2/span_2] from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-[1/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
+    <div className="bg-gradient-to-b col-[1/span_3] from-[rgba(255,255,255,0.7)] justify-self-stretch relative rounded-[8px] row-[1/span_2] self-stretch shrink-0 to-[rgba(255,255,255,0.49)]" data-name="2x2">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col items-center p-[16px] relative size-full">
           <Frame23 />
@@ -2033,7 +2057,6 @@ function ComponentSocialMedia() {
 function Frame2() {
   return (
     <div className="absolute gap-x-[12px] gap-y-[12px] grid grid-cols-[repeat(9,minmax(0,1fr))] grid-rows-[repeat(7,minmax(0,1fr))] h-[1472px] left-0 overflow-clip top-0 w-[1836px]">
-      <Component1X4 />
       <Component2X3 />
       <Component1X5 />
       <Component1X6 />
@@ -2336,7 +2359,7 @@ function Slot9() {
   );
 }
 
-function IconWithTooltip({ children, label }: { children: React.ReactNode; label: string }) {
+function IconWithTooltip({ children, label }: { children: ReactNode; label: string }) {
   const [showTooltip, setShowTooltip] = useState(false);
   
   return (
@@ -2360,7 +2383,10 @@ function IconWithTooltip({ children, label }: { children: React.ReactNode; label
   );
 }
 
-type AppView = "dashboard" | "salesProposal";
+type ScreenMode = "home" | "crm";
+
+type AppView = "dashboard" | "salesProposal" | "opportunities";
+type MenuItemId = "inbox" | "customers" | "calendar" | "tasks" | "prospects" | "salesProposal" | "opportunities" | "settings";
 
 type ProposalStatus = "Accepted" | "Rejected" | "Draft" | "Sent";
 
@@ -2418,24 +2444,374 @@ function formatCurrency(value: number) {
   })}`;
 }
 
+function getProbabilityTone(probability: string) {
+  const numeric = Number(probability.replace(/[^0-9.]+/g, ""));
+
+  if (numeric >= 70) {
+    return {
+      card: "border-[#cdebd8] bg-[#effaf3]",
+      value: "text-[#17724d]",
+      meta: "text-[#4f7a61]",
+    };
+  }
+
+  if (numeric >= 40) {
+    return {
+      card: "border-[#ffe3b5] bg-[#fff7e8]",
+      value: "text-[#9b6a00]",
+      meta: "text-[#8c7343]",
+    };
+  }
+
+  return {
+    card: "border-[#f3cdd8] bg-[#fff1f5]",
+    value: "text-[#9b2d6f]",
+    meta: "text-[#8c5b73]",
+  };
+}
+
+function getOpportunityActivityTypeMeta(type: string) {
+  if (type === "call") {
+    return {
+      label: "Call",
+      icon: <Phone className="size-[14px]" strokeWidth={1.8} />,
+      badge: "bg-[#eef7ff] text-[#0b67a3]",
+    };
+  }
+
+  if (type === "meeting") {
+    return {
+      label: "Meeting",
+      icon: <CalendarDays className="size-[14px]" strokeWidth={1.8} />,
+      badge: "bg-[#effaf3] text-[#17724d]",
+    };
+  }
+
+  return {
+    label: "Email",
+    icon: <Mail className="size-[14px]" strokeWidth={1.8} />,
+    badge: "bg-[#fff4df] text-[#9b6a00]",
+  };
+}
+
+function GlassPanel({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`bg-gradient-to-b from-[rgba(255,255,255,0.76)] to-[rgba(255,255,255,0.52)] border-2 border-white rounded-[12px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+function HomeQuickAction({
+  title,
+  cta,
+}: {
+  title: string;
+  cta: string;
+}) {
+  return (
+    <button
+      className="h-[80px] w-[200px] rounded-[8px] border-2 border-[#0068a5] bg-[rgba(255,255,255,0.32)] px-[8px] py-[4px] text-left transition-all hover:bg-white/55"
+      type="button"
+    >
+      <div className="flex h-full flex-col justify-center p-[8px]">
+        <p className="font-['Roboto:Regular',sans-serif] text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+        <p className="mt-[8px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#0060ac]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {cta}
+        </p>
+      </div>
+    </button>
+  );
+}
+
+function HomeResourceTile({
+  icon,
+  title,
+  subtitle,
+}: {
+  icon: ReactNode;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <GlassPanel className="flex h-full flex-col items-center justify-between p-[18px] text-center">
+      <div className="flex size-[80px] items-center justify-center">
+        {icon}
+      </div>
+      <div className="w-full">
+        <p className="font-['Roboto:Regular',sans-serif] text-[20px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#b1b1b1]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {subtitle}
+        </p>
+      </div>
+    </GlassPanel>
+  );
+}
+
+function HomeManagerCard({
+  title,
+  name,
+  email,
+  phone,
+}: {
+  title: string;
+  name: string;
+  email: string;
+  phone: string;
+}) {
+  return (
+    <GlassPanel className="flex h-full flex-col gap-[16px] px-[20px] py-[16px]">
+      <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {title}
+      </p>
+      <div className="flex flex-1 items-start gap-[10px] min-h-0">
+        <div className="flex size-[70px] shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#ffffff_0%,#e6f4ff_100%)] text-[#1f83ff] shadow-[inset_0_0_0_1px_rgba(0,131,218,0.14)]">
+          <UserRound className="size-[30px]" strokeWidth={1.7} />
+        </div>
+        <div className="min-w-0">
+          <p className="font-['Roboto:Bold',sans-serif] text-[20px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {name}
+          </p>
+          <p className="mt-[6px] break-all font-['Roboto:Regular',sans-serif] text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {email}
+          </p>
+          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {phone}
+          </p>
+        </div>
+      </div>
+      <button className="self-start font-['Roboto:Bold',sans-serif] text-[13px] text-[#106ab0]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+        Do you have any question?
+      </button>
+    </GlassPanel>
+  );
+}
+
+function HomeBlogPanel() {
+  return (
+    <GlassPanel className="flex h-full flex-col p-[10px]">
+      <div className="flex items-center justify-between px-[6px] pb-[10px]">
+        <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+          Latest Blog
+        </p>
+        <button className="flex items-center gap-[6px] text-[#0060ac]" type="button">
+          <ExternalLink className="size-[13px]" strokeWidth={1.8} />
+          <span className="font-['Roboto:Regular',sans-serif] text-[11px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Open Blog Site
+          </span>
+        </button>
+      </div>
+      <div className="grid flex-1 grid-cols-[minmax(0,1.35fr)_minmax(0,0.9fr)] gap-[12px]">
+        <div className="flex flex-col">
+          <div className="relative h-[108px] overflow-hidden rounded-[10px] bg-[linear-gradient(135deg,#0b2b45_0%,#0f5c87_60%,#6bc8ff_120%)]">
+            <div className="absolute left-[12px] top-[10px] rounded-full bg-[rgba(255,255,255,0.92)] px-[8px] py-[3px] font-['Roboto:Bold',sans-serif] text-[9px] uppercase tracking-[0.5px] text-[#115e59]">
+              Data Strategy
+            </div>
+            <div className="absolute inset-x-[20px] inset-y-[20px] rounded-[12px] border border-white/20 bg-[radial-gradient(circle_at_top,rgba(120,220,255,0.28),transparent_55%),linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0))]" />
+          </div>
+          <p className="mt-[12px] font-['Roboto:Regular',sans-serif] text-[18px] text-[#2a343a]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            The Future of Atmospheric Data Modeling
+          </p>
+          <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] leading-[20px] text-[#566167]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Explore how neural networks are reshaping the way teams read large-scale environmental data and make better predictions.
+          </p>
+          <button className="mt-auto pt-[14px] text-left font-['Roboto:Bold',sans-serif] text-[11px] uppercase tracking-[1px] text-[#0060ac]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+            Read Article
+          </button>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="relative h-[108px] overflow-hidden rounded-[10px] bg-[linear-gradient(135deg,#2a6b8f_0%,#83c6eb_100%)]">
+            <div className="absolute left-[10px] top-[10px] rounded-full bg-[rgba(255,255,255,0.92)] px-[8px] py-[3px] font-['Roboto:Bold',sans-serif] text-[9px] uppercase tracking-[0.5px] text-[#115e59]">
+              Culture
+            </div>
+            <div className="absolute inset-[18px] rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.3),rgba(255,255,255,0.04))]" />
+          </div>
+          <p className="mt-[12px] font-['Roboto:Regular',sans-serif] text-[18px] text-[#2a343a]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Scaling Your Data Function
+          </p>
+          <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] leading-[20px] text-[#566167]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            How leading tech firms balance rapid development with sustainable growth and stronger delivery operations.
+          </p>
+          <button className="mt-auto pt-[14px] text-left font-['Roboto:Bold',sans-serif] text-[11px] uppercase tracking-[1px] text-[#0060ac]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+            Read Article
+          </button>
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-[4px] pt-[10px]">
+        <button className="text-[#1f83ff]" type="button">
+          <ChevronLeft className="size-[16px]" strokeWidth={1.8} />
+        </button>
+        <div className="flex items-center gap-[4px]">
+          <div className="size-[7px] rounded-full bg-[#1d1d1d]" />
+          <div className="size-[7px] rounded-full bg-[#d4d4d4]" />
+        </div>
+        <button className="text-[#1f83ff]" type="button">
+          <ChevronRight className="size-[16px]" strokeWidth={1.8} />
+        </button>
+      </div>
+    </GlassPanel>
+  );
+}
+
+function HomeTicketsPanel() {
+  const items = [
+    { label: "Total Tickets", value: "03", icon: <Ticket className="size-[18px] text-[#141414]" strokeWidth={1.7} /> },
+    { label: "Waiting on Customer", value: "00", icon: <Hourglass className="size-[18px] text-[#141414]" strokeWidth={1.7} /> },
+    { label: "Resolved Tickets", value: "01", icon: <BadgeCheck className="size-[18px] text-[#141414]" strokeWidth={1.7} /> },
+  ];
+
+  return (
+    <GlassPanel className="flex h-full flex-col p-[16px]">
+      <div className="flex items-center justify-between">
+        <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+          My Tickets
+        </p>
+        <button className="flex items-center gap-[6px] text-[#1f83ff]" type="button">
+          <Plus className="size-[14px]" strokeWidth={2} />
+          <span className="font-['Roboto:Regular',sans-serif] text-[11px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Create New
+          </span>
+        </button>
+      </div>
+      <div className="mt-[10px] flex flex-1 flex-col">
+        {items.map((item, index) => (
+          <div
+            className={`flex items-center justify-between py-[20px] ${index !== items.length - 1 ? "border-b border-solid border-[#e5edf3]" : ""}`}
+            key={item.label}
+          >
+            <div className="flex items-center gap-[12px]">
+              {item.icon}
+              <div>
+                <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {item.label}
+                </p>
+                <p className="mt-[4px] font-['Roboto:Bold',sans-serif] text-[22px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {item.value}
+                </p>
+              </div>
+            </div>
+            <ExternalLink className="size-[14px] text-[#1f83ff]" strokeWidth={1.9} />
+          </div>
+        ))}
+      </div>
+    </GlassPanel>
+  );
+}
+
+function HomeView() {
+  return (
+    <div className="h-full overflow-auto px-[12px] pb-[14px]">
+      <div className="mx-auto min-w-[1200px] max-w-[1836px]">
+        <div className="grid grid-cols-9 grid-rows-[136px_200px_200px] gap-x-[12px] gap-y-[12px] w-full">
+        <div className="col-[1/span_6] flex items-center px-[8px]">
+          <div>
+            <p className="font-['Roboto:Regular',sans-serif] text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Welcome
+            </p>
+            <p className="font-['Roboto:Medium',sans-serif] text-[34px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Kevin Duos!
+            </p>
+            <p className="font-['Roboto:Regular',sans-serif] text-[16px] text-[rgba(0,0,0,0.5)]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Partner
+            </p>
+          </div>
+        </div>
+
+        <div className="col-[7/span_3] flex items-center justify-end gap-[16px]">
+          <HomeQuickAction cta="Demo Link" title="Your default demo link" />
+          <HomeQuickAction cta="Apply new Key" title="Need a new key?" />
+        </div>
+
+        <div className="col-[1/span_2] row-[2/span_2] h-full">
+          <HomeTicketsPanel />
+        </div>
+
+        <div className="col-3 row-2 h-full">
+          <HomeResourceTile
+            icon={<Package2 className="size-[38px] text-[#111111]" strokeWidth={1.8} />}
+            subtitle="Updated on 23 Jan, 2026"
+            title="Partner Kit"
+          />
+        </div>
+        <div className="col-4 row-2 h-full">
+          <HomeResourceTile
+            icon={<NotebookText className="size-[38px] text-[#111111]" strokeWidth={1.8} />}
+            subtitle="Updated on 23 Jan, 2026"
+            title="Release Notes"
+          />
+        </div>
+        <div className="col-5 row-2 h-full">
+          <HomeResourceTile
+            icon={<GraduationCap className="size-[38px] text-[#111111]" strokeWidth={1.8} />}
+            subtitle="Learn by completing course"
+            title="LMS"
+          />
+        </div>
+        <div className="col-6 row-2 h-full">
+          <HomeResourceTile
+            icon={<Github className="size-[38px] text-[#111111]" strokeWidth={1.8} />}
+            subtitle="Updated on 23 Jan, 2026"
+            title="Source code"
+          />
+        </div>
+
+        <div className="col-[7/span_3] row-[2/span_2] h-full">
+          <HomeBlogPanel />
+        </div>
+
+        <div className="col-[3/span_2] row-3 h-full">
+          <HomeManagerCard
+            email="gunther.wilken@viennaadvantage.com"
+            name="Gunther Wilken"
+            phone="+491724126441"
+            title="Know Your Partner Manager"
+          />
+        </div>
+        <div className="col-[5/span_2] row-3 h-full">
+          <HomeManagerCard
+            email="kasif.ahmed@viennaadvantage.com"
+            name="Kasif Ahmed"
+            phone="+491724126441"
+            title="Know Your Technical Manager"
+          />
+        </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function LeftMenu({
-  activeView,
+  activeItem,
   onNavigate,
 }: {
-  activeView: AppView;
-  onNavigate: (view: AppView) => void;
+  activeItem: MenuItemId | null;
+  onNavigate: (view: AppView, item: MenuItemId) => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const menuItems = [
-    { label: "Inbox", icon: <Slot2 />, view: "dashboard" as AppView },
-    { label: "Customers", icon: <Slot3 />, view: "dashboard" as AppView },
-    { label: "Calendar", icon: <Slot4 />, view: "dashboard" as AppView },
-    { label: "Tasks", icon: <Slot5 />, view: "dashboard" as AppView },
-    { label: "Prospects", icon: <Slot6 />, view: "dashboard" as AppView },
-    { label: "Sales Proposal", icon: <Slot7 />, view: "salesProposal" as AppView },
-    { label: "Opportunities", icon: <Slot8 />, view: "dashboard" as AppView },
-    { label: "Settings", icon: <Slot9 />, view: "dashboard" as AppView },
+    { id: "inbox" as MenuItemId, label: "Inbox", icon: <Slot2 />, view: "dashboard" as AppView },
+    { id: "customers" as MenuItemId, label: "Customers", icon: <Slot3 />, view: "dashboard" as AppView },
+    { id: "calendar" as MenuItemId, label: "Calendar", icon: <Slot4 />, view: "dashboard" as AppView },
+    { id: "tasks" as MenuItemId, label: "Tasks", icon: <Slot5 />, view: "dashboard" as AppView },
+    { id: "prospects" as MenuItemId, label: "Prospects", icon: <Slot6 />, view: "dashboard" as AppView },
+    { id: "salesProposal" as MenuItemId, label: "Sales Proposal", icon: <Slot7 />, view: "salesProposal" as AppView },
+    { id: "opportunities" as MenuItemId, label: "Opportunities", icon: <Slot8 />, view: "opportunities" as AppView },
+    { id: "settings" as MenuItemId, label: "Settings", icon: <Slot9 />, view: "dashboard" as AppView },
   ];
 
   return (
@@ -2461,8 +2837,8 @@ function LeftMenu({
         {menuItems.map((item, index) => (
           <button
             key={index}
-            className={`rounded-[8px] ${activeView === item.view && item.label === "Sales Proposal" ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
-            onClick={() => onNavigate(item.view)}
+            className={`rounded-[8px] ${activeItem === item.id ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
+            onClick={() => onNavigate(item.view, item.id)}
             type="button"
           >
             <IconWithTooltip label={item.label}>
@@ -2494,9 +2870,9 @@ function LeftMenu({
           {menuItems.map((item, index) => (
             <button 
               key={index}
-              className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${activeView === item.view && item.label === "Sales Proposal" ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
+              className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${activeItem === item.id ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
               onClick={() => {
-                onNavigate(item.view);
+                onNavigate(item.view, item.id);
                 setIsExpanded(false);
               }}
               type="button"
@@ -2581,7 +2957,7 @@ function ProposalActionButton({
   children,
   label,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   label?: string;
 }) {
   return (
@@ -2714,7 +3090,7 @@ function ProposalHeaderAction({
   onClick,
   variant = "secondary",
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   onClick?: () => void;
   variant?: "primary" | "secondary";
@@ -2734,6 +3110,775 @@ function ProposalHeaderAction({
         {label}
       </span>
     </button>
+  );
+}
+
+function OpportunitiesView() {
+  const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+  const [selectedOpportunityId, setSelectedOpportunityId] = useState("opp-001");
+  const pipelineColumns = [
+    {
+      label: "Discovery",
+      count: 2,
+      total: "$36K",
+      accent: "#1DA1D8",
+      cards: [
+        { title: "Harper Studios - Starter", closeDate: "Close May 18", owner: "Jacob M.", amount: "$12.4k", probability: "30%" },
+        { title: "Vendr Co-op - Custom", closeDate: "Close May 30", owner: "Jacob M.", amount: "$24.0k", probability: "25%" },
+      ],
+    },
+    {
+      label: "Proposal",
+      count: 2,
+      total: "$79K",
+      accent: "#8B7CFF",
+      cards: [
+        { title: "DK Industries - Platform v3", closeDate: "Close May 5", owner: "Jacob M.", amount: "$48.0k", probability: "60%" },
+        { title: "Harbor Medical - Renewal", closeDate: "Close May 12", owner: "Kevin S.", amount: "$31.2k", probability: "50%" },
+      ],
+    },
+    {
+      label: "Negotiation",
+      count: 2,
+      total: "$91K",
+      accent: "#D78B10",
+      cards: [
+        { title: "Ember RetailCo - Annual", closeDate: "Close Apr 28", owner: "Jacob M.", amount: "$62.0k", probability: "75%" },
+        { title: "Northwind - Expansion", closeDate: "Close Apr 22", owner: "Maya C.", amount: "$28.5k", probability: "80%" },
+      ],
+    },
+    {
+      label: "Commit",
+      count: 1,
+      total: "$38K",
+      accent: "#20A464",
+      cards: [{ title: "Aerial Robotics - Growth", closeDate: "Close Apr 20", owner: "Jacob M.", amount: "$38.0k", probability: "90%" }],
+    },
+  ];
+
+  const rows = [
+    {
+      id: "opp-001",
+      opportunity: "Apex Modernization",
+      company: "Apex Med Systems",
+      stage: "Proposal",
+      amount: "$ 124,000",
+      owner: "Mack Rod",
+      nextStep: "Pricing review due",
+      contact: "Diana Morris",
+      probability: "64%",
+      closeDate: "28 Apr 2026",
+      notes: "The client is aligned on scope and is waiting for final commercials before sign-off.",
+      activities: [
+        { title: "Pricing revision requested by procurement", meta: "18 Apr 2026, 4:10 PM", type: "email" },
+        { title: "Technical scope approved by delivery lead", meta: "17 Apr 2026, 11:20 AM", type: "call" },
+        { title: "Follow-up meeting scheduled for tomorrow", meta: "16 Apr 2026, 6:45 PM", type: "meeting" },
+      ],
+      stageDetail: "Commercial discussion is active and proposal is under review",
+      probabilityDetail: "Raised after review call",
+      closeMeta: "9 days remaining",
+      nextStepDetail: "Final pricing call booked",
+      progress: [
+        { label: "Qualification", state: "done", value: "Done" },
+        { label: "Discovery", state: "done", value: "Done" },
+        { label: "Proposal", state: "done", value: "Done" },
+        { label: "Negotiation", state: "active", value: "Active" },
+        { label: "Closure", state: "pending", value: "Pending" },
+      ],
+      snapshot: [
+        { label: "Lead", value: "Qualified from healthcare outbound campaign" },
+        { label: "Discovery", value: "Completed on 12 Apr 2026 with operations and procurement" },
+        { label: "Proposal", value: "Commercial draft sent and under review" },
+        { label: "Negotiation", value: "Pending updated pricing pack" },
+      ],
+    },
+    {
+      id: "opp-002",
+      opportunity: "Northwind Expansion",
+      company: "Northwind Energy",
+      stage: "Qualified",
+      amount: "$ 81,500",
+      owner: "Maya Chen",
+      nextStep: "Schedule discovery call",
+      contact: "Rina Patel",
+      probability: "42%",
+      closeDate: "09 May 2026",
+      notes: "Discovery is complete and the team is preparing a recommended rollout approach.",
+      activities: [
+        { title: "Budget range confirmed", meta: "19 Apr 2026, 9:15 AM", type: "call" },
+        { title: "Discovery notes shared with solutions team", meta: "18 Apr 2026, 3:40 PM", type: "email" },
+        { title: "Call with operations booked for Friday", meta: "17 Apr 2026, 5:05 PM", type: "meeting" },
+      ],
+      stageDetail: "Client goals are confirmed and the solution team is shaping scope",
+      probabilityDetail: "Stable after qualification review",
+      closeMeta: "19 days remaining",
+      nextStepDetail: "Discovery workshop on Friday",
+      progress: [
+        { label: "Qualification", state: "done", value: "Done" },
+        { label: "Discovery", state: "active", value: "Active" },
+        { label: "Proposal", state: "pending", value: "Pending" },
+        { label: "Negotiation", state: "pending", value: "Pending" },
+        { label: "Closure", state: "pending", value: "Pending" },
+      ],
+      snapshot: [
+        { label: "Lead", value: "Inbound interest via expansion request form" },
+        { label: "Discovery", value: "Requirements captured and technical scope outlined" },
+        { label: "Proposal", value: "Not started" },
+        { label: "Negotiation", value: "Not started" },
+      ],
+    },
+    {
+      id: "opp-003",
+      opportunity: "UrbanAxis Rollout",
+      company: "UrbanAxis Retail",
+      stage: "Negotiation",
+      amount: "$ 212,800",
+      owner: "Kevin Smith",
+      nextStep: "Client legal feedback",
+      contact: "Kevin Howard",
+      probability: "71%",
+      closeDate: "14 May 2026",
+      notes: "Commercials are accepted in principle and only legal review remains open.",
+      activities: [
+        { title: "Redlines returned by client legal", meta: "20 Apr 2026, 10:30 AM", type: "email" },
+        { title: "Finance approved revised payment schedule", meta: "19 Apr 2026, 1:50 PM", type: "call" },
+        { title: "Executive sponsor requested summary deck", meta: "18 Apr 2026, 4:20 PM", type: "meeting" },
+      ],
+      stageDetail: "Deal terms are being finalized while legal completes redlines",
+      probabilityDetail: "Improved after payment terms approval",
+      closeMeta: "24 days remaining",
+      nextStepDetail: "Await final legal response",
+      progress: [
+        { label: "Qualification", state: "done", value: "Done" },
+        { label: "Discovery", state: "done", value: "Done" },
+        { label: "Proposal", state: "done", value: "Done" },
+        { label: "Negotiation", state: "active", value: "Active" },
+        { label: "Closure", state: "pending", value: "Pending" },
+      ],
+      snapshot: [
+        { label: "Lead", value: "Expansion opportunity linked to warehouse pilot" },
+        { label: "Discovery", value: "Business case and rollout phases approved" },
+        { label: "Proposal", value: "Commercials accepted in principle" },
+        { label: "Negotiation", value: "Legal review in progress" },
+      ],
+    },
+    {
+      id: "opp-004",
+      opportunity: "Kumaan Renewal",
+      company: "Kumaan Pvt. Ltd.",
+      stage: "Proposal",
+      amount: "$ 99,394",
+      owner: "Parkash Chaudary",
+      nextStep: "Send revised quote",
+      contact: "Parkash Chaudary",
+      probability: "82%",
+      closeDate: "25 Apr 2026",
+      notes: "Renewal is active and tied to the current proposal revision already under review.",
+      activities: [
+        { title: "Renewal quote updated with latest scope", meta: "20 Apr 2026, 8:45 AM", type: "email" },
+        { title: "Client requested revised onboarding dates", meta: "19 Apr 2026, 2:25 PM", type: "call" },
+        { title: "Internal approval completed", meta: "18 Apr 2026, 12:10 PM", type: "meeting" },
+      ],
+      stageDetail: "Renewal terms are being aligned before final confirmation",
+      probabilityDetail: "High due to active renewal relationship",
+      closeMeta: "6 days remaining",
+      nextStepDetail: "Send revised quote today",
+      progress: [
+        { label: "Qualification", state: "done", value: "Done" },
+        { label: "Discovery", state: "done", value: "Done" },
+        { label: "Proposal", state: "active", value: "Active" },
+        { label: "Negotiation", state: "pending", value: "Pending" },
+        { label: "Closure", state: "pending", value: "Pending" },
+      ],
+      snapshot: [
+        { label: "Lead", value: "Renewal reminder triggered from active account plan" },
+        { label: "Discovery", value: "Scope refresh completed with delivery team" },
+        { label: "Proposal", value: "Revision 2 prepared for client" },
+        { label: "Negotiation", value: "Awaiting final confirmation on revised dates" },
+      ],
+    },
+    {
+      id: "opp-005",
+      opportunity: "Apex Support Expansion",
+      company: "Apex Med Systems",
+      stage: "Qualified",
+      amount: "$ 58,600",
+      owner: "Mack Rod",
+      nextStep: "Prepare solution outline",
+      contact: "Diana Morris",
+      probability: "38%",
+      closeDate: "16 May 2026",
+      notes: "Secondary expansion track for post-launch support coverage across two new facilities.",
+      activities: [
+        { title: "Support requirements gathered from regional ops team", meta: "19 Apr 2026, 11:05 AM", type: "meeting" },
+        { title: "Early pricing range discussed with client", meta: "18 Apr 2026, 3:15 PM", type: "call" },
+        { title: "Awaiting service coverage assumptions", meta: "17 Apr 2026, 5:30 PM", type: "email" },
+      ],
+      stageDetail: "Cross-sell discussion is qualified and solution sizing is in progress",
+      probabilityDetail: "Early-stage expansion track",
+      closeMeta: "26 days remaining",
+      nextStepDetail: "Prepare support solution outline",
+      progress: [
+        { label: "Qualification", state: "done", value: "Done" },
+        { label: "Discovery", state: "active", value: "Active" },
+        { label: "Proposal", state: "pending", value: "Pending" },
+        { label: "Negotiation", state: "pending", value: "Pending" },
+        { label: "Closure", state: "pending", value: "Pending" },
+      ],
+      snapshot: [
+        { label: "Lead", value: "Cross-sell from modernization workstream" },
+        { label: "Discovery", value: "Support scope reviewed with regional stakeholders" },
+        { label: "Proposal", value: "Solution outline pending" },
+        { label: "Negotiation", value: "Not started" },
+      ],
+    },
+  ];
+  const selectedOpportunity = rows.find((row) => row.id === selectedOpportunityId) ?? rows[0];
+  const relatedOpportunities = rows.filter((row) => row.company === selectedOpportunity.company);
+  const relatedOpportunityCount = relatedOpportunities.length;
+  const otherRelatedOpportunities = relatedOpportunities.filter((row) => row.id !== selectedOpportunity.id);
+
+  const selectOpportunity = (opportunityId: string) => {
+    setSelectedOpportunityId(opportunityId);
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Opportunities
+            </p>
+            <div className="relative shrink-0 w-[96px]">
+              <div className="flex items-center justify-center gap-[12px] w-full">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("dashboard")} type="button">
+                  <MingcuteGridFill />
+                  {viewMode === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+                <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0">
+                  <div className="flex-none rotate-90">
+                    <div className="h-0 relative w-[17px]">
+                      <div className="absolute inset-[-1px_0_0_0]">
+                        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17 1">
+                          <line id="Line 15" stroke="var(--stroke-0, #D9D9D9)" x2="17" y1="0.5" y2="0.5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("window")} type="button">
+                  <RiWindowFill />
+                  {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+              </div>
+              <div
+                className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-t-0 border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${
+                  viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"
+                }`}
+              />
+            </div>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+        {viewMode === "window" ? (
+          <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0 w-full">
+            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+              <ProposalActionButton>
+                <Home className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <ArrowLeft className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <RotateCcw className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton label="New Record">
+                <FilePlus2 className="size-[18px] text-[#141414]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <Trash2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <HardDrive className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <HardDriveDownload className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <FilePlus2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+            </div>
+
+            <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[320px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[12px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[56px]">
+                  <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                  </svg>
+                </div>
+                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[12px] relative">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[16px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Search
+                  </p>
+                  <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
+                    <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                    </svg>
+                    <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+              </svg>
+              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                <circle cx="9" cy="13" fill="#141414" r="1.4" />
+              </svg>
+            </div>
+          </div>
+        ) : null}
+      </div>
+
+      {viewMode === "dashboard" ? (
+        <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+          <div className="grid grid-cols-12 gap-[12px]">
+            <div className="col-[1/span_12] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-[12px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[20px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Pipeline
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[11px] uppercase tracking-[0.16em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Drag cards to advance stage
+                  </p>
+                </div>
+                <button className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+                  + New deal
+                </button>
+              </div>
+
+              <div className="mt-[16px] grid grid-cols-4 gap-[14px]">
+                {pipelineColumns.map((column) => (
+                  <div className="flex min-h-[300px] flex-col gap-[12px] rounded-[14px] border border-white/70 bg-[rgba(244,247,252,0.82)] p-[12px] shadow-[0px_10px_24px_rgba(15,23,42,0.04)]" key={column.label}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex min-w-0 items-center gap-[8px]">
+                        <div className="size-[7px] shrink-0 rounded-full" style={{ backgroundColor: column.accent }} />
+                        <p className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[11px] uppercase tracking-[0.14em] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {column.label}
+                        </p>
+                        <div className="flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full border border-solid border-[#dfe7f2] bg-white px-[6px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[10px] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {column.count}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#7a8194]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {column.total}
+                      </p>
+                    </div>
+
+                    <div className="flex min-h-0 flex-1 flex-col gap-[10px]">
+                      {column.cards.map((card) => (
+                        <div className="flex flex-col gap-[8px] rounded-[11px] border border-solid border-[#e5ebf3] bg-white p-[12px] shadow-[0px_2px_6px_rgba(15,23,42,0.05)]" key={card.title}>
+                          <div className="flex flex-col gap-[4px]">
+                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f2937]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {card.title}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#7a8194]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {card.closeDate} · {card.owner}
+                            </p>
+                          </div>
+
+                          <div className="flex items-end justify-between">
+                            <p className="font-['Roboto:Bold',sans-serif] text-[26px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {card.amount}
+                            </p>
+                            <div className="flex h-[22px] shrink-0 items-center justify-center rounded-full bg-[#cdefff] px-[8px]">
+                              <p className="font-['Roboto:Bold',sans-serif] text-[11px] text-[#0f7db5]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {card.probability}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      {column.cards.length === 1 ? <div className="min-h-[88px] flex-1" /> : null}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-[14px] flex items-center justify-between rounded-[12px] border border-solid border-white/75 bg-white/55 px-[14px] py-[10px]">
+                <div className="flex items-center gap-[18px]">
+                  <div className="flex flex-col gap-[2px]">
+                    <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Open Pipeline
+                    </p>
+                    <p className="font-['Roboto:Bold',sans-serif] text-[18px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      $244K
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-[2px]">
+                    <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Avg. Probability
+                    </p>
+                    <p className="font-['Roboto:Bold',sans-serif] text-[18px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      58%
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end gap-[2px]">
+                  <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Focus
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Proposal to Negotiation handoff
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+              <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Focus Today
+              </p>
+              <div className="mt-[16px] flex flex-col gap-[10px]">
+                {[
+                  "2 pricing revisions need approval",
+                  "1 deal is waiting on client legal review",
+                  "3 calls are scheduled this afternoon",
+                ].map((item) => (
+                  <div className="rounded-[12px] bg-white/80 px-[14px] py-[12px] text-[14px] text-[#102c3f]" key={item}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="col-[5/span_8] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+              <div className="flex items-center justify-between">
+                <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Active Opportunities
+                </p>
+                <button className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da]" type="button">
+                  Add Opportunity
+                </button>
+              </div>
+
+              <div className="mt-[16px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+                {["Opportunity", "Company", "Stage", "Amount", "Owner", "Next Step"].map((heading) => (
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {heading}
+                  </p>
+                ))}
+              </div>
+
+              {rows.map((row) => (
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px]" key={row.id}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.opportunity}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.company}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.stage}
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.amount}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.owner}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.nextStep}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="content-stretch flex flex-[1_0_0] items-start min-h-0 relative w-full">
+          <div className="bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 w-[380px]">
+            {rows.map((row) => (
+              <button
+                className={`content-stretch flex flex-col gap-[14px] items-start justify-center overflow-clip px-[18px] py-[18px] relative w-full text-left border-b border-solid transition-all ${
+                  selectedOpportunity.id === row.id
+                    ? "border-[#0083da] bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] shadow-[inset_4px_0_0_0_#0083da,0_12px_24px_rgba(31,131,255,0.10)]"
+                    : "border-[#ebebeb] bg-[#fcfcfc] hover:bg-[#f7fbff]"
+                }`}
+                key={row.id}
+                onClick={() => selectOpportunity(row.id)}
+                type="button"
+              >
+                <div className="content-stretch flex items-start justify-between relative w-full">
+                  <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] ${selectedOpportunity.id === row.id ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.opportunity}
+                  </p>
+                  <span className="rounded-[999px] bg-white/85 px-[10px] py-[5px] text-[12px] text-[#41576a]">{row.stage}</span>
+                </div>
+                <p className="font-['Roboto:Regular',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {row.company}
+                </p>
+                <div className="flex w-full items-center justify-between">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.amount}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.owner}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
+            <div className="content-stretch flex flex-col gap-[18px] h-full items-start overflow-auto px-[24px] py-[22px] relative">
+              <div className="bg-white border border-solid border-[#e7edf2] rounded-[16px] content-stretch flex flex-col gap-[16px] items-start px-[18px] py-[18px] relative shrink-0 w-full">
+                <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Opportunity Overview
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedOpportunity.company} • {relatedOpportunityCount} opportunities
+                  </p>
+                </div>
+                <div className="grid w-full grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))] gap-[12px]">
+                  <div className="rounded-[14px] border border-solid border-[#dfe8ef] bg-[linear-gradient(135deg,#f8fcff_0%,#eef6fb_100%)] px-[16px] py-[14px]">
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Company
+                    </p>
+                    <p className="mt-[4px] font-['Roboto:Bold',sans-serif] font-bold text-[24px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {selectedOpportunity.company}
+                    </p>
+                    <div className="mt-[10px] flex flex-wrap items-center gap-[8px]">
+                      <span className="rounded-[999px] bg-white px-[10px] py-[5px] text-[12px] text-[#41576a]">
+                        Contact: {selectedOpportunity.contact}
+                      </span>
+                      <span className="rounded-[999px] bg-white px-[10px] py-[5px] text-[12px] text-[#41576a]">
+                        Owner: {selectedOpportunity.owner}
+                      </span>
+                      <span className="rounded-[999px] bg-[#eaf6ff] px-[10px] py-[5px] text-[12px] text-[#0073c0]">
+                        {relatedOpportunityCount} opportunities
+                      </span>
+                    </div>
+                  </div>
+
+                  {[
+                    {
+                      title: "Current Stage",
+                      value: selectedOpportunity.stage,
+                      meta: selectedOpportunity.stageDetail,
+                      valueClass: "text-[18px]",
+                    },
+                    {
+                      title: "Probability",
+                      value: selectedOpportunity.probability,
+                      meta: selectedOpportunity.probabilityDetail,
+                      valueClass: "text-[18px]",
+                    },
+                    {
+                      title: "Close Date",
+                      value: selectedOpportunity.closeDate,
+                      meta: selectedOpportunity.closeMeta,
+                      valueClass: "text-[18px]",
+                    },
+                    {
+                      title: "Next Step",
+                      value: selectedOpportunity.nextStep,
+                      meta: selectedOpportunity.nextStepDetail,
+                      valueClass: "text-[18px]",
+                    },
+                  ].map((card) => {
+                    const probabilityTone =
+                      card.title === "Probability"
+                        ? getProbabilityTone(selectedOpportunity.probability)
+                        : null;
+
+                    return (
+                      <div
+                        className={`rounded-[14px] border border-solid px-[14px] py-[12px] ${
+                          probabilityTone ? probabilityTone.card : "border-[#dfe8ef] bg-white"
+                        }`}
+                        key={card.title}
+                      >
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {card.title}
+                        </p>
+                        <p
+                          className={`mt-[4px] font-['Roboto:Bold',sans-serif] font-bold ${card.valueClass} ${
+                            probabilityTone ? probabilityTone.value : "text-[#102c3f]"
+                          }`}
+                          style={{ fontVariationSettings: "'wdth' 100" }}
+                        >
+                          {card.value}
+                        </p>
+                        <p
+                          className={`mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] leading-[18px] ${
+                            probabilityTone ? probabilityTone.meta : "text-[#5f7283]"
+                          }`}
+                          style={{ fontVariationSettings: "'wdth' 100" }}
+                        >
+                          {card.meta}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="grid w-full grid-cols-5 gap-[10px]">
+                  {selectedOpportunity.progress.map((item) => {
+                    const tone =
+                      item.state === "done"
+                        ? "border-[#d8e8f4] bg-[#f8fbfe] text-[#102c3f]"
+                        : item.state === "active"
+                          ? "border-[#cce4ff] bg-[#eef7ff] text-[#102c3f]"
+                          : "border-[#e4edf4] bg-[#fbfdff] text-[#102c3f]";
+
+                    return (
+                      <div className={`rounded-[14px] border border-solid px-[12px] py-[10px] text-center ${tone}`} key={`${selectedOpportunity.id}-${item.label}`}>
+                        <p className="font-['Roboto:Bold',sans-serif] font-bold text-[13px] text-[#5d7487]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.label}
+                        </p>
+                        <p className="mt-[6px] font-['Roboto:Bold',sans-serif] font-bold text-[16px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.state === "done" ? "✓" : item.value}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="grid w-full grid-cols-[120px_minmax(0,1fr)] gap-x-[14px] gap-y-[10px]">
+                  {selectedOpportunity.snapshot.map((item) => (
+                    <Fragment key={`${selectedOpportunity.id}-${item.label}`}>
+                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.label}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.value}
+                      </p>
+                    </Fragment>
+                  ))}
+                </div>
+
+                <div className="grid w-full grid-cols-2 gap-[12px]">
+                  <div className="rounded-[14px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]">
+                    <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Opportunity Notes
+                    </p>
+                    <p className="mt-[8px] font-['Roboto:Regular',sans-serif] font-normal text-[14px] leading-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {selectedOpportunity.notes}
+                    </p>
+                  </div>
+
+                  <div className="rounded-[14px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]">
+                    <div className="flex items-center justify-between">
+                      <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Recent Activity
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {selectedOpportunity.activities.length} updates
+                      </p>
+                    </div>
+                    <div className="mt-[10px] flex flex-col gap-[10px]">
+                      {selectedOpportunity.activities.map((activity) => {
+                        const activityMeta = getOpportunityActivityTypeMeta(activity.type);
+
+                        return (
+                          <div className="flex items-start justify-between gap-[16px] border-b border-solid border-[#edf2f6] pb-[10px] last:border-b-0 last:pb-0" key={`${selectedOpportunity.id}-${activity.title}-${activity.meta}`}>
+                            <div className="flex items-start gap-[10px]">
+                              <div className={`mt-[2px] inline-flex items-center gap-[6px] rounded-[999px] px-[8px] py-[5px] text-[12px] ${activityMeta.badge}`}>
+                                {activityMeta.icon}
+                                <span className="font-['Roboto:Bold',sans-serif] font-bold" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {activityMeta.label}
+                                </span>
+                              </div>
+                              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {activity.title}
+                              </p>
+                            </div>
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {activity.meta}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {otherRelatedOpportunities.length ? (
+                <div className="bg-white border border-solid border-[#e7edf2] rounded-[16px] content-stretch flex flex-col gap-[14px] items-start px-[18px] py-[18px] relative shrink-0 w-full">
+                  <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+                    <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Other Opportunities for {selectedOpportunity.company}
+                    </p>
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {otherRelatedOpportunities.length} related records
+                    </p>
+                  </div>
+                  <div className="grid w-full grid-cols-2 gap-[12px]">
+                    {otherRelatedOpportunities.map((opportunity) => (
+                      <button
+                        className="rounded-[14px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[16px] py-[14px] text-left transition-all hover:border-[#c9e1f5] hover:bg-[#f4fbff]"
+                        key={opportunity.id}
+                        onClick={() => selectOpportunity(opportunity.id)}
+                        type="button"
+                      >
+                        <div className="flex items-start justify-between gap-[10px]">
+                          <div>
+                            <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {opportunity.opportunity}
+                            </p>
+                            <p className="mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {opportunity.contact} • {opportunity.owner}
+                            </p>
+                          </div>
+                          <span className="rounded-[999px] bg-white px-[10px] py-[5px] text-[12px] text-[#41576a]">
+                            {opportunity.stage}
+                          </span>
+                        </div>
+                        <div className="mt-[12px] flex items-end justify-between gap-[12px]">
+                          <div>
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Value
+                            </p>
+                            <p className="font-['Roboto:Bold',sans-serif] font-bold text-[20px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {opportunity.amount}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Close date
+                            </p>
+                            <p className="font-['Roboto:Bold',sans-serif] font-bold text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {opportunity.closeDate}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              </div>
+            </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -3197,8 +4342,16 @@ function SalesProposalView({
   );
 }
 
-function Frame59() {
-  const [activeView, setActiveView] = useState<AppView>("dashboard");
+function Frame59({
+  activeView,
+  onNavigateView,
+}: {
+  activeView: AppView;
+  onNavigateView: (view: AppView) => void;
+}) {
+  const [activeMenuItem, setActiveMenuItem] = useState<MenuItemId | null>(
+    activeView === "salesProposal" ? "salesProposal" : activeView === "opportunities" ? "opportunities" : null,
+  );
   const [selectedProposalId, setSelectedProposalId] = useState("485932");
   const [proposals, setProposals] = useState<ProposalRecord[]>([
     {
@@ -3426,29 +4579,52 @@ function Frame59() {
     );
   };
 
+  useEffect(() => {
+    if (activeView === "salesProposal") {
+      setActiveMenuItem("salesProposal");
+      return;
+    }
+
+    if (activeView === "opportunities") {
+      setActiveMenuItem("opportunities");
+      return;
+    }
+
+    if (activeView === "dashboard") {
+      setActiveMenuItem(null);
+    }
+  }, [activeView]);
+
+  const handleNavigate = (view: AppView, item: MenuItemId) => {
+    setActiveMenuItem(item);
+    onNavigateView(view);
+  };
+
   return (
     <div className="h-full relative shrink-0 w-full">
       <div className="absolute h-full left-[72px] overflow-auto top-[8px] w-[calc(100%-84px)]" data-name="Canvas_WH">
         {activeView === "salesProposal" ? (
           <SalesProposalView
-            onClose={() => setActiveView("dashboard")}
+            onClose={() => onNavigateView("dashboard")}
             onSaveProposalLines={handleSaveProposalLines}
             onSelectProposal={setSelectedProposalId}
             proposals={proposals}
             selectedProposalId={selectedProposalId}
           />
+        ) : activeView === "opportunities" ? (
+          <OpportunitiesView />
         ) : (
           <Frame2 />
         )}
       </div>
-      <LeftMenu activeView={activeView} onNavigate={setActiveView} />
+      <LeftMenu activeItem={activeMenuItem} onNavigate={handleNavigate} />
     </div>
   );
 }
 
 function Group18() {
   return (
-    <div className="h-[38.084px] relative shrink-0 w-[40px]">
+    <div className="h-[38px] overflow-hidden relative shrink-0 w-[40px]">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 40 38.0843">
         <g id="Group 4093">
           <path d="M40 0H0V38.0843H40V0Z" fill="var(--fill-0, #2084C4)" id="Rectangle 1670" />
@@ -3755,52 +4931,73 @@ function Frame46() {
   );
 }
 
-function Frame45() {
+function Frame45({ onGoHome }: { onGoHome: () => void }) {
   return (
     <div className="col-1 content-stretch flex h-[38px] items-center justify-between ml-0 mt-0 relative row-1 w-full">
-      <Group18 />
+      <button className="h-[38px] shrink-0 w-[40px]" onClick={onGoHome} type="button">
+        <Group18 />
+      </button>
       <Frame46 />
     </div>
   );
 }
 
-function Group19() {
+function Group19({ onGoHome }: { onGoHome: () => void }) {
   return (
-    <div className="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full">
+    <div className="grid grid-rows-[max-content] leading-[0] overflow-hidden place-items-start relative shrink-0 w-full">
       <div className="col-1 h-[38px] ml-0 mt-0 relative row-1 w-full">
         <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1920 38">
           <path d="M1920 0H0V38H1920V0Z" fill="var(--fill-0, #002640)" id="Rectangle 5421" />
         </svg>
       </div>
-      <Frame45 />
+      <Frame45 onGoHome={onGoHome} />
     </div>
   );
 }
 
 export default function WidgetOnWindowHome() {
+  const [screenMode, setScreenMode] = useState<ScreenMode>("home");
+  const [activeModuleView, setActiveModuleView] = useState<AppView>("dashboard");
+
   return (
-    <div className="content-stretch flex flex-col items-start relative size-full" data-name="Widget on Window Home" style={{ backgroundImage: "linear-gradient(129.795deg, rgb(199, 232, 255) 20.389%, rgb(255, 255, 196) 116.98%)" }}>
-      <div className="content-stretch flex h-[80px] items-center relative shrink-0 w-full" data-name="Top Bar">
-        <div className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] ml-[12px] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]" data-name="Menu Button">
-          <div className="content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[inherit]">
-            <MaterialSymbolsMenu />
-          </div>
-          <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
+    <div className="content-stretch flex flex-col items-start relative size-full min-h-0 overflow-hidden" data-name="Widget on Window Home" style={{ backgroundImage: "linear-gradient(129.795deg, rgb(199, 232, 255) 20.389%, rgb(255, 255, 196) 116.98%)" }}>
+      <div className="content-stretch flex h-[80px] items-center justify-between px-[12px] relative shrink-0 w-full" data-name="Top Bar">
+        <div className="content-stretch flex gap-[20px] items-center relative shrink-0">
+          <button
+            className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]"
+            data-name="Menu Button"
+            onClick={() => {
+              setActiveModuleView("dashboard");
+              setScreenMode("crm");
+            }}
+            type="button"
+          >
+            <div className="content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[inherit]">
+              <MaterialSymbolsMenu />
+            </div>
+            <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
+          </button>
+          {screenMode === "crm" ? <Frame73 onGoHome={() => setScreenMode("home")} /> : null}
         </div>
         <div className="ml-auto mr-[12px]">
           <Frame1 />
         </div>
       </div>
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col items-start overflow-clip relative shrink-0 w-full" data-name="Window Title">
-        <Frame73 />
+      <div className="flex-1 min-h-0 overflow-hidden w-full">
+        {screenMode === "home" ? (
+          <HomeView />
+        ) : (
+          <Frame59
+            activeView={activeModuleView}
+            onNavigateView={setActiveModuleView}
+          />
+        )}
       </div>
-      <div className="flex-1 min-h-0 overflow-auto w-full">
-        <Frame59 />
+      <div className="shrink-0 w-full">
+        <div className="overflow-hidden">
+          <Group19 onGoHome={() => setScreenMode("home")} />
+        </div>
       </div>
-      <div className="mt-auto w-full">
-        <Group19 />
-      </div>
-      
     </div>
   );
 }
