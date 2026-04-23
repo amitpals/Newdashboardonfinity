@@ -2385,7 +2385,7 @@ function IconWithTooltip({ children, label }: { children: ReactNode; label: stri
 
 type ScreenMode = "home" | "crm";
 
-type AppView = "dashboard" | "salesProposal" | "opportunities";
+type AppView = "dashboard" | "salesProposal" | "opportunities" | "prospects" | "tasks" | "calendar";
 type MenuItemId = "inbox" | "customers" | "calendar" | "tasks" | "prospects" | "salesProposal" | "opportunities" | "settings";
 
 type ProposalStatus = "Accepted" | "Rejected" | "Draft" | "Sent";
@@ -2806,9 +2806,9 @@ function LeftMenu({
   const menuItems = [
     { id: "inbox" as MenuItemId, label: "Inbox", icon: <Slot2 />, view: "dashboard" as AppView },
     { id: "customers" as MenuItemId, label: "Customers", icon: <Slot3 />, view: "dashboard" as AppView },
-    { id: "calendar" as MenuItemId, label: "Calendar", icon: <Slot4 />, view: "dashboard" as AppView },
-    { id: "tasks" as MenuItemId, label: "Tasks", icon: <Slot5 />, view: "dashboard" as AppView },
-    { id: "prospects" as MenuItemId, label: "Prospects", icon: <Slot6 />, view: "dashboard" as AppView },
+    { id: "calendar" as MenuItemId, label: "Calendar", icon: <Slot4 />, view: "calendar" as AppView },
+    { id: "tasks" as MenuItemId, label: "Tasks", icon: <Slot5 />, view: "tasks" as AppView },
+    { id: "prospects" as MenuItemId, label: "Prospects", icon: <Slot6 />, view: "prospects" as AppView },
     { id: "salesProposal" as MenuItemId, label: "Sales Proposal", icon: <Slot7 />, view: "salesProposal" as AppView },
     { id: "opportunities" as MenuItemId, label: "Opportunities", icon: <Slot8 />, view: "opportunities" as AppView },
     { id: "settings" as MenuItemId, label: "Settings", icon: <Slot9 />, view: "dashboard" as AppView },
@@ -3453,8 +3453,8 @@ function OpportunitiesView() {
 
       {viewMode === "dashboard" ? (
         <div className="flex-1 overflow-auto px-[18px] py-[18px]">
-          <div className="grid grid-cols-12 gap-[12px]">
-            <div className="col-[1/span_12] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="grid grid-cols-9 gap-[12px]">
+            <div className="col-[1/span_9] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-[12px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[20px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -3549,7 +3549,7 @@ function OpportunitiesView() {
               </div>
             </div>
 
-            <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="col-[1/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Focus Today
               </p>
@@ -3566,7 +3566,7 @@ function OpportunitiesView() {
               </div>
             </div>
 
-            <div className="col-[5/span_8] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="col-[4/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between">
                 <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Active Opportunities
@@ -4342,6 +4342,1184 @@ function SalesProposalView({
   );
 }
 
+function ProspectsView() {
+  const summaryCards = [
+    {
+      label: "New Leads",
+      value: "46",
+      meta: "Added this week",
+      detail: "+12 vs last week",
+      accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]",
+      valueClass: "text-[#102c3f]",
+    },
+    {
+      label: "Qualified",
+      value: "18",
+      meta: "Active sales-ready prospects",
+      detail: "39% qualification rate",
+      accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]",
+      valueClass: "text-[#0b6b45]",
+    },
+    {
+      label: "Avg Lead Score",
+      value: "78",
+      meta: "Across last 30 days",
+      detail: "Top quartile is 88+",
+      accent: "bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]",
+      valueClass: "text-[#9a5c00]",
+    },
+    {
+      label: "Pipeline Created",
+      value: "$248K",
+      meta: "Estimated from last 30 days",
+      detail: "7 opportunities opened",
+      accent: "bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]",
+      valueClass: "text-[#5f4aa6]",
+    },
+  ];
+
+  const prospects = [
+    {
+      company: "Apex Med Systems",
+      contact: "Diana Morris",
+      source: "Website",
+      score: 92,
+      stage: "Qualified",
+      value: "$62K",
+      responseTime: "18 min",
+      owner: "Mack Rod",
+    },
+    {
+      company: "Northwind Energy",
+      contact: "Rina Patel",
+      source: "Referral",
+      score: 84,
+      stage: "Discovery",
+      value: "$44K",
+      responseTime: "42 min",
+      owner: "Maya Chen",
+    },
+    {
+      company: "UrbanAxis Retail",
+      contact: "Kevin Howard",
+      source: "LinkedIn",
+      score: 76,
+      stage: "Nurturing",
+      value: "$28K",
+      responseTime: "1h 10m",
+      owner: "Kevin Smith",
+    },
+    {
+      company: "Kumaan Pvt. Ltd.",
+      contact: "Parkash Chaudary",
+      source: "Partner",
+      score: 88,
+      stage: "Qualified",
+      value: "$53K",
+      responseTime: "26 min",
+      owner: "Parkash Chaudary",
+    },
+    {
+      company: "Harper Studios",
+      contact: "Jacob Myers",
+      source: "Campaign",
+      score: 69,
+      stage: "New",
+      value: "$19K",
+      responseTime: "2h 05m",
+      owner: "Jacob M.",
+    },
+    {
+      company: "Ember RetailCo",
+      contact: "Maya Collins",
+      source: "Walk-in",
+      score: 81,
+      stage: "Qualified",
+      value: "$41K",
+      responseTime: "34 min",
+      owner: "Maya Chen",
+    },
+  ];
+
+  const funnelSteps = [
+    { label: "New", count: 46, width: "100%", tone: "bg-[#dff1ff] text-[#0b6ea9]" },
+    { label: "Contacted", count: 34, width: "78%", tone: "bg-[#d7f3e5] text-[#0b6b45]" },
+    { label: "Qualified", count: 18, width: "56%", tone: "bg-[#fff0cf] text-[#9a6500]" },
+    { label: "Pipeline", count: 7, width: "32%", tone: "bg-[#ebe3ff] text-[#5f4aa6]" },
+  ];
+
+  const scoreBuckets = [
+    { label: "Hot 85+", count: 9, bar: "72%", color: "#1f83ff" },
+    { label: "Warm 70-84", count: 21, bar: "88%", color: "#12a57a" },
+    { label: "Monitor <70", count: 16, bar: "61%", color: "#f39b18" },
+  ];
+  const summarySpans = ["col-span-2", "col-span-2", "col-span-2", "col-span-2"];
+
+  const stageTone: Record<string, string> = {
+    New: "bg-[#eef6ff] text-[#0f69ac]",
+    Nurturing: "bg-[#fff3dd] text-[#9b6400]",
+    Discovery: "bg-[#efeaff] text-[#6551b1]",
+    Qualified: "bg-[#ddf4e8] text-[#0b6b45]",
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Prospects
+            </p>
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#6b7280] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Weekly lead health, qualification, and pipeline readiness
+            </p>
+          </div>
+          <div className="content-stretch flex items-center gap-[10px] relative shrink-0">
+            <div className="rounded-[999px] border border-solid border-[#d7e7f6] bg-white px-[12px] py-[7px]">
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5f7283] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Last 30 days
+              </p>
+            </div>
+            <button className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da]" type="button">
+              Export List
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+        <div className="grid grid-cols-9 gap-[12px]">
+          <button
+            className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)] transition-all hover:border-[#63b1ff] hover:bg-[linear-gradient(135deg,rgba(222,242,255,0.96)_0%,rgba(255,255,255,0.9)_100%)]"
+            type="button"
+          >
+            <div className="flex h-full min-h-[140px] flex-col justify-between">
+              <div className="flex items-start justify-between gap-[10px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Quick Action
+                </p>
+                <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                  <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                </div>
+              </div>
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  New Prospect
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Add a lead, referral, or inbound contact.
+                </p>
+              </div>
+            </div>
+          </button>
+          {summaryCards.map((card, index) => (
+            <div className={`${summarySpans[index]} rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+              <div className="flex items-start justify-between gap-[12px]">
+                <div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.label}
+                  </p>
+                  <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.value}
+                  </p>
+                </div>
+                <div className="rounded-[12px] bg-white/80 px-[10px] py-[8px] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[11px] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Trend
+                  </p>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.detail}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.meta}
+              </p>
+            </div>
+          ))}
+
+          <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-center justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Prospect Grid
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Prioritized leads by score, response speed, and estimated pipeline value
+                </p>
+              </div>
+              <div className="flex items-center gap-[10px]">
+                <div className="rounded-[999px] bg-[#eef6ff] px-[12px] py-[8px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0f69ac]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    18 qualified
+                  </p>
+                </div>
+                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[8px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    92 min avg follow-up
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+              {["Company", "Contact", "Source", "Score", "Stage", "Value", "Response"].map((heading) => (
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {heading}
+                </p>
+              ))}
+            </div>
+
+            <div className="mt-[2px]">
+              {prospects.map((prospect) => (
+                <div className="grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={`${prospect.company}-${prospect.contact}`}>
+                  <div className="min-w-0">
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {prospect.company}
+                    </p>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Owner: {prospect.owner}
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {prospect.contact}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {prospect.source}
+                  </p>
+                  <div className="flex items-center gap-[8px]">
+                    <div className="h-[7px] w-[56px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                      <div className="h-full rounded-full bg-[#1f83ff]" style={{ width: `${prospect.score}%` }} />
+                    </div>
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {prospect.score}
+                    </p>
+                  </div>
+                  <div>
+                    <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] font-['Roboto:Bold',sans-serif] ${stageTone[prospect.stage]}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {prospect.stage}
+                    </span>
+                  </div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {prospect.value}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {prospect.responseTime}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Response Time
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Speed to first touch for the latest prospect flow
+                </p>
+              </div>
+              <CalendarClock className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-2 gap-[10px]">
+              {[
+                { label: "Median", value: "42 min" },
+                { label: "SLA Met", value: "83%" },
+                { label: "Under 30m", value: "19" },
+                { label: "Needs Follow-up", value: "6" },
+              ].map((item) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]" key={item.label}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.label}
+                  </p>
+                  <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-[16px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]">
+              <div className="flex items-center justify-between">
+                <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Fastest Sources
+                </p>
+                <Hourglass className="size-[16px] text-[#5f7283]" strokeWidth={1.8} />
+              </div>
+              <div className="mt-[10px] flex flex-col gap-[10px]">
+                {[
+                  { label: "Referral", time: "14 min", share: "92% replied" },
+                  { label: "Website", time: "28 min", share: "84% replied" },
+                  { label: "Partner", time: "35 min", share: "79% replied" },
+                ].map((item) => (
+                  <div className="flex items-center justify-between gap-[10px]" key={item.label}>
+                    <div>
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.label}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.share}
+                      </p>
+                    </div>
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {item.time}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Conversion Funnel
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  From raw inquiry to active pipeline creation
+                </p>
+              </div>
+              <Percent className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] flex flex-col gap-[12px]">
+              {funnelSteps.map((step) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[12px]" key={step.label}>
+                  <div className="flex items-center justify-between">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {step.label}
+                    </p>
+                    <span className={`rounded-[999px] px-[10px] py-[4px] text-[12px] font-['Roboto:Bold',sans-serif] ${step.tone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {step.count}
+                    </span>
+                  </div>
+                  <div className="mt-[10px] h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                    <div className="h-full rounded-full bg-[#1f83ff]" style={{ width: step.width }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[5/span_5] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-center justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Score Distribution
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Lead quality mix and where the team should spend attention
+                </p>
+              </div>
+              <BadgeCheck className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-[minmax(0,1.2fr)_80px_1fr] gap-x-[12px] gap-y-[12px] items-center">
+              {scoreBuckets.map((bucket) => (
+                <Fragment key={bucket.label}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {bucket.label}
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {bucket.count} leads
+                  </p>
+                  <div className="h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                    <div className="h-full rounded-full" style={{ backgroundColor: bucket.color, width: bucket.bar }} />
+                  </div>
+                </Fragment>
+              ))}
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-3 gap-[10px]">
+              {[
+                { label: "Best source", value: "Website", meta: "12 qualified leads" },
+                { label: "Highest value", value: "Partner", meta: "$91K created" },
+                { label: "Focus queue", value: "6 prospects", meta: "Score 70-84, no follow-up" },
+              ].map((item) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]" key={item.label}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.label}
+                  </p>
+                  <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.value}
+                  </p>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.meta}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TasksView({ onClose }: { onClose: () => void }) {
+  const summaryCards = [
+    {
+      label: "My Tasks",
+      value: "32",
+      meta: "Across open queues",
+      detail: "7 due today",
+      accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]",
+      valueClass: "text-[#102c3f]",
+    },
+    {
+      label: "In Progress",
+      value: "11",
+      meta: "Actively worked this week",
+      detail: "4 blocked",
+      accent: "bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]",
+      valueClass: "text-[#9a5c00]",
+    },
+    {
+      label: "Completed",
+      value: "24",
+      meta: "Closed in last 7 days",
+      detail: "+6 vs previous week",
+      accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]",
+      valueClass: "text-[#0b6b45]",
+    },
+    {
+      label: "Avg Response",
+      value: "3.2h",
+      meta: "Assignment to first update",
+      detail: "Within 4h SLA target",
+      accent: "bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]",
+      valueClass: "text-[#5f4aa6]",
+    },
+  ];
+
+  const tasks = [
+    { title: "Finalize Q2 renewal revision", assignee: "Parkash Chaudary", priority: "High", status: "In Progress", due: "Today, 4:30 PM", client: "Kumaan Pvt. Ltd." },
+    { title: "Prepare discovery notes for Northwind", assignee: "Maya Chen", priority: "Medium", status: "Ready", due: "Today, 6:00 PM", client: "Northwind Energy" },
+    { title: "Send pricing follow-up to Apex", assignee: "Mack Rod", priority: "High", status: "Waiting", due: "Tomorrow, 10:00 AM", client: "Apex Med Systems" },
+    { title: "Review legal comments from UrbanAxis", assignee: "Kevin Smith", priority: "High", status: "Blocked", due: "Tomorrow, 2:00 PM", client: "UrbanAxis Retail" },
+    { title: "Update proposal activity log", assignee: "Jacob M.", priority: "Low", status: "Ready", due: "Fri, 11:00 AM", client: "Harper Studios" },
+    { title: "Confirm onboarding date options", assignee: "Diana Morris", priority: "Medium", status: "In Progress", due: "Fri, 3:30 PM", client: "Apex Med Systems" },
+  ];
+
+  const statusTone: Record<string, string> = {
+    Ready: "bg-[#eef6ff] text-[#0f69ac]",
+    "In Progress": "bg-[#fff3dd] text-[#9b6400]",
+    Waiting: "bg-[#efeaff] text-[#6551b1]",
+    Blocked: "bg-[#ffe4e4] text-[#a33f3f]",
+  };
+
+  const priorityTone: Record<string, string> = {
+    High: "text-[#d14545]",
+    Medium: "text-[#9a6500]",
+    Low: "text-[#0b6b45]",
+  };
+
+  const boardColumns = [
+    {
+      label: "Today",
+      count: 7,
+      tone: "bg-[#eef8ff]",
+      items: [
+        { title: "Renewal revision sign-off", meta: "Kumaan Pvt. Ltd. • Parkash", emphasis: "Due 4:30 PM" },
+        { title: "Northwind discovery notes", meta: "Northwind Energy • Maya", emphasis: "Due 6:00 PM" },
+      ],
+    },
+    {
+      label: "Up Next",
+      count: 9,
+      tone: "bg-[#f7f3ff]",
+      items: [
+        { title: "Apex pricing follow-up", meta: "Apex Med Systems • Mack", emphasis: "Tomorrow" },
+        { title: "UrbanAxis legal review", meta: "UrbanAxis Retail • Kevin", emphasis: "Tomorrow" },
+      ],
+    },
+    {
+      label: "Waiting",
+      count: 4,
+      tone: "bg-[#fff8ee]",
+      items: [
+        { title: "Client approval on revised dates", meta: "Kumaan Pvt. Ltd. • Diana", emphasis: "External dependency" },
+        { title: "Budget confirmation", meta: "Ember RetailCo • Maya", emphasis: "Pending client reply" },
+      ],
+    },
+  ];
+
+  const workload = [
+    { label: "Parkash", count: 8, width: "76%", color: "#1f83ff" },
+    { label: "Maya", count: 7, width: "68%", color: "#20a464" },
+    { label: "Kevin", count: 6, width: "54%", color: "#8b7cff" },
+    { label: "Mack", count: 5, width: "46%", color: "#d78b10" },
+  ];
+
+  const completionTrend = [
+    { label: "Mon", value: 3 },
+    { label: "Tue", value: 5 },
+    { label: "Wed", value: 4 },
+    { label: "Thu", value: 6 },
+    { label: "Fri", value: 6 },
+  ];
+  const summarySpans = ["col-span-2", "col-span-2", "col-span-2", "col-span-2"];
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Tasks
+            </p>
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#6b7280] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Daily workload, due actions, and team execution health
+            </p>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+        <div className="grid grid-cols-9 gap-[12px]">
+          <button
+            className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)] transition-all hover:border-[#63b1ff] hover:bg-[linear-gradient(135deg,rgba(222,242,255,0.96)_0%,rgba(255,255,255,0.9)_100%)]"
+            type="button"
+          >
+            <div className="flex h-full min-h-[140px] flex-col justify-between">
+              <div className="flex items-start justify-between gap-[10px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Quick Action
+                </p>
+                <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                  <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                </div>
+              </div>
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  New Task
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Create a follow-up, proposal edit task, or client action item.
+                </p>
+              </div>
+            </div>
+          </button>
+          {summaryCards.map((card, index) => (
+            <div className={`${summarySpans[index]} rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+              <div className="flex items-start justify-between gap-[12px]">
+                <div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.label}
+                  </p>
+                  <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.value}
+                  </p>
+                </div>
+                <div className="rounded-[12px] bg-white/80 px-[10px] py-[8px] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[11px] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Focus
+                  </p>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.detail}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.meta}
+              </p>
+            </div>
+          ))}
+
+          <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-center justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Task Queue
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Priority work across proposals, opportunities, and follow-ups
+                </p>
+              </div>
+              <div className="flex items-center gap-[10px]">
+                <div className="rounded-[999px] bg-[#ffe4e4] px-[12px] py-[8px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#a33f3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    4 blocked
+                  </p>
+                </div>
+                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[8px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    83% on time
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+              {["Task", "Account", "Priority", "Status", "Due", "Assignee"].map((heading) => (
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {heading}
+                </p>
+              ))}
+            </div>
+
+            <div className="mt-[2px]">
+              {tasks.map((task) => (
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={`${task.title}-${task.assignee}`}>
+                  <div className="min-w-0">
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {task.title}
+                    </p>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Client: {task.client}
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {task.client}
+                  </p>
+                  <p className={`font-['Roboto:Bold',sans-serif] text-[14px] ${priorityTone[task.priority]}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {task.priority}
+                  </p>
+                  <div>
+                    <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] font-['Roboto:Bold',sans-serif] ${statusTone[task.status]}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {task.status}
+                    </span>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {task.due}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {task.assignee}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Focus Board
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  What needs attention today and next
+                </p>
+              </div>
+              <NotebookText className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
+              {[
+                { label: "Ready Today", value: "5" },
+                { label: "Blocked", value: "4" },
+              ].map((item) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]" key={item.label}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.label}
+                  </p>
+                  <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-[18px] flex flex-col gap-[10px]">
+              {boardColumns.map((column) => (
+                <div className={`rounded-[12px] border border-solid border-[#e4edf4] p-[12px] ${column.tone}`} key={column.label}>
+                  <div className="flex items-center justify-between">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {column.label}
+                    </p>
+                    <span className="rounded-[999px] bg-white px-[10px] py-[4px] text-[12px] font-['Roboto:Bold',sans-serif] text-[#41576a]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {column.count}
+                    </span>
+                  </div>
+                  <div className="mt-[10px]">
+                    {column.items.map((item) => (
+                      <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-white/80 py-[10px] last:border-b-0 last:pb-0 first:pt-0" key={item.title}>
+                        <div className="min-w-0">
+                          <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.title}
+                          </p>
+                          <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.meta}
+                          </p>
+                        </div>
+                        <p className="self-center whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[12px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.emphasis}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Workload Spread
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Open task distribution across key owners
+                </p>
+              </div>
+              <UserRound className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] flex flex-col gap-[12px]">
+              {workload.map((person) => (
+                <div className="grid grid-cols-[110px_70px_minmax(0,1fr)] items-center gap-[12px] border-b border-solid border-[#e4edf4] py-[10px] last:border-b-0 last:pb-0 first:pt-0" key={person.label}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {person.label}
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {person.count} open
+                  </p>
+                  <div className="h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                    <div className="h-full rounded-full" style={{ width: person.width, backgroundColor: person.color }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[5/span_5] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Completion Trend
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Completed tasks by day plus execution notes
+                </p>
+              </div>
+              <CalendarDays className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-[repeat(5,minmax(0,1fr))] gap-[12px] items-end">
+              {completionTrend.map((item) => (
+                <div className="flex flex-col items-center gap-[10px]" key={item.label}>
+                  <div className="flex h-[120px] items-end">
+                    <div className="w-[54px] rounded-t-[14px] bg-[linear-gradient(180deg,#1f83ff_0%,#80c8ff_100%)]" style={{ height: `${32 + item.value * 12}px` }} />
+                  </div>
+                  <div className="text-center">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {item.value}
+                    </p>
+                    <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {item.label}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-3 gap-[10px]">
+              {[
+                { label: "Best day", value: "Thu / Fri", meta: "6 completed each day" },
+                { label: "Oldest open", value: "4 days", meta: "2 tasks exceeded target age" },
+                { label: "Team note", value: "Proposal edits peaking", meta: "Most volume from pricing changes" },
+              ].map((item) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]" key={item.label}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.label}
+                  </p>
+                  <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.value}
+                  </p>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.meta}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CalendarView({ onClose }: { onClose: () => void }) {
+  const summaryCards = [
+    {
+      label: "Today's Meetings",
+      value: "08",
+      meta: "Across sales and follow-up calls",
+      detail: "3 client-facing",
+      accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]",
+      valueClass: "text-[#102c3f]",
+    },
+    {
+      label: "Open Slots",
+      value: "05",
+      meta: "Available today after 2 PM",
+      detail: "Best gap: 4:00-5:30",
+      accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]",
+      valueClass: "text-[#0b6b45]",
+    },
+    {
+      label: "Avg Meeting Time",
+      value: "42m",
+      meta: "This week so far",
+      detail: "Down 8m from last week",
+      accent: "bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]",
+      valueClass: "text-[#9a5c00]",
+    },
+    {
+      label: "Follow-ups Due",
+      value: "06",
+      meta: "Need notes or next action",
+      detail: "2 overdue",
+      accent: "bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]",
+      valueClass: "text-[#5f4aa6]",
+    },
+  ];
+
+  const weekDays = [
+    {
+      label: "Mon 22",
+      items: [
+        { time: "09:00", title: "Renewal review", meta: "Kumaan Pvt. Ltd.", lane: "Sales", color: "#1f83ff" },
+        { time: "14:30", title: "Pricing sync", meta: "Internal", lane: "Team", color: "#8b7cff" },
+      ],
+    },
+    {
+      label: "Tue 23",
+      items: [
+        { time: "10:00", title: "Discovery call", meta: "Northwind Energy", lane: "Client", color: "#20a464" },
+        { time: "16:00", title: "Proposal walkthrough", meta: "Apex Med Systems", lane: "Client", color: "#1f83ff" },
+      ],
+    },
+    {
+      label: "Wed 24",
+      items: [
+        { time: "11:30", title: "Legal review", meta: "UrbanAxis Retail", lane: "Client", color: "#d78b10" },
+        { time: "15:00", title: "Manager 1:1", meta: "Weekly cadence", lane: "Team", color: "#8b7cff" },
+      ],
+    },
+    {
+      label: "Thu 25",
+      items: [
+        { time: "09:30", title: "Outbound block", meta: "Lead callbacks", lane: "Work", color: "#20a464" },
+        { time: "13:00", title: "Demo prep", meta: "Aziz Tech", lane: "Work", color: "#1f83ff" },
+        { time: "17:30", title: "Proposal send", meta: "Follow-up reminder", lane: "Work", color: "#d14545" },
+      ],
+    },
+    {
+      label: "Fri 26",
+      items: [
+        { time: "10:30", title: "Executive update", meta: "Pipeline review", lane: "Team", color: "#8b7cff" },
+        { time: "12:30", title: "Client lunch", meta: "Harper Studios", lane: "Client", color: "#20a464" },
+      ],
+    },
+  ];
+
+  const todayAgenda = [
+    { time: "09:30 AM", title: "Kumaan renewal alignment", type: "Video", contact: "Parkash Chaudary", icon: <Phone className="size-[14px]" strokeWidth={1.8} /> },
+    { time: "11:00 AM", title: "Northwind discovery call", type: "Meeting", contact: "Rina Patel", icon: <UserRound className="size-[14px]" strokeWidth={1.8} /> },
+    { time: "03:00 PM", title: "Apex pricing follow-up", type: "Email review", contact: "Diana Morris", icon: <Mail className="size-[14px]" strokeWidth={1.8} /> },
+    { time: "05:30 PM", title: "Demo prep notes", type: "Internal", contact: "Kevin Smith", icon: <NotebookText className="size-[14px]" strokeWidth={1.8} /> },
+  ];
+
+  const availabilityRows = [
+    { label: "Morning", value: "2 open slots", bar: "32%", color: "#20a464" },
+    { label: "Afternoon", value: "3 open slots", bar: "58%", color: "#1f83ff" },
+    { label: "Evening", value: "1 open slot", bar: "18%", color: "#d78b10" },
+  ];
+
+  const followUps = [
+    { title: "Send minutes to Northwind", due: "Today", owner: "Maya Chen" },
+    { title: "Upload revised quote notes", due: "Today", owner: "Parkash Chaudary" },
+    { title: "Confirm Friday lunch attendees", due: "Tomorrow", owner: "Jacob M." },
+  ];
+  const summarySpans = ["col-span-2", "col-span-2", "col-span-2", "col-span-2"];
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Calendar
+            </p>
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#6b7280] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Weekly planning, meetings, and availability overview
+            </p>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+        <div className="grid grid-cols-9 gap-[12px]">
+          <button
+            className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)] transition-all hover:border-[#63b1ff] hover:bg-[linear-gradient(135deg,rgba(222,242,255,0.96)_0%,rgba(255,255,255,0.9)_100%)]"
+            type="button"
+          >
+            <div className="flex h-full min-h-[140px] flex-col justify-between">
+              <div className="flex items-start justify-between gap-[10px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Quick Action
+                </p>
+                <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                  <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                </div>
+              </div>
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  New Meeting
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Create an appointment or client call.
+                </p>
+              </div>
+            </div>
+          </button>
+          {summaryCards.map((card, index) => (
+            <div className={`${summarySpans[index]} rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+              <div className="flex items-start justify-between gap-[12px]">
+                <div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.label}
+                  </p>
+                  <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.value}
+                  </p>
+                </div>
+                <div className="rounded-[12px] bg-white/80 px-[10px] py-[8px] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[11px] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Snapshot
+                  </p>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {card.detail}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.meta}
+              </p>
+            </div>
+          ))}
+
+          <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-center justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Weekly Schedule
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  This week across client calls, internal reviews, and follow-up blocks
+                </p>
+              </div>
+              <div className="flex items-center gap-[8px]">
+                <button className="flex size-[30px] items-center justify-center rounded-[999px] border border-solid border-[#d7e7f6] bg-white" type="button">
+                  <ChevronLeft className="size-[16px] text-[#5f7283]" strokeWidth={1.8} />
+                </button>
+                <div className="rounded-[999px] border border-solid border-[#d7e7f6] bg-white px-[14px] py-[8px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    22-26 Apr
+                  </p>
+                </div>
+                <button className="flex size-[30px] items-center justify-center rounded-[999px] border border-solid border-[#d7e7f6] bg-white" type="button">
+                  <ChevronRight className="size-[16px] text-[#5f7283]" strokeWidth={1.8} />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-5 gap-[8px]">
+              {weekDays.map((day) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[12px]" key={day.label}>
+                  <div className="border-b border-solid border-[#edf2f6] pb-[8px]">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {day.label}
+                    </p>
+                  </div>
+                  <div className="mt-[8px] flex flex-col gap-[8px]">
+                    {day.items.map((item) => (
+                      <div className="rounded-[10px] border border-solid border-[#edf2f6] bg-[#fbfdff] p-[10px]" key={`${day.label}-${item.time}-${item.title}`}>
+                        <div className="flex items-center justify-between gap-[8px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.time}
+                          </p>
+                          <span className="rounded-[999px] px-[8px] py-[3px] text-[11px] font-['Roboto:Bold',sans-serif] text-white" style={{ backgroundColor: item.color, fontVariationSettings: "'wdth' 100" }}>
+                            {item.lane}
+                          </span>
+                        </div>
+                        <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[13px] leading-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.title}
+                        </p>
+                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.meta}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Today's Agenda
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Next meetings and action blocks in sequence
+                </p>
+              </div>
+              <CalendarClock className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[16px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
+              <div className="flex items-center justify-between">
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Next up
+                </p>
+                <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  11:00 AM
+                </p>
+              </div>
+              <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Northwind discovery call
+              </p>
+              <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Rina Patel • Meeting room 2 / Teams bridge
+              </p>
+            </div>
+
+            <div className="mt-[14px]">
+              {todayAgenda.map((item) => (
+                <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#e4edf4] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={`${item.time}-${item.title}`}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.time}
+                  </p>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-[8px]">
+                      <div className="flex size-[24px] items-center justify-center rounded-[999px] bg-[#eef6ff] text-[#1f83ff]">
+                        {item.icon}
+                      </div>
+                      <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.title}
+                      </p>
+                    </div>
+                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {item.type} • {item.contact}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Availability
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Remaining capacity in today's working day
+                </p>
+              </div>
+              <Hourglass className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] flex flex-col gap-[12px]">
+              {availabilityRows.map((row) => (
+                <div className="grid grid-cols-[100px_100px_minmax(0,1fr)] items-center gap-[12px] border-b border-solid border-[#e4edf4] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={row.label}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.label}
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.value}
+                  </p>
+                  <div className="h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                    <div className="h-full rounded-full" style={{ width: row.bar, backgroundColor: row.color }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="col-[5/span_5] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="flex items-start justify-between gap-[12px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Follow-up Queue
+                </p>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Notes, recap emails, and next-step actions after meetings
+                </p>
+              </div>
+              <Mail className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+              {["Follow-up", "Due", "Owner"].map((heading) => (
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {heading}
+                </p>
+              ))}
+            </div>
+
+            <div className="mt-[2px]">
+              {followUps.map((item) => (
+                <div className="grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={item.title}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.title}
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.due}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.owner}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-[18px] grid grid-cols-3 gap-[10px]">
+              {[
+                { label: "Client meetings", value: "5", meta: "This week" },
+                { label: "Internal reviews", value: "4", meta: "This week" },
+                { label: "Longest free gap", value: "1.5h", meta: "Today" },
+              ].map((item) => (
+                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]" key={item.label}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.label}
+                  </p>
+                  <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.value}
+                  </p>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {item.meta}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Frame59({
   activeView,
   onNavigateView,
@@ -4350,7 +5528,17 @@ function Frame59({
   onNavigateView: (view: AppView) => void;
 }) {
   const [activeMenuItem, setActiveMenuItem] = useState<MenuItemId | null>(
-    activeView === "salesProposal" ? "salesProposal" : activeView === "opportunities" ? "opportunities" : null,
+    activeView === "salesProposal"
+      ? "salesProposal"
+      : activeView === "opportunities"
+        ? "opportunities"
+        : activeView === "prospects"
+          ? "prospects"
+          : activeView === "tasks"
+            ? "tasks"
+            : activeView === "calendar"
+              ? "calendar"
+          : null,
   );
   const [selectedProposalId, setSelectedProposalId] = useState("485932");
   const [proposals, setProposals] = useState<ProposalRecord[]>([
@@ -4590,6 +5778,21 @@ function Frame59({
       return;
     }
 
+    if (activeView === "prospects") {
+      setActiveMenuItem("prospects");
+      return;
+    }
+
+    if (activeView === "tasks") {
+      setActiveMenuItem("tasks");
+      return;
+    }
+
+    if (activeView === "calendar") {
+      setActiveMenuItem("calendar");
+      return;
+    }
+
     if (activeView === "dashboard") {
       setActiveMenuItem(null);
     }
@@ -4613,6 +5816,12 @@ function Frame59({
           />
         ) : activeView === "opportunities" ? (
           <OpportunitiesView />
+        ) : activeView === "prospects" ? (
+          <ProspectsView />
+        ) : activeView === "tasks" ? (
+          <TasksView onClose={() => onNavigateView("dashboard")} />
+        ) : activeView === "calendar" ? (
+          <CalendarView onClose={() => onNavigateView("dashboard")} />
         ) : (
           <Frame2 />
         )}
