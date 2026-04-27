@@ -247,21 +247,45 @@ function MaterialSymbolsClose() {
 
 function Frame73({
   onGoHome,
+  onGoModule,
+  currentScreen,
+  moduleName,
 }: {
   onGoHome: () => void;
+  onGoModule?: () => void;
+  currentScreen: ScreenMode;
+  moduleName: string | null;
 }) {
   return (
     <div className="content-stretch flex items-center overflow-clip relative shrink-0">
       <div className="content-stretch flex gap-[12px] items-center relative shrink-0">
-        <button className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[rgba(0,0,0,0.4)]" onClick={onGoHome} style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+        <button
+          className={`font-['Roboto:Bold',sans-serif] font-bold text-[18px] ${
+            currentScreen === "home" ? "text-black" : "text-[rgba(0,0,0,0.4)]"
+          }`}
+          onClick={onGoHome}
+          style={{ fontVariationSettings: "'wdth' 100" }}
+          type="button"
+        >
           Home
         </button>
-        <div className="flex h-[24px] items-center justify-center text-black">
-          <ChevronRight className="size-[14px]" strokeWidth={2.2} />
-        </div>
-        <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-          CRM
-        </p>
+        {moduleName ? (
+          <>
+            <div className="flex h-[24px] items-center justify-center text-black">
+              <ChevronRight className="size-[14px]" strokeWidth={2.2} />
+            </div>
+            <button
+              className={`font-['Roboto:Bold',sans-serif] font-bold text-[18px] whitespace-nowrap ${
+                currentScreen === "crm" ? "text-black" : "text-[rgba(0,0,0,0.4)]"
+              }`}
+              onClick={onGoModule}
+              style={{ fontVariationSettings: "'wdth' 100" }}
+              type="button"
+            >
+              {moduleName}
+            </button>
+          </>
+        ) : null}
       </div>
     </div>
   );
@@ -2796,9 +2820,13 @@ function HomeView() {
 
 function LeftMenu({
   activeItem,
+  isDashboardActive,
+  onGoDashboard,
   onNavigate,
 }: {
   activeItem: MenuItemId | null;
+  isDashboardActive: boolean;
+  onGoDashboard: () => void;
   onNavigate: (view: AppView, item: MenuItemId) => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -2832,6 +2860,16 @@ function LeftMenu({
           </svg>
           <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
+
+        <button
+          className={`rounded-[8px] ${isDashboardActive ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
+          onClick={onGoDashboard}
+          type="button"
+        >
+          <IconWithTooltip label="Module Dashboard">
+            <MingcuteGridFill />
+          </IconWithTooltip>
+        </button>
 
         {/* Regular Menu Icons */}
         {menuItems.map((item, index) => (
@@ -2867,6 +2905,21 @@ function LeftMenu({
           </div>
 
           {/* Menu Items with Labels */}
+          <button
+            className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${isDashboardActive ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
+            onClick={() => {
+              onGoDashboard();
+              setIsExpanded(false);
+            }}
+            type="button"
+          >
+            <div className="overflow-clip size-[24px] shrink-0">
+              <MingcuteGridFill />
+            </div>
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Module Dashboard
+            </p>
+          </button>
           {menuItems.map((item, index) => (
             <button 
               key={index}
@@ -2931,9 +2984,11 @@ function ProposalListRow({
         <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] underline ${isSelected ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
           Proposal #{proposal.id}
         </p>
-        {isSelected && (
-          <div className="bg-[#0083da] rounded-full size-[10px] shrink-0 mt-[4px]" />
-        )}
+        <span className={`flex size-[28px] shrink-0 items-center justify-center rounded-full border border-solid transition-colors ${
+          isSelected ? "border-[#9ed1ff] bg-white text-[#0083da]" : "border-[#e1e8ef] bg-white/80 text-[#7a8a98]"
+        }`}>
+          <Pencil className="size-[14px]" strokeWidth={1.9} />
+        </span>
       </div>
       <div className="content-stretch flex items-start justify-between leading-[normal] relative w-full">
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center min-w-0 relative">
@@ -3113,9 +3168,10 @@ function ProposalHeaderAction({
   );
 }
 
-function OpportunitiesView() {
+function OpportunitiesView({ onClose }: { onClose: () => void }) {
   const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
   const [selectedOpportunityId, setSelectedOpportunityId] = useState("opp-001");
+  const [isDetailOpen, setIsDetailOpen] = useState(true);
   const pipelineColumns = [
     {
       label: "Discovery",
@@ -3341,6 +3397,12 @@ function OpportunitiesView() {
   const selectOpportunity = (opportunityId: string) => {
     setSelectedOpportunityId(opportunityId);
   };
+
+  useEffect(() => {
+    if (viewMode === "window") {
+      setIsDetailOpen(true);
+    }
+  }, [viewMode]);
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -3611,45 +3673,158 @@ function OpportunitiesView() {
         </div>
       ) : (
         <div className="content-stretch flex flex-[1_0_0] items-start min-h-0 relative w-full">
-          <div className="bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 w-[380px]">
-            {rows.map((row) => (
-              <button
-                className={`content-stretch flex flex-col gap-[14px] items-start justify-center overflow-clip px-[18px] py-[18px] relative w-full text-left border-b border-solid transition-all ${
-                  selectedOpportunity.id === row.id
-                    ? "border-[#0083da] bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] shadow-[inset_4px_0_0_0_#0083da,0_12px_24px_rgba(31,131,255,0.10)]"
-                    : "border-[#ebebeb] bg-[#fcfcfc] hover:bg-[#f7fbff]"
-                }`}
-                key={row.id}
-                onClick={() => selectOpportunity(row.id)}
-                type="button"
-              >
-                <div className="content-stretch flex items-start justify-between relative w-full">
-                  <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] ${selectedOpportunity.id === row.id ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {row.opportunity}
+          <div className={`bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 ${isDetailOpen ? "w-[380px]" : "w-full"}`}>
+            {isDetailOpen ? (
+              rows.map((row) => (
+                <button
+                  className={`content-stretch flex flex-col gap-[14px] items-start justify-center overflow-clip px-[18px] py-[18px] relative w-full text-left border-b border-solid transition-all ${
+                    selectedOpportunity.id === row.id
+                      ? "border-[#0083da] bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] shadow-[inset_4px_0_0_0_#0083da,0_12px_24px_rgba(31,131,255,0.10)]"
+                      : "border-[#ebebeb] bg-[#fcfcfc] hover:bg-[#f7fbff]"
+                  }`}
+                  key={row.id}
+                  onClick={() => selectOpportunity(row.id)}
+                  type="button"
+                >
+                  <div className="content-stretch flex items-start justify-between relative w-full">
+                    <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] ${selectedOpportunity.id === row.id ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {row.opportunity}
+                    </p>
+                    <div className="flex shrink-0 items-center gap-[8px]">
+                      <span className="rounded-[999px] bg-white/85 px-[10px] py-[5px] text-[12px] text-[#41576a]">{row.stage}</span>
+                      <span className={`flex size-[28px] items-center justify-center rounded-full border border-solid transition-colors ${
+                        selectedOpportunity.id === row.id ? "border-[#9ed1ff] bg-white text-[#0083da]" : "border-[#e1e8ef] bg-white/80 text-[#7a8a98]"
+                      }`}>
+                        <Pencil className="size-[14px]" strokeWidth={1.9} />
+                      </span>
+                    </div>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.company}
                   </p>
-                  <span className="rounded-[999px] bg-white/85 px-[10px] py-[5px] text-[12px] text-[#41576a]">{row.stage}</span>
-                </div>
-                <p className="font-['Roboto:Regular',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  {row.company}
-                </p>
-                <div className="flex w-full items-center justify-between">
-                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {row.amount}
-                  </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {row.owner}
-                  </p>
-                </div>
-              </button>
-            ))}
+                  <div className="flex w-full items-center justify-between">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {row.amount}
+                    </p>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {row.owner}
+                    </p>
+                  </div>
+                </button>
+              ))
+            ) : (
+              <div className="w-full px-[18px] py-[18px]">
+                {rows.map((row) => {
+                  const isSelected = selectedOpportunity.id === row.id;
+
+                  return (
+                    <div
+                      className={`mb-[12px] flex min-h-[96px] items-center justify-between gap-[18px] rounded-[16px] border border-solid px-[16px] py-[14px] transition-all last:mb-0 ${
+                        isSelected
+                          ? "border-[#cfe6fb] bg-[linear-gradient(109deg,#f4fbff_0%,#eef8ff_100%)] shadow-[0_10px_22px_rgba(31,131,255,0.08)]"
+                          : "border-[#e4edf4] bg-[#fbfdff] hover:border-[#d5e6f3] hover:bg-white"
+                      }`}
+                      key={row.id}
+                    >
+                      <div className="flex min-w-0 flex-1 items-center gap-[18px]">
+                        <div className="min-w-0 flex-[1.6]">
+                          <div className="flex items-center gap-[10px]">
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Opportunity
+                            </p>
+                            <span className="flex size-[26px] shrink-0 items-center justify-center rounded-full border border-solid border-[#e1e8ef] bg-white text-[#7a8a98]">
+                              <Pencil className="size-[13px]" strokeWidth={1.9} />
+                            </span>
+                          </div>
+                          <p className="mt-[6px] truncate font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {row.opportunity}
+                          </p>
+                        </div>
+
+                        <div className="min-w-0 flex-[1.35]">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Company
+                          </p>
+                          <p className="mt-[6px] truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {row.company}
+                          </p>
+                        </div>
+
+                        <div className="min-w-[110px]">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Stage
+                          </p>
+                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {row.stage}
+                          </p>
+                        </div>
+
+                        <div className="min-w-[110px]">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Amount
+                          </p>
+                          <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {row.amount}
+                          </p>
+                        </div>
+
+                        <div className="min-w-[120px]">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Owner
+                          </p>
+                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {row.owner}
+                          </p>
+                        </div>
+
+                        <div className="min-w-0 flex-[1]">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Next Step
+                          </p>
+                          <p className="mt-[6px] truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {row.nextStep}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        className="shrink-0 self-center rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                        onClick={() => {
+                          selectOpportunity(row.id);
+                          setIsDetailOpen(true);
+                        }}
+                        type="button"
+                      >
+                        See details
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
-          <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
+          {isDetailOpen && (
+            <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
+            <div className="flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-[#e4edf4] px-[24px]">
+              <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Opportunity Overview
+              </p>
+              <div className="flex items-center gap-[12px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {selectedOpportunity.company} • {relatedOpportunityCount} opportunities
+                </p>
+                <button className="content-stretch flex items-center justify-center size-[32px]" onClick={() => setIsDetailOpen(false)} type="button">
+                  <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+                    <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+                  </svg>
+                </button>
+              </div>
+            </div>
             <div className="content-stretch flex flex-col gap-[18px] h-full items-start overflow-auto px-[24px] py-[22px] relative">
               <div className="bg-white border border-solid border-[#e7edf2] rounded-[16px] content-stretch flex flex-col gap-[16px] items-start px-[18px] py-[18px] relative shrink-0 w-full">
                 <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
                   <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Opportunity Overview
+                    Opportunity Snapshot
                   </p>
                   <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {selectedOpportunity.company} • {relatedOpportunityCount} opportunities
@@ -3874,8 +4049,9 @@ function OpportunitiesView() {
                   </div>
                 </div>
               ) : null}
-              </div>
             </div>
+          </div>
+          )}
         </div>
       )}
     </div>
@@ -5815,7 +5991,7 @@ function Frame59({
             selectedProposalId={selectedProposalId}
           />
         ) : activeView === "opportunities" ? (
-          <OpportunitiesView />
+          <OpportunitiesView onClose={() => onNavigateView("dashboard")} />
         ) : activeView === "prospects" ? (
           <ProspectsView />
         ) : activeView === "tasks" ? (
@@ -5826,7 +6002,12 @@ function Frame59({
           <Frame2 />
         )}
       </div>
-      <LeftMenu activeItem={activeMenuItem} onNavigate={handleNavigate} />
+      <LeftMenu
+        activeItem={activeMenuItem}
+        isDashboardActive={activeView === "dashboard"}
+        onGoDashboard={() => onNavigateView("dashboard")}
+        onNavigate={handleNavigate}
+      />
     </div>
   );
 }
@@ -6166,7 +6347,13 @@ function Group19({ onGoHome }: { onGoHome: () => void }) {
 
 export default function WidgetOnWindowHome() {
   const [screenMode, setScreenMode] = useState<ScreenMode>("home");
+  const [activeModuleName, setActiveModuleName] = useState<string | null>(null);
   const [activeModuleView, setActiveModuleView] = useState<AppView>("dashboard");
+  const openCrmModuleDashboard = () => {
+    setActiveModuleName("CRM");
+    setActiveModuleView("dashboard");
+    setScreenMode("crm");
+  };
 
   return (
     <div className="content-stretch flex flex-col items-start relative size-full min-h-0 overflow-hidden" data-name="Widget on Window Home" style={{ backgroundImage: "linear-gradient(129.795deg, rgb(199, 232, 255) 20.389%, rgb(255, 255, 196) 116.98%)" }}>
@@ -6175,10 +6362,7 @@ export default function WidgetOnWindowHome() {
           <button
             className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]"
             data-name="Menu Button"
-            onClick={() => {
-              setActiveModuleView("dashboard");
-              setScreenMode("crm");
-            }}
+            onClick={openCrmModuleDashboard}
             type="button"
           >
             <div className="content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[inherit]">
@@ -6186,7 +6370,12 @@ export default function WidgetOnWindowHome() {
             </div>
             <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
           </button>
-          {screenMode === "crm" ? <Frame73 onGoHome={() => setScreenMode("home")} /> : null}
+          <Frame73
+            currentScreen={screenMode}
+            moduleName={activeModuleName}
+            onGoHome={() => setScreenMode("home")}
+            onGoModule={activeModuleName === "CRM" ? openCrmModuleDashboard : undefined}
+          />
         </div>
         <div className="ml-auto mr-[12px]">
           <Frame1 />
