@@ -2409,7 +2409,7 @@ function IconWithTooltip({ children, label }: { children: ReactNode; label: stri
 
 type ScreenMode = "home" | "crm";
 
-type AppView = "dashboard" | "salesProposal" | "opportunities" | "prospects" | "tasks" | "calendar";
+type AppView = "dashboard" | "salesProposal" | "opportunities" | "prospects" | "tasks" | "calendar" | "inbox" | "customers";
 type MenuItemId = "inbox" | "customers" | "calendar" | "tasks" | "prospects" | "salesProposal" | "opportunities" | "settings";
 
 type ProposalStatus = "Accepted" | "Rejected" | "Draft" | "Sent";
@@ -2832,8 +2832,8 @@ function LeftMenu({
   const [isExpanded, setIsExpanded] = useState(false);
   
   const menuItems = [
-    { id: "inbox" as MenuItemId, label: "Inbox", icon: <Slot2 />, view: "dashboard" as AppView },
-    { id: "customers" as MenuItemId, label: "Customers", icon: <Slot3 />, view: "dashboard" as AppView },
+    { id: "inbox" as MenuItemId, label: "Inbox", icon: <Slot2 />, view: "inbox" as AppView },
+    { id: "customers" as MenuItemId, label: "Customers", icon: <Slot3 />, view: "customers" as AppView },
     { id: "calendar" as MenuItemId, label: "Calendar", icon: <Slot4 />, view: "calendar" as AppView },
     { id: "tasks" as MenuItemId, label: "Tasks", icon: <Slot5 />, view: "tasks" as AppView },
     { id: "prospects" as MenuItemId, label: "Prospects", icon: <Slot6 />, view: "prospects" as AppView },
@@ -2846,6 +2846,16 @@ function LeftMenu({
     <>
       {/* Collapsed Menu */}
       <div className="absolute content-stretch flex flex-col gap-[12px] h-[820px] items-start left-[12px] rounded-[4px] top-[8px]" data-name="Left Menu">
+        <button
+          className={`rounded-[8px] ${isDashboardActive ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
+          onClick={onGoDashboard}
+          type="button"
+        >
+          <IconWithTooltip label="Module Dashboard">
+            <MingcuteGridFill />
+          </IconWithTooltip>
+        </button>
+
         {/* Menu Toggle Button at Top */}
         <div 
           className="content-stretch flex items-center justify-center relative rounded-[8px] shrink-0 size-[48px] hover:bg-gradient-to-b hover:from-[rgba(255,255,255,0.7)] hover:to-[rgba(255,255,255,0.49)] cursor-pointer transition-all group" 
@@ -2860,16 +2870,6 @@ function LeftMenu({
           </svg>
           <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
-
-        <button
-          className={`rounded-[8px] ${isDashboardActive ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
-          onClick={onGoDashboard}
-          type="button"
-        >
-          <IconWithTooltip label="Module Dashboard">
-            <MingcuteGridFill />
-          </IconWithTooltip>
-        </button>
 
         {/* Regular Menu Icons */}
         {menuItems.map((item, index) => (
@@ -2903,23 +2903,6 @@ function LeftMenu({
               </svg>
             </button>
           </div>
-
-          {/* Menu Items with Labels */}
-          <button
-            className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${isDashboardActive ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
-            onClick={() => {
-              onGoDashboard();
-              setIsExpanded(false);
-            }}
-            type="button"
-          >
-            <div className="overflow-clip size-[24px] shrink-0">
-              <MingcuteGridFill />
-            </div>
-            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-              Module Dashboard
-            </p>
-          </button>
           {menuItems.map((item, index) => (
             <button 
               key={index}
@@ -3169,9 +3152,8 @@ function ProposalHeaderAction({
 }
 
 function OpportunitiesView({ onClose }: { onClose: () => void }) {
-  const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+  const [screenView, setScreenView] = useState<"dashboard" | "card" | "detail">("dashboard");
   const [selectedOpportunityId, setSelectedOpportunityId] = useState("opp-001");
-  const [isDetailOpen, setIsDetailOpen] = useState(true);
   const pipelineColumns = [
     {
       label: "Discovery",
@@ -3397,26 +3379,22 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
   const selectOpportunity = (opportunityId: string) => {
     setSelectedOpportunityId(opportunityId);
   };
-
-  useEffect(() => {
-    if (viewMode === "window") {
-      setIsDetailOpen(true);
-    }
-  }, [viewMode]);
+  const isWindowMode = screenView === "card" || screenView === "detail";
+  const isDetailOpen = screenView === "detail";
 
   return (
-    <div className="flex h-full flex-col overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden bg-transparent">
       <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Opportunities
             </p>
             <div className="relative shrink-0 w-[96px]">
               <div className="flex items-center justify-center gap-[12px] w-full">
-                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("dashboard")} type="button">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setScreenView("dashboard")} type="button">
                   <MingcuteGridFill />
-                  {viewMode === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                  {screenView === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
                 </button>
                 <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0">
                   <div className="flex-none rotate-90">
@@ -3429,14 +3407,14 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                     </div>
                   </div>
                 </div>
-                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("window")} type="button">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setScreenView("detail")} type="button">
                   <RiWindowFill />
-                  {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                  {isWindowMode ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
                 </button>
               </div>
               <div
                 className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-t-0 border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${
-                  viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"
+                  screenView === "dashboard" ? "left-[17px]" : "left-[63px]"
                 }`}
               />
             </div>
@@ -3447,7 +3425,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
             </svg>
           </button>
         </div>
-        {viewMode === "window" ? (
+        {isWindowMode ? (
           <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0 w-full">
             <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
               <ProposalActionButton>
@@ -3513,7 +3491,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
         ) : null}
       </div>
 
-      {viewMode === "dashboard" ? (
+      {screenView === "dashboard" ? (
         <div className="flex-1 overflow-auto px-[18px] py-[18px]">
           <div className="grid grid-cols-9 gap-[12px]">
             <div className="col-[1/span_9] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
@@ -3715,82 +3693,50 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
             ) : (
               <div className="w-full px-[18px] py-[18px]">
                 {rows.map((row) => {
-                  const isSelected = selectedOpportunity.id === row.id;
-
                   return (
                     <div
-                      className={`mb-[12px] flex min-h-[96px] items-center justify-between gap-[18px] rounded-[16px] border border-solid px-[16px] py-[14px] transition-all last:mb-0 ${
-                        isSelected
-                          ? "border-[#cfe6fb] bg-[linear-gradient(109deg,#f4fbff_0%,#eef8ff_100%)] shadow-[0_10px_22px_rgba(31,131,255,0.08)]"
-                          : "border-[#e4edf4] bg-[#fbfdff] hover:border-[#d5e6f3] hover:bg-white"
-                      }`}
+                      className="mb-[12px] flex min-h-[96px] items-center justify-between gap-[14px] rounded-[16px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[16px] py-[14px] transition-all last:mb-0 hover:border-[#d5e6f3] hover:bg-white"
                       key={row.id}
                     >
-                      <div className="flex min-w-0 flex-1 items-center gap-[18px]">
-                        <div className="min-w-0 flex-[1.6]">
-                          <div className="flex items-center gap-[10px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              Opportunity
-                            </p>
-                            <span className="flex size-[26px] shrink-0 items-center justify-center rounded-full border border-solid border-[#e1e8ef] bg-white text-[#7a8a98]">
-                              <Pencil className="size-[13px]" strokeWidth={1.9} />
-                            </span>
-                          </div>
-                          <p className="mt-[6px] truncate font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <div className="grid min-w-0 flex-1 grid-cols-[minmax(320px,1.2fr)_118px_132px_148px_minmax(190px,0.9fr)] items-center gap-x-[18px]">
+                        <div className="min-w-0">
+                          <p className="truncate font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.opportunity}
                           </p>
-                        </div>
-
-                        <div className="min-w-0 flex-[1.35]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                            Company
-                          </p>
-                          <p className="mt-[6px] truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="mt-[5px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.company}
                           </p>
                         </div>
 
-                        <div className="min-w-[110px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                            Stage
-                          </p>
-                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <div className="min-w-0">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.stage}
                           </p>
                         </div>
 
-                        <div className="min-w-[110px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                            Amount
-                          </p>
-                          <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <div className="min-w-0">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.amount}
                           </p>
                         </div>
 
-                        <div className="min-w-[120px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                            Owner
-                          </p>
-                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <div className="min-w-0">
+                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.owner}
                           </p>
                         </div>
 
-                        <div className="min-w-0 flex-[1]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                            Next Step
-                          </p>
-                          <p className="mt-[6px] truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <div className="min-w-0">
+                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.nextStep}
                           </p>
                         </div>
                       </div>
                       <button
-                        className="shrink-0 self-center rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                        className="shrink-0 self-center rounded-[999px] border border-solid border-[#0083da] bg-white px-[16px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
                         onClick={() => {
                           selectOpportunity(row.id);
-                          setIsDetailOpen(true);
+                          setScreenView("detail");
                         }}
                         type="button"
                       >
@@ -3813,7 +3759,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {selectedOpportunity.company} • {relatedOpportunityCount} opportunities
                 </p>
-                <button className="content-stretch flex items-center justify-center size-[32px]" onClick={() => setIsDetailOpen(false)} type="button">
+                <button className="content-stretch flex items-center justify-center size-[32px]" onClick={() => setScreenView("card")} type="button">
                   <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
                     <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
                   </svg>
@@ -4145,7 +4091,7 @@ function SalesProposalView({
   return (
     <div className="content-stretch flex flex-col h-full items-start relative w-full">
       <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Sales Proposal
@@ -4518,6 +4464,817 @@ function SalesProposalView({
   );
 }
 
+function InboxView({ onClose }: { onClose: () => void }) {
+  const messages = [
+    {
+      id: "msg-001",
+      channel: "Email",
+      subject: "Need revised onboarding plan before Friday",
+      preview: "The client wants an updated rollout approach with training dates and ownership.",
+      contact: "Diana Morris",
+      company: "Apex Med Systems",
+      owner: "Mack Rod",
+      receivedAt: "Today, 4:10 PM",
+      priority: "High",
+      status: "Pending Reply",
+      summary: "Procurement has asked for a revised onboarding schedule before the final budget review on Friday.",
+      intent: "Proposal clarification",
+      urgency: "High",
+      sentiment: "Neutral but time-sensitive",
+      recommendation: "Link to the active service expansion opportunity and create a follow-up task for commercial review.",
+      actions: ["Draft reply", "Create follow-up task", "Attach to opportunity", "Share with delivery lead"],
+      highlights: ["High-value account", "Reply due within 24 hours", "Linked opportunity likely impacted"],
+    },
+    {
+      id: "msg-002",
+      channel: "Call",
+      subject: "Missed call regarding renewal pricing review",
+      preview: "Client called twice to confirm whether the revised pricing can be approved this week.",
+      contact: "Parkash Chaudary",
+      company: "Kumaan Pvt. Ltd.",
+      owner: "Kevin Smith",
+      receivedAt: "Today, 2:35 PM",
+      priority: "Medium",
+      status: "Callback Needed",
+      summary: "The contact is waiting on pricing confirmation for the active renewal discussion and expects a callback today.",
+      intent: "Pricing follow-up",
+      urgency: "Medium",
+      sentiment: "Slightly urgent",
+      recommendation: "Create a callback task and notify the proposal owner before end of day.",
+      actions: ["Create callback task", "Notify proposal owner", "Log call note", "Link to proposal"],
+      highlights: ["Open renewal deal", "Client requested same-day response"],
+    },
+    {
+      id: "msg-003",
+      channel: "Meeting",
+      subject: "Follow-up requested after warehouse automation demo",
+      preview: "Prospect team wants implementation examples and pricing assumptions after the meeting.",
+      contact: "Kevin Howard",
+      company: "UrbanAxis Retail",
+      owner: "Maya Chen",
+      receivedAt: "Yesterday, 6:05 PM",
+      priority: "Medium",
+      status: "Needs Action",
+      summary: "Prospect is engaged after the demo and requested commercial examples plus implementation assumptions for the next step.",
+      intent: "Lead progression",
+      urgency: "Medium",
+      sentiment: "Positive",
+      recommendation: "Create a prospect follow-up task and push the message into pipeline qualification review.",
+      actions: ["Create lead task", "Schedule follow-up", "Attach to prospect", "Draft recap email"],
+      highlights: ["Warm prospect", "Potential pipeline creation", "Meeting recap pending"],
+    },
+    {
+      id: "msg-004",
+      channel: "Email",
+      subject: "Support concern raised after rollout update",
+      preview: "Customer flagged a delay risk and asked for a dedicated support contact this week.",
+      contact: "Maya Chen",
+      company: "Harper Studios",
+      owner: "Jacob M.",
+      receivedAt: "Yesterday, 11:20 AM",
+      priority: "High",
+      status: "Escalated",
+      summary: "Customer is concerned about implementation timing and wants a named support contact for the rollout period.",
+      intent: "Customer escalation",
+      urgency: "High",
+      sentiment: "Concerned",
+      recommendation: "Escalate to delivery leadership and create a follow-up plus customer care task immediately.",
+      actions: ["Escalate to delivery", "Create customer care task", "Draft reassurance reply", "Log escalation"],
+      highlights: ["Escalation risk", "Delivery involvement needed", "Customer confidence at risk"],
+    },
+  ];
+
+  const [selectedMessageId, setSelectedMessageId] = useState(messages[0].id);
+  const [selectedMessageIds, setSelectedMessageIds] = useState<string[]>([]);
+  const selectedMessage = messages.find((message) => message.id === selectedMessageId) ?? messages[0];
+  const allSelected = selectedMessageIds.length === messages.length;
+
+  const channelTone = (channel: string) => {
+    if (channel === "Email") return "bg-[#eef7ff] text-[#0e68ad]";
+    if (channel === "Call") return "bg-[#eef5ff] text-[#3869c8]";
+    return "bg-[#eefaf3] text-[#18734d]";
+  };
+
+  const priorityTone = (priority: string) => {
+    if (priority === "High") return "bg-[#ffe8e8] text-[#b23a3a]";
+    if (priority === "Medium") return "bg-[#fff2df] text-[#9a6500]";
+    return "bg-[#e7f7ef] text-[#18734d]";
+  };
+
+  const toggleAllMessages = () => {
+    setSelectedMessageIds((current) => (current.length === messages.length ? [] : messages.map((message) => message.id)));
+  };
+
+  const toggleMessageSelection = (messageId: string) => {
+    setSelectedMessageIds((current) => (current.includes(messageId) ? current.filter((id) => id !== messageId) : [...current, messageId]));
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Inbox
+          </p>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+        <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0 w-full">
+          <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+            <ProposalActionButton>
+              <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton label="New Message">
+              <Mail className="size-[16px] text-[#141414]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <Trash2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+            <ProposalActionButton>
+              <Send className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+            </ProposalActionButton>
+          </div>
+
+          <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+            <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+              <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                  <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                  <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                </svg>
+              </div>
+              <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Search inbox
+                </p>
+                <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                  <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                    <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                  </svg>
+                  <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                    <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                    <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+              <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+            </svg>
+            <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+              <circle cx="9" cy="5" fill="#141414" r="1.4" />
+              <circle cx="9" cy="9" fill="#141414" r="1.4" />
+              <circle cx="9" cy="13" fill="#141414" r="1.4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div className="h-0 min-h-0 flex-1 overflow-auto bg-white px-[18px] py-[18px]">
+        <div className="flex flex-col bg-white">
+          <div className="grid grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[18px] py-[12px]">
+            <label className="flex items-center">
+              <input checked={allSelected} className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]" onChange={toggleAllMessages} type="checkbox" />
+            </label>
+            {["Channel", "Communication", "Contact / Company", "Priority", "Received", "Status"].map((heading) => (
+              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                {heading}
+              </p>
+            ))}
+          </div>
+
+          <div>
+            {messages.map((message) => {
+              const isSelected = selectedMessage.id === message.id;
+
+              return (
+                <button
+                  className={`grid w-full grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid px-[18px] py-[14px] text-left transition-all ${
+                    isSelected
+                      ? "border-[#d8ebfb] bg-[linear-gradient(109deg,#f4fbff_0%,#eef8ff_100%)] shadow-[inset_4px_0_0_0_#0083da]"
+                      : "border-[#edf2f6] bg-transparent hover:bg-[#f9fcff]"
+                  }`}
+                  key={message.id}
+                  onClick={() => setSelectedMessageId(message.id)}
+                  type="button"
+                >
+                  <div className="flex items-center" onClick={(event) => event.stopPropagation()}>
+                    <input
+                      checked={selectedMessageIds.includes(message.id)}
+                      className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]"
+                      onChange={() => toggleMessageSelection(message.id)}
+                      type="checkbox"
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] ${channelTone(message.channel)}`}>
+                      {message.channel}
+                    </span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {message.subject}
+                    </p>
+                    <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {message.preview}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {message.contact}
+                    </p>
+                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {message.company}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] ${priorityTone(message.priority)}`}>
+                      {message.priority}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {message.receivedAt}
+                    </p>
+                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Owner: {message.owner}
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {message.status}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mx-[-18px] mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+          <div className="flex h-[56px] shrink-0 items-center justify-between px-[20px]">
+            <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Inbox Analysis
+            </p>
+            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {selectedMessage.company} • {selectedMessage.status}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-[18px] px-[20px] py-[18px]">
+            <div className="flex min-w-0 flex-col gap-[14px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Message Summary
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {selectedMessage.summary}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-[12px]">
+                {[
+                  { label: "Intent", value: selectedMessage.intent },
+                  { label: "Urgency", value: selectedMessage.urgency },
+                  { label: "Sentiment", value: selectedMessage.sentiment },
+                ].map((item) => (
+                  <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {item.label}
+                    </p>
+                    <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {item.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  CRM Recommendation
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {selectedMessage.recommendation}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex min-w-0 flex-col gap-[14px]">
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Suggested Actions
+                </p>
+                <div className="mt-[10px] flex flex-wrap gap-[10px]">
+                  {selectedMessage.actions.map((action) => (
+                    <button
+                      className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                      key={action}
+                      type="button"
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Highlights
+                </p>
+                <div className="mt-[10px] flex flex-col gap-[10px]">
+                  {selectedMessage.highlights.map((highlight) => (
+                    <div className="flex items-start gap-[10px] rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={highlight}>
+                      <div className="mt-[5px] size-[7px] shrink-0 rounded-full bg-[#1f83ff]" />
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] leading-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {highlight}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CustomerDetailField({
+  label,
+  value,
+  icon,
+  required = false,
+  spanClass = "",
+  multiline = false,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  icon?: ReactNode;
+  required?: boolean;
+  spanClass?: string;
+  multiline?: boolean;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div className={`group min-w-0 border-b border-solid border-[#d7d7d7] px-[4px] pb-[14px] pt-[6px] transition-colors hover:border-[#0083da] focus-within:border-[#0083da] ${spanClass}`}>
+      <div className="flex items-center gap-[12px]">
+        {icon ? (
+          <div className="flex size-[34px] shrink-0 items-center justify-center self-center border border-solid border-[#f0f0f0] bg-white text-[#6a6a6a]">
+            {icon}
+          </div>
+        ) : null}
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-[12px]">
+            <div className="min-w-0 flex-1">
+              <p className={`font-['Roboto:Regular',sans-serif] text-[12px] ${required ? "text-[#101010]" : "text-[#444444]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                {label}
+                {required ? " *" : ""}
+              </p>
+              {multiline ? (
+                <textarea
+                  className="mt-[8px] min-h-[56px] w-full resize-none border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[16px] leading-[24px] text-black outline-none placeholder:text-[#9f9f9f]"
+                  onChange={(event) => onChange(event.target.value)}
+                  rows={3}
+                  value={value}
+                />
+              ) : (
+                <input
+                  className="mt-[8px] w-full border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[16px] text-black outline-none placeholder:text-[#9f9f9f]"
+                  onChange={(event) => onChange(event.target.value)}
+                  type="text"
+                  value={value}
+                />
+              )}
+            </div>
+            <button
+              className="mb-[2px] self-end flex size-[28px] shrink-0 items-center justify-center rounded-[999px] text-[#0083da] opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
+              type="button"
+            >
+              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                <circle cx="9" cy="4.5" fill="currentColor" r="1.3" />
+                <circle cx="9" cy="9" fill="currentColor" r="1.3" />
+                <circle cx="9" cy="13.5" fill="currentColor" r="1.3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CustomersView({ onClose }: { onClose: () => void }) {
+  const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+
+  const summaryCards = [
+    { label: "Active Customers", value: "186", meta: "Accounts with open engagement", accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]", valueClass: "text-[#102c3f]" },
+    { label: "At Risk", value: "12", meta: "Need attention this month", accent: "bg-[linear-gradient(135deg,#fff6ee_0%,#ffe8d5_100%)] border-[#f3d4b8]", valueClass: "text-[#9a5c00]" },
+    { label: "Open Cases", value: "27", meta: "Support and service issues", accent: "bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]", valueClass: "text-[#5f4aa6]" },
+    { label: "Renewal Due", value: "18", meta: "Next 45 days", accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]", valueClass: "text-[#0b6b45]" },
+  ];
+
+  const customerRows = [
+    { name: "Apex Med Systems", contact: "Diana Morris", status: "Strategic", owner: "Mack Rod", balance: "$184K", health: "Healthy" },
+    { name: "Kumaan Pvt. Ltd.", contact: "Parkash Chaudary", status: "Renewal", owner: "Kevin Smith", balance: "$99K", health: "Needs review" },
+    { name: "UrbanAxis Retail", contact: "Kevin Howard", status: "Growth", owner: "Maya Chen", balance: "$128K", health: "Healthy" },
+    { name: "Harper Studios", contact: "Jacob Myers", status: "Support", owner: "Jacob M.", balance: "$38K", health: "At risk" },
+  ];
+
+  const detailFields = [
+    { label: "Customer Name", value: "Apex Med Systems", icon: <UserRound className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Customer Type", value: "Strategic Account", icon: <BadgeCheck className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Payment Term", value: "Immediate", icon: <Ticket className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Price List", value: "KEH Pricelist", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Primary Contact", value: "Diana Morris", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Email", value: "diana.morris@apexmed.com", icon: <Mail className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Phone", value: "+1 415 555 0147", icon: <Phone className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Territory", value: "North America", icon: <Package2 className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Warehouse", value: "Standard", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Currency Rate Type", value: "Spot", icon: <Percent className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Account Manager", value: "Mack Rod", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Last Order Date", value: "23 Apr 2026", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} /> },
+  ];
+  const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => ({
+    ...Object.fromEntries(detailFields.map((field) => [field.label, field.value])),
+    "Billing Address": "501 Mission Street, San Francisco, CA 94105",
+    "Shipping Address": "Dock 3, Apex Central Warehouse, Oakland, CA 94607",
+    Notes: "Strategic healthcare account with active proposal and renewal motion. Customer prefers pricing updates before Friday reviews.",
+    "Internal Summary": "Commercial, support, and renewal workstreams are active. Keep finance and delivery aligned on all pricing changes.",
+  }));
+  const isNewCustomer = false;
+  const activityTimeline = [
+    { title: "Quarterly business review completed", meta: "29 Apr 2026, 3:15 PM", tone: "bg-[#eef7ff] text-[#0f69ac]" },
+    { title: "Renewal proposal shared with procurement", meta: "27 Apr 2026, 11:40 AM", tone: "bg-[#efeaff] text-[#6551b1]" },
+    { title: "Support escalation closed", meta: "24 Apr 2026, 6:05 PM", tone: "bg-[#e7f7ef] text-[#18734d]" },
+    { title: "Pricing call held with account team", meta: "22 Apr 2026, 2:30 PM", tone: "bg-[#fff2df] text-[#9a6500]" },
+  ];
+  const journeyTimeline = [
+    { title: "Lead created from website inquiry", meta: "03 Apr 2026", tone: "bg-[#eef7ff] text-[#0f69ac]" },
+    { title: "Lead qualified by sales team", meta: "06 Apr 2026", tone: "bg-[#e7f7ef] text-[#18734d]" },
+    { title: "Proposal shared and reviewed", meta: "14 Apr 2026", tone: "bg-[#efeaff] text-[#6551b1]" },
+    { title: "Customer account created", meta: "20 Apr 2026", tone: "bg-[#fff2df] text-[#9a6500]" },
+  ];
+  const quickActions = [
+    "Create Opportunity",
+    "New Proposal",
+    "Create Task",
+    "Log Call",
+    "Send Email",
+    "Open Support Case",
+  ];
+  const updateFieldValue = (label: string, nextValue: string) => {
+    setFieldValues((current) => ({
+      ...current,
+      [label]: nextValue,
+    }));
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden bg-transparent">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Customers
+            </p>
+            <div className="relative shrink-0 w-[96px]">
+              <div className="flex items-center justify-center gap-[12px] w-full">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("dashboard")} type="button">
+                  <MingcuteGridFill />
+                  {viewMode === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+                <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0">
+                  <div className="flex-none rotate-90">
+                    <div className="h-0 relative w-[17px]">
+                      <div className="absolute inset-[-1px_0_0_0]">
+                        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17 1">
+                          <line stroke="var(--stroke-0, #D9D9D9)" x2="17" y1="0.5" y2="0.5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("window")} type="button">
+                  <RiWindowFill />
+                  {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+              </div>
+              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+            </div>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+        {viewMode === "window" ? (
+          <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0 w-full">
+            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+              <ProposalActionButton>
+                <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton label="New Customer">
+                <UserRound className="size-[16px] text-[#141414]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <Trash2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <HardDrive className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+            </div>
+
+            <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                  <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                  </svg>
+                </div>
+                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Search customer
+                  </p>
+                  <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                    </svg>
+                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+              </svg>
+              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                <circle cx="9" cy="13" fill="#141414" r="1.4" />
+              </svg>
+            </div>
+          </div>
+        ) : null}
+      </div>
+
+      {viewMode === "dashboard" ? (
+        <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+          <div className="grid grid-cols-9 gap-[12px]">
+            <button className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)]" onClick={() => setViewMode("window")} type="button">
+              <div className="flex h-full min-h-[140px] flex-col justify-between">
+                <div className="flex items-start justify-between gap-[10px]">
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Quick Action
+                  </p>
+                  <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                    <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    New Customer
+                  </p>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Create or open a customer detail record.
+                  </p>
+                </div>
+              </div>
+            </button>
+            {summaryCards.map((card) => (
+              <div className={`col-span-2 rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.label}
+                </p>
+                <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.value}
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.meta}
+                </p>
+              </div>
+            ))}
+
+            <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+              <div className="flex items-center justify-between gap-[12px]">
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Customer Grid
+                  </p>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Active accounts, customer health, and assigned owners
+                  </p>
+                </div>
+                <button className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da]" onClick={() => setViewMode("window")} type="button">
+                  Open Detail
+                </button>
+              </div>
+
+              <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+                {["Customer", "Contact", "Segment", "Owner", "Balance", "Health"].map((heading) => (
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {heading}
+                  </p>
+                ))}
+              </div>
+              {customerRows.map((row) => (
+                <button className="grid w-full grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] text-left" key={row.name} onClick={() => setViewMode("window")} type="button">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.name}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.contact}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.status}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.owner}
+                  </p>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.balance}
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {row.health}
+                  </p>
+                </button>
+              ))}
+            </div>
+
+            <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+              <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Relationship Health
+              </p>
+              <div className="mt-[18px] flex flex-col gap-[12px]">
+                {[
+                  { label: "Healthy", value: "124", bar: "84%", color: "#1f83ff" },
+                  { label: "Needs Review", value: "44", bar: "56%", color: "#f39b18" },
+                  { label: "At Risk", value: "18", bar: "28%", color: "#d14545" },
+                ].map((item) => (
+                  <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[12px]" key={item.label}>
+                    <div className="flex items-center justify-between">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.label}
+                      </p>
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.value}
+                      </p>
+                    </div>
+                    <div className="mt-[10px] h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                      <div className="h-full rounded-full" style={{ backgroundColor: item.color, width: item.bar }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="h-0 min-h-0 flex-1 overflow-auto bg-white px-[18px] py-[18px]">
+          <div className="flex flex-col">
+            <div className="grid grid-cols-4 gap-x-[28px] gap-y-[24px]">
+              {detailFields.map((field) => (
+                <CustomerDetailField
+                  icon={field.icon}
+                  key={field.label}
+                  label={field.label}
+                  onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
+                  required={field.required}
+                  value={fieldValues[field.label] ?? ""}
+                />
+              ))}
+              <CustomerDetailField
+                label="Billing Address"
+                multiline
+                onChange={(nextValue) => updateFieldValue("Billing Address", nextValue)}
+                spanClass="col-span-2"
+                value={fieldValues["Billing Address"] ?? ""}
+              />
+              <CustomerDetailField
+                label="Shipping Address"
+                multiline
+                onChange={(nextValue) => updateFieldValue("Shipping Address", nextValue)}
+                spanClass="col-span-2"
+                value={fieldValues["Shipping Address"] ?? ""}
+              />
+              <CustomerDetailField
+                label="Notes"
+                multiline
+                onChange={(nextValue) => updateFieldValue("Notes", nextValue)}
+                spanClass="col-span-2"
+                value={fieldValues["Notes"] ?? ""}
+              />
+              <CustomerDetailField
+                label="Internal Summary"
+                multiline
+                onChange={(nextValue) => updateFieldValue("Internal Summary", nextValue)}
+                spanClass="col-span-2"
+                value={fieldValues["Internal Summary"] ?? ""}
+              />
+            </div>
+          </div>
+
+          <div className="mx-[-18px] mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+            <div className="flex h-[56px] shrink-0 items-center justify-between px-[20px]">
+              <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Customer Timeline & Actions
+              </p>
+              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {isNewCustomer ? "Lead to customer journey" : "Recent customer activity"}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] gap-[18px] px-[20px] py-[18px]">
+              <div className="min-w-0">
+                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {isNewCustomer ? "Journey Timeline" : "Recent Activity"}
+                </p>
+                <div className="mt-[12px] flex flex-col gap-[12px]">
+                  {(isNewCustomer ? journeyTimeline : activityTimeline).map((item) => (
+                    <div className="flex items-start gap-[12px]" key={`${item.title}-${item.meta}`}>
+                      <div className="mt-[6px] flex shrink-0 flex-col items-center">
+                        <div className="size-[10px] rounded-full bg-[#1f83ff]" />
+                        <div className="mt-[4px] h-[40px] w-px bg-[#d9e6f2] last:hidden" />
+                      </div>
+                      <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]">
+                        <div className="flex items-center justify-between gap-[12px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.title}
+                          </p>
+                          <span className={`rounded-[999px] px-[9px] py-[4px] text-[11px] font-['Roboto:Bold',sans-serif] ${item.tone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {isNewCustomer ? "Journey" : "Update"}
+                          </span>
+                        </div>
+                        <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.meta}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="min-w-0">
+                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Quick Actions
+                </p>
+                <div className="mt-[12px] flex flex-wrap gap-[10px]">
+                  {quickActions.map((action) => (
+                    <button
+                      className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                      key={action}
+                      type="button"
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
+                  {[
+                    { label: "Open Opportunities", value: "03" },
+                    { label: "Open Tasks", value: "05" },
+                    { label: "Latest Proposal", value: "2 days ago" },
+                    { label: "Account Health", value: "Healthy" },
+                  ].map((item) => (
+                    <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.label}
+                      </p>
+                      <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ProspectsView() {
   const summaryCards = [
     {
@@ -4641,7 +5398,7 @@ function ProspectsView() {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Prospects
@@ -5043,7 +5800,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Tasks
@@ -5423,7 +6180,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[64px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Calendar
@@ -5708,13 +6465,17 @@ function Frame59({
       ? "salesProposal"
       : activeView === "opportunities"
         ? "opportunities"
+        : activeView === "customers"
+          ? "customers"
         : activeView === "prospects"
           ? "prospects"
           : activeView === "tasks"
             ? "tasks"
             : activeView === "calendar"
               ? "calendar"
-          : null,
+              : activeView === "inbox"
+                ? "inbox"
+                : null,
   );
   const [selectedProposalId, setSelectedProposalId] = useState("485932");
   const [proposals, setProposals] = useState<ProposalRecord[]>([
@@ -5969,6 +6730,16 @@ function Frame59({
       return;
     }
 
+    if (activeView === "inbox") {
+      setActiveMenuItem("inbox");
+      return;
+    }
+
+    if (activeView === "customers") {
+      setActiveMenuItem("customers");
+      return;
+    }
+
     if (activeView === "dashboard") {
       setActiveMenuItem(null);
     }
@@ -5998,6 +6769,10 @@ function Frame59({
           <TasksView onClose={() => onNavigateView("dashboard")} />
         ) : activeView === "calendar" ? (
           <CalendarView onClose={() => onNavigateView("dashboard")} />
+        ) : activeView === "inbox" ? (
+          <InboxView onClose={() => onNavigateView("dashboard")} />
+        ) : activeView === "customers" ? (
+          <CustomersView onClose={() => onNavigateView("dashboard")} />
         ) : (
           <Frame2 />
         )}
