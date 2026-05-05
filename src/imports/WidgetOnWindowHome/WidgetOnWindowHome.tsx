@@ -2596,29 +2596,31 @@ function HomeManagerCard({
   phone: string;
 }) {
   return (
-    <GlassPanel className="flex h-full flex-col gap-[16px] px-[20px] py-[16px]">
-      <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-        {title}
-      </p>
-      <div className="flex flex-1 items-start gap-[10px] min-h-0">
-        <div className="flex size-[70px] shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#ffffff_0%,#e6f4ff_100%)] text-[#1f83ff] shadow-[inset_0_0_0_1px_rgba(0,131,218,0.14)]">
-          <UserRound className="size-[30px]" strokeWidth={1.7} />
+    <GlassPanel className="flex h-full flex-col px-[18px] py-[16px]">
+      <div className="flex h-full flex-col">
+        <p className="font-['Roboto:Regular',sans-serif] text-[22px] leading-[28px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+        <div className="mt-[14px] flex flex-1 items-center gap-[14px] min-h-0">
+          <div className="flex size-[58px] shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#ffffff_0%,#e6f4ff_100%)] text-[#1f83ff] shadow-[inset_0_0_0_1px_rgba(0,131,218,0.14)]">
+            <UserRound className="size-[24px]" strokeWidth={1.7} />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col justify-center">
+            <p className="truncate font-['Roboto:Bold',sans-serif] text-[20px] leading-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {name}
+            </p>
+            <p className="mt-[8px] truncate font-['Roboto:Regular',sans-serif] text-[14px] leading-[18px] text-[#45525f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {email}
+            </p>
+            <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[15px] leading-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {phone}
+            </p>
+          </div>
         </div>
-        <div className="min-w-0">
-          <p className="font-['Roboto:Bold',sans-serif] text-[20px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-            {name}
-          </p>
-          <p className="mt-[6px] break-all font-['Roboto:Regular',sans-serif] text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-            {email}
-          </p>
-          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-            {phone}
-          </p>
-        </div>
+        <button className="mt-[12px] self-start font-['Roboto:Bold',sans-serif] text-[13px] text-[#106ab0]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
+          Do you have any question?
+        </button>
       </div>
-      <button className="self-start font-['Roboto:Bold',sans-serif] text-[13px] text-[#106ab0]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
-        Do you have any question?
-      </button>
     </GlassPanel>
   );
 }
@@ -2637,9 +2639,10 @@ function HomeBlogPanel() {
           </span>
         </button>
       </div>
-      <div className="grid flex-1 grid-cols-[minmax(0,1.35fr)_minmax(0,0.9fr)] gap-[12px]">
-        <div className="flex flex-col">
-          <div className="relative h-[108px] overflow-hidden rounded-[10px] bg-[linear-gradient(135deg,#0b2b45_0%,#0f5c87_60%,#6bc8ff_120%)]">
+      <div className="min-h-0 flex-1 overflow-hidden">
+        <div className="flex h-full gap-[12px] overflow-hidden">
+        <div className="flex min-w-0 flex-[0_0_calc(50%-6px)] flex-col">
+          <div className="relative h-[144px] overflow-hidden rounded-[10px] bg-[linear-gradient(135deg,#0b2b45_0%,#0f5c87_60%,#6bc8ff_120%)]">
             <div className="absolute left-[12px] top-[10px] rounded-full bg-[rgba(255,255,255,0.92)] px-[8px] py-[3px] font-['Roboto:Bold',sans-serif] text-[9px] uppercase tracking-[0.5px] text-[#115e59]">
               Data Strategy
             </div>
@@ -2656,8 +2659,8 @@ function HomeBlogPanel() {
           </button>
         </div>
 
-        <div className="flex flex-col">
-          <div className="relative h-[108px] overflow-hidden rounded-[10px] bg-[linear-gradient(135deg,#2a6b8f_0%,#83c6eb_100%)]">
+        <div className="flex min-w-0 flex-[0_0_calc(50%-6px)] flex-col">
+          <div className="relative h-[144px] overflow-hidden rounded-[10px] bg-[linear-gradient(135deg,#2a6b8f_0%,#83c6eb_100%)]">
             <div className="absolute left-[10px] top-[10px] rounded-full bg-[rgba(255,255,255,0.92)] px-[8px] py-[3px] font-['Roboto:Bold',sans-serif] text-[9px] uppercase tracking-[0.5px] text-[#115e59]">
               Culture
             </div>
@@ -2673,6 +2676,7 @@ function HomeBlogPanel() {
             Read Article
           </button>
         </div>
+      </div>
       </div>
       <div className="flex items-center justify-between px-[4px] pt-[10px]">
         <button className="text-[#1f83ff]" type="button">
@@ -2846,16 +2850,6 @@ function LeftMenu({
     <>
       {/* Collapsed Menu */}
       <div className="absolute content-stretch flex flex-col gap-[12px] h-[820px] items-start left-[12px] rounded-[4px] top-[8px]" data-name="Left Menu">
-        <button
-          className={`rounded-[8px] ${isDashboardActive ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
-          onClick={onGoDashboard}
-          type="button"
-        >
-          <IconWithTooltip label="Module Dashboard">
-            <MingcuteGridFill />
-          </IconWithTooltip>
-        </button>
-
         {/* Menu Toggle Button at Top */}
         <div 
           className="content-stretch flex items-center justify-center relative rounded-[8px] shrink-0 size-[48px] hover:bg-gradient-to-b hover:from-[rgba(255,255,255,0.7)] hover:to-[rgba(255,255,255,0.49)] cursor-pointer transition-all group" 
@@ -2870,6 +2864,16 @@ function LeftMenu({
           </svg>
           <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
+
+        <button
+          className={`rounded-[8px] ${isDashboardActive ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
+          onClick={onGoDashboard}
+          type="button"
+        >
+          <IconWithTooltip label="Module Dashboard">
+            <MingcuteGridFill />
+          </IconWithTooltip>
+        </button>
 
         {/* Regular Menu Icons */}
         {menuItems.map((item, index) => (
@@ -2903,6 +2907,21 @@ function LeftMenu({
               </svg>
             </button>
           </div>
+          <button 
+            className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${isDashboardActive ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
+            onClick={() => {
+              onGoDashboard();
+              setIsExpanded(false);
+            }}
+            type="button"
+          >
+            <div className="overflow-clip size-[24px] shrink-0">
+              <MingcuteGridFill />
+            </div>
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Module Dashboard
+            </p>
+          </button>
           {menuItems.map((item, index) => (
             <button 
               key={index}
@@ -3018,6 +3037,49 @@ function ProposalActionButton({
   );
 }
 
+function getWindowActionItems() {
+  return [
+    { id: "summary", icon: <Mail className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "reply", icon: <Send className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "review", icon: <Eye className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "schedule", icon: <CalendarDays className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "call", icon: <Phone className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "new", icon: <FilePlus2 className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "save", icon: <HardDrive className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "save-plus", icon: <HardDriveDownload className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "download", icon: <Download className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "share", icon: <ExternalLink className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "reset", icon: <RotateCcw className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "delete", icon: <Trash2 className="size-[18px]" strokeWidth={1.8} /> },
+  ];
+}
+
+function WindowActionPanel({
+  actions,
+  topOffsetClass = "top-0",
+  bottomOffsetClass = "bottom-0",
+}: {
+  actions: Array<{ id: string; icon: ReactNode }>;
+  topOffsetClass?: string;
+  bottomOffsetClass?: string;
+}) {
+  return (
+    <div className={`absolute right-0 ${topOffsetClass} ${bottomOffsetClass} flex w-[56px] flex-col items-center border-l border-solid border-[#e6edf3] bg-white py-[10px]`}>
+      <div className="flex flex-col items-center gap-[10px]">
+        {actions.map((action) => (
+          <button
+            className="flex size-[34px] items-center justify-center rounded-full text-[#1f83ff] transition-all hover:bg-[#eef7ff]"
+            key={action.id}
+            type="button"
+          >
+            {action.icon}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ProposalFooter({
   totalRecords,
   currentPage,
@@ -3028,9 +3090,9 @@ function ProposalFooter({
   totalPages: number;
 }) {
   return (
-    <div className="bg-white border-t border-solid border-[#e5e7eb] content-stretch flex items-center justify-between px-[18px] py-[8px] relative shrink-0 w-full">
+    <div className="bg-white border-t border-solid border-[#e5e7eb] content-stretch flex items-center justify-between px-[16px] py-[6px] relative shrink-0 w-full">
       <p
-        className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#141414] whitespace-nowrap"
+        className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#141414] whitespace-nowrap"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
         Navigate or Update record
@@ -3038,38 +3100,38 @@ function ProposalFooter({
 
       <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
         <p
-          className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#1f83ff] whitespace-nowrap"
+          className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#1f83ff] whitespace-nowrap"
           style={{ fontVariationSettings: "'wdth' 100" }}
         >
           -1/0
         </p>
-        <div className="h-[28px] w-px bg-[#d6d6d6]" />
+        <div className="h-[24px] w-px bg-[#d6d6d6]" />
         <p
-          className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#141414] whitespace-nowrap"
+          className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#141414] whitespace-nowrap"
           style={{ fontVariationSettings: "'wdth' 100" }}
         >
           Showing Result 0-0 of {totalRecords}
         </p>
 
         <div className="content-stretch flex items-center overflow-hidden rounded-[10px] border border-solid border-[#d9d9d9] bg-[#fcfcfc] shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-          <button className="content-stretch flex items-center justify-center size-[46px] border-r border-solid border-[#d9d9d9] text-[#b2b8bf]" type="button">
-            <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+          <button className="content-stretch flex items-center justify-center size-[38px] border-r border-solid border-[#d9d9d9] text-[#b2b8bf]" type="button">
+            <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
               <path d="M11 4L6 9L11 14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" />
             </svg>
           </button>
-          <button className="content-stretch flex items-center justify-center gap-[8px] min-w-[88px] px-[16px] py-[11px] text-[#141414]" type="button">
+          <button className="content-stretch flex items-center justify-center gap-[8px] min-w-[72px] px-[14px] py-[8px] text-[#141414]" type="button">
             <span
-              className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] whitespace-nowrap"
+              className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] whitespace-nowrap"
               style={{ fontVariationSettings: "'wdth' 100" }}
             >
               {currentPage}
             </span>
-            <svg className="size-[16px] text-[#1f83ff]" fill="none" viewBox="0 0 16 16">
+            <svg className="size-[14px] text-[#1f83ff]" fill="none" viewBox="0 0 16 16">
               <path d="M4 6L8 10L12 6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
             </svg>
           </button>
-          <button className="content-stretch flex items-center justify-center size-[46px] border-l border-solid border-[#d9d9d9] text-[#9aa3ad]" type="button">
-            <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+          <button className="content-stretch flex items-center justify-center size-[38px] border-l border-solid border-[#d9d9d9] text-[#9aa3ad]" type="button">
+            <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
               <path d="M7 4L12 9L7 14" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" />
             </svg>
           </button>
@@ -3154,6 +3216,7 @@ function ProposalHeaderAction({
 function OpportunitiesView({ onClose }: { onClose: () => void }) {
   const [screenView, setScreenView] = useState<"dashboard" | "card" | "detail">("dashboard");
   const [selectedOpportunityId, setSelectedOpportunityId] = useState("opp-001");
+  const windowActions = getWindowActionItems();
   const pipelineColumns = [
     {
       label: "Discovery",
@@ -3425,70 +3488,6 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
             </svg>
           </button>
         </div>
-        {isWindowMode ? (
-          <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0 w-full">
-            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
-              <ProposalActionButton>
-                <Home className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <ArrowLeft className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <RotateCcw className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton label="New Record">
-                <FilePlus2 className="size-[18px] text-[#141414]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <Trash2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <HardDrive className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <HardDriveDownload className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <FilePlus2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-            </div>
-
-            <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
-              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[320px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
-                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[12px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[56px]">
-                  <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
-                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
-                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
-                  </svg>
-                </div>
-                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[12px] relative">
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[16px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Search
-                  </p>
-                  <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-                    <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
-                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-                    </svg>
-                    <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
-                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
-                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
-                <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
-              </svg>
-              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
-                <circle cx="9" cy="5" fill="#141414" r="1.4" />
-                <circle cx="9" cy="9" fill="#141414" r="1.4" />
-                <circle cx="9" cy="13" fill="#141414" r="1.4" />
-              </svg>
-            </div>
-          </div>
-        ) : null}
       </div>
 
       {screenView === "dashboard" ? (
@@ -3650,7 +3649,71 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
           </div>
         </div>
       ) : (
-        <div className="content-stretch flex flex-[1_0_0] items-start min-h-0 relative w-full">
+        <div className="relative flex h-0 min-h-0 flex-1 flex-col bg-white">
+          <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0">
+            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+              <ProposalActionButton>
+                <Home className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <ArrowLeft className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <RotateCcw className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton label="New Record">
+                <FilePlus2 className="size-[18px] text-[#141414]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <Trash2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <HardDrive className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <HardDriveDownload className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <FilePlus2 className="size-[18px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+            </div>
+
+            <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
+              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[320px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[12px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[56px]">
+                  <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                  </svg>
+                </div>
+                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[12px] relative">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[16px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Search
+                  </p>
+                  <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
+                    <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                    </svg>
+                    <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+              </svg>
+              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                <circle cx="9" cy="13" fill="#141414" r="1.4" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="content-stretch flex flex-1 items-start min-h-0 pr-[64px] relative w-full">
           <div className={`bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 ${isDetailOpen ? "w-[380px]" : "w-full"}`}>
             {isDetailOpen ? (
               rows.map((row) => (
@@ -3998,8 +4061,12 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
           )}
+            <WindowActionPanel actions={windowActions} />
+          </div>
         </div>
       )}
+
+      {isWindowMode ? <ProposalFooter currentPage={1} totalPages={1} totalRecords={rows.length} /> : null}
     </div>
   );
 }
@@ -4026,6 +4093,7 @@ function SalesProposalView({
   } | null>(null);
   const [editedLineItems, setEditedLineItems] = useState<Record<string, ProposalRecord["lineItems"]>>({});
   const [editingProposalId, setEditingProposalId] = useState<string | null>(null);
+  const windowActions = getWindowActionItems();
   const activeLineItems = editedLineItems[selectedProposal.id] ?? selectedProposal.lineItems;
   const isDraftProposal = selectedProposal.status === "Draft";
   const isEditingCurrentDraft = isDraftProposal && editingProposalId === selectedProposal.id;
@@ -4103,7 +4171,10 @@ function SalesProposalView({
             </svg>
           </button>
         </div>
-        <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0 w-full">
+      </div>
+
+      <div className="relative flex flex-[1_0_0] flex-col min-h-0 w-full bg-white">
+        <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[16px] py-[10px] relative shrink-0">
           <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
             <ProposalActionButton>
               <Home className="size-[18px] text-[#586575]" strokeWidth={1.8} />
@@ -4165,22 +4236,21 @@ function SalesProposalView({
             </svg>
           </div>
         </div>
-      </div>
 
-      <div className="content-stretch flex flex-[1_0_0] items-start min-h-0 relative w-full">
-        <div className="bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 w-[380px]">
-          {proposals.map((proposal) => (
-            <ProposalListRow
-              isSelected={selectedProposal.id === proposal.id}
-              key={proposal.id}
-              onSelect={() => onSelectProposal(proposal.id)}
-              proposal={proposal}
-            />
-          ))}
-        </div>
+        <div className="content-stretch flex flex-[1_0_0] items-start min-h-0 pr-[64px] relative w-full">
+          <div className="bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 w-[380px]">
+            {proposals.map((proposal) => (
+              <ProposalListRow
+                isSelected={selectedProposal.id === proposal.id}
+                key={proposal.id}
+                onSelect={() => onSelectProposal(proposal.id)}
+                proposal={proposal}
+              />
+            ))}
+          </div>
 
-        <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
-          <div className="content-stretch flex flex-col gap-[18px] h-full items-start overflow-auto px-[24px] py-[22px] relative">
+          <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
+            <div className="content-stretch flex flex-col gap-[18px] h-full items-start overflow-auto px-[24px] py-[22px] relative">
             <div className="bg-[#fbfdff] border border-solid border-[#e4edf4] rounded-[18px] content-stretch flex flex-col gap-[18px] items-start px-[22px] py-[20px] relative shrink-0 w-full shadow-[0_10px_30px_rgba(15,35,52,0.05)]">
               <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                 <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
@@ -4456,11 +4526,81 @@ function SalesProposalView({
             </div>
           </div>
         </div>
+
+          <WindowActionPanel actions={windowActions} />
+        </div>
       </div>
 
       <ProposalFooter currentPage={1} totalPages={1} totalRecords={proposals.length} />
       <ActivityChangesModal activity={activeActivity} onClose={() => setActiveActivity(null)} />
+      <ProposalFooter currentPage={1} totalPages={1} totalRecords={messages.length} />
     </div>
+  );
+}
+
+function FilterPopupField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  type?: "text" | "date";
+}) {
+  return (
+    <label className="group block min-w-0 border-b border-solid border-[#d7d7d7] px-[2px] pb-[10px] pt-[4px] transition-colors hover:border-[#0083da] focus-within:border-[#0083da]">
+      <span className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#444444]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {label}
+      </span>
+      <input
+        className="mt-[7px] w-full border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[15px] text-black outline-none placeholder:text-[#9f9f9f]"
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+      />
+    </label>
+  );
+}
+
+function FilterPopupSelectField({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+}) {
+  return (
+    <label className="group block min-w-0 border-b border-solid border-[#d7d7d7] px-[2px] pb-[10px] pt-[4px] transition-colors hover:border-[#0083da] focus-within:border-[#0083da]">
+      <span className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#444444]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {label}
+      </span>
+      <div className="relative mt-[7px]">
+        <select
+          className="w-full appearance-none border-0 bg-transparent p-0 pr-[20px] font-['Roboto:Regular',sans-serif] text-[15px] text-black outline-none"
+          onChange={(event) => onChange(event.target.value)}
+          value={value}
+        >
+          <option value="">Select</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        <svg className="pointer-events-none absolute right-0 top-[3px] size-[14px] text-[#0083da]" fill="none" viewBox="0 0 16 16">
+          <path d="M3.5 5.75L8 10.25L12.5 5.75" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+        </svg>
+      </div>
+    </label>
   );
 }
 
@@ -4546,8 +4686,55 @@ function InboxView({ onClose }: { onClose: () => void }) {
 
   const [selectedMessageId, setSelectedMessageId] = useState(messages[0].id);
   const [selectedMessageIds, setSelectedMessageIds] = useState<string[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterState, setFilterState] = useState({
+    datePreset: "current-year",
+    dateFrom: "",
+    dateTo: "",
+    sendingEntity: "",
+    sendingRelatedEntity: "",
+    receivingEntity: "",
+    receivingRelatedEntity: "",
+    organizationalUnit: "",
+    relatedReference: "",
+    correspondenceType: "",
+    securityLevel: "",
+    urgencyLevel: "",
+    tasks: "",
+    createdBy: "",
+    actionTaken: "",
+    takenBy: "",
+    readStatus: "",
+    documentType: "",
+  });
   const selectedMessage = messages.find((message) => message.id === selectedMessageId) ?? messages[0];
   const allSelected = selectedMessageIds.length === messages.length;
+  const windowActions = getWindowActionItems();
+  const dateOptions = [
+    { id: "last-year", label: "Last year" },
+    { id: "current-year", label: "Current year" },
+    { id: "last-week", label: "Last week" },
+    { id: "last-month", label: "Last month" },
+    { id: "current-month", label: "Current month" },
+    { id: "custom", label: "Custom range" },
+  ];
+  const advancedOptions = {
+    correspondenceType: ["General", "Commercial", "Support", "Compliance"],
+    securityLevel: ["Public", "Internal", "Confidential", "Restricted"],
+    urgencyLevel: ["Low", "Normal", "High", "Critical"],
+    tasks: ["Reply pending", "Approval pending", "Review pending", "Escalated"],
+    createdBy: ["Mack Rod", "Kevin Smith", "Maya Chen", "Jacob M."],
+  };
+  const actionTakenOptions = ["Approval", "Creation", "Review", "Sending", "Sending to Postal Office", "Sending via G2G"];
+  const readStatusOptions = ["Read", "Unread"];
+  const documentTypeOptions = ["Correspondence", "Proposal", "Support Note", "Internal Memo"];
+  const activeFilterCount = Object.entries(filterState).reduce((count, [key, value]) => {
+    if (key === "datePreset") {
+      return value !== "current-year" ? count + 1 : count;
+    }
+
+    return value ? count + 1 : count;
+  }, 0);
 
   const channelTone = (channel: string) => {
     if (channel === "Email") return "bg-[#eef7ff] text-[#0e68ad]";
@@ -4568,10 +4755,52 @@ function InboxView({ onClose }: { onClose: () => void }) {
   const toggleMessageSelection = (messageId: string) => {
     setSelectedMessageIds((current) => (current.includes(messageId) ? current.filter((id) => id !== messageId) : [...current, messageId]));
   };
+  const updateFilterField = (field: keyof typeof filterState, value: string) => {
+    setFilterState((current) => ({
+      ...current,
+      [field]: value,
+    }));
+  };
+  const toggleFilterField = (field: keyof typeof filterState, value: string) => {
+    setFilterState((current) => ({
+      ...current,
+      [field]: current[field] === value ? "" : value,
+    }));
+  };
+  const toggleDatePreset = (value: string) => {
+    setFilterState((current) => ({
+      ...current,
+      datePreset: current.datePreset === value && value !== "current-year" ? "current-year" : value,
+      dateFrom: value === "custom" ? current.dateFrom : "",
+      dateTo: value === "custom" ? current.dateTo : "",
+    }));
+  };
+  const clearFilters = () => {
+    setFilterState({
+      datePreset: "current-year",
+      dateFrom: "",
+      dateTo: "",
+      sendingEntity: "",
+      sendingRelatedEntity: "",
+      receivingEntity: "",
+      receivingRelatedEntity: "",
+      organizationalUnit: "",
+      relatedReference: "",
+      correspondenceType: "",
+      securityLevel: "",
+      urgencyLevel: "",
+      tasks: "",
+      createdBy: "",
+      actionTaken: "",
+      takenBy: "",
+      readStatus: "",
+      documentType: "",
+    });
+  };
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col items-start overflow-clip relative w-full">
         <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
           <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
             Inbox
@@ -4582,227 +4811,453 @@ function InboxView({ onClose }: { onClose: () => void }) {
             </svg>
           </button>
         </div>
-        <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0 w-full">
-          <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
-            <ProposalActionButton>
-              <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-            </ProposalActionButton>
-            <ProposalActionButton>
-              <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-            </ProposalActionButton>
-            <ProposalActionButton>
-              <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-            </ProposalActionButton>
-            <ProposalActionButton label="New Message">
-              <Mail className="size-[16px] text-[#141414]" strokeWidth={1.8} />
-            </ProposalActionButton>
-            <ProposalActionButton>
-              <Trash2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-            </ProposalActionButton>
-            <ProposalActionButton>
-              <Send className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-            </ProposalActionButton>
-          </div>
-
-          <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
-            <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
-              <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
-                <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
-                  <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
-                  <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
-                </svg>
-              </div>
-              <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
-                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Search inbox
-                </p>
-                <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
-                  <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-                    <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-                  </svg>
-                  <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-                    <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
-                    <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-              <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
-            </svg>
-            <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-              <circle cx="9" cy="5" fill="#141414" r="1.4" />
-              <circle cx="9" cy="9" fill="#141414" r="1.4" />
-              <circle cx="9" cy="13" fill="#141414" r="1.4" />
-            </svg>
-          </div>
-        </div>
       </div>
 
-      <div className="h-0 min-h-0 flex-1 overflow-auto bg-white px-[18px] py-[18px]">
-        <div className="flex flex-col bg-white">
-          <div className="grid grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[18px] py-[12px]">
-            <label className="flex items-center">
-              <input checked={allSelected} className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]" onChange={toggleAllMessages} type="checkbox" />
-            </label>
-            {["Channel", "Communication", "Contact / Company", "Priority", "Received", "Status"].map((heading) => (
-              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
-                {heading}
-              </p>
-            ))}
-          </div>
-
-          <div>
-            {messages.map((message) => {
-              const isSelected = selectedMessage.id === message.id;
-
-              return (
-                <button
-                  className={`grid w-full grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid px-[18px] py-[14px] text-left transition-all ${
-                    isSelected
-                      ? "border-[#d8ebfb] bg-[linear-gradient(109deg,#f4fbff_0%,#eef8ff_100%)] shadow-[inset_4px_0_0_0_#0083da]"
-                      : "border-[#edf2f6] bg-transparent hover:bg-[#f9fcff]"
-                  }`}
-                  key={message.id}
-                  onClick={() => setSelectedMessageId(message.id)}
-                  type="button"
-                >
-                  <div className="flex items-center" onClick={(event) => event.stopPropagation()}>
-                    <input
-                      checked={selectedMessageIds.includes(message.id)}
-                      className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]"
-                      onChange={() => toggleMessageSelection(message.id)}
-                      type="checkbox"
-                    />
-                  </div>
-                  <div className="flex items-center">
-                    <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] ${channelTone(message.channel)}`}>
-                      {message.channel}
-                    </span>
-                  </div>
-                  <div className="min-w-0">
-                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {message.subject}
-                    </p>
-                    <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {message.preview}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {message.contact}
-                    </p>
-                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {message.company}
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] ${priorityTone(message.priority)}`}>
-                      {message.priority}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {message.receivedAt}
-                    </p>
-                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      Owner: {message.owner}
-                    </p>
-                  </div>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {message.status}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mx-[-18px] mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
-          <div className="flex h-[56px] shrink-0 items-center justify-between px-[20px]">
-            <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
-              Inbox Analysis
-            </p>
-            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-              {selectedMessage.company} • {selectedMessage.status}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-[18px] px-[20px] py-[18px]">
-            <div className="flex min-w-0 flex-col gap-[14px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Message Summary
-                </p>
-                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  {selectedMessage.summary}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-[12px]">
-                {[
-                  { label: "Intent", value: selectedMessage.intent },
-                  { label: "Urgency", value: selectedMessage.urgency },
-                  { label: "Sentiment", value: selectedMessage.sentiment },
-                ].map((item) => (
-                  <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
-                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {item.label}
-                    </p>
-                    <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {item.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  CRM Recommendation
-                </p>
-                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  {selectedMessage.recommendation}
-                </p>
-              </div>
+      <div className="relative flex h-0 min-h-0 flex-1 flex-col bg-white">
+        <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-visible px-[14px] py-[7px] relative shrink-0 z-[70]">
+            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+              <ProposalActionButton>
+                <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton label="New Message">
+                <Mail className="size-[16px] text-[#141414]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <Trash2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <Send className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
             </div>
 
-            <div className="flex min-w-0 flex-col gap-[14px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Suggested Actions
-                </p>
-                <div className="mt-[10px] flex flex-wrap gap-[10px]">
-                  {selectedMessage.actions.map((action) => (
-                    <button
-                      className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
-                      key={action}
-                      type="button"
-                    >
-                      {action}
-                    </button>
-                  ))}
+            <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                  <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                  </svg>
+                </div>
+                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Search inbox
+                  </p>
+                  <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                    </svg>
+                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Highlights
+              <div className="relative">
+                <button
+                  className={`relative flex size-[30px] items-center justify-center rounded-[999px] transition-colors ${
+                    isFilterOpen || activeFilterCount > 0 ? "bg-[#eaf6ff] text-[#0083da]" : "text-[#141414] hover:bg-white/80"
+                  }`}
+                  onClick={() => setIsFilterOpen((current) => !current)}
+                  type="button"
+                >
+                  <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                    <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+                  </svg>
+                  {activeFilterCount ? (
+                    <span className="absolute right-[-2px] top-[-2px] inline-flex min-w-[16px] items-center justify-center rounded-full bg-[#0083da] px-[4px] py-[1px] text-[10px] text-white">
+                      {activeFilterCount}
+                    </span>
+                  ) : null}
+                </button>
+
+                {isFilterOpen ? (
+                  <div className="absolute right-0 top-[42px] z-[120] w-[620px] overflow-hidden rounded-[18px] border border-solid border-[#dce7ef] bg-white shadow-[0_24px_60px_rgba(15,23,42,0.18)]">
+                    <div className="flex items-center justify-between border-b border-solid border-[#e7eef4] bg-[linear-gradient(180deg,#fdfefe_0%,#f6fbff_100%)] px-[18px] py-[14px]">
+                      <div>
+                        <p className="font-['Roboto:Bold',sans-serif] text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Filter Correspondences
+                        </p>
+                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#6f8090]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Date defaults to current year when no range is selected.
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-[8px]">
+                        <button
+                          className="rounded-[999px] border border-solid border-[#d4e3ee] bg-white px-[12px] py-[7px] text-[12px] text-[#5f7283] hover:bg-[#f7fbff]"
+                          onClick={clearFilters}
+                          type="button"
+                        >
+                          Clear
+                        </button>
+                        <button
+                          className="flex size-[30px] items-center justify-center rounded-[999px] text-[#5f7283] hover:bg-[#eef5fa]"
+                          onClick={() => setIsFilterOpen(false)}
+                          type="button"
+                        >
+                          <svg className="size-[16px]" fill="none" viewBox="0 0 16 16">
+                            <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="max-h-[540px] overflow-auto px-[20px] py-[10px]">
+                      <div className="flex flex-col">
+                        <div className="border-b border-solid border-[#e7eef4] py-[16px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Date
+                          </p>
+                          <div className="mt-[10px] flex flex-wrap gap-[8px]">
+                            {dateOptions.map((option) => (
+                              <button
+                                className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
+                                  filterState.datePreset === option.id
+                                    ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
+                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                }`}
+                                key={option.id}
+                                onClick={() => toggleDatePreset(option.id)}
+                                type="button"
+                              >
+                                {option.label}
+                              </button>
+                            ))}
+                          </div>
+                          {filterState.datePreset === "custom" ? (
+                            <div className="mt-[14px] grid grid-cols-2 gap-[10px]">
+                              <FilterPopupField label="Date from" onChange={(value) => updateFilterField("dateFrom", value)} type="date" value={filterState.dateFrom} />
+                              <FilterPopupField label="Date to" onChange={(value) => updateFilterField("dateTo", value)} type="date" value={filterState.dateTo} />
+                            </div>
+                          ) : null}
+                        </div>
+
+                        <div className="border-b border-solid border-[#e7eef4] py-[16px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Entities
+                          </p>
+                          <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
+                            {[
+                              { key: "sendingEntity", label: "Sending Entity" },
+                              { key: "sendingRelatedEntity", label: "Related Entity" },
+                              { key: "receivingEntity", label: "Receiving Entity" },
+                              { key: "receivingRelatedEntity", label: "Related Entity" },
+                              { key: "organizationalUnit", label: "Organizational Unit", span: "col-span-2" },
+                              { key: "relatedReference", label: "Related Ref. Num", span: "col-span-2" },
+                            ].map((field) => (
+                              <div className={field.span ?? ""} key={field.key}>
+                                <FilterPopupField
+                                  label={field.label}
+                                  onChange={(value) => updateFilterField(field.key as keyof typeof filterState, value)}
+                                  placeholder="Searchable dropdown"
+                                  value={filterState[field.key as keyof typeof filterState]}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="border-b border-solid border-[#e7eef4] py-[16px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Advanced
+                          </p>
+                          <div className="mt-[12px] grid grid-cols-2 gap-[10px]">
+                            {Object.entries(advancedOptions).map(([key, options]) => (
+                              <FilterPopupSelectField
+                                key={key}
+                                label={key.replace(/([A-Z])/g, " $1").replace(/^./, (value) => value.toUpperCase())}
+                                onChange={(value) => updateFilterField(key as keyof typeof filterState, value)}
+                                options={options}
+                                value={filterState[key as keyof typeof filterState]}
+                              />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="border-b border-solid border-[#e7eef4] py-[16px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Action Taken
+                          </p>
+                          <div className="mt-[10px] flex flex-wrap gap-[8px]">
+                            {actionTakenOptions.map((option) => (
+                              <button
+                                className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
+                                  filterState.actionTaken === option
+                                    ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
+                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                }`}
+                                key={option}
+                                onClick={() => toggleFilterField("actionTaken", option)}
+                                type="button"
+                              >
+                                {option}
+                              </button>
+                            ))}
+                          </div>
+                          <div className="mt-[12px]">
+                            <FilterPopupField
+                              label="Taken By"
+                              onChange={(value) => updateFilterField("takenBy", value)}
+                              placeholder="username + user ID + position"
+                              value={filterState.takenBy}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="border-b border-solid border-[#e7eef4] py-[16px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Read Status
+                          </p>
+                          <div className="mt-[10px] flex flex-wrap gap-[8px]">
+                            {readStatusOptions.map((option) => (
+                              <button
+                                className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
+                                  filterState.readStatus === option
+                                    ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
+                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                }`}
+                                key={option}
+                                onClick={() => toggleFilterField("readStatus", option)}
+                                type="button"
+                              >
+                                {option}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="py-[16px]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Document Type
+                          </p>
+                          <div className="mt-[10px] flex flex-wrap gap-[8px]">
+                            {documentTypeOptions.map((option) => (
+                              <button
+                                className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
+                                  filterState.documentType === option
+                                    ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
+                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                }`}
+                                key={option}
+                                onClick={() => toggleFilterField("documentType", option)}
+                                type="button"
+                              >
+                                {option}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between border-t border-solid border-[#e7eef4] bg-[#fbfdff] px-[18px] py-[12px]">
+                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#6f8090]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Searchable filter fields can be mapped to entity name and file number sources.
+                      </p>
+                      <div className="flex items-center gap-[10px]">
+                        <button
+                          className="whitespace-nowrap rounded-[999px] border border-solid border-[#d4e3ee] bg-white px-[14px] py-[8px] text-[13px] text-[#5f7283] hover:bg-[#f7fbff]"
+                          onClick={() => setIsFilterOpen(false)}
+                          type="button"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="whitespace-nowrap rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[16px] py-[8px] text-[13px] text-white hover:bg-[#0073c0]"
+                          onClick={() => setIsFilterOpen(false)}
+                          type="button"
+                        >
+                          Apply Filters
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+
+              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                <circle cx="9" cy="13" fill="#141414" r="1.4" />
+              </svg>
+            </div>
+          </div>
+
+        <div className="min-w-0 h-0 flex-1 overflow-auto pr-[64px]">
+          <div className="px-[18px] py-[18px]">
+          <div className="flex flex-col bg-white">
+            <div className="grid grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[18px] py-[12px]">
+              <label className="flex items-center">
+                <input checked={allSelected} className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]" onChange={toggleAllMessages} type="checkbox" />
+              </label>
+              {["Channel", "Communication", "Contact / Company", "Priority", "Received", "Status"].map((heading) => (
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {heading}
                 </p>
-                <div className="mt-[10px] flex flex-col gap-[10px]">
-                  {selectedMessage.highlights.map((highlight) => (
-                    <div className="flex items-start gap-[10px] rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={highlight}>
-                      <div className="mt-[5px] size-[7px] shrink-0 rounded-full bg-[#1f83ff]" />
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] leading-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        {highlight}
+              ))}
+            </div>
+
+            <div>
+              {messages.map((message) => {
+                const isSelected = selectedMessage.id === message.id;
+
+                return (
+                  <button
+                    className={`grid w-full grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid px-[18px] py-[14px] text-left transition-all ${
+                      isSelected
+                        ? "border-[#d8ebfb] bg-[linear-gradient(109deg,#f4fbff_0%,#eef8ff_100%)] shadow-[inset_4px_0_0_0_#0083da]"
+                        : "border-[#edf2f6] bg-transparent hover:bg-[#f9fcff]"
+                    }`}
+                    key={message.id}
+                    onClick={() => setSelectedMessageId(message.id)}
+                    type="button"
+                  >
+                    <div className="flex items-center" onClick={(event) => event.stopPropagation()}>
+                      <input
+                        checked={selectedMessageIds.includes(message.id)}
+                        className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]"
+                        onChange={() => toggleMessageSelection(message.id)}
+                        type="checkbox"
+                      />
+                    </div>
+                    <div className="flex items-center">
+                      <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] ${channelTone(message.channel)}`}>
+                        {message.channel}
+                      </span>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {message.subject}
+                      </p>
+                      <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {message.preview}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {message.contact}
+                      </p>
+                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {message.company}
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className={`inline-flex rounded-[999px] px-[10px] py-[5px] text-[12px] ${priorityTone(message.priority)}`}>
+                        {message.priority}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {message.receivedAt}
+                      </p>
+                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Owner: {message.owner}
+                      </p>
+                    </div>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {message.status}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          </div>
+
+          <div className="mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+            <div className="mr-[36px] flex h-[56px] shrink-0 items-center justify-between px-[20px]">
+              <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Inbox Analysis
+              </p>
+              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {selectedMessage.company} • {selectedMessage.status}
+              </p>
+            </div>
+
+            <div className="mr-[36px] grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-[18px] px-[20px] py-[18px]">
+              <div className="flex min-w-0 flex-col gap-[14px]">
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Message Summary
+                  </p>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedMessage.summary}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 gap-[12px]">
+                  {[
+                    { label: "Intent", value: selectedMessage.intent },
+                    { label: "Urgency", value: selectedMessage.urgency },
+                    { label: "Sentiment", value: selectedMessage.sentiment },
+                  ].map((item) => (
+                    <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.label}
+                      </p>
+                      <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {item.value}
                       </p>
                     </div>
                   ))}
                 </div>
+
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    CRM Recommendation
+                  </p>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {selectedMessage.recommendation}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex min-w-0 flex-col gap-[14px]">
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Suggested Actions
+                  </p>
+                  <div className="mt-[10px] flex flex-wrap gap-[10px]">
+                    {selectedMessage.actions.map((action) => (
+                      <button
+                        className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                        key={action}
+                        type="button"
+                      >
+                        {action}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Highlights
+                  </p>
+                  <div className="mt-[10px] flex flex-col gap-[10px]">
+                    {selectedMessage.highlights.map((highlight) => (
+                      <div className="flex items-start gap-[10px] rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={highlight}>
+                        <div className="mt-[5px] size-[7px] shrink-0 rounded-full bg-[#1f83ff]" />
+                        <p className="font-['Roboto:Regular',sans-serif] text-[13px] leading-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {highlight}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <WindowActionPanel actions={windowActions} />
       </div>
     </div>
   );
@@ -4875,6 +5330,7 @@ function CustomerDetailField({
 
 function CustomersView({ onClose }: { onClose: () => void }) {
   const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+  const windowActions = getWindowActionItems();
 
   const summaryCards = [
     { label: "Active Customers", value: "186", meta: "Accounts with open engagement", accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]", valueClass: "text-[#102c3f]" },
@@ -4932,6 +5388,17 @@ function CustomersView({ onClose }: { onClose: () => void }) {
     "Send Email",
     "Open Support Case",
   ];
+  const requiredDetailLabels = detailFields.filter((field) => field.required).map((field) => field.label);
+  const isCustomerReadyToSave = requiredDetailLabels.every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const isContactReadyToSave = ["Primary Contact", "Email", "Phone"].every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const isAddressReadyToSave = ["Billing Address", "Shipping Address"].every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const isNotesReadyToSave = ["Notes", "Internal Summary"].some((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const headerPanelActions = [
+    { label: "Save Customer", variant: "primary" as const, disabled: !isCustomerReadyToSave },
+    { label: "Save Contact", variant: "secondary" as const, disabled: !isContactReadyToSave },
+    { label: "Save Addresses", variant: "secondary" as const, disabled: !isAddressReadyToSave },
+    { label: "Save Notes", variant: "secondary" as const, disabled: !isNotesReadyToSave },
+  ];
   const updateFieldValue = (label: string, nextValue: string) => {
     setFieldValues((current) => ({
       ...current,
@@ -4978,63 +5445,6 @@ function CustomersView({ onClose }: { onClose: () => void }) {
             </svg>
           </button>
         </div>
-        {viewMode === "window" ? (
-          <div className="bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0 w-full">
-            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
-              <ProposalActionButton>
-                <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton label="New Customer">
-                <UserRound className="size-[16px] text-[#141414]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <Trash2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-              <ProposalActionButton>
-                <HardDrive className="size-[16px] text-[#586575]" strokeWidth={1.8} />
-              </ProposalActionButton>
-            </div>
-
-            <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
-              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
-                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
-                  <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
-                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
-                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
-                  </svg>
-                </div>
-                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Search customer
-                  </p>
-                  <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
-                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
-                    </svg>
-                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
-                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-                <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
-              </svg>
-              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
-                <circle cx="9" cy="5" fill="#141414" r="1.4" />
-                <circle cx="9" cy="9" fill="#141414" r="1.4" />
-                <circle cx="9" cy="13" fill="#141414" r="1.4" />
-              </svg>
-            </div>
-          </div>
-        ) : null}
       </div>
 
       {viewMode === "dashboard" ? (
@@ -5149,128 +5559,207 @@ function CustomersView({ onClose }: { onClose: () => void }) {
           </div>
         </div>
       ) : (
-        <div className="h-0 min-h-0 flex-1 overflow-auto bg-white px-[18px] py-[18px]">
-          <div className="flex flex-col">
-            <div className="grid grid-cols-4 gap-x-[28px] gap-y-[24px]">
-              {detailFields.map((field) => (
-                <CustomerDetailField
-                  icon={field.icon}
-                  key={field.label}
-                  label={field.label}
-                  onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
-                  required={field.required}
-                  value={fieldValues[field.label] ?? ""}
-                />
-              ))}
-              <CustomerDetailField
-                label="Billing Address"
-                multiline
-                onChange={(nextValue) => updateFieldValue("Billing Address", nextValue)}
-                spanClass="col-span-2"
-                value={fieldValues["Billing Address"] ?? ""}
-              />
-              <CustomerDetailField
-                label="Shipping Address"
-                multiline
-                onChange={(nextValue) => updateFieldValue("Shipping Address", nextValue)}
-                spanClass="col-span-2"
-                value={fieldValues["Shipping Address"] ?? ""}
-              />
-              <CustomerDetailField
-                label="Notes"
-                multiline
-                onChange={(nextValue) => updateFieldValue("Notes", nextValue)}
-                spanClass="col-span-2"
-                value={fieldValues["Notes"] ?? ""}
-              />
-              <CustomerDetailField
-                label="Internal Summary"
-                multiline
-                onChange={(nextValue) => updateFieldValue("Internal Summary", nextValue)}
-                spanClass="col-span-2"
-                value={fieldValues["Internal Summary"] ?? ""}
-              />
+        <div className="relative flex h-0 min-h-0 flex-1 flex-col bg-white">
+          <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0">
+            <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+              <ProposalActionButton>
+                <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+              <ProposalActionButton>
+                <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+              </ProposalActionButton>
+            </div>
+
+            <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+              <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                  <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                    <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                    <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                  </svg>
+                </div>
+                <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Search customer
+                  </p>
+                  <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                      <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                    </svg>
+                    <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                      <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                      <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+              </svg>
+              <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                <circle cx="9" cy="13" fill="#141414" r="1.4" />
+              </svg>
             </div>
           </div>
 
-          <div className="mx-[-18px] mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
-            <div className="flex h-[56px] shrink-0 items-center justify-between px-[20px]">
-              <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Customer Timeline & Actions
-              </p>
-              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                {isNewCustomer ? "Lead to customer journey" : "Recent customer activity"}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] gap-[18px] px-[20px] py-[18px]">
-              <div className="min-w-0">
-                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  {isNewCustomer ? "Journey Timeline" : "Recent Activity"}
-                </p>
-                <div className="mt-[12px] flex flex-col gap-[12px]">
-                  {(isNewCustomer ? journeyTimeline : activityTimeline).map((item) => (
-                    <div className="flex items-start gap-[12px]" key={`${item.title}-${item.meta}`}>
-                      <div className="mt-[6px] flex shrink-0 flex-col items-center">
-                        <div className="size-[10px] rounded-full bg-[#1f83ff]" />
-                        <div className="mt-[4px] h-[40px] w-px bg-[#d9e6f2] last:hidden" />
-                      </div>
-                      <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]">
-                        <div className="flex items-center justify-between gap-[12px]">
-                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                            {item.title}
-                          </p>
-                          <span className={`rounded-[999px] px-[9px] py-[4px] text-[11px] font-['Roboto:Bold',sans-serif] ${item.tone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
-                            {isNewCustomer ? "Journey" : "Update"}
-                          </span>
-                        </div>
-                        <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          {item.meta}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="min-w-0">
-                <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Quick Actions
-                </p>
-                <div className="mt-[12px] flex flex-wrap gap-[10px]">
-                  {quickActions.map((action) => (
+          <div className="mr-[56px] border-b border-solid border-[#e6eef5] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(248,252,255,0.88)_100%)] px-[18px] py-[12px] backdrop-blur-[8px]">
+            <div className="rounded-[16px] bg-[linear-gradient(180deg,rgba(251,253,255,0.96)_0%,rgba(245,250,255,0.90)_100%)] px-[18px] py-[14px] shadow-[0_10px_22px_rgba(15,61,97,0.04)]">
+              <div className="flex flex-wrap items-center justify-end gap-[10px]">
+                  {headerPanelActions.map((action) => (
                     <button
-                      className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
-                      key={action}
+                      className={`rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px] transition-colors ${
+                        action.variant === "primary"
+                          ? action.disabled
+                            ? "border-[#b7d8f1] bg-[#dfeef9] text-white/85 cursor-not-allowed"
+                            : "border-[#0083da] bg-[#0083da] text-white hover:bg-[#0073c0]"
+                          : action.disabled
+                            ? "border-[#cfe0ed] bg-white text-[#9ab0c0] cursor-not-allowed"
+                            : "border-[#0083da] bg-white text-[#0083da] hover:bg-[#eef8ff]"
+                      }`}
+                      key={action.label}
+                      disabled={action.disabled}
                       type="button"
                     >
-                      {action}
+                      {action.label}
                     </button>
                   ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="h-0 min-h-0 flex-1 overflow-auto bg-white">
+            <div className="mr-[36px] px-[18px] py-[18px]">
+              <div className="flex flex-col">
+                <div className="grid grid-cols-4 gap-x-[28px] gap-y-[24px]">
+                  {detailFields.map((field) => (
+                    <CustomerDetailField
+                      icon={field.icon}
+                      key={field.label}
+                      label={field.label}
+                      onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
+                      required={field.required}
+                      value={fieldValues[field.label] ?? ""}
+                    />
+                  ))}
+                  <CustomerDetailField
+                    label="Billing Address"
+                    multiline
+                    onChange={(nextValue) => updateFieldValue("Billing Address", nextValue)}
+                    spanClass="col-span-2"
+                    value={fieldValues["Billing Address"] ?? ""}
+                  />
+                  <CustomerDetailField
+                    label="Shipping Address"
+                    multiline
+                    onChange={(nextValue) => updateFieldValue("Shipping Address", nextValue)}
+                    spanClass="col-span-2"
+                    value={fieldValues["Shipping Address"] ?? ""}
+                  />
+                  <CustomerDetailField
+                    label="Notes"
+                    multiline
+                    onChange={(nextValue) => updateFieldValue("Notes", nextValue)}
+                    spanClass="col-span-2"
+                    value={fieldValues["Notes"] ?? ""}
+                  />
+                  <CustomerDetailField
+                    label="Internal Summary"
+                    multiline
+                    onChange={(nextValue) => updateFieldValue("Internal Summary", nextValue)}
+                    spanClass="col-span-2"
+                    value={fieldValues["Internal Summary"] ?? ""}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+              <div className="flex h-[56px] w-[calc(100%-56px)] shrink-0 items-center justify-between px-[20px]">
+                <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Customer Timeline & Actions
+                </p>
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {isNewCustomer ? "Lead to customer journey" : "Recent customer activity"}
+                </p>
+              </div>
+
+              <div className="grid w-[calc(100%-56px)] grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)] gap-[18px] px-[20px] py-[18px]">
+                <div className="min-w-0">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {isNewCustomer ? "Journey Timeline" : "Recent Activity"}
+                  </p>
+                  <div className="mt-[12px] flex flex-col gap-[12px]">
+                    {(isNewCustomer ? journeyTimeline : activityTimeline).map((item) => (
+                      <div className="flex items-start gap-[12px]" key={`${item.title}-${item.meta}`}>
+                        <div className="mt-[6px] flex shrink-0 flex-col items-center">
+                          <div className="size-[10px] rounded-full bg-[#1f83ff]" />
+                          <div className="mt-[4px] h-[40px] w-px bg-[#d9e6f2] last:hidden" />
+                        </div>
+                        <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]">
+                          <div className="flex items-center justify-between gap-[12px]">
+                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {item.title}
+                            </p>
+                            <span className={`rounded-[999px] px-[9px] py-[4px] text-[11px] font-['Roboto:Bold',sans-serif] ${item.tone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {isNewCustomer ? "Journey" : "Update"}
+                            </span>
+                          </div>
+                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.meta}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
-                  {[
-                    { label: "Open Opportunities", value: "03" },
-                    { label: "Open Tasks", value: "05" },
-                    { label: "Latest Proposal", value: "2 days ago" },
-                    { label: "Account Health", value: "Healthy" },
-                  ].map((item) => (
-                    <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        {item.label}
-                      </p>
-                      <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        {item.value}
-                      </p>
-                    </div>
-                  ))}
+                <div className="min-w-0">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Quick Actions
+                  </p>
+                  <div className="mt-[12px] flex flex-wrap gap-[10px]">
+                    {quickActions.map((action) => (
+                      <button
+                        className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                        key={action}
+                        type="button"
+                      >
+                        {action}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
+                    {[
+                      { label: "Open Opportunities", value: "03" },
+                      { label: "Open Tasks", value: "05" },
+                      { label: "Latest Proposal", value: "2 days ago" },
+                      { label: "Account Health", value: "Healthy" },
+                    ].map((item) => (
+                      <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                        <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.label}
+                        </p>
+                        <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <WindowActionPanel actions={windowActions} />
         </div>
       )}
+
+      {viewMode === "window" ? <ProposalFooter currentPage={1} totalPages={1} totalRecords={customerRows.length} /> : null}
     </div>
   );
 }
@@ -6752,7 +7241,7 @@ function Frame59({
 
   return (
     <div className="h-full relative shrink-0 w-full">
-      <div className="absolute h-full left-[72px] overflow-auto top-[8px] w-[calc(100%-84px)]" data-name="Canvas_WH">
+      <div className="absolute bottom-0 left-[72px] overflow-auto right-0 top-[8px]" data-name="Canvas_WH">
         {activeView === "salesProposal" ? (
           <SalesProposalView
             onClose={() => onNavigateView("dashboard")}
