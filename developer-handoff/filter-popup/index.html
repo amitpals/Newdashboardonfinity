@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onfinity Filter Popup</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="popup-demo">
+      <section class="filter-popup" aria-label="Filter Correspondences">
+        <header class="filter-popup-header">
+          <div>
+            <h1>Filter Correspondences</h1>
+            <p>Date defaults to current year when no range is selected.</p>
+          </div>
+          <div class="popup-header-actions">
+            <button class="secondary-pill" type="button" data-clear-all>Clear</button>
+            <button class="icon-button subtle-button" type="button" aria-label="Close popup">
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 4L12 12M12 4L4 12"></path>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="filter-popup-body">
+          <section class="filter-section search-section">
+            <label class="filter-field">
+              <span class="field-label">Search term</span>
+              <input type="text" placeholder="Search correspondences, entities, or references" />
+            </label>
+          </section>
+
+          <section class="filter-section">
+            <h2>Date</h2>
+            <div class="chip-row">
+              <button class="filter-chip" type="button" data-chip-group="date">Last year</button>
+              <button class="filter-chip is-selected" type="button" data-chip-group="date">Current year</button>
+              <button class="filter-chip" type="button" data-chip-group="date">Last week</button>
+              <button class="filter-chip" type="button" data-chip-group="date">Last month</button>
+              <button class="filter-chip" type="button" data-chip-group="date">Current month</button>
+              <button class="filter-chip" type="button" data-chip-group="date" data-toggle-custom-range>Custom range</button>
+            </div>
+
+            <div class="filter-grid is-hidden" data-custom-range>
+              <label class="filter-field">
+                <span class="field-label">Date from</span>
+                <input type="date" />
+              </label>
+              <label class="filter-field">
+                <span class="field-label">Date to</span>
+                <input type="date" />
+              </label>
+            </div>
+          </section>
+
+          <section class="filter-section">
+            <h2>Entities</h2>
+            <div class="filter-grid">
+              <label class="filter-field">
+                <span class="field-label">Sending Entity</span>
+                <input type="text" placeholder="Searchable dropdown" />
+              </label>
+              <label class="filter-field">
+                <span class="field-label">Related Entity</span>
+                <input type="text" placeholder="Searchable dropdown" />
+              </label>
+              <label class="filter-field">
+                <span class="field-label">Receiving Entity</span>
+                <input type="text" placeholder="Searchable dropdown" />
+              </label>
+              <label class="filter-field">
+                <span class="field-label">Related Entity</span>
+                <input type="text" placeholder="Searchable dropdown" />
+              </label>
+              <label class="filter-field span-2">
+                <span class="field-label">Organizational Unit</span>
+                <input type="text" placeholder="Searchable dropdown" />
+              </label>
+              <label class="filter-field span-2">
+                <span class="field-label">Related Ref. Num</span>
+                <input type="text" placeholder="Searchable dropdown" />
+              </label>
+            </div>
+          </section>
+
+          <section class="filter-section">
+            <h2>Advanced</h2>
+            <div class="filter-grid">
+              <label class="filter-field select-field">
+                <span class="field-label">Correspondence Type</span>
+                <select>
+                  <option value="">Select</option>
+                  <option>General</option>
+                  <option>Commercial</option>
+                  <option>Support</option>
+                  <option>Compliance</option>
+                </select>
+                <svg class="field-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 5.75L8 10.25L12.5 5.75"></path>
+                </svg>
+              </label>
+              <label class="filter-field select-field">
+                <span class="field-label">Security Level</span>
+                <select>
+                  <option value="">Select</option>
+                  <option>Public</option>
+                  <option>Internal</option>
+                  <option>Confidential</option>
+                  <option>Restricted</option>
+                </select>
+                <svg class="field-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 5.75L8 10.25L12.5 5.75"></path>
+                </svg>
+              </label>
+              <label class="filter-field select-field">
+                <span class="field-label">Urgency Level</span>
+                <select>
+                  <option value="">Select</option>
+                  <option>Low</option>
+                  <option>Normal</option>
+                  <option>High</option>
+                  <option>Critical</option>
+                </select>
+                <svg class="field-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 5.75L8 10.25L12.5 5.75"></path>
+                </svg>
+              </label>
+              <label class="filter-field select-field">
+                <span class="field-label">Tasks</span>
+                <select>
+                  <option value="">Select</option>
+                  <option>Reply pending</option>
+                  <option>Approval pending</option>
+                  <option>Review pending</option>
+                  <option>Escalated</option>
+                </select>
+                <svg class="field-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 5.75L8 10.25L12.5 5.75"></path>
+                </svg>
+              </label>
+              <label class="filter-field select-field span-2">
+                <span class="field-label">Created By</span>
+                <select>
+                  <option value="">Select</option>
+                  <option>Mack Rod</option>
+                  <option>Kevin Smith</option>
+                  <option>Maya Chen</option>
+                  <option>Jacob M.</option>
+                </select>
+                <svg class="field-arrow" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3.5 5.75L8 10.25L12.5 5.75"></path>
+                </svg>
+              </label>
+            </div>
+          </section>
+
+          <section class="filter-section">
+            <h2>Action Taken</h2>
+            <div class="chip-row">
+              <button class="filter-chip" type="button">Approval</button>
+              <button class="filter-chip" type="button">Creation</button>
+              <button class="filter-chip is-selected" type="button">Review</button>
+              <button class="filter-chip" type="button">Sending</button>
+              <button class="filter-chip" type="button">Sending to Postal Office</button>
+              <button class="filter-chip" type="button">Sending via G2G</button>
+            </div>
+
+            <div class="filter-grid single-row">
+              <label class="filter-field">
+                <span class="field-label">Taken By</span>
+                <input type="text" placeholder="username + user ID + position" />
+              </label>
+            </div>
+          </section>
+
+          <section class="filter-section">
+            <h2>Read Status</h2>
+            <div class="chip-row">
+              <button class="filter-chip" type="button">Read</button>
+              <button class="filter-chip is-selected" type="button">Unread</button>
+            </div>
+          </section>
+
+          <section class="filter-section no-border">
+            <h2>Document Type</h2>
+            <div class="chip-row">
+              <button class="filter-chip is-selected" type="button">Correspondence</button>
+              <button class="filter-chip" type="button">Proposal</button>
+              <button class="filter-chip" type="button">Support Note</button>
+              <button class="filter-chip" type="button">Internal Memo</button>
+            </div>
+          </section>
+        </div>
+
+        <footer class="filter-popup-footer">
+          <p>Searchable filter fields can be mapped to entity name and file number sources.</p>
+          <div class="footer-actions">
+            <button class="secondary-pill" type="button">Cancel</button>
+            <button class="primary-pill" type="button">Apply Filters</button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

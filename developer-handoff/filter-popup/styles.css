@@ -1,0 +1,257 @@
+:root {
+  --bg-start: rgb(199, 232, 255);
+  --bg-end: rgb(255, 255, 196);
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-soft: rgba(248, 252, 255, 0.88);
+  --white: #ffffff;
+  --line: #dce7ef;
+  --line-soft: #e7eef4;
+  --text: #102c3f;
+  --muted: #6f8090;
+  --label: #444444;
+  --placeholder: #9f9f9f;
+  --primary: #0083da;
+  --primary-soft: #eaf6ff;
+  --shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+  --search-shadow: 0 6px 14px rgba(16, 47, 74, 0.06);
+  --font: Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: linear-gradient(129deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  color: var(--text);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.popup-demo {
+  display: flex;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.popup-header-actions,
+.footer-actions {
+  display: flex;
+  align-items: center;
+}
+
+.icon-button,
+.subtle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button svg,
+.field-arrow,
+.subtle-button svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.filter-popup {
+  width: min(620px, 100%);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.filter-popup-header {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--line-soft);
+  background: linear-gradient(180deg, #fdfefe 0%, #f6fbff 100%);
+}
+
+.filter-popup-header h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.filter-popup-header p,
+.filter-popup-footer p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.secondary-pill,
+.primary-pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.secondary-pill {
+  border: 1px solid #d4e3ee;
+  background: var(--white);
+  color: #5f7283;
+}
+
+.primary-pill {
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+.filter-popup-body {
+  max-height: 540px;
+  overflow: auto;
+  padding: 10px 20px;
+}
+
+.filter-section {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.filter-section.no-border {
+  border-bottom: 0;
+}
+
+.filter-section h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.chip-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  padding: 7px 12px;
+  border: 1px solid #dbe7ef;
+  border-radius: 999px;
+  background: var(--white);
+  color: #5f7283;
+  font-size: 12px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-chip.is-selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.filter-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.single-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.filter-field {
+  display: block;
+  min-width: 0;
+  padding: 4px 2px 10px;
+  border-bottom: 1px solid #d7d7d7;
+  transition: border-color 0.2s ease;
+}
+
+.filter-field:hover,
+.filter-field:focus-within {
+  border-color: var(--primary);
+}
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  color: var(--label);
+}
+
+.filter-field input,
+.filter-field select {
+  width: 100%;
+  margin-top: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #000;
+  font-size: 15px;
+  outline: none;
+}
+
+.filter-field input::placeholder {
+  color: var(--placeholder);
+}
+
+.select-field {
+  position: relative;
+}
+
+.select-field select {
+  padding-right: 20px;
+  appearance: none;
+}
+
+.field-arrow {
+  position: absolute;
+  right: 0;
+  top: 26px;
+  width: 14px;
+  height: 14px;
+  color: var(--primary);
+}
+
+.is-hidden {
+  display: none;
+}
+
+.filter-popup-footer {
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line-soft);
+  background: #fbfdff;
+}
+
+@media (max-width: 900px) {
+  .popup-demo {
+    padding-inline: 16px;
+  }
+}

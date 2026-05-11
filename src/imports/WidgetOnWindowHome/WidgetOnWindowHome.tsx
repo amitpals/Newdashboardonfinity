@@ -2,18 +2,22 @@ import { Fragment, useEffect, useState, type CSSProperties, type ReactNode } fro
 import {
   ArrowLeft,
   BadgeCheck,
+  Building2,
   CalendarClock,
   CalendarDays,
   ChevronLeft,
   ChevronRight,
+  CircleDollarSign,
   Download,
   Eye,
   ExternalLink,
   FilePlus2,
+  FileSpreadsheet,
   Github,
   GraduationCap,
   HardDrive,
   HardDriveDownload,
+  History,
   Hourglass,
   Home,
   Mail,
@@ -23,11 +27,13 @@ import {
   Percent,
   Phone,
   Plus,
+  ReceiptText,
   RotateCcw,
   Send,
   Ticket,
   Trash2,
   UserRound,
+  WalletCards,
 } from "lucide-react";
 import svgPaths from "./svg-gcxtz2mw3y";
 import imgImage34 from "./67915b5281a364c5879b410415ba1e8e9e7f1129.png";
@@ -276,7 +282,7 @@ function Frame73({
             </div>
             <button
               className={`font-['Roboto:Bold',sans-serif] font-bold text-[18px] whitespace-nowrap ${
-                currentScreen === "crm" ? "text-black" : "text-[rgba(0,0,0,0.4)]"
+                currentScreen !== "home" ? "text-black" : "text-[rgba(0,0,0,0.4)]"
               }`}
               onClick={onGoModule}
               style={{ fontVariationSettings: "'wdth' 100" }}
@@ -2407,10 +2413,92 @@ function IconWithTooltip({ children, label }: { children: ReactNode; label: stri
   );
 }
 
-type ScreenMode = "home" | "crm";
+type ModuleId = "crm" | "finance";
+type ScreenMode = "home" | ModuleId;
 
-type AppView = "dashboard" | "salesProposal" | "opportunities" | "prospects" | "tasks" | "calendar" | "inbox" | "customers";
-type MenuItemId = "inbox" | "customers" | "calendar" | "tasks" | "prospects" | "salesProposal" | "opportunities" | "settings";
+type AppView =
+  | "dashboard"
+  | "salesProposal"
+  | "opportunities"
+  | "prospects"
+  | "tasks"
+  | "calendar"
+  | "inbox"
+  | "customers"
+  | "fin_sales"
+  | "fin_ap_invoice"
+  | "fin_purchase"
+  | "fin_payment"
+  | "fin_cockpit"
+  | "fin_banking"
+  | "fin_cashbook"
+  | "fin_tax";
+type MenuItemId =
+  | "inbox"
+  | "customers"
+  | "calendar"
+  | "tasks"
+  | "prospects"
+  | "salesProposal"
+  | "opportunities"
+  | "settings"
+  | "fin_sales"
+  | "fin_ap_invoice"
+  | "fin_purchase"
+  | "fin_payment"
+  | "fin_cockpit"
+  | "fin_banking"
+  | "fin_cashbook"
+  | "fin_tax";
+
+type NavigationItem = {
+  id: MenuItemId;
+  label: string;
+  icon: ReactNode;
+  view: AppView;
+};
+
+const CRM_MENU_ITEMS: NavigationItem[] = [
+  { id: "inbox", label: "Inbox", icon: <Slot2 />, view: "inbox" },
+  { id: "customers", label: "Customers", icon: <Slot3 />, view: "customers" },
+  { id: "calendar", label: "Calendar", icon: <Slot4 />, view: "calendar" },
+  { id: "tasks", label: "Tasks", icon: <Slot5 />, view: "tasks" },
+  { id: "prospects", label: "Prospects", icon: <Slot6 />, view: "prospects" },
+  { id: "salesProposal", label: "Sales Proposal", icon: <Slot7 />, view: "salesProposal" },
+  { id: "opportunities", label: "Opportunities", icon: <Slot8 />, view: "opportunities" },
+  { id: "settings", label: "Settings", icon: <Slot9 />, view: "dashboard" },
+];
+
+const FINANCE_MENU_ITEMS: NavigationItem[] = [
+  { id: "fin_sales", label: "Sales Invoice", icon: <ReceiptText className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_sales" },
+  { id: "fin_ap_invoice", label: "AP Invoice", icon: <FileSpreadsheet className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_ap_invoice" },
+  { id: "fin_purchase", label: "Purchase Invoice", icon: <FileSpreadsheet className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_purchase" },
+  { id: "fin_payment", label: "Payment Entry", icon: <CircleDollarSign className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_payment" },
+  { id: "fin_cockpit", label: "Payment Cockpit", icon: <WalletCards className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_cockpit" },
+  { id: "fin_banking", label: "Banking", icon: <Building2 className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_banking" },
+  { id: "fin_cashbook", label: "Cashbook", icon: <HardDrive className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_cashbook" },
+  { id: "fin_tax", label: "Taxation", icon: <Percent className="size-[22px] text-[#0083DA]" strokeWidth={1.9} />, view: "fin_tax" },
+];
+
+const MODULE_CHOOSER_OPTIONS: Array<{
+  id: ModuleId;
+  label: string;
+  description: string;
+  icon: ReactNode;
+}> = [
+  {
+    id: "crm",
+    label: "CRM",
+    description: "Leads, opportunities, proposals, customers, and execution views",
+    icon: <UserRound className="size-[20px] text-[#1f83ff]" strokeWidth={1.9} />,
+  },
+  {
+    id: "finance",
+    label: "Finance",
+    description: "Invoices, payments, banking, cashbook, taxation, and collections",
+    icon: <WalletCards className="size-[20px] text-[#1f83ff]" strokeWidth={1.9} />,
+  },
+];
 
 type ProposalStatus = "Accepted" | "Rejected" | "Draft" | "Sent";
 
@@ -2825,26 +2913,17 @@ function HomeView() {
 function LeftMenu({
   activeItem,
   isDashboardActive,
+  menuItems,
   onGoDashboard,
   onNavigate,
 }: {
   activeItem: MenuItemId | null;
   isDashboardActive: boolean;
+  menuItems: NavigationItem[];
   onGoDashboard: () => void;
   onNavigate: (view: AppView, item: MenuItemId) => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  
-  const menuItems = [
-    { id: "inbox" as MenuItemId, label: "Inbox", icon: <Slot2 />, view: "inbox" as AppView },
-    { id: "customers" as MenuItemId, label: "Customers", icon: <Slot3 />, view: "customers" as AppView },
-    { id: "calendar" as MenuItemId, label: "Calendar", icon: <Slot4 />, view: "calendar" as AppView },
-    { id: "tasks" as MenuItemId, label: "Tasks", icon: <Slot5 />, view: "tasks" as AppView },
-    { id: "prospects" as MenuItemId, label: "Prospects", icon: <Slot6 />, view: "prospects" as AppView },
-    { id: "salesProposal" as MenuItemId, label: "Sales Proposal", icon: <Slot7 />, view: "salesProposal" as AppView },
-    { id: "opportunities" as MenuItemId, label: "Opportunities", icon: <Slot8 />, view: "opportunities" as AppView },
-    { id: "settings" as MenuItemId, label: "Settings", icon: <Slot9 />, view: "dashboard" as AppView },
-  ];
 
   return (
     <>
@@ -2876,9 +2955,9 @@ function LeftMenu({
         </button>
 
         {/* Regular Menu Icons */}
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <button
-            key={index}
+            key={item.id}
             className={`rounded-[8px] ${activeItem === item.id ? "bg-gradient-to-b from-[rgba(255,255,255,0.85)] to-[rgba(255,255,255,0.64)] shadow-[0_10px_24px_rgba(0,131,218,0.12)]" : ""}`}
             onClick={() => onNavigate(item.view, item.id)}
             type="button"
@@ -2922,9 +3001,9 @@ function LeftMenu({
               Module Dashboard
             </p>
           </button>
-          {menuItems.map((item, index) => (
+          {menuItems.map((item) => (
             <button 
-              key={index}
+              key={item.id}
               className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-[8px] hover:bg-white/60 cursor-pointer transition-all group text-left ${activeItem === item.id ? "bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] border border-[#bfe4ff]" : ""}`}
               onClick={() => {
                 onNavigate(item.view, item.id);
@@ -4688,6 +4767,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
   const [selectedMessageIds, setSelectedMessageIds] = useState<string[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterState, setFilterState] = useState({
+    searchQuery: "",
     datePreset: "current-year",
     dateFrom: "",
     dateTo: "",
@@ -4777,6 +4857,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
   };
   const clearFilters = () => {
     setFilterState({
+      searchQuery: "",
       datePreset: "current-year",
       dateFrom: "",
       dateTo: "",
@@ -4911,6 +4992,15 @@ function InboxView({ onClose }: { onClose: () => void }) {
 
                     <div className="max-h-[540px] overflow-auto px-[20px] py-[10px]">
                       <div className="flex flex-col">
+                        <div className="border-b border-solid border-[#e7eef4] py-[16px]">
+                          <FilterPopupField
+                            label="Search term"
+                            onChange={(value) => updateFilterField("searchQuery", value)}
+                            placeholder="Search correspondences, entities, or references"
+                            value={filterState.searchQuery}
+                          />
+                        </div>
+
                         <div className="border-b border-solid border-[#e7eef4] py-[16px]">
                           <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             Date
@@ -5328,6 +5418,25 @@ function CustomerDetailField({
   );
 }
 
+function FormSectionLabel({
+  title,
+  className = "",
+}: {
+  title: string;
+  className?: string;
+}) {
+  return (
+    <div className={`flex items-center gap-[12px] py-[6px] ${className}`}>
+      <div className="shrink-0">
+        <p className="font-['Roboto:Bold',sans-serif] text-[13px] uppercase tracking-[0.08em] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+      </div>
+      <div className="h-px min-w-0 flex-1 bg-[#dce6ee]" />
+    </div>
+  );
+}
+
 function CustomersView({ onClose }: { onClose: () => void }) {
   const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
   const windowActions = getWindowActionItems();
@@ -5404,6 +5513,26 @@ function CustomersView({ onClose }: { onClose: () => void }) {
       ...current,
       [label]: nextValue,
     }));
+  };
+  const fieldByLabel = new Map(detailFields.map((field) => [field.label, field] as const));
+  const renderDetailField = (label: string) => {
+    const field = fieldByLabel.get(label);
+
+    if (!field) {
+      return null;
+    }
+
+    return (
+      <CustomerDetailField
+        icon={field.icon}
+        key={field.label}
+        label={field.label}
+        onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
+        required={field.required}
+        spanClass={"spanClass" in field ? field.spanClass ?? "" : ""}
+        value={fieldValues[field.label] ?? ""}
+      />
+    );
   };
 
   return (
@@ -5607,9 +5736,27 @@ function CustomersView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="mr-[56px] border-b border-solid border-[#e6eef5] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(248,252,255,0.88)_100%)] px-[18px] py-[12px] backdrop-blur-[8px]">
-            <div className="rounded-[16px] bg-[linear-gradient(180deg,rgba(251,253,255,0.96)_0%,rgba(245,250,255,0.90)_100%)] px-[18px] py-[14px] shadow-[0_10px_22px_rgba(15,61,97,0.04)]">
-              <div className="flex flex-wrap items-center justify-end gap-[10px]">
+          <div className="mr-[56px] border-b border-solid border-[#e6eef5] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(248,252,255,0.88)_100%)] px-[18px] py-[8px] backdrop-blur-[8px]">
+            <div className="rounded-[14px] bg-[linear-gradient(180deg,rgba(251,253,255,0.96)_0%,rgba(245,250,255,0.90)_100%)] px-[18px] py-[10px] shadow-[0_8px_18px_rgba(15,61,97,0.035)]">
+              <div className="flex flex-wrap items-center justify-between gap-[12px]">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[4px]">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {fieldValues["Primary Contact"] ?? ""}
+                    </p>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {fieldValues["Email"] ?? ""}
+                    </p>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {fieldValues["Phone"] ?? ""}
+                    </p>
+                  </div>
+                  <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {fieldValues["Customer Name"] ?? ""} • {fieldValues["Customer Type"] ?? ""}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-end gap-[10px]">
                   {headerPanelActions.map((action) => (
                     <button
                       className={`rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px] transition-colors ${
@@ -5628,6 +5775,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                       {action.label}
                     </button>
                   ))}
+                </div>
               </div>
             </div>
           </div>
@@ -6942,30 +7090,2039 @@ function CalendarView({ onClose }: { onClose: () => void }) {
   );
 }
 
+function FinanceMetricCard({
+  label,
+  value,
+  meta,
+  accent,
+  valueClass = "text-[#102c3f]",
+  className = "col-span-2",
+}: {
+  label: string;
+  value: string;
+  meta: string;
+  accent: string;
+  valueClass?: string;
+  className?: string;
+}) {
+  return (
+    <div className={`${className} rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${accent}`}>
+      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {label}
+      </p>
+      <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+        {value}
+      </p>
+      <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {meta}
+      </p>
+    </div>
+  );
+}
+
+function FinanceTableCard({
+  title,
+  subtitle,
+  columns,
+  rows,
+  className,
+}: {
+  title: string;
+  subtitle: string;
+  columns: string[];
+  rows: string[][];
+  className: string;
+}) {
+  return (
+    <div className={`${className} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}>
+      <div>
+        <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {subtitle}
+        </p>
+      </div>
+      <div className={`mt-[18px] grid gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]`} style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
+        {columns.map((heading) => (
+          <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+            {heading}
+          </p>
+        ))}
+      </div>
+      <div className="mt-[2px]">
+        {rows.map((row, rowIndex) => (
+          <div
+            className="grid gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0"
+            key={`${title}-${rowIndex}`}
+            style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
+          >
+            {row.map((cell, cellIndex) => (
+              <p
+                className={`${cellIndex === 0 ? "font-['Roboto:Bold',sans-serif] text-[#102c3f]" : "font-['Roboto:Regular',sans-serif] text-[#5f7283]"} text-[14px]`}
+                key={`${title}-${rowIndex}-${cellIndex}`}
+                style={{ fontVariationSettings: "'wdth' 100" }}
+              >
+                {cell}
+              </p>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FinanceListCard({
+  title,
+  subtitle,
+  items,
+  className,
+}: {
+  title: string;
+  subtitle: string;
+  items: Array<{ label: string; value: string; meta: string }>;
+  className: string;
+}) {
+  return (
+    <div className={`${className} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}>
+      <div>
+        <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {subtitle}
+        </p>
+      </div>
+      <div className="mt-[14px] flex flex-col">
+        {items.map((item) => (
+          <div className="flex items-start justify-between gap-[12px] border-b border-solid border-[#edf2f6] py-[12px] last:border-b-0 last:pb-0 first:pt-0" key={`${title}-${item.label}`}>
+            <div className="min-w-0">
+              <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {item.label}
+              </p>
+              <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {item.meta}
+              </p>
+            </div>
+            <p className="whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              {item.value}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FinancePageShell({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <div className="h-full overflow-auto px-[18px] py-[18px]">
+      <div className="grid grid-cols-9 gap-[12px]">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function FinanceWindowShell({
+  title,
+  onClose,
+  children,
+}: {
+  title: string;
+  onClose: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex h-full flex-col overflow-hidden">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+          <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {title}
+          </p>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+        <div className="grid grid-cols-9 gap-[12px]">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FinanceModuleDashboard() {
+  return (
+    <FinancePageShell>
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]" label="Cash Position" meta="Across bank accounts and cashbooks" value="$ 1.82M" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]" label="Receivables Due" meta="Customer invoices due this month" value="$ 426K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]" label="Payables Due" meta="Vendor obligations scheduled this month" value="$ 281K" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]" className="col-span-3" label="Tax Exposure" meta="Net GST/VAT position before filing adjustments" value="$ 84K" valueClass="text-[#0b6b45]" />
+
+      <FinanceTableCard
+        className="col-[1/span_5]"
+        columns={["Customer", "Invoice", "Due", "Status"]}
+        rows={[
+          ["Apex Med Systems", "INV-30291", "12 May", "14 days overdue"],
+          ["Kumaan Pvt. Ltd.", "INV-30296", "17 May", "Due this week"],
+          ["UrbanAxis Retail", "INV-30304", "24 May", "Pending approval"],
+        ]}
+        subtitle="Invoices needing collection follow-up and aging attention"
+        title="Receivables Focus"
+      />
+      <FinanceListCard
+        className="col-[6/span_4]"
+        items={[
+          { label: "Vendor payroll batch", value: "Tomorrow", meta: "Primary operating account • balance check pending" },
+          { label: "Quarterly tax set-aside", value: "$ 42K", meta: "Hold back before next vendor release" },
+          { label: "Insurance reimbursement", value: "Expected Fri", meta: "Will improve short-term cash position" },
+        ]}
+        subtitle="Liquidity-sensitive items and treasury watchpoints"
+        title="Cash & Treasury Watch"
+      />
+
+      <FinanceListCard
+        className="col-[1/span_3]"
+        items={[
+          { label: "Operating account", value: "$ 982K", meta: "Axis Bank • reconciled today" },
+          { label: "Collections account", value: "$ 488K", meta: "HDFC • 3 unmatched deposits" },
+          { label: "Petty cash network", value: "$ 12K", meta: "Across 4 active branches" },
+        ]}
+        subtitle="Balances across banking and cashbook heads"
+        title="Position by Source"
+      />
+      <FinanceTableCard
+        className="col-[4/span_3]"
+        columns={["Obligation", "Date", "Owner"]}
+        rows={[
+          ["Vendor payment run", "09 May", "Treasury"],
+          ["GST review", "13 May", "Tax team"],
+          ["Month-end close prep", "28 May", "Finance ops"],
+        ]}
+        subtitle="Upcoming finance operations over the next 30 days"
+        title="Upcoming Obligations"
+      />
+      <FinanceTableCard
+        className="col-[7/span_3]"
+        columns={["Jurisdiction", "Collected", "Net"]}
+        rows={[
+          ["India GST", "$ 118K", "$ 22K payable"],
+          ["EU VAT", "$ 64K", "$ 9K reclaim"],
+          ["UAE VAT", "$ 28K", "$ 4K payable"],
+        ]}
+        subtitle="Tax view by reporting region"
+        title="Tax Snapshot"
+      />
+    </FinancePageShell>
+  );
+}
+
+function FinanceSalesInvoiceView({ onClose }: { onClose: () => void }) {
+  return (
+    <FinanceWindowShell onClose={onClose} title="Sales Invoice">
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]" label="Outstanding Receivables" meta="Open customer invoices" value="$ 426K" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]" label="Overdue" meta="Past due receivables" value="$ 118K" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]" label="Invoices This Week" meta="Newly issued and posted" value="42" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]" className="col-span-3" label="Average Days to Collect" meta="Rolling 90-day collection cycle" value="24 days" valueClass="text-[#9a5c00]" />
+      <FinanceTableCard
+        className="col-[1/span_6]"
+        columns={["Customer", "Invoice", "Amount", "Due"]}
+        rows={[
+          ["Apex Med Systems", "INV-30291", "$ 64K", "12 May"],
+          ["Northwind Energy", "INV-30294", "$ 28K", "14 May"],
+          ["UrbanAxis Retail", "INV-30301", "$ 93K", "20 May"],
+          ["Kumaan Pvt. Ltd.", "INV-30307", "$ 36K", "24 May"],
+        ]}
+        subtitle="Invoices needing collections outreach or approval follow-up"
+        title="Invoices Needing Attention"
+      />
+      <FinanceListCard
+        className="col-[7/span_3]"
+        items={[
+          { label: "0-30 days", value: "$ 208K", meta: "Healthy current receivables" },
+          { label: "31-60 days", value: "$ 76K", meta: "Needs owner follow-up" },
+          { label: "60+ days", value: "$ 42K", meta: "Escalate with account owner" },
+        ]}
+        subtitle="Receivables aging summary"
+        title="Aging Receivables"
+      />
+    </FinanceWindowShell>
+  );
+}
+
+function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
+  const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+  const [activeRightPanel, setActiveRightPanel] = useState<"vendor-history">("vendor-history");
+  const summaryCards = [
+    { label: "Pending Bills", value: "$ 281K", meta: "Awaiting release or approval", accent: "bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]", valueClass: "text-[#9a5c00]" },
+    { label: "Approved to Pay", value: "$ 164K", meta: "Ready for payment scheduling", accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]", valueClass: "text-[#102c3f]" },
+    { label: "Exception Queue", value: "09", meta: "Mismatch or compliance issue", accent: "bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]", valueClass: "text-[#b04343]" },
+    { label: "Avg Approval Time", value: "2.1 days", meta: "Posting to release cycle", accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]", valueClass: "text-[#0b6b45]" },
+  ];
+  const detailFields = [
+    { label: "Vendor Name", value: "Vertex Cloud Ltd.", icon: <Building2 className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Invoice Number", value: "PIN-1888", icon: <ReceiptText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Invoice Date", value: "06 May 2026", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Due Date", value: "20 May 2026", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Purchase Order", value: "PO-44291", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Payment Term", value: "Net 14", icon: <Ticket className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Cost Center", value: "Cloud Infrastructure", icon: <Package2 className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Currency", value: "USD", icon: <CircleDollarSign className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Receiving Warehouse", value: "Platform Ops", icon: <HardDrive className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Tax Code", value: "GST Input 18%", icon: <Percent className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Amount", value: "$ 19,400.00", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Approval Owner", value: "Anita Verma", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
+  ];
+  const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => ({
+    ...Object.fromEntries(detailFields.map((field) => [field.label, field.value])),
+    "Vendor Contact": "Kevin Hughes",
+    "Vendor Email": "kevin.hughes@vertexcloud.com",
+    "Vendor Phone": "+1 415 555 0981",
+    "Billing Address": "22 Federal Street, San Francisco, CA 94107",
+    "Internal Notes": "Monthly infrastructure invoice aligned to active cloud hosting contract. Validate bandwidth overage before final posting.",
+    "Approval Notes": "Finance lead to confirm cost split between platform and analytics teams before release.",
+    "Approval Status": "Ready for review",
+  }));
+  const windowActions = [
+    { id: "new", icon: <FilePlus2 className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "save", icon: <HardDrive className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "download", icon: <Download className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "share", icon: <ExternalLink className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "review", icon: <Eye className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "reset", icon: <RotateCcw className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "delete", icon: <Trash2 className="size-[18px]" strokeWidth={1.8} /> },
+  ];
+  const requiredLabels = detailFields.filter((field) => field.required).map((field) => field.label);
+  const isReadyToSave = requiredLabels.every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const isReadyToSubmit = isReadyToSave && ["Vendor Contact", "Vendor Email"].every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const headerPanelActions = [
+    { label: "Save Draft", variant: "primary" as const, disabled: !isReadyToSave },
+    { label: "Submit Invoice", variant: "secondary" as const, disabled: !isReadyToSubmit },
+    { label: "Attach Bill", variant: "secondary" as const, disabled: false },
+    { label: "Match PO", variant: "secondary" as const, disabled: false },
+  ];
+  const vendorPerformanceStats = [
+    { label: "On-time Delivery", value: "93%", meta: "Across the last 12 purchase orders" },
+    { label: "Open Due Invoices", value: "02", meta: "One exceeds the agreed due date" },
+    { label: "Credit Exposure", value: "$ 28.6K", meta: "Open balance including this bill" },
+    { label: "Quality Flags", value: "Low", meta: "No recent receiving or return exceptions" },
+  ];
+  const vendorOrderHistory = [
+    { order: "PO-44291", amount: "$ 19.4K", status: "Invoiced", meta: "Cloud hosting expansion • 06 May 2026" },
+    { order: "PO-43872", amount: "$ 12.8K", status: "Paid", meta: "Monitoring services • 22 Apr 2026" },
+    { order: "PO-43318", amount: "$ 8.1K", status: "Due", meta: "Security patch support • 11 Apr 2026" },
+  ];
+  const dueInvoiceAlerts = [
+    { ref: "PIN-1834", amount: "$ 8.1K", age: "Due in 2 days" },
+    { ref: "PIN-1807", amount: "$ 4.6K", age: "Overdue by 5 days" },
+  ];
+  const rightPanelNavItems = [
+    {
+      id: "vendor-history" as const,
+      label: "Vendor History",
+      icon: <History className="size-[16px]" strokeWidth={1.8} />,
+    },
+  ];
+  const rightPanelWidth = 360;
+  const rightPanelNavWidth = 44;
+  const windowActionRailWidth = 56;
+  const rightPanelShellWidth = rightPanelWidth + rightPanelNavWidth;
+  const rightPanelContentGap = 8;
+  const rightPanelWorkspaceOffset = rightPanelShellWidth + windowActionRailWidth + rightPanelContentGap;
+  const updateFieldValue = (label: string, nextValue: string) => {
+    setFieldValues((current) => ({
+      ...current,
+      [label]: nextValue,
+    }));
+  };
+  const fieldByLabel = new Map(detailFields.map((field) => [field.label, field] as const));
+  const renderDetailField = (label: string) => {
+    const field = fieldByLabel.get(label);
+
+    if (!field) {
+      return null;
+    }
+
+    return (
+      <CustomerDetailField
+        icon={field.icon}
+        key={field.label}
+        label={field.label}
+        onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
+        required={field.required}
+        spanClass={"spanClass" in field ? field.spanClass ?? "" : ""}
+        value={fieldValues[field.label] ?? ""}
+      />
+    );
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden bg-transparent">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Purchase Invoice
+            </p>
+            <div className="relative shrink-0 w-[96px]">
+              <div className="flex items-center justify-center gap-[12px] w-full">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("dashboard")} type="button">
+                  <MingcuteGridFill />
+                  {viewMode === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+                <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0">
+                  <div className="flex-none rotate-90">
+                    <div className="h-0 relative w-[17px]">
+                      <div className="absolute inset-[-1px_0_0_0]">
+                        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17 1">
+                          <line stroke="var(--stroke-0, #D9D9D9)" x2="17" y1="0.5" y2="0.5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("window")} type="button">
+                  <RiWindowFill />
+                  {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+              </div>
+              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+            </div>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {viewMode === "dashboard" ? (
+        <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+          <div className="grid grid-cols-9 gap-[12px]">
+            <button
+              className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)]"
+              onClick={() => setViewMode("window")}
+              type="button"
+            >
+              <div className="flex h-full min-h-[140px] flex-col justify-between">
+                <div className="flex items-start justify-between gap-[10px]">
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Quick Action
+                  </p>
+                  <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                    <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    New Invoice
+                  </p>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Open the purchase invoice entry window.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            {summaryCards.map((card) => (
+              <div className={`col-span-2 rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.label}
+                </p>
+                <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.value}
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.meta}
+                </p>
+              </div>
+            ))}
+
+            <FinanceTableCard
+              className="col-[1/span_5]"
+              columns={["Vendor", "Bill", "Amount", "Status"]}
+              rows={[
+                ["Delphi Services", "PIN-1884", "$ 38K", "Needs approval"],
+                ["Vertex Cloud", "PIN-1888", "$ 19K", "Approved"],
+                ["Urban Logistics", "PIN-1892", "$ 27K", "3-way mismatch"],
+              ]}
+              subtitle="Vendor bills and exception status"
+              title="Vendor Invoice Queue"
+            />
+            <FinanceListCard
+              className="col-[6/span_4]"
+              items={[
+                { label: "Rent & facilities", value: "$ 62K", meta: "Largest payable bucket this month" },
+                { label: "Cloud infrastructure", value: "$ 54K", meta: "Already approved for release" },
+                { label: "Professional services", value: "$ 31K", meta: "Contract review still pending" },
+              ]}
+              subtitle="Top spend categories by open bill amount"
+              title="Open Payables Mix"
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="relative flex h-0 min-h-0 flex-1 flex-col bg-white">
+            <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0">
+              <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+                <ProposalActionButton>
+                  <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton>
+                  <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton>
+                  <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton label="New Record">
+                  <FilePlus2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+              </div>
+
+              <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+                <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                  <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                    <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                      <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                      <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                    </svg>
+                  </div>
+                  <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Search purchase invoices
+                    </p>
+                    <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                      <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                        <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                      </svg>
+                      <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                        <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                        <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                  <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+                </svg>
+                <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                  <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                  <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                  <circle cx="9" cy="13" fill="#141414" r="1.4" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="mr-[56px] border-b border-solid border-[#e6eef5] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(248,252,255,0.88)_100%)] px-[18px] py-[8px] backdrop-blur-[8px]">
+              <div className="rounded-[14px] bg-[linear-gradient(180deg,rgba(251,253,255,0.96)_0%,rgba(245,250,255,0.90)_100%)] px-[18px] py-[10px] shadow-[0_8px_18px_rgba(15,61,97,0.035)]">
+                <div className="flex flex-wrap items-center justify-between gap-[12px]">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[4px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Vendor Name"] ?? ""}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Vendor Contact"] ?? ""}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Vendor Email"] ?? ""}
+                      </p>
+                    </div>
+                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {fieldValues["Invoice Number"] ?? ""} • {fieldValues["Amount"] ?? ""} • Due {fieldValues["Due Date"] ?? ""}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-end gap-[10px]">
+                    {headerPanelActions.map((action) => (
+                      <button
+                        className={`rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px] transition-colors ${
+                          action.variant === "primary"
+                            ? action.disabled
+                              ? "border-[#b7d8f1] bg-[#dfeef9] text-white/85 cursor-not-allowed"
+                              : "border-[#0083da] bg-[#0083da] text-white hover:bg-[#0073c0]"
+                            : action.disabled
+                              ? "border-[#cfe0ed] bg-white text-[#9ab0c0] cursor-not-allowed"
+                              : "border-[#0083da] bg-white text-[#0083da] hover:bg-[#eef8ff]"
+                        }`}
+                        disabled={action.disabled}
+                        key={action.label}
+                        type="button"
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative h-0 min-h-0 flex-1 overflow-hidden bg-white">
+              <div className="h-full overflow-auto" style={{ marginRight: `${rightPanelWorkspaceOffset}px` }}>
+                <div className="min-h-full">
+                  <div className="px-[20px] py-[18px]">
+                    <div className="grid grid-cols-2 gap-x-[20px] gap-y-[20px]">
+                      {renderDetailField("Vendor Name")}
+                      {renderDetailField("Invoice Number")}
+                      {renderDetailField("Invoice Date")}
+                      {renderDetailField("Due Date")}
+                      {renderDetailField("Purchase Order")}
+                      {renderDetailField("Payment Term")}
+                      {renderDetailField("Cost Center")}
+                      {renderDetailField("Currency")}
+                      {renderDetailField("Receiving Warehouse")}
+                      {renderDetailField("Tax Code")}
+                      {renderDetailField("Amount")}
+                      {renderDetailField("Approval Owner")}
+                      <CustomerDetailField
+                        icon={<UserRound className="size-[22px]" strokeWidth={1.8} />}
+                        label="Vendor Contact"
+                        onChange={(nextValue) => updateFieldValue("Vendor Contact", nextValue)}
+                        value={fieldValues["Vendor Contact"] ?? ""}
+                      />
+                      <CustomerDetailField
+                        icon={<BadgeCheck className="size-[22px]" strokeWidth={1.8} />}
+                        label="Approval Status"
+                        onChange={(nextValue) => updateFieldValue("Approval Status", nextValue)}
+                        value={fieldValues["Approval Status"] ?? ""}
+                      />
+                      <CustomerDetailField
+                        icon={<Mail className="size-[22px]" strokeWidth={1.8} />}
+                        label="Vendor Email"
+                        onChange={(nextValue) => updateFieldValue("Vendor Email", nextValue)}
+                        value={fieldValues["Vendor Email"] ?? ""}
+                      />
+                      <CustomerDetailField
+                        icon={<Phone className="size-[22px]" strokeWidth={1.8} />}
+                        label="Vendor Phone"
+                        onChange={(nextValue) => updateFieldValue("Vendor Phone", nextValue)}
+                        value={fieldValues["Vendor Phone"] ?? ""}
+                      />
+                      <CustomerDetailField
+                        label="Billing Address"
+                        multiline
+                        onChange={(nextValue) => updateFieldValue("Billing Address", nextValue)}
+                        spanClass="col-span-2"
+                        value={fieldValues["Billing Address"] ?? ""}
+                      />
+                      <CustomerDetailField
+                        label="Internal Notes"
+                        multiline
+                        onChange={(nextValue) => updateFieldValue("Internal Notes", nextValue)}
+                        spanClass="col-span-2"
+                        value={fieldValues["Internal Notes"] ?? ""}
+                      />
+                      <CustomerDetailField
+                        label="Approval Notes"
+                        multiline
+                        onChange={(nextValue) => updateFieldValue("Approval Notes", nextValue)}
+                        spanClass="col-span-2"
+                        value={fieldValues["Approval Notes"] ?? ""}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+                    <div className="flex h-[56px] shrink-0 items-center justify-between px-[20px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Invoice Context
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Approval, matching, and next actions
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)] gap-[18px] px-[20px] py-[18px]">
+                      <div className="min-w-0">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Validation Timeline
+                        </p>
+                        <div className="mt-[12px] flex flex-col gap-[12px]">
+                          {[
+                            { title: "Invoice received from vendor", meta: "06 May 2026, 9:20 AM", tone: "bg-[#eef7ff] text-[#0f69ac]" },
+                            { title: "PO match queued for review", meta: "06 May 2026, 10:15 AM", tone: "bg-[#efeaff] text-[#6551b1]" },
+                            { title: "Cost split review requested", meta: "06 May 2026, 11:40 AM", tone: "bg-[#fff2df] text-[#9a6500]" },
+                          ].map((item) => (
+                            <div className="flex items-start gap-[12px]" key={`${item.title}-${item.meta}`}>
+                              <div className="mt-[6px] flex shrink-0 flex-col items-center">
+                                <div className="size-[10px] rounded-full bg-[#1f83ff]" />
+                                <div className="mt-[4px] h-[40px] w-px bg-[#d9e6f2]" />
+                              </div>
+                              <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]">
+                                <div className="flex items-center justify-between gap-[12px]">
+                                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    {item.title}
+                                  </p>
+                                  <span className={`rounded-[999px] px-[9px] py-[4px] text-[11px] font-['Roboto:Bold',sans-serif] ${item.tone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    Update
+                                  </span>
+                                </div>
+                                <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {item.meta}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Quick Actions
+                        </p>
+                        <div className="mt-[12px] flex flex-wrap gap-[10px]">
+                          {["Create Payment Entry", "Notify Approver", "Open Vendor Card", "Download Copy"].map((action) => (
+                            <button
+                              className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                              key={action}
+                              type="button"
+                            >
+                              {action}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
+                          {[
+                            { label: "PO Match", value: "2 of 3 lines" },
+                            { label: "Approval Level", value: "Finance Lead" },
+                            { label: "Payment Method", value: "ACH" },
+                            { label: "Budget Status", value: "Within limit" },
+                          ].map((item) => (
+                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.label}
+                              </p>
+                              <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.value}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute inset-y-0 right-[56px] flex">
+                <div className="shrink-0 border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#fcfeff_0%,#f7fbff_100%)] px-[18px] py-[18px]" style={{ width: `${rightPanelWidth}px` }}>
+                  <div className="flex h-full min-h-0 flex-col">
+                    <div className="shrink-0 border-b border-solid border-[#e6eef5] pb-[12px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Vendor History
+                      </p>
+                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Performance and payable context for {fieldValues["Vendor Name"] ?? "this vendor"} before you approve the bill.
+                      </p>
+                    </div>
+
+                    <div className="mt-[14px] min-h-0 flex-1 overflow-auto pr-[4px]">
+                      <div className="flex flex-col gap-[12px]">
+                      <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[12px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {fieldValues["Vendor Name"] ?? ""}
+                        </p>
+                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {fieldValues["Vendor Contact"] ?? ""} • {fieldValues["Vendor Email"] ?? ""}
+                        </p>
+                        <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Preferred terms: {fieldValues["Payment Term"] ?? ""} • Currency: {fieldValues["Currency"] ?? ""}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col gap-[10px]">
+                        {vendorPerformanceStats.map((item) => (
+                          <div className="border-b border-solid border-[#e8eef3] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
+                            <div className="flex items-center justify-between gap-[12px]">
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.label}
+                              </p>
+                              <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.value}
+                              </p>
+                            </div>
+                            <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {item.meta}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="border-t border-solid border-[#e6eef5] pt-[12px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Recent Orders
+                        </p>
+                        <div className="mt-[10px] flex flex-col gap-[10px]">
+                          {vendorOrderHistory.map((order) => (
+                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={order.order}>
+                              <div className="flex items-center justify-between gap-[12px]">
+                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {order.order}
+                                </p>
+                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {order.amount}
+                                </p>
+                              </div>
+                              <div className="mt-[5px] flex items-center justify-between gap-[12px]">
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {order.meta}
+                                </p>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {order.status}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="border-t border-solid border-[#e6eef5] pt-[12px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Due Invoice Alerts
+                        </p>
+                        <div className="mt-[10px] flex flex-col gap-[10px]">
+                          {dueInvoiceAlerts.map((invoice) => (
+                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={invoice.ref}>
+                              <div className="flex items-center justify-between gap-[12px]">
+                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {invoice.ref}
+                                </p>
+                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {invoice.amount}
+                                </p>
+                              </div>
+                              <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#b04343]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {invoice.age}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex w-[44px] shrink-0 flex-col items-center gap-[10px] border-l border-r border-solid border-[#e6edf3] bg-white px-[6px] py-[16px]">
+                  {rightPanelNavItems.map((item) => {
+                    const isActive = activeRightPanel === item.id;
+
+                    return (
+                      <button
+                        className={`flex size-[30px] items-center justify-center rounded-[10px] transition-colors ${
+                          isActive ? "bg-[#eaf8ff] text-[#0083da] shadow-[0_4px_10px_rgba(0,131,218,0.12)]" : "text-[#6b7d8d] hover:bg-[#f3f8fc]"
+                        }`}
+                        key={item.id}
+                        onClick={() => setActiveRightPanel(item.id)}
+                        title={item.label}
+                        type="button"
+                      >
+                        {item.icon}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <WindowActionPanel actions={windowActions} />
+            </div>
+          </div>
+
+          <ProposalFooter currentPage={1} totalPages={1} totalRecords={42} />
+        </>
+      )}
+    </div>
+  );
+}
+
+function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
+  const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+  const [activeRightPanel, setActiveRightPanel] = useState<"vendor-insights">("vendor-insights");
+  const summaryCards = [
+    { label: "Invoices in Draft", value: "18", meta: "Header created, lines pending review", accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]", valueClass: "text-[#102c3f]" },
+    { label: "Ready to Post", value: "$ 146K", meta: "Validated AP invoices for posting", accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]", valueClass: "text-[#0b6b45]" },
+    { label: "Hold Payment", value: "07", meta: "Invoices blocked for release", accent: "bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]", valueClass: "text-[#b04343]" },
+    { label: "Average Lines", value: "4.2", meta: "Invoice lines per AP document", accent: "bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]", valueClass: "text-[#9a5c00]" },
+  ];
+  const detailFields = [
+    { label: "Organization", value: "VA Mobile", icon: <Building2 className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Target Doc Type", value: "AP Invoice", icon: <ReceiptText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Description", value: "Network equipment and monthly support invoice", required: false, spanClass: "col-span-2" },
+    { label: "Vendor Invoice Reference", value: "111", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Purchase Order", value: "PO-98231", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Date Invoiced", value: "16/06/2023", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Account Date", value: "16/06/2023", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Representative", value: "<1011396>", icon: <UserRound className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Vendor", value: "George", icon: <UserRound className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Location", value: "Mohali Punjab", icon: <Package2 className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Vendor Contact", value: "George Mathew", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Payment Term", value: "Immediate", icon: <Ticket className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Payment Method", value: "Cash+Card", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Due Date", value: "30/06/2023", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Price List", value: "Standard", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Currency Rate Type", value: "Spot", icon: <Percent className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Currency Rate Conversion", value: "0.00", icon: <Percent className="size-[22px]" strokeWidth={1.8} /> },
+  ];
+  const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => ({
+    ...Object.fromEntries(detailFields.map((field) => [field.label, field.value])),
+    "Vendor Email": "george@vamobile.in",
+    "Vendor Phone": "+91 98150 24011",
+  }));
+  const [dropShipment, setDropShipment] = useState(false);
+  const [holdPayment, setHoldPayment] = useState(true);
+  const invoiceLines = [
+    { lineNo: "10", product: "Blower", attribute: "BL", charge: "Equipment", uom: "Each", quantity: "4", price: "100.00", tax: "Standard", amount: "400.00" },
+    { lineNo: "20", product: "Installation", attribute: "IN", charge: "Service", uom: "Hour", quantity: "2", price: "65.00", tax: "Standard", amount: "130.00" },
+  ];
+  const windowActions = [
+    { id: "save", icon: <HardDrive className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "save-as", icon: <FilePlus2 className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "download", icon: <Download className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "share", icon: <ExternalLink className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "review", icon: <Eye className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "reset", icon: <RotateCcw className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "delete", icon: <Trash2 className="size-[18px]" strokeWidth={1.8} /> },
+  ];
+  const requiredLabels = detailFields.filter((field) => field.required).map((field) => field.label);
+  const isReadyToSave = requiredLabels.every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const hasLines = invoiceLines.length > 0;
+  const isReadyToPost = isReadyToSave && hasLines;
+  const headerPanelActions = [
+    { label: "Save Draft", variant: "primary" as const, disabled: !isReadyToSave },
+    { label: "Create Lines", variant: "secondary" as const, disabled: false },
+    { label: "Validate", variant: "secondary" as const, disabled: !hasLines },
+    { label: "Post AP Invoice", variant: "secondary" as const, disabled: !isReadyToPost },
+  ];
+  const updateFieldValue = (label: string, nextValue: string) => {
+    setFieldValues((current) => ({
+      ...current,
+      [label]: nextValue,
+    }));
+  };
+  const fieldByLabel = new Map(detailFields.map((field) => [field.label, field] as const));
+  const renderDetailField = (label: string) => {
+    const field = fieldByLabel.get(label);
+
+    if (!field) {
+      return null;
+    }
+
+    return (
+      <CustomerDetailField
+        icon={field.icon}
+        key={field.label}
+        label={field.label}
+        onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
+        required={field.required}
+        spanClass={"spanClass" in field ? field.spanClass ?? "" : ""}
+        value={fieldValues[field.label] ?? ""}
+      />
+    );
+  };
+  const rightPanelNavItems = [
+    {
+      id: "vendor-insights" as const,
+      label: "Vendor Insights",
+      icon: <Building2 className="size-[16px]" strokeWidth={1.8} />,
+    },
+  ];
+  const vendorInsightSections = [
+    { label: "Vendor Status", value: holdPayment ? "On payment hold" : "Active for payment", meta: "Mapped supplier account is active in AP master" },
+    { label: "Open Exposure", value: "$ 42.8K", meta: "Across 4 unpaid vendor documents" },
+    { label: "Last Payment", value: "28 May 2026", meta: "ACH release cleared in 2 business days" },
+    { label: "Duplicate Risk", value: "Low", meta: "Reference and amount do not match recent posted invoices" },
+  ];
+  const recentVendorInvoices = [
+    { ref: "INV-904", amount: "$ 18.4K", status: "Posted", meta: "12 May 2026" },
+    { ref: "INV-887", amount: "$ 9.6K", status: "Paid", meta: "04 May 2026" },
+    { ref: "INV-861", amount: "$ 14.8K", status: "Hold", meta: "27 Apr 2026" },
+  ];
+  const rightPanelWidth = 280;
+  const rightPanelNavWidth = 44;
+  const windowActionRailWidth = 56;
+  const rightPanelShellWidth = rightPanelWidth + rightPanelNavWidth;
+  const rightPanelContentGap = 8;
+  const rightPanelWorkspaceOffset = rightPanelShellWidth + windowActionRailWidth + rightPanelContentGap;
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden bg-transparent">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              AP Invoice
+            </p>
+            <div className="relative shrink-0 w-[96px]">
+              <div className="flex items-center justify-center gap-[12px] w-full">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("dashboard")} type="button">
+                  <MingcuteGridFill />
+                  {viewMode === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+                <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0">
+                  <div className="flex-none rotate-90">
+                    <div className="h-0 relative w-[17px]">
+                      <div className="absolute inset-[-1px_0_0_0]">
+                        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17 1">
+                          <line stroke="var(--stroke-0, #D9D9D9)" x2="17" y1="0.5" y2="0.5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("window")} type="button">
+                  <RiWindowFill />
+                  {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+              </div>
+              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+            </div>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {viewMode === "dashboard" ? (
+        <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+          <div className="grid grid-cols-9 gap-[12px]">
+            <button
+              className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)]"
+              onClick={() => setViewMode("window")}
+              type="button"
+            >
+              <div className="flex h-full min-h-[140px] flex-col justify-between">
+                <div className="flex items-start justify-between gap-[10px]">
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Quick Action
+                  </p>
+                  <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                    <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    New AP Invoice
+                  </p>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Open the detail form and add invoice lines.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            {summaryCards.map((card) => (
+              <div className={`col-span-2 rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.label}
+                </p>
+                <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.value}
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.meta}
+                </p>
+              </div>
+            ))}
+
+            <FinanceTableCard
+              className="col-[1/span_6]"
+              columns={["Vendor", "Reference", "Org", "Status"]}
+              rows={[
+                ["George Supplies", "111", "VA Mobile", "Needs lines"],
+                ["Harbor Components", "198", "VA Mobile", "Ready to post"],
+                ["Crescent Telecom", "241", "VA Services", "Hold payment"],
+              ]}
+              subtitle="AP invoice headers and current processing status"
+              title="AP Invoice Queue"
+            />
+            <FinanceListCard
+              className="col-[7/span_3]"
+              items={[
+                { label: "Pending product receipt match", value: "05", meta: "Invoice lines still missing warehouse confirmation" },
+                { label: "Tax validation required", value: "03", meta: "Manual review before posting" },
+                { label: "Supplier follow-up", value: "02", meta: "Awaiting revised references or attachments" },
+              ]}
+              subtitle="Items blocking AP invoice completion"
+              title="Processing Watchlist"
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="relative flex h-0 min-h-0 flex-1 flex-col bg-white">
+            <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0">
+              <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+                <ProposalActionButton>
+                  <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton>
+                  <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton>
+                  <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton label="New Record">
+                  <FilePlus2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+              </div>
+
+              <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+                <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                  <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                    <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                      <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                      <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                    </svg>
+                  </div>
+                  <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Search AP invoices
+                    </p>
+                    <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                      <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                        <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                      </svg>
+                      <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                        <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                        <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                  <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+                </svg>
+                <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                  <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                  <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                  <circle cx="9" cy="13" fill="#141414" r="1.4" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="mr-[56px] border-b border-solid border-[#e6eef5] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(248,252,255,0.88)_100%)] px-[18px] py-[8px] backdrop-blur-[8px]">
+              <div className="rounded-[14px] bg-[linear-gradient(180deg,rgba(251,253,255,0.96)_0%,rgba(245,250,255,0.90)_100%)] px-[18px] py-[10px] shadow-[0_8px_18px_rgba(15,61,97,0.035)]">
+                <div className="flex flex-wrap items-center justify-between gap-[12px]">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[4px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Organization"] ?? ""}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Vendor"] ?? ""}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Ref {fieldValues["Vendor Invoice Reference"] ?? ""}
+                      </p>
+                    </div>
+                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {invoiceLines.length} lines • {fieldValues["Payment Method"] ?? ""} • Due {fieldValues["Due Date"] ?? ""}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-end gap-[10px]">
+                    {headerPanelActions.map((action) => (
+                      <button
+                        className={`rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px] transition-colors ${
+                          action.variant === "primary"
+                            ? action.disabled
+                              ? "border-[#b7d8f1] bg-[#dfeef9] text-white/85 cursor-not-allowed"
+                              : "border-[#0083da] bg-[#0083da] text-white hover:bg-[#0073c0]"
+                            : action.disabled
+                              ? "border-[#cfe0ed] bg-white text-[#9ab0c0] cursor-not-allowed"
+                              : "border-[#0083da] bg-white text-[#0083da] hover:bg-[#eef8ff]"
+                        }`}
+                        disabled={action.disabled}
+                        key={action.label}
+                        type="button"
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative h-0 min-h-0 flex-1 overflow-hidden bg-white">
+              <div className="h-full overflow-auto" style={{ marginRight: `${rightPanelWorkspaceOffset}px` }}>
+                <div className="min-h-full">
+                  <div className="px-[20px] py-[18px]">
+                    <div className="flex flex-col gap-[24px]">
+                      <div className="flex flex-col gap-[16px]">
+                        <FormSectionLabel title="Invoice Header" />
+                        <div className="grid grid-cols-3 gap-x-[18px] gap-y-[18px]">
+                          {renderDetailField("Organization")}
+                          {renderDetailField("Target Doc Type")}
+                          {renderDetailField("Vendor Invoice Reference")}
+                          {renderDetailField("Description")}
+                          {renderDetailField("Purchase Order")}
+                          {renderDetailField("Vendor")}
+                          {renderDetailField("Vendor Contact")}
+                          {renderDetailField("Representative")}
+                          {renderDetailField("Date Invoiced")}
+                          {renderDetailField("Account Date")}
+                          {renderDetailField("Location")}
+                          <CustomerDetailField
+                            icon={<Mail className="size-[22px]" strokeWidth={1.8} />}
+                            label="Vendor Email"
+                            onChange={(nextValue) => updateFieldValue("Vendor Email", nextValue)}
+                            value={fieldValues["Vendor Email"] ?? ""}
+                          />
+                          <CustomerDetailField
+                            icon={<Phone className="size-[22px]" strokeWidth={1.8} />}
+                            label="Vendor Phone"
+                            onChange={(nextValue) => updateFieldValue("Vendor Phone", nextValue)}
+                            value={fieldValues["Vendor Phone"] ?? ""}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-[16px]">
+                        <FormSectionLabel title="Terms & Conditions" />
+                        <div className="grid grid-cols-3 gap-x-[18px] gap-y-[18px]">
+                          {renderDetailField("Payment Term")}
+                          {renderDetailField("Payment Method")}
+                          {renderDetailField("Due Date")}
+                          {renderDetailField("Price List")}
+                          {renderDetailField("Currency Rate Type")}
+                          {renderDetailField("Currency Rate Conversion")}
+                          <div className="col-span-1 flex items-center justify-between border-b border-solid border-[#d7d7d7] px-[4px] pb-[14px] pt-[18px]">
+                            <div className="flex items-center gap-[12px]">
+                              <div className="flex size-[34px] shrink-0 items-center justify-center self-center border border-solid border-[#f0f0f0] bg-white text-[#6a6a6a]">
+                                <Package2 className="size-[20px]" strokeWidth={1.8} />
+                              </div>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#444444]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                Drop Shipment
+                              </p>
+                            </div>
+                            <button
+                              className={`relative flex h-[22px] w-[42px] items-center rounded-full transition-colors ${dropShipment ? "bg-[#0083da]" : "bg-[#d5dbe3]"}`}
+                              onClick={() => setDropShipment((current) => !current)}
+                              type="button"
+                            >
+                              <span className={`absolute size-[18px] rounded-full bg-white shadow-[0_2px_6px_rgba(15,61,97,0.18)] transition-all ${dropShipment ? "left-[22px]" : "left-[2px]"}`} />
+                            </button>
+                          </div>
+                          <div className="col-span-1 flex items-center justify-between border-b border-solid border-[#d7d7d7] px-[4px] pb-[14px] pt-[18px]">
+                            <div className="flex items-center gap-[12px]">
+                              <div className="flex size-[34px] shrink-0 items-center justify-center self-center border border-solid border-[#f0f0f0] bg-white text-[#6a6a6a]">
+                                <BadgeCheck className="size-[20px]" strokeWidth={1.8} />
+                              </div>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#444444]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                Hold Payment
+                              </p>
+                            </div>
+                            <button
+                              className={`relative flex h-[22px] w-[42px] items-center rounded-full transition-colors ${holdPayment ? "bg-[#0083da]" : "bg-[#d5dbe3]"}`}
+                              onClick={() => setHoldPayment((current) => !current)}
+                              type="button"
+                            >
+                              <span className={`absolute size-[18px] rounded-full bg-white shadow-[0_2px_6px_rgba(15,61,97,0.18)] transition-all ${holdPayment ? "left-[22px]" : "left-[2px]"}`} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-[30px] border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+                    <div className="flex h-[56px] items-center justify-between px-[20px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Invoice Lines & Summary
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Lines, navigation, and posting totals
+                      </p>
+                    </div>
+
+                    <div className="px-[20px] py-[18px]">
+                      <div className="flex items-center justify-between gap-[12px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Invoice Lines
+                        </p>
+                        <div className="flex flex-wrap items-center gap-[10px]">
+                          {["Lines", "Navigations", "Create lines from", "Actions"].map((action, index) => (
+                            <button
+                              className={`${index > 1 ? "border-[#0083da] bg-[#0083da] text-white" : "border-[#0083da] bg-white text-[#0083da]"} rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px]`}
+                              key={action}
+                              type="button"
+                            >
+                              {action}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-[14px] overflow-hidden rounded-[14px] border border-solid border-[#dbe6ee] bg-white shadow-[0_8px_20px_rgba(15,61,97,0.04)]">
+                        <div className="grid grid-cols-[0.7fr_1.3fr_1.3fr_1fr_0.8fr_0.9fr_0.9fr_1fr_1fr] gap-[12px] border-b border-solid border-[#e6eef5] bg-[#fbfdff] px-[14px] py-[12px]">
+                          {["Line No", "Product", "Attribute", "Charge", "UOM", "Quantity", "Price", "Tax", "Line Amount"].map((heading) => (
+                            <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {heading}
+                            </p>
+                          ))}
+                        </div>
+                        {invoiceLines.map((line) => (
+                          <div className="grid grid-cols-[0.7fr_1.3fr_1.3fr_1fr_0.8fr_0.9fr_0.9fr_1fr_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[14px] py-[14px] last:border-b-0" key={line.lineNo}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.lineNo}
+                            </p>
+                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.product}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.attribute}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.charge}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.uom}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.quantity}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.price}
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.tax}
+                            </p>
+                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {line.amount}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-[18px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Invoice Summary
+                        </p>
+                        <div className="mt-[12px] grid grid-cols-4 gap-[12px]">
+                          {[
+                            { label: "Subtotal", value: "530.00" },
+                            { label: "Tax", value: "95.40" },
+                            { label: "Total", value: "625.40" },
+                            { label: "Posting Status", value: holdPayment ? "On hold" : "Ready" },
+                          ].map((item) => (
+                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.label}
+                              </p>
+                              <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.value}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute inset-y-0 right-[56px] flex">
+                <div className="w-[280px] shrink-0 border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#fcfeff_0%,#f7fbff_100%)] px-[18px] py-[18px]">
+                  <div className="flex h-full flex-col">
+                    <div className="border-b border-solid border-[#e6eef5] pb-[12px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Vendor Insights
+                      </p>
+                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        Context for approval, posting, and payment risk before releasing this AP invoice.
+                      </p>
+                    </div>
+
+                    <div className="mt-[14px] flex flex-col gap-[12px]">
+                      <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[12px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {fieldValues["Vendor"] ?? ""}
+                        </p>
+                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {fieldValues["Vendor Contact"] ?? ""} • {fieldValues["Vendor Email"] ?? ""}
+                        </p>
+                        <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Preferred method: {fieldValues["Payment Method"] ?? ""}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col gap-[10px]">
+                        {vendorInsightSections.map((item) => (
+                          <div className="border-b border-solid border-[#e8eef3] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
+                            <div className="flex items-center justify-between gap-[12px]">
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.label}
+                              </p>
+                              <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                {item.value}
+                              </p>
+                            </div>
+                            <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              {item.meta}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="border-t border-solid border-[#e6eef5] pt-[12px]">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Recent Invoice History
+                        </p>
+                        <div className="mt-[10px] flex flex-col gap-[10px]">
+                          {recentVendorInvoices.map((invoice) => (
+                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={invoice.ref}>
+                              <div className="flex items-center justify-between gap-[12px]">
+                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {invoice.ref}
+                                </p>
+                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {invoice.amount}
+                                </p>
+                              </div>
+                              <div className="mt-[5px] flex items-center justify-between gap-[12px]">
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {invoice.meta}
+                                </p>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {invoice.status}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex w-[44px] shrink-0 flex-col items-center gap-[10px] border-l border-r border-solid border-[#e6edf3] bg-white px-[6px] py-[16px]">
+                  {rightPanelNavItems.map((item) => {
+                    const isActive = activeRightPanel === item.id;
+
+                    return (
+                      <button
+                        className={`flex size-[30px] items-center justify-center rounded-[10px] transition-colors ${
+                          isActive ? "bg-[#eaf8ff] text-[#0083da] shadow-[0_4px_10px_rgba(0,131,218,0.12)]" : "text-[#6b7d8d] hover:bg-[#f3f8fc]"
+                        }`}
+                        key={item.id}
+                        onClick={() => setActiveRightPanel(item.id)}
+                        title={item.label}
+                        type="button"
+                      >
+                        {item.icon}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <WindowActionPanel actions={windowActions} />
+          </div>
+
+          <ProposalFooter currentPage={1} totalPages={1} totalRecords={18} />
+        </>
+      )}
+    </div>
+  );
+}
+
+function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
+  const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
+  const summaryCards = [
+    { label: "Paid This Month", value: "$ 612K", meta: "Released vendor and utility payments", accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]", valueClass: "text-[#102c3f]" },
+    { label: "Cleared", value: "$ 588K", meta: "Bank-confirmed settlements", accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]", valueClass: "text-[#0b6b45]" },
+    { label: "Failed / Returned", value: "03", meta: "Needs retry or bank fix", accent: "bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]", valueClass: "text-[#b04343]" },
+    { label: "Reconciliation Status", value: "91%", meta: "Bank-matched vs pending entries", accent: "bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]", valueClass: "text-[#5f4aa6]" },
+  ];
+  const detailFields = [
+    { label: "Payment Type", value: "Vendor Payment", icon: <ReceiptText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Payment Reference", value: "PAY-20418", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Posting Date", value: "11 May 2026", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Value Date", value: "12 May 2026", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Paid From Account", value: "HDFC Operating Account", icon: <HardDrive className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Beneficiary", value: "Vertex Cloud Ltd.", icon: <Building2 className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Payment Method", value: "ACH", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Currency", value: "USD", icon: <CircleDollarSign className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Amount", value: "$ 19,400.00", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Related Invoice", value: "PIN-1888", icon: <ReceiptText className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Approval Owner", value: "Anita Verma", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Payment Status", value: "Ready for release", icon: <BadgeCheck className="size-[22px]" strokeWidth={1.8} /> },
+  ];
+  const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => ({
+    ...Object.fromEntries(detailFields.map((field) => [field.label, field.value])),
+    "Beneficiary Contact": "Kevin Hughes",
+    "Beneficiary Email": "kevin.hughes@vertexcloud.com",
+    "Reference Notes": "Monthly cloud infrastructure payment for invoice PIN-1888.",
+    "Internal Notes": "Treasury to release after final cash-position confirmation in the afternoon run.",
+    "Approval Notes": "Approved within threshold. Link payment advice after bank confirmation.",
+  }));
+  const windowActions = [
+    { id: "new", icon: <FilePlus2 className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "save", icon: <HardDrive className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "download", icon: <Download className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "share", icon: <ExternalLink className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "review", icon: <Eye className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "reset", icon: <RotateCcw className="size-[18px]" strokeWidth={1.8} /> },
+    { id: "delete", icon: <Trash2 className="size-[18px]" strokeWidth={1.8} /> },
+  ];
+  const requiredLabels = detailFields.filter((field) => field.required).map((field) => field.label);
+  const isReadyToSave = requiredLabels.every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const isReadyToRelease = isReadyToSave && ["Beneficiary Contact", "Beneficiary Email"].every((label) => (fieldValues[label] ?? "").trim().length > 0);
+  const headerPanelActions = [
+    { label: "Save Draft", variant: "primary" as const, disabled: !isReadyToSave },
+    { label: "Submit Payment", variant: "secondary" as const, disabled: !isReadyToRelease },
+    { label: "Attach Advice", variant: "secondary" as const, disabled: false },
+    { label: "Link Invoice", variant: "secondary" as const, disabled: false },
+  ];
+  const updateFieldValue = (label: string, nextValue: string) => {
+    setFieldValues((current) => ({
+      ...current,
+      [label]: nextValue,
+    }));
+  };
+  const fieldByLabel = new Map(detailFields.map((field) => [field.label, field] as const));
+  const renderDetailField = (label: string) => {
+    const field = fieldByLabel.get(label);
+
+    if (!field) {
+      return null;
+    }
+
+    return (
+      <CustomerDetailField
+        icon={field.icon}
+        key={field.label}
+        label={field.label}
+        onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
+        required={field.required}
+        value={fieldValues[field.label] ?? ""}
+      />
+    );
+  };
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden bg-transparent">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+          <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
+            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Payment Entry
+            </p>
+            <div className="relative shrink-0 w-[96px]">
+              <div className="flex items-center justify-center gap-[12px] w-full">
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("dashboard")} type="button">
+                  <MingcuteGridFill />
+                  {viewMode === "dashboard" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+                <div className="flex h-[17px] items-center justify-center relative shrink-0 w-0">
+                  <div className="flex-none rotate-90">
+                    <div className="h-0 relative w-[17px]">
+                      <div className="absolute inset-[-1px_0_0_0]">
+                        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17 1">
+                          <line stroke="var(--stroke-0, #D9D9D9)" x2="17" y1="0.5" y2="0.5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button className="relative flex size-[24px] shrink-0 items-center justify-center" onClick={() => setViewMode("window")} type="button">
+                  <RiWindowFill />
+                  {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
+                </button>
+              </div>
+              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+            </div>
+          </div>
+          <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
+            <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
+              <path d="M5 5L15 15M15 5L5 15" stroke="#141414" strokeLinecap="round" strokeWidth="1.8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {viewMode === "dashboard" ? (
+        <div className="flex-1 overflow-auto px-[18px] py-[18px]">
+          <div className="grid grid-cols-9 gap-[12px]">
+            <button
+              className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)]"
+              onClick={() => setViewMode("window")}
+              type="button"
+            >
+              <div className="flex h-full min-h-[140px] flex-col justify-between">
+                <div className="flex items-start justify-between gap-[10px]">
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Quick Action
+                  </p>
+                  <div className="flex size-[40px] items-center justify-center rounded-[14px] bg-[#1f83ff] shadow-[0_10px_24px_rgba(31,131,255,0.22)]">
+                    <Plus className="size-[20px] text-white" strokeWidth={2.2} />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    New Payment
+                  </p>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Open the payment entry detail window.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            {summaryCards.map((card) => (
+              <div className={`col-span-2 rounded-[14px] border p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`} key={card.label}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.label}
+                </p>
+                <p className={`mt-[8px] font-['Roboto:Bold',sans-serif] text-[34px] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.value}
+                </p>
+                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {card.meta}
+                </p>
+              </div>
+            ))}
+
+            <FinanceTableCard
+              className="col-[1/span_6]"
+              columns={["Payee", "Method", "Amount", "Posted"]}
+              rows={[
+                ["Urban Logistics", "Wire transfer", "$ 27K", "Today, 10:12 AM"],
+                ["Vertex Cloud", "ACH", "$ 19K", "Today, 09:05 AM"],
+                ["Delphi Services", "Manual release", "$ 38K", "Yesterday, 04:48 PM"],
+              ]}
+              subtitle="Most recent outgoing payments"
+              title="Recent Payments"
+            />
+            <FinanceListCard
+              className="col-[7/span_3]"
+              items={[
+                { label: "ACH", value: "48%", meta: "Primary low-cost payment rail" },
+                { label: "Wire", value: "34%", meta: "High-value urgent settlements" },
+                { label: "Manual", value: "18%", meta: "Fallback and special-case releases" },
+              ]}
+              subtitle="Payment methods mix for the current cycle"
+              title="Payment Methods"
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="relative flex h-0 min-h-0 flex-1 flex-col bg-white">
+            <div className="mr-[56px] bg-[linear-gradient(180deg,rgba(230,243,252,0.65)_0%,rgba(245,250,253,0.72)_100%)] content-stretch flex items-center justify-between overflow-clip px-[14px] py-[7px] relative shrink-0">
+              <div className="content-stretch flex gap-[2px] items-center relative shrink-0">
+                <ProposalActionButton>
+                  <Home className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton>
+                  <ArrowLeft className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton>
+                  <RotateCcw className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+                <ProposalActionButton label="New Record">
+                  <FilePlus2 className="size-[16px] text-[#586575]" strokeWidth={1.8} />
+                </ProposalActionButton>
+              </div>
+
+              <div className="content-stretch flex items-center gap-[12px] relative shrink-0">
+                <div className="bg-white content-stretch flex items-center overflow-clip relative rounded-[50px] w-[284px] shadow-[0_6px_14px_rgba(16,47,74,0.06)]">
+                  <div className="bg-[#1f83ff] content-stretch flex items-center justify-center overflow-clip py-[9px] relative rounded-bl-[50px] rounded-tl-[50px] shrink-0 w-[46px]">
+                    <svg className="size-[17px]" fill="none" viewBox="0 0 20 20">
+                      <circle cx="9" cy="9" r="5" stroke="white" strokeWidth="1.8" />
+                      <path d="M13 13L17 17" stroke="white" strokeLinecap="round" strokeWidth="1.8" />
+                    </svg>
+                  </div>
+                  <div className="content-stretch flex flex-[1_0_0] items-center justify-between min-w-px px-[11px] relative">
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[#9f9f9f] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Search payment entries
+                    </p>
+                    <div className="content-stretch flex gap-[7px] items-center relative shrink-0">
+                      <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                        <path d="M4 6L9 11L14 6" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                      </svg>
+                      <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                        <circle cx="8" cy="8" r="3.5" stroke="#141414" strokeWidth="1.4" />
+                        <path d="M10.7 10.7L14 14" stroke="#141414" strokeLinecap="round" strokeWidth="1.4" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                  <path d="M3 4.5H15L11 9V14L7 12V9L3 4.5Z" stroke="#141414" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+                </svg>
+                <svg className="size-[16px]" fill="none" viewBox="0 0 18 18">
+                  <circle cx="9" cy="5" fill="#141414" r="1.4" />
+                  <circle cx="9" cy="9" fill="#141414" r="1.4" />
+                  <circle cx="9" cy="13" fill="#141414" r="1.4" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="mr-[56px] border-b border-solid border-[#e6eef5] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(248,252,255,0.88)_100%)] px-[18px] py-[8px] backdrop-blur-[8px]">
+              <div className="rounded-[14px] bg-[linear-gradient(180deg,rgba(251,253,255,0.96)_0%,rgba(245,250,255,0.90)_100%)] px-[18px] py-[10px] shadow-[0_8px_18px_rgba(15,61,97,0.035)]">
+                <div className="flex flex-wrap items-center justify-between gap-[12px]">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-[14px] gap-y-[4px]">
+                      <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Beneficiary"] ?? ""}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Beneficiary Contact"] ?? ""}
+                      </p>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        {fieldValues["Beneficiary Email"] ?? ""}
+                      </p>
+                    </div>
+                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {fieldValues["Payment Reference"] ?? ""} • {fieldValues["Amount"] ?? ""} • {fieldValues["Payment Method"] ?? ""}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-end gap-[10px]">
+                    {headerPanelActions.map((action) => (
+                      <button
+                        className={`rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px] transition-colors ${
+                          action.variant === "primary"
+                            ? action.disabled
+                              ? "border-[#b7d8f1] bg-[#dfeef9] text-white/85 cursor-not-allowed"
+                              : "border-[#0083da] bg-[#0083da] text-white hover:bg-[#0073c0]"
+                            : action.disabled
+                              ? "border-[#cfe0ed] bg-white text-[#9ab0c0] cursor-not-allowed"
+                              : "border-[#0083da] bg-white text-[#0083da] hover:bg-[#eef8ff]"
+                        }`}
+                        disabled={action.disabled}
+                        key={action.label}
+                        type="button"
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mr-[56px] h-0 min-h-0 flex-1 overflow-auto bg-white">
+              <div className="px-[20px] py-[18px]">
+                <div className="grid grid-cols-4 gap-x-[20px]">
+                  <div className="col-span-2 col-start-2 grid grid-cols-2 gap-x-[20px] gap-y-[20px]">
+                    {renderDetailField("Payment Type")}
+                    {renderDetailField("Payment Reference")}
+                    {renderDetailField("Posting Date")}
+                    {renderDetailField("Value Date")}
+                    {renderDetailField("Paid From Account")}
+                    {renderDetailField("Beneficiary")}
+                    {renderDetailField("Payment Method")}
+                    {renderDetailField("Currency")}
+                    {renderDetailField("Amount")}
+                    {renderDetailField("Related Invoice")}
+                    {renderDetailField("Approval Owner")}
+                    {renderDetailField("Payment Status")}
+                    <CustomerDetailField
+                      icon={<UserRound className="size-[22px]" strokeWidth={1.8} />}
+                      label="Beneficiary Contact"
+                      onChange={(nextValue) => updateFieldValue("Beneficiary Contact", nextValue)}
+                      value={fieldValues["Beneficiary Contact"] ?? ""}
+                    />
+                    <CustomerDetailField
+                      icon={<Mail className="size-[22px]" strokeWidth={1.8} />}
+                      label="Beneficiary Email"
+                      onChange={(nextValue) => updateFieldValue("Beneficiary Email", nextValue)}
+                      value={fieldValues["Beneficiary Email"] ?? ""}
+                    />
+                    <CustomerDetailField
+                      label="Reference Notes"
+                      multiline
+                      onChange={(nextValue) => updateFieldValue("Reference Notes", nextValue)}
+                      spanClass="col-span-2"
+                      value={fieldValues["Reference Notes"] ?? ""}
+                    />
+                    <CustomerDetailField
+                      label="Internal Notes"
+                      multiline
+                      onChange={(nextValue) => updateFieldValue("Internal Notes", nextValue)}
+                      spanClass="col-span-2"
+                      value={fieldValues["Internal Notes"] ?? ""}
+                    />
+                    <CustomerDetailField
+                      label="Approval Notes"
+                      multiline
+                      onChange={(nextValue) => updateFieldValue("Approval Notes", nextValue)}
+                      spanClass="col-span-2"
+                      value={fieldValues["Approval Notes"] ?? ""}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-[30px] flex flex-col overflow-hidden border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+                <div className="flex h-[56px] shrink-0 items-center justify-between px-[20px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Payment Allocation & Audit
+                  </p>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Allocation, release checks, and activity trail
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] gap-[18px] px-[20px] py-[18px]">
+                  <div className="min-w-0">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Allocation Summary
+                    </p>
+                    <div className="mt-[12px] overflow-hidden rounded-[14px] border border-solid border-[#dbe6ee] bg-white shadow-[0_8px_20px_rgba(15,61,97,0.04)]">
+                      <div className="grid grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr] gap-[12px] border-b border-solid border-[#e6eef5] bg-[#fbfdff] px-[14px] py-[12px]">
+                        {["Reference", "Type", "Amount", "Status"].map((heading) => (
+                          <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {heading}
+                          </p>
+                        ))}
+                      </div>
+                      {[
+                        ["PIN-1888", "Invoice", "$ 19,400.00", "Ready"],
+                        ["Bank fees", "Charge", "$ 25.00", "Draft"],
+                      ].map((row) => (
+                        <div className="grid grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[14px] py-[14px] last:border-b-0" key={row[0]}>
+                          {row.map((cell, index) => (
+                            <p
+                              className={`${index === 0 ? "font-['Roboto:Bold',sans-serif] text-[#102c3f]" : "font-['Roboto:Regular',sans-serif] text-[#5f7283]"} text-[14px]`}
+                              key={`${row[0]}-${cell}`}
+                              style={{ fontVariationSettings: "'wdth' 100" }}
+                            >
+                              {cell}
+                            </p>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Audit Timeline
+                    </p>
+                    <div className="mt-[12px] flex flex-col gap-[12px]">
+                      {[
+                        { title: "Payment draft created", meta: "11 May 2026, 10:05 AM" },
+                        { title: "Treasury review requested", meta: "11 May 2026, 10:40 AM" },
+                        { title: "Invoice link validated", meta: "11 May 2026, 11:15 AM" },
+                      ].map((item) => (
+                        <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.title}>
+                          <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.title}
+                          </p>
+                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {item.meta}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-[16px] flex flex-wrap gap-[10px]">
+                      {["Release Payment", "Download Advice", "Notify Treasury", "Open Beneficiary"].map((action) => (
+                        <button
+                          className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                          key={action}
+                          type="button"
+                        >
+                          {action}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <WindowActionPanel actions={windowActions} />
+          </div>
+
+          <ProposalFooter currentPage={1} totalPages={1} totalRecords={27} />
+        </>
+      )}
+    </div>
+  );
+}
+
+function FinancePaymentCockpitView({ onClose }: { onClose: () => void }) {
+  return (
+    <FinanceWindowShell onClose={onClose} title="Payment Cockpit">
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]" label="Suggested This Week" meta="System-prioritized releases" value="$ 172K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]" label="Available for Release" meta="Within approved cash thresholds" value="$ 248K" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]" label="Needs Decision" meta="Conflicting due date vs cash priority" value="11" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]" className="col-span-3" label="Best Release Window" meta="Based on due dates and projected inflows" value="Thu PM" valueClass="text-[#0b6b45]" />
+      <FinanceTableCard
+        className="col-[1/span_5]"
+        columns={["Vendor", "Due", "Priority", "Funding"]}
+        rows={[
+          ["Delphi Services", "09 May", "High", "Operating account"],
+          ["Lumen Telecom", "11 May", "Medium", "Collections account"],
+          ["Urban Logistics", "13 May", "High", "Operating account"],
+        ]}
+        subtitle="Priority-ranked release suggestions"
+        title="Release Recommendations"
+      />
+      <FinanceListCard
+        className="col-[6/span_4]"
+        items={[
+          { label: "Hold non-critical marketing bills", value: "$ 18K", meta: "Preserves cash for payroll and tax" },
+          { label: "Split logistics vendor release", value: "$ 12K", meta: "Align with receivables timing" },
+          { label: "Use HDFC collections account", value: "2 payments", meta: "Cleaner reconciliation path" },
+        ]}
+        subtitle="Suggested treasury actions before approval"
+        title="Decision Support"
+      />
+    </FinanceWindowShell>
+  );
+}
+
+function FinanceBankingView({ onClose }: { onClose: () => void }) {
+  return (
+    <FinanceWindowShell onClose={onClose} title="Banking">
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]" label="Total Cash" meta="Across connected bank accounts" value="$ 1.74M" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]" label="Matched Today" meta="Transactions reconciled" value="124" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]" label="Unmatched" meta="Needs review or mapping" value="17" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]" className="col-span-3" label="Cash Position Change" meta="Compared with last week" value="+ $ 92K" valueClass="text-[#5f4aa6]" />
+      <FinanceListCard
+        className="col-[1/span_4]"
+        items={[
+          { label: "Axis Bank", value: "$ 982K", meta: "Primary operating account" },
+          { label: "HDFC Bank", value: "$ 488K", meta: "Collections and settlements" },
+          { label: "SBI Bank", value: "$ 270K", meta: "Tax and statutory reserve" },
+        ]}
+        subtitle="Account balances by bank"
+        title="Bank Balance"
+      />
+      <FinanceTableCard
+        className="col-[5/span_5]"
+        columns={["Narration", "Account", "Amount", "Status"]}
+        rows={[
+          ["Apex payment received", "HDFC", "$ 64K", "Matched"],
+          ["Payroll release", "Axis", "$ 92K", "Pending match"],
+          ["Vendor wire - logistics", "Axis", "$ 27K", "Matched"],
+        ]}
+        subtitle="Recent bank-feed events and reconciliation state"
+        title="Recent Bank Transactions"
+      />
+    </FinanceWindowShell>
+  );
+}
+
+function FinanceCashbookView({ onClose }: { onClose: () => void }) {
+  return (
+    <FinanceWindowShell onClose={onClose} title="Cashbook">
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]" label="Cash In Today" meta="Receipts posted to cashbooks" value="$ 12.4K" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff3f3_0%,#ffe2e2_100%)] border-[#f5cfcf]" label="Cash Out Today" meta="Disbursements and reimbursements" value="$ 8.1K" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]" label="Net Today" meta="Opening vs current balance movement" value="+ $ 4.3K" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]" className="col-span-3" label="Petty Cash Exposure" meta="Across active office cashbooks" value="$ 18.7K" valueClass="text-[#9a5c00]" />
+      <FinanceListCard
+        className="col-[1/span_4]"
+        items={[
+          { label: "Cashbook Head Office", value: "$ 80K", meta: "Primary location cashbook" },
+          { label: "Cashbook Register Branch", value: "$ 18.7K", meta: "Retail counter activity" },
+          { label: "Tejoo Cashbook", value: "AED 18.7K", meta: "Regional operational cash" },
+        ]}
+        subtitle="Available balances by cashbook"
+        title="Cash Balance"
+      />
+      <FinanceTableCard
+        className="col-[5/span_5]"
+        columns={["Entry", "Book", "Amount", "Type"]}
+        rows={[
+          ["Courier reimbursement", "Head Office", "$ 420", "Cash out"],
+          ["Walk-in customer deposit", "Register Branch", "$ 1.8K", "Cash in"],
+          ["Office supplies top-up", "Tejoo", "AED 620", "Cash out"],
+        ]}
+        subtitle="Latest posted cashbook movement"
+        title="Today's Cashbook"
+      />
+    </FinanceWindowShell>
+  );
+}
+
+function FinanceTaxationView({ onClose }: { onClose: () => void }) {
+  return (
+    <FinanceWindowShell onClose={onClose} title="Taxation">
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]" label="Tax Collected" meta="Output tax from customer billing" value="$ 210K" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]" label="Tax Paid" meta="Input tax and credits booked" value="$ 126K" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#fff8ee_0%,#ffefd5_100%)] border-[#f3dfb8]" label="Net Owed" meta="Current estimated filing obligation" value="$ 84K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="bg-[linear-gradient(135deg,#f7f4ff_0%,#ebe5ff_100%)] border-[#ddd4ff]" className="col-span-3" label="Next Filing Deadline" meta="Nearest statutory submission date" value="18 May" valueClass="text-[#5f4aa6]" />
+      <FinanceTableCard
+        className="col-[1/span_5]"
+        columns={["Region", "Collected", "Paid", "Net"]}
+        rows={[
+          ["India GST", "$ 118K", "$ 96K", "$ 22K payable"],
+          ["EU VAT", "$ 64K", "$ 73K", "$ 9K reclaim"],
+          ["UAE VAT", "$ 28K", "$ 24K", "$ 4K payable"],
+        ]}
+        subtitle="Tax position by jurisdiction"
+        title="Tax Summary"
+      />
+      <FinanceListCard
+        className="col-[6/span_4]"
+        items={[
+          { label: "Pending vendor certificates", value: "5", meta: "Blocks final input credit validation" },
+          { label: "Draft filing pack", value: "Ready", meta: "Awaiting final bank reconciliation" },
+          { label: "Risk flag", value: "Medium", meta: "EU VAT reclaim still under review" },
+        ]}
+        subtitle="Key filing notes and blockers"
+        title="Compliance Notes"
+      />
+    </FinanceWindowShell>
+  );
+}
+
+function getMenuItemForView(view: AppView): MenuItemId | null {
+  const viewMap: Partial<Record<AppView, MenuItemId>> = {
+    salesProposal: "salesProposal",
+    opportunities: "opportunities",
+    customers: "customers",
+    prospects: "prospects",
+    tasks: "tasks",
+    calendar: "calendar",
+    inbox: "inbox",
+    fin_sales: "fin_sales",
+    fin_ap_invoice: "fin_ap_invoice",
+    fin_purchase: "fin_purchase",
+    fin_payment: "fin_payment",
+    fin_cockpit: "fin_cockpit",
+    fin_banking: "fin_banking",
+    fin_cashbook: "fin_cashbook",
+    fin_tax: "fin_tax",
+  };
+
+  return viewMap[view] ?? null;
+}
+
 function Frame59({
+  moduleId,
   activeView,
   onNavigateView,
 }: {
+  moduleId: ModuleId;
   activeView: AppView;
   onNavigateView: (view: AppView) => void;
 }) {
-  const [activeMenuItem, setActiveMenuItem] = useState<MenuItemId | null>(
-    activeView === "salesProposal"
-      ? "salesProposal"
-      : activeView === "opportunities"
-        ? "opportunities"
-        : activeView === "customers"
-          ? "customers"
-        : activeView === "prospects"
-          ? "prospects"
-          : activeView === "tasks"
-            ? "tasks"
-            : activeView === "calendar"
-              ? "calendar"
-              : activeView === "inbox"
-                ? "inbox"
-                : null,
-  );
+  const [activeMenuItem, setActiveMenuItem] = useState<MenuItemId | null>(getMenuItemForView(activeView));
   const [selectedProposalId, setSelectedProposalId] = useState("485932");
   const [proposals, setProposals] = useState<ProposalRecord[]>([
     {
@@ -7194,44 +9351,7 @@ function Frame59({
   };
 
   useEffect(() => {
-    if (activeView === "salesProposal") {
-      setActiveMenuItem("salesProposal");
-      return;
-    }
-
-    if (activeView === "opportunities") {
-      setActiveMenuItem("opportunities");
-      return;
-    }
-
-    if (activeView === "prospects") {
-      setActiveMenuItem("prospects");
-      return;
-    }
-
-    if (activeView === "tasks") {
-      setActiveMenuItem("tasks");
-      return;
-    }
-
-    if (activeView === "calendar") {
-      setActiveMenuItem("calendar");
-      return;
-    }
-
-    if (activeView === "inbox") {
-      setActiveMenuItem("inbox");
-      return;
-    }
-
-    if (activeView === "customers") {
-      setActiveMenuItem("customers");
-      return;
-    }
-
-    if (activeView === "dashboard") {
-      setActiveMenuItem(null);
-    }
+    setActiveMenuItem(getMenuItemForView(activeView));
   }, [activeView]);
 
   const handleNavigate = (view: AppView, item: MenuItemId) => {
@@ -7239,10 +9359,32 @@ function Frame59({
     onNavigateView(view);
   };
 
+  const menuItems = moduleId === "finance" ? FINANCE_MENU_ITEMS : CRM_MENU_ITEMS;
+
   return (
     <div className="h-full relative shrink-0 w-full">
       <div className="absolute bottom-0 left-[72px] overflow-auto right-0 top-[8px]" data-name="Canvas_WH">
-        {activeView === "salesProposal" ? (
+        {moduleId === "finance" ? (
+          activeView === "fin_sales" ? (
+            <FinanceSalesInvoiceView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_ap_invoice" ? (
+            <FinanceApInvoiceView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_purchase" ? (
+            <FinancePurchaseInvoiceView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_payment" ? (
+            <FinancePaymentEntryView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_cockpit" ? (
+            <FinancePaymentCockpitView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_banking" ? (
+            <FinanceBankingView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_cashbook" ? (
+            <FinanceCashbookView onClose={() => onNavigateView("dashboard")} />
+          ) : activeView === "fin_tax" ? (
+            <FinanceTaxationView onClose={() => onNavigateView("dashboard")} />
+          ) : (
+            <FinanceModuleDashboard />
+          )
+        ) : activeView === "salesProposal" ? (
           <SalesProposalView
             onClose={() => onNavigateView("dashboard")}
             onSaveProposalLines={handleSaveProposalLines}
@@ -7269,6 +9411,7 @@ function Frame59({
       <LeftMenu
         activeItem={activeMenuItem}
         isDashboardActive={activeView === "dashboard"}
+        menuItems={menuItems}
         onGoDashboard={() => onNavigateView("dashboard")}
         onNavigate={handleNavigate}
       />
@@ -7611,34 +9754,80 @@ function Group19({ onGoHome }: { onGoHome: () => void }) {
 
 export default function WidgetOnWindowHome() {
   const [screenMode, setScreenMode] = useState<ScreenMode>("home");
-  const [activeModuleName, setActiveModuleName] = useState<string | null>(null);
+  const [activeModuleId, setActiveModuleId] = useState<ModuleId | null>(null);
   const [activeModuleView, setActiveModuleView] = useState<AppView>("dashboard");
-  const openCrmModuleDashboard = () => {
-    setActiveModuleName("CRM");
+  const [isModuleChooserOpen, setIsModuleChooserOpen] = useState(false);
+  const activeModuleName = activeModuleId ? MODULE_CHOOSER_OPTIONS.find((option) => option.id === activeModuleId)?.label ?? null : null;
+
+  const openModuleDashboard = (moduleId: ModuleId) => {
+    setActiveModuleId(moduleId);
     setActiveModuleView("dashboard");
-    setScreenMode("crm");
+    setScreenMode(moduleId);
+    setIsModuleChooserOpen(false);
   };
 
   return (
     <div className="content-stretch flex flex-col items-start relative size-full min-h-0 overflow-hidden" data-name="Widget on Window Home" style={{ backgroundImage: "linear-gradient(129.795deg, rgb(199, 232, 255) 20.389%, rgb(255, 255, 196) 116.98%)" }}>
       <div className="content-stretch flex h-[80px] items-center justify-between px-[12px] relative shrink-0 w-full" data-name="Top Bar">
         <div className="content-stretch flex gap-[20px] items-center relative shrink-0">
-          <button
-            className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]"
-            data-name="Menu Button"
-            onClick={openCrmModuleDashboard}
-            type="button"
-          >
-            <div className="content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[inherit]">
-              <MaterialSymbolsMenu />
-            </div>
-            <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
-          </button>
+          <div className="relative">
+            <button
+              className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]"
+              data-name="Menu Button"
+              onClick={() => setIsModuleChooserOpen((current) => !current)}
+              type="button"
+            >
+              <div className="content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[inherit]">
+                <MaterialSymbolsMenu />
+              </div>
+              <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
+            </button>
+            {isModuleChooserOpen ? (
+              <div className="absolute left-0 top-[60px] z-[220] w-[320px] rounded-[16px] border-2 border-white bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.88))] p-[12px] shadow-[0_18px_40px_rgba(15,61,97,0.14)] backdrop-blur-xl">
+                <p className="px-[8px] pb-[10px] font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Open Module
+                </p>
+                <div className="flex flex-col gap-[8px]">
+                  {MODULE_CHOOSER_OPTIONS.map((option) => {
+                    const isActive = activeModuleId === option.id && screenMode !== "home";
+
+                    return (
+                      <button
+                        className={`flex items-start gap-[12px] rounded-[12px] border px-[12px] py-[12px] text-left transition-all ${
+                          isActive
+                            ? "border-[#bfe4ff] bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)]"
+                            : "border-transparent bg-white/70 hover:border-[#d9ecff] hover:bg-white"
+                        }`}
+                        key={option.id}
+                        onClick={() => openModuleDashboard(option.id)}
+                        type="button"
+                      >
+                        <div className="mt-[2px] flex size-[36px] shrink-0 items-center justify-center rounded-[10px] bg-[#eef7ff]">
+                          {option.icon}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {option.label}
+                          </p>
+                          <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {option.description}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
+          </div>
           <Frame73
             currentScreen={screenMode}
             moduleName={activeModuleName}
-            onGoHome={() => setScreenMode("home")}
-            onGoModule={activeModuleName === "CRM" ? openCrmModuleDashboard : undefined}
+            onGoHome={() => {
+              setIsModuleChooserOpen(false);
+              setScreenMode("home");
+            }}
+            onGoModule={activeModuleId ? () => openModuleDashboard(activeModuleId) : undefined}
           />
         </div>
         <div className="ml-auto mr-[12px]">
@@ -7650,6 +9839,7 @@ export default function WidgetOnWindowHome() {
           <HomeView />
         ) : (
           <Frame59
+            moduleId={screenMode}
             activeView={activeModuleView}
             onNavigateView={setActiveModuleView}
           />
@@ -7657,7 +9847,12 @@ export default function WidgetOnWindowHome() {
       </div>
       <div className="shrink-0 w-full">
         <div className="overflow-hidden">
-          <Group19 onGoHome={() => setScreenMode("home")} />
+          <Group19
+            onGoHome={() => {
+              setIsModuleChooserOpen(false);
+              setScreenMode("home");
+            }}
+          />
         </div>
       </div>
     </div>
