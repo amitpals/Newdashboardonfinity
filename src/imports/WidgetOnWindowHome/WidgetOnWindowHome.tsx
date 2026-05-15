@@ -6,6 +6,7 @@ import {
   CalendarClock,
   CalendarDays,
   ChevronLeft,
+  ChevronDown,
   ChevronRight,
   CircleDollarSign,
   Download,
@@ -3796,20 +3797,26 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
           <div className={`bg-white content-stretch flex flex-col h-full items-start overflow-auto relative shrink-0 ${isDetailOpen ? "w-[380px]" : "w-full"}`}>
             {isDetailOpen ? (
               rows.map((row) => (
-                <button
-                  className={`content-stretch flex flex-col gap-[14px] items-start justify-center overflow-clip px-[18px] py-[18px] relative w-full text-left border-b border-solid transition-all ${
-                    selectedOpportunity.id === row.id
-                      ? "border-[#0083da] bg-[linear-gradient(109deg,#eaf8ff_0%,#caedff_100%)] shadow-[inset_4px_0_0_0_#0083da,0_12px_24px_rgba(31,131,255,0.10)]"
-                      : "border-[#ebebeb] bg-[#fcfcfc] hover:bg-[#f7fbff]"
-                  }`}
-                  key={row.id}
-                  onClick={() => selectOpportunity(row.id)}
-                  type="button"
-                >
-                  <div className="content-stretch flex items-start justify-between relative w-full">
-                    <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] ${selectedOpportunity.id === row.id ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {row.opportunity}
-                    </p>
+	                <button
+	                  className={`content-stretch flex flex-col gap-[14px] items-start justify-center overflow-clip px-[18px] py-[18px] relative w-full text-left border-b border-solid transition-all ${
+	                    selectedOpportunity.id === row.id
+	                      ? "border-[#ebebeb] bg-white"
+	                      : "border-[#ebebeb] bg-[#fcfcfc] hover:bg-[#f7fbff]"
+	                  }`}
+	                  key={row.id}
+	                  onClick={() => selectOpportunity(row.id)}
+	                  type="button"
+	                >
+	                  {selectedOpportunity.id === row.id ? (
+	                    <>
+	                      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] bg-[linear-gradient(90deg,rgba(153,214,255,0.42)_0%,rgba(193,231,255,0.22)_20%,rgba(235,248,255,0.08)_100%)]" />
+	                      <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-[3] w-[4px] bg-[#0083da]" />
+	                    </>
+	                  ) : null}
+	                  <div className="content-stretch flex items-start justify-between relative w-full">
+	                    <p className={`font-['Roboto:Bold',sans-serif] font-bold text-[16px] ${selectedOpportunity.id === row.id ? "text-[#005fa3]" : "text-black"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+	                      {row.opportunity}
+	                    </p>
                     <div className="flex shrink-0 items-center gap-[8px]">
                       <span className="rounded-[999px] bg-white/85 px-[10px] py-[5px] text-[12px] text-[#41576a]">{row.stage}</span>
                       <span className={`flex size-[28px] items-center justify-center rounded-full border border-solid transition-colors ${
@@ -3819,10 +3826,10 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                       </span>
                     </div>
                   </div>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {row.company}
-                  </p>
-                  <div className="flex w-full items-center justify-between">
+	                  <p className="font-['Roboto:Regular',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+	                    {row.company}
+	                  </p>
+	                  <div className="flex w-full items-center justify-between">
                     <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {row.amount}
                     </p>
@@ -5358,6 +5365,7 @@ function CustomerDetailField({
   value,
   icon,
   required = false,
+  disabled = false,
   spanClass = "",
   multiline = false,
   onChange,
@@ -5366,51 +5374,62 @@ function CustomerDetailField({
   value: string;
   icon?: ReactNode;
   required?: boolean;
+  disabled?: boolean;
   spanClass?: string;
   multiline?: boolean;
   onChange: (value: string) => void;
 }) {
   return (
-    <div className={`group min-w-0 border-b border-solid border-[#d7d7d7] px-[4px] pb-[14px] pt-[6px] transition-colors hover:border-[#0083da] focus-within:border-[#0083da] ${spanClass}`}>
+    <div
+      className={`group min-w-0 border-b border-solid px-[4px] pb-[10px] pt-[4px] ${
+        disabled
+          ? "border-[#e3e7eb]"
+          : "border-[#d7d7d7] transition-colors hover:border-[#0083da] focus-within:border-[#0083da]"
+      } ${spanClass}`}
+    >
       <div className="flex items-center gap-[12px]">
         {icon ? (
-          <div className="flex size-[34px] shrink-0 items-center justify-center self-center border border-solid border-[#f0f0f0] bg-white text-[#6a6a6a]">
+          <div className={`flex size-[34px] shrink-0 items-center justify-center self-center border border-solid ${disabled ? "border-[#f0f2f4] bg-white text-[#b3bcc5]" : "border-[#f0f0f0] bg-white text-[#6a6a6a]"}`}>
             {icon}
           </div>
         ) : null}
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-[12px]">
             <div className="min-w-0 flex-1">
-              <p className={`font-['Roboto:Regular',sans-serif] text-[12px] ${required ? "text-[#101010]" : "text-[#444444]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className={`font-['Roboto:Regular',sans-serif] text-[12px] ${disabled ? "text-[#a6afb8]" : required ? "text-[#101010]" : "text-[#444444]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                 {label}
                 {required ? " *" : ""}
               </p>
               {multiline ? (
                 <textarea
-                  className="mt-[8px] min-h-[56px] w-full resize-none border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[16px] leading-[24px] text-black outline-none placeholder:text-[#9f9f9f]"
+                  className={`mt-[6px] min-h-[48px] w-full resize-none border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[16px] leading-[22px] outline-none placeholder:text-[#9f9f9f] ${disabled ? "cursor-not-allowed text-[#8d98a4]" : "text-black"}`}
+                  disabled={disabled}
                   onChange={(event) => onChange(event.target.value)}
                   rows={3}
                   value={value}
                 />
               ) : (
                 <input
-                  className="mt-[8px] w-full border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[16px] text-black outline-none placeholder:text-[#9f9f9f]"
+                  className={`mt-[6px] w-full border-0 bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[16px] outline-none placeholder:text-[#9f9f9f] ${disabled ? "cursor-not-allowed text-[#8d98a4]" : "text-black"}`}
+                  disabled={disabled}
                   onChange={(event) => onChange(event.target.value)}
                   type="text"
                   value={value}
                 />
               )}
             </div>
-            <button
-              className="mb-[2px] self-end flex size-[28px] shrink-0 items-center justify-center rounded-[999px] text-[#0083da] opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
-              type="button"
-            >
-              <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
-                <circle cx="9" cy="4.5" fill="currentColor" r="1.3" />
-                <circle cx="9" cy="9" fill="currentColor" r="1.3" />
-                <circle cx="9" cy="13.5" fill="currentColor" r="1.3" />
-              </svg>
-            </button>
+            {!disabled ? (
+              <button
+                className="mb-[2px] self-end flex size-[28px] shrink-0 items-center justify-center rounded-[999px] text-[#0083da] opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
+                type="button"
+              >
+                <svg className="size-[18px]" fill="none" viewBox="0 0 18 18">
+                  <circle cx="9" cy="4.5" fill="currentColor" r="1.3" />
+                  <circle cx="9" cy="9" fill="currentColor" r="1.3" />
+                  <circle cx="9" cy="13.5" fill="currentColor" r="1.3" />
+                </svg>
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
@@ -5418,21 +5437,78 @@ function CustomerDetailField({
   );
 }
 
-function FormSectionLabel({
+function DetailFieldActionCell({
+  buttons,
+  align = "left",
+  fullRow = false,
+  activeColumns = 4,
+  spanClass = "",
+}: {
+  buttons: string[];
+  align?: "left" | "center" | "right";
+  fullRow?: boolean;
+  activeColumns?: 1 | 2 | 3 | 4;
+  spanClass?: string;
+}) {
+  const alignmentClass = align === "center" ? "justify-center" : align === "right" ? "justify-end" : "justify-start";
+  const fullRowClass = fullRow
+    ? activeColumns === 4
+      ? "col-span-4"
+      : activeColumns === 3
+        ? "col-span-3"
+        : activeColumns === 2
+          ? "col-span-2"
+          : "col-span-1"
+    : "";
+
+  return (
+    <div className={`min-w-0 px-[4px] pb-[14px] pt-[10px] ${fullRowClass} ${spanClass}`}>
+      <div className={`flex min-h-[58px] flex-wrap items-end gap-[10px] ${alignmentClass}`}>
+        {buttons.map((button) => (
+          <button
+            className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+            key={button}
+            type="button"
+          >
+            {button}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FormFieldGroup({
   title,
+  isOpen,
+  onToggle,
   className = "",
+  children,
 }: {
   title: string;
+  isOpen: boolean;
+  onToggle: () => void;
   className?: string;
+  children: ReactNode;
 }) {
   return (
-    <div className={`flex items-center gap-[12px] py-[6px] ${className}`}>
-      <div className="shrink-0">
-        <p className="font-['Roboto:Bold',sans-serif] text-[13px] uppercase tracking-[0.08em] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          {title}
-        </p>
+    <div className={`flex flex-col ${className}`}>
+      <div className="w-full py-[12px]">
+        <button
+          aria-expanded={isOpen}
+          className="flex w-full items-center justify-between gap-[16px] text-left"
+          onClick={onToggle}
+          type="button"
+        >
+          <p className="font-['Roboto:Bold',sans-serif] text-[16px] font-[800] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {title}
+          </p>
+          <span className="flex size-[28px] shrink-0 items-center justify-center rounded-[999px] text-black transition-colors hover:bg-[#f3f6f9]">
+            <ChevronDown className={`size-[18px] transition-transform ${isOpen ? "rotate-0" : "-rotate-90"}`} strokeWidth={2} />
+          </span>
+        </button>
       </div>
-      <div className="h-px min-w-0 flex-1 bg-[#dce6ee]" />
+      {isOpen ? <div className="pt-[16px]">{children}</div> : null}
     </div>
   );
 }
@@ -7951,6 +8027,9 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
 function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
   const [activeRightPanel, setActiveRightPanel] = useState<"vendor-insights">("vendor-insights");
+  const [openGroups, setOpenGroups] = useState({
+    termsAndConditions: true,
+  });
   const summaryCards = [
     { label: "Invoices in Draft", value: "18", meta: "Header created, lines pending review", accent: "bg-[linear-gradient(135deg,#eef8ff_0%,#dff1ff_100%)] border-[#cde9ff]", valueClass: "text-[#102c3f]" },
     { label: "Ready to Post", value: "$ 146K", meta: "Validated AP invoices for posting", accent: "bg-[linear-gradient(135deg,#f3fff8_0%,#e5f8ef_100%)] border-[#cfead9]", valueClass: "text-[#0b6b45]" },
@@ -7974,7 +8053,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     { label: "Due Date", value: "30/06/2023", icon: <CalendarDays className="size-[22px]" strokeWidth={1.8} /> },
     { label: "Price List", value: "Standard", icon: <NotebookText className="size-[22px]" strokeWidth={1.8} /> },
     { label: "Currency Rate Type", value: "Spot", icon: <Percent className="size-[22px]" strokeWidth={1.8} /> },
-    { label: "Currency Rate Conversion", value: "0.00", icon: <Percent className="size-[22px]" strokeWidth={1.8} /> },
+    { label: "Currency Rate Conversion", value: "0.00", icon: <Percent className="size-[22px]" strokeWidth={1.8} />, disabled: true },
   ];
   const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => ({
     ...Object.fromEntries(detailFields.map((field) => [field.label, field.value])),
@@ -8012,6 +8091,12 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
       [label]: nextValue,
     }));
   };
+  const toggleGroup = (group: keyof typeof openGroups) => {
+    setOpenGroups((current) => ({
+      ...current,
+      [group]: !current[group],
+    }));
+  };
   const fieldByLabel = new Map(detailFields.map((field) => [field.label, field] as const));
   const renderDetailField = (label: string) => {
     const field = fieldByLabel.get(label);
@@ -8027,6 +8112,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
         label={field.label}
         onChange={(nextValue) => updateFieldValue(field.label, nextValue)}
         required={field.required}
+        disabled={"disabled" in field ? field.disabled ?? false : false}
         spanClass={"spanClass" in field ? field.spanClass ?? "" : ""}
         value={fieldValues[field.label] ?? ""}
       />
@@ -8265,37 +8351,37 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                 <div className="min-h-full">
                   <div className="px-[20px] py-[18px]">
                     <div className="flex flex-col gap-[24px]">
-                      <div className="flex flex-col gap-[16px]">
-                        <FormSectionLabel title="Invoice Header" />
-                        <div className="grid grid-cols-3 gap-x-[18px] gap-y-[18px]">
-                          {renderDetailField("Organization")}
-                          {renderDetailField("Target Doc Type")}
-                          {renderDetailField("Vendor Invoice Reference")}
-                          {renderDetailField("Description")}
-                          {renderDetailField("Purchase Order")}
-                          {renderDetailField("Vendor")}
-                          {renderDetailField("Vendor Contact")}
-                          {renderDetailField("Representative")}
-                          {renderDetailField("Date Invoiced")}
-                          {renderDetailField("Account Date")}
-                          {renderDetailField("Location")}
-                          <CustomerDetailField
-                            icon={<Mail className="size-[22px]" strokeWidth={1.8} />}
-                            label="Vendor Email"
-                            onChange={(nextValue) => updateFieldValue("Vendor Email", nextValue)}
-                            value={fieldValues["Vendor Email"] ?? ""}
-                          />
-                          <CustomerDetailField
-                            icon={<Phone className="size-[22px]" strokeWidth={1.8} />}
-                            label="Vendor Phone"
-                            onChange={(nextValue) => updateFieldValue("Vendor Phone", nextValue)}
-                            value={fieldValues["Vendor Phone"] ?? ""}
-                          />
-                        </div>
+                      <div className="grid grid-cols-3 gap-x-[18px] gap-y-[18px]">
+                        {renderDetailField("Organization")}
+                        {renderDetailField("Target Doc Type")}
+                        {renderDetailField("Vendor Invoice Reference")}
+                        {renderDetailField("Description")}
+                        {renderDetailField("Purchase Order")}
+                        {renderDetailField("Vendor")}
+                        {renderDetailField("Vendor Contact")}
+                        {renderDetailField("Representative")}
+                        {renderDetailField("Date Invoiced")}
+                        {renderDetailField("Account Date")}
+                        {renderDetailField("Location")}
+                        <CustomerDetailField
+                          icon={<Mail className="size-[22px]" strokeWidth={1.8} />}
+                          label="Vendor Email"
+                          onChange={(nextValue) => updateFieldValue("Vendor Email", nextValue)}
+                          value={fieldValues["Vendor Email"] ?? ""}
+                        />
+                        <CustomerDetailField
+                          icon={<Phone className="size-[22px]" strokeWidth={1.8} />}
+                          label="Vendor Phone"
+                          onChange={(nextValue) => updateFieldValue("Vendor Phone", nextValue)}
+                          value={fieldValues["Vendor Phone"] ?? ""}
+                        />
                       </div>
 
-                      <div className="flex flex-col gap-[16px]">
-                        <FormSectionLabel title="Terms & Conditions" />
+                      <FormFieldGroup
+                        isOpen={openGroups.termsAndConditions}
+                        onToggle={() => toggleGroup("termsAndConditions")}
+                        title="Terms & Conditions"
+                      >
                         <div className="grid grid-cols-3 gap-x-[18px] gap-y-[18px]">
                           {renderDetailField("Payment Term")}
                           {renderDetailField("Payment Method")}
@@ -8303,11 +8389,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                           {renderDetailField("Price List")}
                           {renderDetailField("Currency Rate Type")}
                           {renderDetailField("Currency Rate Conversion")}
-                          <div className="col-span-1 flex items-center justify-between border-b border-solid border-[#d7d7d7] px-[4px] pb-[14px] pt-[18px]">
+                          <div className="col-span-1 flex items-center justify-between px-[4px] pb-[14px] pt-[18px]">
                             <div className="flex items-center gap-[12px]">
-                              <div className="flex size-[34px] shrink-0 items-center justify-center self-center border border-solid border-[#f0f0f0] bg-white text-[#6a6a6a]">
-                                <Package2 className="size-[20px]" strokeWidth={1.8} />
-                              </div>
                               <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#444444]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 Drop Shipment
                               </p>
@@ -8320,7 +8403,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               <span className={`absolute size-[18px] rounded-full bg-white shadow-[0_2px_6px_rgba(15,61,97,0.18)] transition-all ${dropShipment ? "left-[22px]" : "left-[2px]"}`} />
                             </button>
                           </div>
-                          <div className="col-span-1 flex items-center justify-between border-b border-solid border-[#d7d7d7] px-[4px] pb-[14px] pt-[18px]">
+                          <div className="col-span-1 flex items-center justify-between px-[4px] pb-[14px] pt-[18px]">
                             <div className="flex items-center gap-[12px]">
                               <div className="flex size-[34px] shrink-0 items-center justify-center self-center border border-solid border-[#f0f0f0] bg-white text-[#6a6a6a]">
                                 <BadgeCheck className="size-[20px]" strokeWidth={1.8} />
@@ -8337,8 +8420,14 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               <span className={`absolute size-[18px] rounded-full bg-white shadow-[0_2px_6px_rgba(15,61,97,0.18)] transition-all ${holdPayment ? "left-[22px]" : "left-[2px]"}`} />
                             </button>
                           </div>
+                          <DetailFieldActionCell
+                            activeColumns={3}
+                            align="right"
+                            buttons={["Apply Discount", "Copy Lines from other Invoice"]}
+                            fullRow
+                          />
                         </div>
-                      </div>
+                      </FormFieldGroup>
                     </div>
                   </div>
 
