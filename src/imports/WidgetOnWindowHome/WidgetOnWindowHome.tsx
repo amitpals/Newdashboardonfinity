@@ -8026,7 +8026,9 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
 
 function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
-  const [activeRightPanel, setActiveRightPanel] = useState<"vendor-insights">("vendor-insights");
+  const [isRightPanelOpen, setIsRightPanelOpen] = useState(true);
+  const [activeRightPanel, setActiveRightPanel] = useState<"vendor-insights" | "invoice-history" | "approval-notes">("vendor-insights");
+  const [isRightPanelMenuOpen, setIsRightPanelMenuOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState({
     termsAndConditions: true,
   });
@@ -8118,13 +8120,6 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
       />
     );
   };
-  const rightPanelNavItems = [
-    {
-      id: "vendor-insights" as const,
-      label: "Vendor Insights",
-      icon: <Building2 className="size-[16px]" strokeWidth={1.8} />,
-    },
-  ];
   const vendorInsightSections = [
     { label: "Vendor Status", value: holdPayment ? "On payment hold" : "Active for payment", meta: "Mapped supplier account is active in AP master" },
     { label: "Open Exposure", value: "$ 42.8K", meta: "Across 4 unpaid vendor documents" },
@@ -8136,10 +8131,16 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     { ref: "INV-887", amount: "$ 9.6K", status: "Paid", meta: "04 May 2026" },
     { ref: "INV-861", amount: "$ 14.8K", status: "Hold", meta: "27 Apr 2026" },
   ];
+  const rightPanelOptions = [
+    { id: "vendor-insights" as const, label: "Vendor Insights" },
+    { id: "invoice-history" as const, label: "Invoice History" },
+    { id: "approval-notes" as const, label: "Approval Notes" },
+  ];
+  const activeRightPanelLabel = rightPanelOptions.find((option) => option.id === activeRightPanel)?.label ?? "Vendor Insights";
   const rightPanelWidth = 280;
-  const rightPanelNavWidth = 44;
+  const rightPanelNavWidth = 20;
   const windowActionRailWidth = 56;
-  const rightPanelShellWidth = rightPanelWidth + rightPanelNavWidth;
+  const rightPanelShellWidth = (isRightPanelOpen ? rightPanelWidth : 0) + rightPanelNavWidth;
   const rightPanelContentGap = 8;
   const rightPanelWorkspaceOffset = rightPanelShellWidth + windowActionRailWidth + rightPanelContentGap;
 
@@ -8528,98 +8529,172 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
               </div>
 
               <div className="absolute inset-y-0 right-[56px] flex">
-                <div className="w-[280px] shrink-0 border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#fcfeff_0%,#f7fbff_100%)] px-[18px] py-[18px]">
-                  <div className="flex h-full flex-col">
-                    <div className="border-b border-solid border-[#e6eef5] pb-[12px]">
-                      <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        Vendor Insights
-                      </p>
-                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        Context for approval, posting, and payment risk before releasing this AP invoice.
-                      </p>
-                    </div>
+                {isRightPanelOpen ? (
+                  <div
+                    className="shrink-0 border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#fcfeff_0%,#f7fbff_100%)]"
+                    style={{ width: `${rightPanelWidth}px` }}
+                  >
+                    <div className="flex h-full min-h-0 flex-col">
+                      <div className="relative flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-[#e6eef5] px-[18px]">
+                        <button
+                          className="flex min-w-0 items-center gap-[6px] rounded-[10px] px-[2px] py-[4px] text-left text-[#102c3f] transition-colors hover:text-[#0083da]"
+                          onClick={() => setIsRightPanelMenuOpen((current) => !current)}
+                          type="button"
+                        >
+                          <span className="truncate font-['Roboto:Bold',sans-serif] text-[16px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {activeRightPanelLabel}
+                          </span>
+                          <ChevronDown
+                            className={`size-[16px] shrink-0 transition-transform ${isRightPanelMenuOpen ? "rotate-180" : "rotate-0"}`}
+                            strokeWidth={2}
+                          />
+                        </button>
+                        <button
+                          className="flex size-[28px] items-center justify-center rounded-[999px] text-[#141414] transition-colors hover:bg-[#eef4f8]"
+                          onClick={() => {
+                            setIsRightPanelMenuOpen(false);
+                            setIsRightPanelOpen(false);
+                          }}
+                          type="button"
+                        >
+                          <svg className="size-[16px]" fill="none" viewBox="0 0 20 20">
+                            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
+                          </svg>
+                        </button>
 
-                    <div className="mt-[14px] flex flex-col gap-[12px]">
-                      <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[12px]">
-                        <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          {fieldValues["Vendor"] ?? ""}
-                        </p>
-                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          {fieldValues["Vendor Contact"] ?? ""} • {fieldValues["Vendor Email"] ?? ""}
-                        </p>
-                        <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          Preferred method: {fieldValues["Payment Method"] ?? ""}
-                        </p>
-                      </div>
+                        {isRightPanelMenuOpen ? (
+                          <div className="absolute left-[14px] top-[46px] z-10 min-w-[170px] overflow-hidden rounded-[12px] border border-solid border-[#dce6ee] bg-white shadow-[0_12px_28px_rgba(15,61,97,0.12)]">
+                            {rightPanelOptions.map((option) => {
+                              const isActive = option.id === activeRightPanel;
 
-                      <div className="flex flex-col gap-[10px]">
-                        {vendorInsightSections.map((item) => (
-                          <div className="border-b border-solid border-[#e8eef3] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
-                            <div className="flex items-center justify-between gap-[12px]">
-                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                {item.label}
-                              </p>
-                              <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                {item.value}
-                              </p>
-                            </div>
-                            <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {item.meta}
-                            </p>
+                              return (
+                                <button
+                                  className={`flex w-full items-center justify-between px-[14px] py-[10px] text-left transition-colors ${
+                                    isActive ? "bg-[#eef8ff] text-[#005fa3]" : "text-[#102c3f] hover:bg-[#f7fbff]"
+                                  }`}
+                                  key={option.id}
+                                  onClick={() => {
+                                    setActiveRightPanel(option.id);
+                                    setIsRightPanelMenuOpen(false);
+                                  }}
+                                  type="button"
+                                >
+                                  <span className="font-['Roboto:Regular',sans-serif] text-[13px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    {option.label}
+                                  </span>
+                                  {isActive ? <span className="size-[6px] rounded-full bg-[#0083da]" /> : null}
+                                </button>
+                              );
+                            })}
                           </div>
-                        ))}
+                        ) : null}
                       </div>
 
-                      <div className="border-t border-solid border-[#e6eef5] pt-[12px]">
-                        <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          Recent Invoice History
-                        </p>
-                        <div className="mt-[10px] flex flex-col gap-[10px]">
-                          {recentVendorInvoices.map((invoice) => (
-                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={invoice.ref}>
-                              <div className="flex items-center justify-between gap-[12px]">
-                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                  {invoice.ref}
+                      <div className="min-h-0 flex-1 overflow-auto px-[18px] py-[14px]">
+                        {activeRightPanel === "vendor-insights" ? (
+                          <>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Context for approval, posting, and payment risk before releasing this AP invoice.
+                            </p>
+
+                            <div className="mt-[14px] flex flex-col gap-[12px]">
+                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[12px]">
+                                <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {fieldValues["Vendor"] ?? ""}
                                 </p>
-                                <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                  {invoice.amount}
+                                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {fieldValues["Vendor Contact"] ?? ""} • {fieldValues["Vendor Email"] ?? ""}
+                                </p>
+                                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  Preferred method: {fieldValues["Payment Method"] ?? ""}
                                 </p>
                               </div>
-                              <div className="mt-[5px] flex items-center justify-between gap-[12px]">
-                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                  {invoice.meta}
-                                </p>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                  {invoice.status}
-                                </p>
+
+                              <div className="flex flex-col gap-[10px]">
+                                {vendorInsightSections.map((item) => (
+                                  <div className="border-b border-solid border-[#e8eef3] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
+                                    <div className="flex items-center justify-between gap-[12px]">
+                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {item.label}
+                                      </p>
+                                      <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {item.value}
+                                      </p>
+                                    </div>
+                                    <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      {item.meta}
+                                    </p>
+                                  </div>
+                                ))}
                               </div>
                             </div>
-                          ))}
-                        </div>
+                          </>
+                        ) : null}
+
+                        {activeRightPanel === "invoice-history" ? (
+                          <div className="flex flex-col gap-[12px]">
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Recent AP documents from this vendor, including current settlement and exception status.
+                            </p>
+                            <div className="mt-[2px] flex flex-col gap-[10px]">
+                              {recentVendorInvoices.map((invoice) => (
+                                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={invoice.ref}>
+                                  <div className="flex items-center justify-between gap-[12px]">
+                                    <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      {invoice.ref}
+                                    </p>
+                                    <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      {invoice.amount}
+                                    </p>
+                                  </div>
+                                  <div className="mt-[5px] flex items-center justify-between gap-[12px]">
+                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      {invoice.meta}
+                                    </p>
+                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      {invoice.status}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {activeRightPanel === "approval-notes" ? (
+                          <div className="flex flex-col gap-[12px]">
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Short guidance for approvers before posting and payment release decisions are made.
+                            </p>
+                            {[
+                              "PO is linked and reference format matches the last approved supplier invoice.",
+                              holdPayment ? "Hold flag is active. Require finance lead confirmation before posting." : "No payment hold is active for this vendor document.",
+                              "Check bandwidth overage note in description before final validation.",
+                            ].map((note) => (
+                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={note}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {note}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : null}
 
-                <div className="flex w-[44px] shrink-0 flex-col items-center gap-[10px] border-l border-r border-solid border-[#e6edf3] bg-white px-[6px] py-[16px]">
-                  {rightPanelNavItems.map((item) => {
-                    const isActive = activeRightPanel === item.id;
-
-                    return (
-                      <button
-                        className={`flex size-[30px] items-center justify-center rounded-[10px] transition-colors ${
-                          isActive ? "bg-[#eaf8ff] text-[#0083da] shadow-[0_4px_10px_rgba(0,131,218,0.12)]" : "text-[#6b7d8d] hover:bg-[#f3f8fc]"
-                        }`}
-                        key={item.id}
-                        onClick={() => setActiveRightPanel(item.id)}
-                        title={item.label}
-                        type="button"
-                      >
-                        {item.icon}
-                      </button>
-                    );
-                  })}
-                </div>
+                <button
+                  aria-expanded={isRightPanelOpen}
+                  className="group flex w-[20px] shrink-0 items-center justify-center border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#ffffff_0%,#f8fbfd_100%)] text-[#7f8e9b] transition-colors hover:border-[#bfe0f6] hover:bg-[linear-gradient(180deg,#f7fbff_0%,#e9f5ff_100%)] hover:text-[#0083da]"
+                  onClick={() => setIsRightPanelOpen((current) => !current)}
+                  title={isRightPanelOpen ? "Collapse insights panel" : "Expand insights panel"}
+                  type="button"
+                >
+                  <span className="flex size-[18px] items-center justify-center rounded-[999px] transition-all group-hover:bg-white group-hover:shadow-[0_2px_8px_rgba(0,131,218,0.18)]">
+                    {isRightPanelOpen ? <ChevronRight className="size-[14px]" strokeWidth={2} /> : <ChevronLeft className="size-[14px]" strokeWidth={2} />}
+                  </span>
+                </button>
               </div>
             </div>
 
