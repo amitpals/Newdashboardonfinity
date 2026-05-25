@@ -780,14 +780,7 @@ function MaterialSymbolsMarkEmailUnreadOutlineRounded() {
 
 function Frame5() {
   return (
-    <div className="content-stretch flex flex-col font-['Roboto:Regular',sans-serif] font-normal gap-[4px] items-start leading-[normal] relative shrink-0 w-full">
-      <p className="relative shrink-0 text-[24px] text-black w-[66px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Inbox
-      </p>
-      <p className="min-w-full relative shrink-0 text-[#9f9f9f] text-[12px] w-[min-content]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        synced 5 mins ago
-      </p>
-    </div>
+    <DashboardWidgetHeader icon={<Mail className="size-[18px] text-black" strokeWidth={2} />} subtitle="synced 5 mins ago" title="Inbox" />
   );
 }
 
@@ -1046,14 +1039,7 @@ function Component2X3() {
 
 function Frame6() {
   return (
-    <div className="content-stretch flex flex-col font-['Roboto:Regular',sans-serif] font-normal gap-[4px] items-start leading-[normal] relative shrink-0 w-full">
-      <p className="relative shrink-0 text-[24px] text-black w-[66px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Lost Leads
-      </p>
-      <p className="min-w-full relative shrink-0 text-[#9f9f9f] text-[12px] w-[min-content]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Past 12 Months
-      </p>
-    </div>
+    <DashboardWidgetHeader icon={<Hourglass className="size-[18px] text-black" strokeWidth={2} />} subtitle="Past 12 Months" title="Lost Leads" />
   );
 }
 
@@ -1083,14 +1069,7 @@ function Component1X5() {
 
 function Frame28() {
   return (
-    <div className="content-stretch flex flex-col font-['Roboto:Regular',sans-serif] font-normal gap-[4px] items-start leading-[normal] relative shrink-0 w-full">
-      <p className="relative shrink-0 text-[24px] text-black w-[87px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Closed Leads
-      </p>
-      <p className="min-w-full relative shrink-0 text-[#9f9f9f] text-[12px] w-[min-content]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Past 12 Months
-      </p>
-    </div>
+    <DashboardWidgetHeader icon={<BadgeCheck className="size-[18px] text-black" strokeWidth={2} />} subtitle="Past 12 Months" title="Closed Leads" />
   );
 }
 
@@ -1120,14 +1099,7 @@ function Component1X6() {
 
 function Frame30() {
   return (
-    <div className="content-stretch flex flex-col font-['Roboto:Regular',sans-serif] font-normal gap-[4px] items-start leading-[normal] relative shrink-0 w-full">
-      <p className="relative shrink-0 text-[24px] text-black w-[66px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Total Leads
-      </p>
-      <p className="min-w-full relative shrink-0 text-[#9f9f9f] text-[12px] w-[min-content]" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Past 12 Months
-      </p>
-    </div>
+    <DashboardWidgetHeader icon={<UserRound className="size-[18px] text-black" strokeWidth={2} />} subtitle="Past 12 Months" title="Total Leads" />
   );
 }
 
@@ -1193,11 +1165,8 @@ function MaterialSymbolsMarkEmailUnreadOutlineRounded1() {
 
 function Frame68() {
   return (
-    <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-[286px]">
-      <MaterialSymbolsMarkEmailUnreadOutlineRounded1 />
-      <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[24px] text-black text-center whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        Inbox
-      </p>
+    <div className="relative shrink-0 w-[286px]">
+      <DashboardWidgetHeader icon={<Mail className="size-[18px] text-black" strokeWidth={2} />} title="Inbox" />
     </div>
   );
 }
@@ -1431,7 +1400,7 @@ function Frame70() {
 function Frame38() {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-      <Frame70 />
+      <DashboardWidgetHeader icon={<CalendarDays className="size-[18px]" strokeWidth={1.9} />} title="Calendar" />
       <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#0083da] text-[14px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
         All Events
       </p>
@@ -1742,6 +1711,69 @@ function Frame79() {
   );
 }
 
+function DashboardWidgetHeader({
+  title,
+  subtitle,
+  icon,
+}: {
+  title: string;
+  subtitle?: string;
+  icon: ReactNode;
+}) {
+  return (
+    <div className="flex min-w-0 items-center gap-[10px]">
+      <div
+        className={`flex shrink-0 items-center justify-center self-center text-black shadow-[inset_0_0_0_1px_rgba(0,131,218,0.10)] ${
+          subtitle
+            ? "size-[36px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(232,244,255,0.96)_100%)]"
+            : "size-[32px] rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(232,244,255,0.92)_100%)]"
+        }`}
+      >
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <p className="font-['Roboto:Medium',sans-serif] font-medium leading-[1.2] text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+          {title}
+        </p>
+        {subtitle ? (
+          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[12px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {subtitle}
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function DashboardSearchWidget({
+  placeholder,
+}: {
+  placeholder: string;
+}) {
+  const [value, setValue] = useState("");
+
+  return (
+    <div className="col-[1/span_9] bg-transparent p-[18px]">
+      <div className="flex min-h-[140px] w-full items-center justify-center">
+        <div className="flex w-[80%] items-center gap-[12px] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] px-[18px] py-[16px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <svg className="size-[18px] shrink-0 text-[#1f83ff]" fill="none" viewBox="0 0 20 20">
+            <circle cx="9" cy="9" r="5" stroke="currentColor" strokeWidth="1.8" />
+            <path d="M13 13L17 17" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
+          </svg>
+          <input
+            className="min-w-0 flex-1 bg-transparent font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f] outline-none placeholder:text-[#8a95a3]"
+            onChange={(event) => setValue(event.target.value)}
+            placeholder={placeholder}
+            style={{ fontVariationSettings: "'wdth' 100" }}
+            type="text"
+            value={value}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Component3X2LeadSources() {
   const leadSources = [
     { source: "Website", count: 128, percentage: 40, accent: "#1F83FF" },
@@ -1756,14 +1788,11 @@ function Component3X2LeadSources() {
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[16px] items-center p-[16px] relative size-full">
           <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-            <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
-              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[18px] text-black text-center whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Lead Sources
-              </p>
-              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[12px] text-[#717182] text-center whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Count and contribution share
-              </p>
-            </div>
+            <DashboardWidgetHeader
+              icon={<UserRound className="size-[18px]" strokeWidth={1.9} />}
+              subtitle="Count and contribution share"
+              title="Lead Sources"
+            />
             <div className="bg-white/70 border border-white/80 rounded-[10px] px-[12px] py-[8px] shrink-0">
               <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[11px] text-[#717182] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Total Leads
@@ -1843,14 +1872,11 @@ function Component6X2OpportunityFunnel() {
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
         <div className="content-stretch flex flex-col gap-[18px] items-center p-[18px] relative size-full">
           <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-            <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
-              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[20px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Opportunity Funnel
-              </p>
-              <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[12px] text-[#717182] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Lead to deal flow across the current pipeline
-              </p>
-            </div>
+            <DashboardWidgetHeader
+              icon={<CircleDollarSign className="size-[18px]" strokeWidth={1.9} />}
+              subtitle="Lead to deal flow across the current pipeline"
+              title="Opportunity Funnel"
+            />
             <div className="content-stretch flex gap-[10px] items-center relative shrink-0">
               <div className="bg-white/75 border border-white/80 rounded-[10px] px-[12px] py-[8px]">
                 <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[normal] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -1991,9 +2017,7 @@ function SocialMediaHeader() {
     <div className="relative shrink-0 w-full">
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex items-center justify-between px-[8px] py-[4px] relative w-full">
-          <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[18px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Instagram Analytics
-          </p>
+          <DashboardWidgetHeader icon={<Send className="size-[18px]" strokeWidth={1.9} />} title="Instagram Analytics" />
         </div>
       </div>
     </div>
@@ -2657,15 +2681,15 @@ function HomeResourceTile({
   subtitle: string;
 }) {
   return (
-    <GlassPanel className="flex h-full flex-col items-center justify-between p-[18px] text-center">
-      <div className="flex size-[80px] items-center justify-center">
+    <GlassPanel className="flex h-full flex-col items-center justify-center p-[18px] text-center">
+      <div className="flex size-[72px] items-center justify-center">
         {icon}
       </div>
-      <div className="w-full">
-        <p className="font-['Roboto:Regular',sans-serif] text-[20px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <div className="mt-[8px] flex w-full flex-col items-center">
+        <p className="font-['Roboto:Medium',sans-serif] font-medium text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
           {title}
         </p>
-        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#b1b1b1]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="mt-[3px] max-w-[120px] font-['Roboto:Regular',sans-serif] text-[11px] leading-[15px] text-[#8f98a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
           {subtitle}
         </p>
       </div>
@@ -2687,7 +2711,7 @@ function HomeManagerCard({
   return (
     <GlassPanel className="flex h-full flex-col px-[18px] py-[16px]">
       <div className="flex h-full flex-col">
-        <p className="font-['Roboto:Regular',sans-serif] text-[22px] leading-[28px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="font-['Roboto:Medium',sans-serif] font-medium text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
           {title}
         </p>
         <div className="mt-[14px] flex flex-1 items-center gap-[14px] min-h-0">
@@ -2718,9 +2742,7 @@ function HomeBlogPanel() {
   return (
     <GlassPanel className="flex h-full flex-col p-[10px]">
       <div className="flex items-center justify-between px-[6px] pb-[10px]">
-        <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Latest Blog
-        </p>
+        <DashboardWidgetHeader icon={<NotebookText className="size-[18px]" strokeWidth={1.9} />} title="Latest Blog" />
         <button className="flex items-center gap-[6px] text-[#0060ac]" type="button">
           <ExternalLink className="size-[13px]" strokeWidth={1.8} />
           <span className="font-['Roboto:Regular',sans-serif] text-[11px]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -2793,9 +2815,7 @@ function HomeTicketsPanel() {
   return (
     <GlassPanel className="flex h-full flex-col p-[16px]">
       <div className="flex items-center justify-between">
-        <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-          My Tickets
-        </p>
+        <DashboardWidgetHeader icon={<Ticket className="size-[18px]" strokeWidth={1.9} />} title="My Tickets" />
         <button className="flex items-center gap-[6px] text-[#1f83ff]" type="button">
           <Plus className="size-[14px]" strokeWidth={2} />
           <span className="font-['Roboto:Regular',sans-serif] text-[11px]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -3575,14 +3595,11 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
           <div className="grid grid-cols-9 gap-[12px]">
             <div className="col-[1/span_9] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-[12px]">
-                  <p className="font-['Roboto:Bold',sans-serif] text-[20px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Pipeline
-                  </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[11px] uppercase tracking-[0.16em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Drag cards to advance stage
-                  </p>
-                </div>
+                <DashboardWidgetHeader
+                  icon={<CircleDollarSign className="size-[18px] text-black" strokeWidth={1.9} />}
+                  subtitle="Drag cards to advance stage"
+                  title="Pipeline"
+                />
                 <button className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }} type="button">
                   + New deal
                 </button>
@@ -3669,9 +3686,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
             </div>
 
             <div className="col-[1/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
-              <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Focus Today
-              </p>
+              <DashboardWidgetHeader icon={<Hourglass className="size-[18px] text-black" strokeWidth={1.9} />} title="Focus Today" />
               <div className="mt-[16px] flex flex-col gap-[10px]">
                 {[
                   "2 pricing revisions need approval",
@@ -3687,9 +3702,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
 
             <div className="col-[4/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between">
-                <p className="font-['Roboto:Regular',sans-serif] text-[24px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Active Opportunities
-                </p>
+                <DashboardWidgetHeader icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />} title="Active Opportunities" />
                 <button className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da]" type="button">
                   Add Opportunity
                 </button>
@@ -5655,6 +5668,9 @@ function CustomersView({ onClose }: { onClose: () => void }) {
       {viewMode === "dashboard" ? (
         <div className="flex-1 overflow-auto px-[18px] py-[18px]">
           <div className="grid grid-cols-9 gap-[12px]">
+            <DashboardSearchWidget
+              placeholder="Search customers, contacts, account owners, balances, or health"
+            />
             <button className="col-span-1 rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[16px] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)]" onClick={() => setViewMode("window")} type="button">
               <div className="flex h-full min-h-[140px] flex-col justify-between">
                 <div className="flex items-start justify-between gap-[10px]">
@@ -5666,10 +5682,10 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                   </div>
                 </div>
                 <div>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[18px] leading-[24px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     New Customer
                   </p>
-                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Create or open a customer detail record.
                   </p>
                 </div>
@@ -5691,14 +5707,11 @@ function CustomersView({ onClose }: { onClose: () => void }) {
 
             <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between gap-[12px]">
-                <div>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Customer Grid
-                  </p>
-                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Active accounts, customer health, and assigned owners
-                  </p>
-                </div>
+                <DashboardWidgetHeader
+                  icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />}
+                  subtitle="Active accounts, customer health, and assigned owners"
+                  title="Customer Grid"
+                />
                 <button className="rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da]" onClick={() => setViewMode("window")} type="button">
                   Open Detail
                 </button>
@@ -5736,9 +5749,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
             </div>
 
             <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
-              <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Relationship Health
-              </p>
+              <DashboardWidgetHeader icon={<BadgeCheck className="size-[18px] text-black" strokeWidth={1.9} />} title="Relationship Health" />
               <div className="mt-[18px] flex flex-col gap-[12px]">
                 {[
                   { label: "Healthy", value: "124", bar: "84%", color: "#1f83ff" },
@@ -6149,10 +6160,10 @@ function ProspectsView() {
                 </div>
               </div>
               <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[18px] leading-[24px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   New Prospect
                 </p>
-                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Add a lead, referral, or inbound contact.
                 </p>
               </div>
@@ -6186,14 +6197,11 @@ function ProspectsView() {
 
           <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Prospect Grid
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Prioritized leads by score, response speed, and estimated pipeline value
-                </p>
-              </div>
+              <DashboardWidgetHeader
+                icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Prioritized leads by score, response speed, and estimated pipeline value"
+                title="Prospect Grid"
+              />
               <div className="flex items-center gap-[10px]">
                 <div className="rounded-[999px] bg-[#eef6ff] px-[12px] py-[8px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0f69ac]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6259,15 +6267,11 @@ function ProspectsView() {
 
           <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Response Time
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Speed to first touch for the latest prospect flow
-                </p>
-              </div>
-              <CalendarClock className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<CalendarClock className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Speed to first touch for the latest prospect flow"
+                title="Response Time"
+              />
             </div>
 
             <div className="mt-[18px] grid grid-cols-2 gap-[10px]">
@@ -6321,15 +6325,11 @@ function ProspectsView() {
 
           <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Conversion Funnel
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  From raw inquiry to active pipeline creation
-                </p>
-              </div>
-              <Percent className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<Percent className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="From raw inquiry to active pipeline creation"
+                title="Conversion Funnel"
+              />
             </div>
 
             <div className="mt-[18px] flex flex-col gap-[12px]">
@@ -6353,15 +6353,11 @@ function ProspectsView() {
 
           <div className="col-[5/span_5] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Score Distribution
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Lead quality mix and where the team should spend attention
-                </p>
-              </div>
-              <BadgeCheck className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<BadgeCheck className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Lead quality mix and where the team should spend attention"
+                title="Score Distribution"
+              />
             </div>
 
             <div className="mt-[18px] grid grid-cols-[minmax(0,1.2fr)_80px_1fr] gap-x-[12px] gap-y-[12px] items-center">
@@ -6546,10 +6542,10 @@ function TasksView({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
               <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[18px] leading-[24px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   New Task
                 </p>
-                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Create a follow-up, proposal edit task, or client action item.
                 </p>
               </div>
@@ -6583,14 +6579,11 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Task Queue
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Priority work across proposals, opportunities, and follow-ups
-                </p>
-              </div>
+              <DashboardWidgetHeader
+                icon={<NotebookText className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Priority work across proposals, opportunities, and follow-ups"
+                title="Task Queue"
+              />
               <div className="flex items-center gap-[10px]">
                 <div className="rounded-[999px] bg-[#ffe4e4] px-[12px] py-[8px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#a33f3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6648,15 +6641,11 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Focus Board
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  What needs attention today and next
-                </p>
-              </div>
-              <NotebookText className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<NotebookText className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="What needs attention today and next"
+                title="Focus Board"
+              />
             </div>
 
             <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
@@ -6710,15 +6699,11 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Workload Spread
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Open task distribution across key owners
-                </p>
-              </div>
-              <UserRound className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<UserRound className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Open task distribution across key owners"
+                title="Workload Spread"
+              />
             </div>
 
             <div className="mt-[18px] flex flex-col gap-[12px]">
@@ -6740,15 +6725,11 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[5/span_5] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Completion Trend
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Completed tasks by day plus execution notes
-                </p>
-              </div>
-              <CalendarDays className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<CalendarDays className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Completed tasks by day plus execution notes"
+                title="Completion Trend"
+              />
             </div>
 
             <div className="mt-[18px] grid grid-cols-[repeat(5,minmax(0,1fr))] gap-[12px] items-end">
@@ -6926,10 +6907,10 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
               <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] leading-[28px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[18px] leading-[24px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   New Meeting
                 </p>
-                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Create an appointment or client call.
                 </p>
               </div>
@@ -6963,14 +6944,11 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[1/span_6] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Weekly Schedule
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  This week across client calls, internal reviews, and follow-up blocks
-                </p>
-              </div>
+              <DashboardWidgetHeader
+                icon={<CalendarDays className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="This week across client calls, internal reviews, and follow-up blocks"
+                title="Weekly Schedule"
+              />
               <div className="flex items-center gap-[8px]">
                 <button className="flex size-[30px] items-center justify-center rounded-[999px] border border-solid border-[#d7e7f6] bg-white" type="button">
                   <ChevronLeft className="size-[16px] text-[#5f7283]" strokeWidth={1.8} />
@@ -7021,15 +6999,11 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[7/span_3] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Today's Agenda
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Next meetings and action blocks in sequence
-                </p>
-              </div>
-              <CalendarClock className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<CalendarClock className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Next meetings and action blocks in sequence"
+                title="Today's Agenda"
+              />
             </div>
 
             <div className="mt-[16px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
@@ -7075,15 +7049,11 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[1/span_4] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Availability
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Remaining capacity in today's working day
-                </p>
-              </div>
-              <Hourglass className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<Hourglass className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Remaining capacity in today's working day"
+                title="Availability"
+              />
             </div>
 
             <div className="mt-[18px] flex flex-col gap-[12px]">
@@ -7105,15 +7075,11 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
           <div className="col-[5/span_5] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
-              <div>
-                <p className="font-['Roboto:Bold',sans-serif] text-[22px] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Follow-up Queue
-                </p>
-                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#6b7280]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Notes, recap emails, and next-step actions after meetings
-                </p>
-              </div>
-              <Mail className="size-[22px] text-[#1f83ff]" strokeWidth={1.8} />
+              <DashboardWidgetHeader
+                icon={<Mail className="size-[18px] text-black" strokeWidth={1.9} />}
+                subtitle="Notes, recap emails, and next-step actions after meetings"
+                title="Follow-up Queue"
+              />
             </div>
 
             <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
