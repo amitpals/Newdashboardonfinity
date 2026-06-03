@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onfinity Task Reassignment Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="reassign-demo">
+      <section class="reassign-form" aria-label="Reassign Tasks">
+        <header class="reassign-form__header">
+          <div>
+            <h1>Reassign Tasks</h1>
+            <p>Move open work to another owner</p>
+          </div>
+          <button class="icon-button" type="button" aria-label="Close">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M5 5L15 15M15 5L5 15"></path>
+            </svg>
+          </button>
+        </header>
+
+        <div class="reassign-form__body">
+          <!-- LEFT: filter panel -->
+          <aside class="task-filter-panel" aria-label="Filter correspondences">
+            <section class="filter-section search-section">
+              <label class="filter-field">
+                <span class="field-label">User Search</span>
+                <input
+                  type="text"
+                  placeholder="Search by assignee name"
+                />
+              </label>
+            </section>
+
+            <p class="filter-group-label">Filter</p>
+
+            <section class="filter-section">
+              <h2 class="filter-section__title">Correspondence Date</h2>
+              <div class="date-range">
+                <label class="filter-field">
+                  <span class="field-label">From</span>
+                  <input type="date" value="2026-05-01" />
+                </label>
+                <label class="filter-field">
+                  <span class="field-label">To</span>
+                  <input type="date" value="2026-05-27" />
+                </label>
+              </div>
+            </section>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Correspondence Type</span>
+              <select>
+                <option selected>All types</option>
+                <option>Incoming Letter</option>
+                <option>Outgoing Letter</option>
+                <option>Internal Memo</option>
+                <option>Decree</option>
+                <option>Email</option>
+                <option>Fax</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <section class="filter-section">
+              <h2 class="filter-section__title">Urgency Level</h2>
+              <div class="filter-chip-row">
+                <button class="filter-chip" type="button">Low</button>
+                <button class="filter-chip is-selected" type="button">Normal</button>
+                <button class="filter-chip is-selected" type="button">High</button>
+                <button class="filter-chip" type="button">Urgent</button>
+              </div>
+            </section>
+
+            <section class="filter-section">
+              <h2 class="filter-section__title">Security Level</h2>
+              <div class="filter-chip-row">
+                <button class="filter-chip is-selected" type="button">Public</button>
+                <button class="filter-chip is-selected" type="button">Internal</button>
+                <button class="filter-chip" type="button">Confidential</button>
+                <button class="filter-chip" type="button">Restricted</button>
+              </div>
+            </section>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Sending Entity</span>
+              <select>
+                <option selected>All entities</option>
+                <option>Office of the President</option>
+                <option>Ministry of Finance</option>
+                <option>Ministry of Interior</option>
+                <option>Central Bank</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Related Entity</span>
+              <select>
+                <option selected>Any related entity</option>
+                <option>Cabinet Office</option>
+                <option>Office of Communications</option>
+                <option>Diplomatic Affairs</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Receiving Entity</span>
+              <select>
+                <option selected>All entities</option>
+                <option>Office of the President</option>
+                <option>Ministry of Finance</option>
+                <option>Ministry of Interior</option>
+                <option>Central Bank</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Related Entity</span>
+              <select>
+                <option selected>Any related entity</option>
+                <option>Cabinet Office</option>
+                <option>Office of Communications</option>
+                <option>Diplomatic Affairs</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Organizational Unit</span>
+              <select>
+                <option selected>All units</option>
+                <option>Operations</option>
+                <option>Legal</option>
+                <option>Finance</option>
+                <option>Human Resources</option>
+                <option>IT</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Tasks</span>
+              <select>
+                <option selected>All correspondences</option>
+                <option>With open task</option>
+                <option>Without task</option>
+                <option>Overdue task</option>
+                <option>Completed task</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <label class="filter-field select-field">
+              <span class="field-label">Created by</span>
+              <select>
+                <option selected>Anyone</option>
+                <option>Me</option>
+                <option>My team</option>
+                <option>Diana Morris</option>
+                <option>Maya Chen</option>
+                <option>Kevin Smith</option>
+              </select>
+              <svg class="select-field__caret" viewBox="0 0 12 12" aria-hidden="true">
+                <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+              </svg>
+            </label>
+
+            <footer class="task-filter-panel__footer">
+              <button class="secondary-pill" type="button">Clear</button>
+              <button class="primary-pill" type="button">Apply Filters</button>
+            </footer>
+          </aside>
+
+          <!-- RIGHT: action bar (full right pane) + task list -->
+          <section class="reassign-action-bar is-active" aria-label="Bulk reassignment">
+            <p class="reassign-action-bar__count">
+              <strong>3 selected</strong> · across 2 owners
+            </p>
+            <div class="reassign-action-bar__controls">
+              <button
+                class="primary-pill"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="reassign-popup"
+                data-open-popup
+              >
+                Reassign task(s)
+              </button>
+            </div>
+          </section>
+
+            <section class="task-list" aria-label="Tasks">
+              <header class="task-list__header">
+                <label class="row-check" aria-label="Select all">
+                  <input type="checkbox" />
+                  <span class="row-check__box">
+                    <svg viewBox="0 0 12 12" aria-hidden="true">
+                      <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                    </svg>
+                  </span>
+                </label>
+                <span></span>
+                <span></span>
+                <span>Name</span>
+                <span>Task ID</span>
+                <span>Due</span>
+                <span>Assignee</span>
+                <span></span>
+              </header>
+
+              <ul class="task-list__rows">
+                <li class="task-row is-selected">
+                  <label class="row-check" aria-label="Select task">
+                    <input type="checkbox" checked />
+                    <span class="row-check__box">
+                      <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                      </svg>
+                    </span>
+                  </label>
+                  <span class="task-row__status status-progress" title="In progress">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <circle cx="8" cy="8" r="6"></circle>
+                      <path d="M8 4.5V8L10 9.5"></path>
+                    </svg>
+                  </span>
+                  <span class="task-row__type priority-high" title="High priority">H</span>
+                  <a class="task-row__name" href="#">Finalize Q2 renewal revision</a>
+                  <span class="task-row__id">TSK-1024</span>
+                  <span class="task-row__due">Today, 4:30 PM</span>
+                  <span class="assignee">
+                    <span class="assignee__avatar">PC</span>
+                    <span class="assignee__name">Parkash Chaudary</span>
+                  </span>
+                  <span class="task-row__actions">
+                    <button class="row-action" type="button" aria-label="Edit task">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11 2.5L13.5 5L5 13.5H2.5V11L11 2.5Z"></path>
+                      </svg>
+                    </button>
+                    <button class="row-action row-action--kebab" type="button" aria-label="More actions">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <circle cx="8" cy="3" r="1.4"></circle>
+                        <circle cx="8" cy="8" r="1.4"></circle>
+                        <circle cx="8" cy="13" r="1.4"></circle>
+                      </svg>
+                    </button>
+                  </span>
+                </li>
+
+                <li class="task-row">
+                  <label class="row-check" aria-label="Select task">
+                    <input type="checkbox" />
+                    <span class="row-check__box">
+                      <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                      </svg>
+                    </span>
+                  </label>
+                  <span class="task-row__status status-ready" title="Ready">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <circle cx="8" cy="8" r="6"></circle>
+                      <path d="M5.5 8L7.5 10L10.5 6"></path>
+                    </svg>
+                  </span>
+                  <span class="task-row__type priority-medium" title="Medium priority">M</span>
+                  <a class="task-row__name" href="#">Prepare discovery notes for Northwind</a>
+                  <span class="task-row__id">TSK-1031</span>
+                  <span class="task-row__due">Today, 6:00 PM</span>
+                  <span class="assignee">
+                    <span class="assignee__avatar">MC</span>
+                    <span class="assignee__name">Maya Chen</span>
+                  </span>
+                  <span class="task-row__actions">
+                    <button class="row-action" type="button" aria-label="Edit task">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11 2.5L13.5 5L5 13.5H2.5V11L11 2.5Z"></path>
+                      </svg>
+                    </button>
+                    <button class="row-action row-action--kebab" type="button" aria-label="More actions">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <circle cx="8" cy="3" r="1.4"></circle>
+                        <circle cx="8" cy="8" r="1.4"></circle>
+                        <circle cx="8" cy="13" r="1.4"></circle>
+                      </svg>
+                    </button>
+                  </span>
+                </li>
+
+                <li class="task-row is-selected">
+                  <label class="row-check" aria-label="Select task">
+                    <input type="checkbox" checked />
+                    <span class="row-check__box">
+                      <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                      </svg>
+                    </span>
+                  </label>
+                  <span class="task-row__status status-waiting" title="Waiting">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M5 2H11M5 14H11M5 2C5 5 11 5.5 11 8C11 10.5 5 11 5 14"></path>
+                    </svg>
+                  </span>
+                  <span class="task-row__type priority-high" title="High priority">H</span>
+                  <a class="task-row__name" href="#">Send pricing follow-up to Apex</a>
+                  <span class="task-row__id">TSK-1039</span>
+                  <span class="task-row__due">Tomorrow, 10:00 AM</span>
+                  <span class="assignee">
+                    <span class="assignee__avatar">MR</span>
+                    <span class="assignee__name">Mack Rod</span>
+                  </span>
+                  <span class="task-row__actions">
+                    <button class="row-action" type="button" aria-label="Edit task">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11 2.5L13.5 5L5 13.5H2.5V11L11 2.5Z"></path>
+                      </svg>
+                    </button>
+                    <button class="row-action row-action--kebab" type="button" aria-label="More actions">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <circle cx="8" cy="3" r="1.4"></circle>
+                        <circle cx="8" cy="8" r="1.4"></circle>
+                        <circle cx="8" cy="13" r="1.4"></circle>
+                      </svg>
+                    </button>
+                  </span>
+                </li>
+
+                <li class="task-row">
+                  <label class="row-check" aria-label="Select task">
+                    <input type="checkbox" />
+                    <span class="row-check__box">
+                      <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                      </svg>
+                    </span>
+                  </label>
+                  <span class="task-row__status status-blocked" title="Blocked">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <rect x="3.5" y="7" width="9" height="6" rx="1.2"></rect>
+                      <path d="M5.5 7V5C5.5 3.6 6.6 2.5 8 2.5C9.4 2.5 10.5 3.6 10.5 5V7"></path>
+                    </svg>
+                  </span>
+                  <span class="task-row__type priority-high" title="High priority">H</span>
+                  <a class="task-row__name" href="#">Review legal comments from UrbanAxis</a>
+                  <span class="task-row__id">TSK-1042</span>
+                  <span class="task-row__due">Tomorrow, 2:00 PM</span>
+                  <span class="assignee">
+                    <span class="assignee__avatar">KS</span>
+                    <span class="assignee__name">Kevin Smith</span>
+                  </span>
+                  <span class="task-row__actions">
+                    <button class="row-action row-action--kebab" type="button" aria-label="More actions">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <circle cx="8" cy="3" r="1.4"></circle>
+                        <circle cx="8" cy="8" r="1.4"></circle>
+                        <circle cx="8" cy="13" r="1.4"></circle>
+                      </svg>
+                    </button>
+                  </span>
+                </li>
+
+                <li class="task-row is-selected">
+                  <label class="row-check" aria-label="Select task">
+                    <input type="checkbox" checked />
+                    <span class="row-check__box">
+                      <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                      </svg>
+                    </span>
+                  </label>
+                  <span class="task-row__status status-ready" title="Ready">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <circle cx="8" cy="8" r="6"></circle>
+                      <path d="M5.5 8L7.5 10L10.5 6"></path>
+                    </svg>
+                  </span>
+                  <span class="task-row__type priority-low" title="Low priority">L</span>
+                  <a class="task-row__name" href="#">Update proposal activity log</a>
+                  <span class="task-row__id">TSK-1047</span>
+                  <span class="task-row__due">Fri, 11:00 AM</span>
+                  <span class="assignee">
+                    <span class="assignee__avatar">JM</span>
+                    <span class="assignee__name">Jacob M.</span>
+                  </span>
+                  <span class="task-row__actions">
+                    <button class="row-action" type="button" aria-label="Edit task">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11 2.5L13.5 5L5 13.5H2.5V11L11 2.5Z"></path>
+                      </svg>
+                    </button>
+                    <button class="row-action row-action--kebab" type="button" aria-label="More actions">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <circle cx="8" cy="3" r="1.4"></circle>
+                        <circle cx="8" cy="8" r="1.4"></circle>
+                        <circle cx="8" cy="13" r="1.4"></circle>
+                      </svg>
+                    </button>
+                  </span>
+                </li>
+
+                <li class="task-row">
+                  <label class="row-check" aria-label="Select task">
+                    <input type="checkbox" />
+                    <span class="row-check__box">
+                      <svg viewBox="0 0 12 12" aria-hidden="true">
+                        <path d="M2.5 6.5L5 9L9.5 3.5"></path>
+                      </svg>
+                    </span>
+                  </label>
+                  <span class="task-row__status status-progress" title="In progress">
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <circle cx="8" cy="8" r="6"></circle>
+                      <path d="M8 4.5V8L10 9.5"></path>
+                    </svg>
+                  </span>
+                  <span class="task-row__type priority-medium" title="Medium priority">M</span>
+                  <a class="task-row__name" href="#">Confirm onboarding date options</a>
+                  <span class="task-row__id">TSK-1052</span>
+                  <span class="task-row__due">Fri, 3:30 PM</span>
+                  <span class="assignee">
+                    <span class="assignee__avatar">DM</span>
+                    <span class="assignee__name">Diana Morris</span>
+                  </span>
+                  <span class="task-row__actions">
+                    <button class="row-action" type="button" aria-label="Edit task">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11 2.5L13.5 5L5 13.5H2.5V11L11 2.5Z"></path>
+                      </svg>
+                    </button>
+                    <button class="row-action row-action--kebab" type="button" aria-label="More actions">
+                      <svg viewBox="0 0 16 16" aria-hidden="true">
+                        <circle cx="8" cy="3" r="1.4"></circle>
+                        <circle cx="8" cy="8" r="1.4"></circle>
+                        <circle cx="8" cy="13" r="1.4"></circle>
+                      </svg>
+                    </button>
+                  </span>
+                </li>
+              </ul>
+            </section>
+        </div>
+      </section>
+
+      <!-- Popup: opens when the "Reassign task(s)" button is clicked -->
+      <aside
+        class="reassign-popup"
+        id="reassign-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reassign-popup-title"
+        aria-hidden="true"
+      >
+        <div class="reassign-popup__backdrop" data-close-popup></div>
+
+        <div class="reassign-popup__panel">
+          <header class="reassign-popup__header">
+            <div>
+              <h2 id="reassign-popup-title">Reassign 3 tasks</h2>
+              <p>Choose the team member who will take over the selected work.</p>
+            </div>
+            <button class="icon-button" type="button" aria-label="Close popup" data-close-popup>
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5 5L15 15M15 5L5 15"></path>
+              </svg>
+            </button>
+          </header>
+
+          <div class="reassign-popup__body">
+            <div class="popup-controls">
+              <label class="filter-field popup-select">
+                <span class="field-label">Department / Team</span>
+                <select>
+                  <option selected>Sales — Enterprise (your team)</option>
+                  <option>Sales — SMB</option>
+                  <option>Customer Success</option>
+                  <option>Finance Operations</option>
+                  <option>Marketing</option>
+                </select>
+                <svg class="popup-select__caret" viewBox="0 0 12 12" aria-hidden="true">
+                  <path d="M2.5 4.5L6 8L9.5 4.5"></path>
+                </svg>
+              </label>
+
+              <label class="filter-field">
+                <span class="field-label">Search user</span>
+                <input type="text" placeholder="Search by name or role" />
+              </label>
+            </div>
+
+            <div class="user-list-header">
+              <h3>Team members</h3>
+              <span class="muted">8 available</span>
+            </div>
+
+            <ul class="user-list" role="radiogroup" aria-label="Assignee">
+              <li class="user-row is-selected">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" checked />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-a">DM</span>
+                <div class="user-row__meta">
+                  <strong>Diana Morris</strong>
+                  <span>Account Lead · 12 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 68%"></span></span>
+                  <span class="capacity-label">68%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-b">MC</span>
+                <div class="user-row__meta">
+                  <strong>Maya Chen</strong>
+                  <span>Senior Rep · 8 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 44%"></span></span>
+                  <span class="capacity-label">44%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-c">PC</span>
+                <div class="user-row__meta">
+                  <strong>Parkash Chaudary</strong>
+                  <span>Account Lead · 9 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 56%"></span></span>
+                  <span class="capacity-label">56%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-d">KS</span>
+                <div class="user-row__meta">
+                  <strong>Kevin Smith</strong>
+                  <span>Account Manager · 6 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 32%"></span></span>
+                  <span class="capacity-label">32%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-e">MR</span>
+                <div class="user-row__meta">
+                  <strong>Mack Rod</strong>
+                  <span>Sales Engineer · 4 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 22%"></span></span>
+                  <span class="capacity-label">22%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-a">RP</span>
+                <div class="user-row__meta">
+                  <strong>Rina Patel</strong>
+                  <span>Senior Rep · 11 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar capacity-bar--high"><span style="width: 84%"></span></span>
+                  <span class="capacity-label">84%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-b">JM</span>
+                <div class="user-row__meta">
+                  <strong>Jacob Myers</strong>
+                  <span>Sales Rep · 5 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 28%"></span></span>
+                  <span class="capacity-label">28%</span>
+                </span>
+              </li>
+
+              <li class="user-row">
+                <label class="user-row__select">
+                  <input type="radio" name="reassign-user" />
+                  <span class="user-row__radio"></span>
+                </label>
+                <span class="user-row__avatar avatar-tone-c">AV</span>
+                <div class="user-row__meta">
+                  <strong>Anjali Verma</strong>
+                  <span>Account Coordinator · 3 open tasks</span>
+                </div>
+                <span class="user-row__capacity">
+                  <span class="capacity-bar"><span style="width: 18%"></span></span>
+                  <span class="capacity-label">18%</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <footer class="reassign-popup__footer">
+            <p class="reassign-popup__footer-note">
+              Reassigning <strong>3 tasks</strong> to Diana Morris
+            </p>
+            <div class="reassign-popup__footer-actions">
+              <button class="secondary-pill" type="button" data-close-popup>Cancel</button>
+              <button class="primary-pill" type="button" data-close-popup>Reassign 3 tasks</button>
+            </div>
+          </footer>
+        </div>
+      </aside>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>

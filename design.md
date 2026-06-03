@@ -249,8 +249,9 @@ These variables were read from the Figma Onfinity Design System component founda
 
 - Module title bar label: `16px`, regular, black.
 - Breadcrumb: `18px`, bold.
-- Widget title: `22px` to `24px`, bold or regular depending on legacy pattern.
-- KPI value: `30px`, `34px`, `40px`, `52px`, or `70px` depending on widget size.
+- Widget title: `14px`, bold (em-based widgets use the `md` token = `0.875em`). Legacy widgets may still use `22px` to `24px`.
+- KPI value (em-based widgets): `22px`, bold (`1.375em`, with tight line-height ~1.1 to keep the card compact). Legacy widgets may use `30px`, `34px`, `40px`, `52px`, or `70px` depending on widget size.
+- KPI meta (line below the value): `11px` (`0.6875em`), one step smaller than the label above the value, so the explanation reads as secondary to the anchor label.
 - Table/list header: `13px`, regular, muted.
 - Row title: `14px` to `16px`, bold.
 - Row metadata: `12px` to `14px`, regular, muted.
@@ -263,6 +264,74 @@ These variables were read from the Figma Onfinity Design System component founda
 - Keep utility copy short and operational.
 - Avoid marketing copy in module dashboards.
 - Prefer sentence case for labels and headings unless the source data is a proper noun.
+
+### Widget Sizing Scale (em-based)
+
+Widgets define typography and spacing as `em` against a `font-size` set on the widget root. This gives one lever per widget — change the root `font-size` and every text and spacing value inside the widget rescales proportionally. The scale is plain CSS and translates directly to the .NET implementation (e.g. as a `.widget` class with a `font-size` declaration and child rules in `em`).
+
+Widget root base: `font-size: clamp(16px, 1.4cqi, 24px)` — fluidly scales the entire widget with the dashboard *container* width, bounded so the base stays between `16px` and `24px`. At a `16px` base, `1em = 16px` matches the existing px scale and the migration is a visual no-op on standard laptop screens.
+
+`cqi` resolves against the nearest ancestor with `container-type: inline-size`. The dashboard grid wrapper in this codebase already sets this (alongside `gridAutoRows: calc((100cqw - 96px) / 9)`), so widget content scales at the **same rate** as the grid row heights — no empty space at the bottom of cards on large displays, no overflow on small ones.
+
+Resolved base by dashboard container width:
+
+| Container width | Resolved widget base |
+| --------------- | -------------------- |
+| ≤ 1200 px       | 16 px (clamp min)    |
+| 1440 px         | ~20 px               |
+| 1600 px         | ~22 px               |
+| ≥ 1720 px       | 24 px (clamp max)    |
+
+This means everything inside the widget — body text, headings, KPI values, padding, gaps — grows proportionally with the dashboard width, from a single declaration on the widget root.
+
+Trigger is the dashboard container (`cqi`), not the viewport — widgets react to dashboard area width, which means they shrink when a right-panel opens. If pure viewport behavior is desired (ignoring panels), swap `1.4cqi` for `1.25vw` and adjust bounds.
+
+Type scale:
+
+| Token   | px | em        | Use                                       |
+| ------- | -- | --------- | ----------------------------------------- |
+| xs      | 11 | `0.6875em` | Chips, pills                              |
+| sm      | 12 | `0.75em`   | Captions, tight metadata                  |
+| body    | 13 | `0.8125em` | Default body, table/list headers          |
+| md      | 14 | `0.875em`  | Row cells, standard body                  |
+| base    | 16 | `1em`      | Default body alt                          |
+| lg      | 18 | `1.125em`  | Section headers within widgets            |
+| xl      | 22 | `1.375em`  | Widget titles                             |
+| display | 34 | `2.125em`  | KPI / hero values                         |
+
+Spacing scale (padding, margin, gap):
+
+| Token | px | em        |
+| ----- | -- | --------- |
+| 2     | 2  | `0.125em` |
+| 4     | 4  | `0.25em`  |
+| 8     | 8  | `0.5em`   |
+| 10    | 10 | `0.625em` |
+| 12    | 12 | `0.75em`  |
+| 14    | 14 | `0.875em` |
+| 16    | 16 | `1em`     |
+| 18    | 18 | `1.125em` |
+
+Out of scope for `em` (kept in `px`): border radii, border widths, shadow offsets — these are physical edges that should not scale with font-size.
+
+**List / grid hierarchy rule.** Inside any widget that renders a list of rows or a table, the row/cell text **must be smaller than the widget title**. Concretely:
+
+- Widget title: `0.875em` (`md`).
+- Row cell, list item label, list item value: `0.75em` (`sm`) — one step down from the title.
+- Secondary meta (subtitle under a label, secondary metadata): `0.6875em` (`xs`).
+
+Weight and color still differentiate primary cells (bold, dark) from secondary cells (regular, muted), but they share the smaller `sm` size. Equal-size title and row text reads as flat and breaks scan-ability — always keep the title at least one step larger.
+
+Scope: this convention is for **widget components only** (the cards rendered inside the dashboard grid). Toolbars, dialogs, detail forms, and chrome continue to use the fixed `px` scale.
+
+Pilot status: applied to `FinanceMetricCard`, `FinanceTableCard`, `FinanceListCard`, and `NewRecordWidget` in `src/imports/WidgetOnWindowHome/WidgetOnWindowHome.tsx`. Other widgets will follow once the scale is validated.
+
+For 1×1 widgets (quick-action cells with narrow column width):
+
+- Use only two text elements — title (`0.75em` / 12 px-eq, medium weight) and subtitle (`0.625em` / 10 px-eq, regular). Drop decorative eyebrow labels; the dashed border and icon already signal "create new".
+- Place the icon at the top-right inside the normal flex flow (not absolute) so the title/subtitle below it can use the full widget width without needing a right-padding reserve.
+- Cap the subtitle at two lines (`line-clamp-2`) so it never bleeds out the bottom of the cell on small dashboards.
+- Keep the icon compact (`size-[1.75em]` container, `size-[1em]` glyph) so it doesn't eat the limited horizontal column.
 
 ## 7. Spacing, Radius, Borders, Shadows
 
@@ -556,6 +625,7 @@ Based on the Figma design-system reference node.
   - Title/action bar icons: `18px` to `20px`.
   - Section header icons: `22px`.
   - Row/action icons: `14px` to `16px`.
+  - Widget pagination buttons (prev/next chevrons inside dashboard widgets): overall button size `24px`; chevron icon scales to fit (typically `14px`).
 - Icon color:
   - Primary action: `#1F83FF` or `#0083DA`.
   - Neutral action: `#586575`.
