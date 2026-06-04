@@ -36,6 +36,7 @@ import {
   UserRound,
   WalletCards,
 } from "lucide-react";
+import { register as registerDashboardWidth, unregister as unregisterDashboardWidth } from "../../lib/dashboardWidth";
 import svgPaths from "./svg-gcxtz2mw3y";
 import imgImage34 from "./67915b5281a364c5879b410415ba1e8e9e7f1129.png";
 import { imgImage33, imgGroup97, imgGroup100 } from "./svg-k0rdy";
@@ -1720,8 +1721,13 @@ function DashboardWidgetHeader({
   subtitle?: string;
   icon?: ReactNode;
 }) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const token = registerDashboardWidth(rootRef.current);
+    return () => unregisterDashboardWidth(token);
+  }, []);
   return (
-    <div className="flex min-w-0 items-center gap-[10px]">
+    <div ref={rootRef} className="flex min-w-0 items-center gap-[10px]">
       {icon ? (
         <div
           className={`flex shrink-0 items-center justify-center self-center text-black shadow-[inset_0_0_0_1px_rgba(0,131,218,0.10)] ${
@@ -1734,11 +1740,11 @@ function DashboardWidgetHeader({
         </div>
       ) : null}
       <div className="min-w-0">
-        <p className="font-['Roboto:Medium',sans-serif] font-medium leading-[1.2] text-[clamp(13px,1.1375cqi,16px)] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="font-['Roboto:Medium',sans-serif] font-medium leading-[1.2] text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
           {title}
         </p>
         {subtitle ? (
-          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[clamp(11px,0.9625cqi,13px)] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
             {subtitle}
           </p>
         ) : null}
@@ -2376,7 +2382,7 @@ function Frame2() {
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
                   <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -2384,10 +2390,10 @@ function Frame2() {
                   </p>
                 </div>
                 <div className="rounded-[12px] bg-white/80 px-[0.625em] py-[0.5em] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,0.7cqi,10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,calc(var(--dash-inline-size,100vw)*0.007),10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Snapshot
                   </p>
-                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,0.9625cqi,13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.detail}
                   </p>
                 </div>
@@ -6391,7 +6397,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
               >
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
                 <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7059,7 +7065,7 @@ function ProspectsView() {
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
                   <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7067,10 +7073,10 @@ function ProspectsView() {
                   </p>
                 </div>
                 <div className="rounded-[12px] bg-white/80 px-[0.625em] py-[0.5em] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,0.7cqi,10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,calc(var(--dash-inline-size,100vw)*0.007),10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Trend
                   </p>
-                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,0.9625cqi,13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.detail}
                   </p>
                 </div>
@@ -7452,7 +7458,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
                   <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7460,10 +7466,10 @@ function TasksView({ onClose }: { onClose: () => void }) {
                   </p>
                 </div>
                 <div className="rounded-[12px] bg-white/80 px-[0.625em] py-[0.5em] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,0.7cqi,10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,calc(var(--dash-inline-size,100vw)*0.007),10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Focus
                   </p>
-                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,0.9625cqi,13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.detail}
                   </p>
                 </div>
@@ -7886,7 +7892,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
                   <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7894,10 +7900,10 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                   </p>
                 </div>
                 <div className="rounded-[12px] bg-white/80 px-[0.625em] py-[0.5em] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,0.7cqi,10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,calc(var(--dash-inline-size,100vw)*0.007),10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Snapshot
                   </p>
-                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,0.9625cqi,13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.detail}
                   </p>
                 </div>
@@ -8147,7 +8153,7 @@ function FinanceMetricCard({
       className={`${className} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${accent}`}
       style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
     >
-      <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
         {label}
       </p>
       <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8576,7 +8582,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
               >
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
                 <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -9287,7 +9293,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
               >
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
                 <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10097,7 +10103,7 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
               >
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,1.1375cqi,16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
                 <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
