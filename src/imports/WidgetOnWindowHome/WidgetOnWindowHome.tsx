@@ -30,6 +30,7 @@ import {
   Plus,
   ReceiptText,
   RotateCcw,
+  Search,
   Send,
   Ticket,
   Trash2,
@@ -37,6 +38,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { register as registerDashboardWidth, unregister as unregisterDashboardWidth } from "../../lib/dashboardWidth";
+import { useAdaptiveRowCount } from "../../lib/useAdaptiveRowCount";
 import svgPaths from "./svg-gcxtz2mw3y";
 import imgImage34 from "./67915b5281a364c5879b410415ba1e8e9e7f1129.png";
 import { imgImage33, imgGroup97, imgGroup100 } from "./svg-k0rdy";
@@ -1730,21 +1732,21 @@ function DashboardWidgetHeader({
     <div ref={rootRef} className="flex min-w-0 items-center gap-[10px]">
       {icon ? (
         <div
-          className={`flex shrink-0 items-center justify-center self-center text-black shadow-[inset_0_0_0_1px_rgba(0,131,218,0.10)] ${
-            subtitle
-              ? "size-[36px] rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(232,244,255,0.96)_100%)]"
-              : "size-[32px] rounded-[10px] bg-[linear-gradient(180deg,rgba(255,255,255,0.92)_0%,rgba(232,244,255,0.92)_100%)]"
-          }`}
+          className="flex shrink-0 items-center justify-center self-center rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(232,244,255,0.96)_100%)] text-black shadow-[inset_0_0_0_1px_rgba(0,131,218,0.10)] [&>svg]:!w-[clamp(18px,calc(var(--dash-inline-size,100vw)*0.012500),22px)] [&>svg]:!h-[clamp(18px,calc(var(--dash-inline-size,100vw)*0.012500),22px)]"
+          style={{
+            width: "clamp(32px, calc(var(--dash-inline-size, 100vw) * 0.022750), 40px)",
+            height: "clamp(32px, calc(var(--dash-inline-size, 100vw) * 0.022750), 40px)",
+          }}
         >
           {icon}
         </div>
       ) : null}
       <div className="min-w-0">
-        <p className="font-['Roboto:Medium',sans-serif] font-medium leading-[1.2] text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[1.2] text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
           {title}
         </p>
         {subtitle ? (
-          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[clamp(12px,calc(var(--dash-inline-size,100vw)*0.009625),16px)] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
             {subtitle}
           </p>
         ) : null}
@@ -2336,18 +2338,35 @@ function Frame2() {
     { sender: "Maya Chen", subject: "QA staffing plan discussion", time: "10:24 AM", unread: true },
     { sender: "Kevin Smith", subject: "Pricing follow-up for Apex Med", time: "09:02 AM", unread: true },
     { sender: "Mack Rod", subject: "Vendor contract redlines", time: "Yesterday", unread: false },
+    { sender: "Diana Morris", subject: "Renewal terms — Apex Med", time: "Yesterday", unread: true },
+    { sender: "Rina Patel", subject: "Northwind security review", time: "Mon", unread: false },
+    { sender: "Parkash Chaudary", subject: "PO confirmation needed", time: "Mon", unread: true },
+    { sender: "Tariq Aziz", subject: "Demo recording shared", time: "Fri", unread: false },
+    { sender: "Hannah Lee", subject: "Q3 forecast inputs", time: "Fri", unread: false },
+    { sender: "Marco Vega", subject: "Re: Mainline rollout plan", time: "Thu", unread: false },
+    { sender: "Ada Owusu", subject: "Implementation kickoff agenda", time: "Thu", unread: false },
   ];
 
   const calendarItems = [
     { time: "11:00 AM", title: "Northwind discovery call", meta: "Rina Patel · Teams" },
     { time: "03:00 PM", title: "Aziz Tech demo", meta: "Sales · Meeting room 2" },
     { time: "05:30 PM", title: "KM demo prep", meta: "Internal · Kevin Smith" },
+    { time: "Tue 09:30", title: "Apex Med pricing review", meta: "Diana Morris · Zoom" },
+    { time: "Tue 11:00", title: "Pipeline retro", meta: "Sales team · Room 3" },
+    { time: "Tue 02:00", title: "Mainline implementation sync", meta: "Marco Vega · Teams" },
+    { time: "Thu 10:00", title: "Quarterly forecast review", meta: "Leadership · Boardroom" },
+    { time: "Thu 03:30", title: "Onboarding: Acme renewal", meta: "Hannah Lee · Teams" },
   ];
 
   const taskItems = [
     { title: "Finalize Q2 renewal revision", meta: "Kumaan Pvt. Ltd. · Parkash", due: "Today" },
     { title: "Prepare discovery notes for Northwind", meta: "Northwind Energy · Maya", due: "Today" },
     { title: "Send pricing follow-up to Apex", meta: "Apex Med Systems · Mack", due: "Tomorrow" },
+    { title: "Share security questionnaire with Northwind", meta: "Northwind Energy · Rina", due: "Tomorrow" },
+    { title: "Draft implementation SOW", meta: "Mainline · Marco", due: "Wed" },
+    { title: "Update CRM contact roles", meta: "Apex Med · Diana", due: "Wed" },
+    { title: "Confirm legal review window", meta: "Acme · Hannah", due: "Thu" },
+    { title: "Send recap from demo to Aziz", meta: "Aziz Tech · Tariq", due: "Thu" },
   ];
 
   const customerRows = [
@@ -2355,6 +2374,16 @@ function Frame2() {
     { name: "Northwind Energy", contact: "Rina Patel", stage: "Proposal", value: "$ 64K", response: "4h" },
     { name: "Apex Med Systems", contact: "Diana Morris", stage: "Qualified", value: "$ 48K", response: "1h" },
     { name: "UrbanAxis Retail", contact: "Kevin Smith", stage: "Negotiation", value: "$ 81K", response: "6h" },
+    { name: "Mainline Logistics", contact: "Marco Vega", stage: "Proposal", value: "$ 58K", response: "3h" },
+    { name: "Aziz Tech Group", contact: "Tariq Aziz", stage: "Discovery", value: "$ 39K", response: "8h" },
+    { name: "Acme Holdings", contact: "Hannah Lee", stage: "Negotiation", value: "$ 110K", response: "1h" },
+    { name: "Brightwave Media", contact: "Ada Owusu", stage: "Qualified", value: "$ 27K", response: "12h" },
+    { name: "Polar Foods", contact: "Owen Reilly", stage: "Discovery", value: "$ 34K", response: "5h" },
+    { name: "Vertex Industries", contact: "Sara Ng", stage: "Proposal", value: "$ 72K", response: "2h" },
+    { name: "Cascade Health", contact: "Liam Park", stage: "Negotiation", value: "$ 95K", response: "4h" },
+    { name: "Helix Robotics", contact: "Iris Tan", stage: "Discovery", value: "$ 41K", response: "9h" },
+    { name: "Northcove Marine", contact: "Ben Patel", stage: "Qualified", value: "$ 53K", response: "2h" },
+    { name: "Stellar Print", contact: "Nora Sims", stage: "Proposal", value: "$ 36K", response: "7h" },
   ];
 
   const socialStats = [
@@ -2363,6 +2392,67 @@ function Frame2() {
     { label: "Comments", value: "1.2K", trend: "+18%" },
     { label: "Story Views", value: "450K", trend: "+22%" },
   ];
+
+  // Adaptive row counts — each list container measures its own available height
+  // and the hook returns floor(clientHeight / rowHeight) clamped to [minRows, maxRows].
+  // Pick the constant by row template, not by widget — two widgets that render the
+  // same row markup must share the same rowHeight value.
+  //
+  // SMALL 2-line row (Inbox, My Tasks): text-[14px]/1.5 (21) + mt-[3px]
+  //   + text-[12-13px]/1.5 (18-19.5) + py-[10px] (20) + 1px border ≈ 65 px
+  // LARGE 2-line row (Calendar): text-[15px]/1.5 (22.5) + mt-[3px]
+  //   + text-[13px]/1.5 (19.5) + py-[10px] (20) + 1px border ≈ 66 px
+  // 1-line row (Active Customers): text-[14px]/1.5 (21) + py-[10px] (20)
+  //   + 1px border ≈ 42 px
+  const SMALL_TWO_LINE_ROW_HEIGHT = 65;
+  const LARGE_TWO_LINE_ROW_HEIGHT = 66;
+  const ONE_LINE_ROW_HEIGHT = 42;
+
+  // Lead Sources row: text-[14px]/1.5 (21) top line + mt-[4px] (4) + bar h-[4px] (4)
+  //   + py-[8px] (16) + 1px border ≈ 46 px
+  const LEAD_SOURCE_ROW_HEIGHT = 46;
+
+  const inboxListRef = useRef<HTMLDivElement | null>(null);
+  const calendarListRef = useRef<HTMLDivElement | null>(null);
+  const taskListRef = useRef<HTMLDivElement | null>(null);
+  const customerListRef = useRef<HTMLDivElement | null>(null);
+  const leadSourcesListRef = useRef<HTMLDivElement | null>(null);
+
+  const inboxRowsPerPage = useAdaptiveRowCount({ containerRef: inboxListRef, rowHeight: SMALL_TWO_LINE_ROW_HEIGHT, minRows: 3 });
+  const calendarRowsPerPage = useAdaptiveRowCount({ containerRef: calendarListRef, rowHeight: LARGE_TWO_LINE_ROW_HEIGHT, minRows: 3 });
+  const taskRowsPerPage = useAdaptiveRowCount({ containerRef: taskListRef, rowHeight: SMALL_TWO_LINE_ROW_HEIGHT, minRows: 3 });
+  const customerRowsPerPage = useAdaptiveRowCount({ containerRef: customerListRef, rowHeight: ONE_LINE_ROW_HEIGHT, minRows: 3 });
+  const leadSourcesRowsPerPage = useAdaptiveRowCount({ containerRef: leadSourcesListRef, rowHeight: LEAD_SOURCE_ROW_HEIGHT, minRows: 2 });
+
+  const [inboxPage, setInboxPage] = useState(1);
+  const [calendarPage, setCalendarPage] = useState(1);
+  const [taskPage, setTaskPage] = useState(1);
+  const [customerPage, setCustomerPage] = useState(1);
+  const [leadSourcesPage, setLeadSourcesPage] = useState(1);
+
+  const inboxTotalPages = Math.max(1, Math.ceil(inboxItems.length / inboxRowsPerPage));
+  const calendarTotalPages = Math.max(1, Math.ceil(calendarItems.length / calendarRowsPerPage));
+  const taskTotalPages = Math.max(1, Math.ceil(taskItems.length / taskRowsPerPage));
+  const customerTotalPages = Math.max(1, Math.ceil(customerRows.length / customerRowsPerPage));
+  const leadSourcesTotalPages = Math.max(1, Math.ceil(leadSources.length / leadSourcesRowsPerPage));
+
+  const inboxCurrentPage = Math.min(inboxPage, inboxTotalPages);
+  const calendarCurrentPage = Math.min(calendarPage, calendarTotalPages);
+  const taskCurrentPage = Math.min(taskPage, taskTotalPages);
+  const customerCurrentPage = Math.min(customerPage, customerTotalPages);
+  const leadSourcesCurrentPage = Math.min(leadSourcesPage, leadSourcesTotalPages);
+
+  const inboxStart = (inboxCurrentPage - 1) * inboxRowsPerPage;
+  const calendarStart = (calendarCurrentPage - 1) * calendarRowsPerPage;
+  const taskStart = (taskCurrentPage - 1) * taskRowsPerPage;
+  const customerStart = (customerCurrentPage - 1) * customerRowsPerPage;
+  const leadSourcesStart = (leadSourcesCurrentPage - 1) * leadSourcesRowsPerPage;
+
+  const inboxVisible = inboxItems.slice(inboxStart, inboxStart + inboxRowsPerPage);
+  const calendarVisible = calendarItems.slice(calendarStart, calendarStart + calendarRowsPerPage);
+  const taskVisible = taskItems.slice(taskStart, taskStart + taskRowsPerPage);
+  const customerVisible = customerRows.slice(customerStart, customerStart + customerRowsPerPage);
+  const leadSourcesVisible = leadSources.slice(leadSourcesStart, leadSourcesStart + leadSourcesRowsPerPage);
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
@@ -2380,24 +2470,12 @@ function Frame2() {
               key={card.label}
               style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
             >
-              <div className="flex items-start justify-between gap-[0.75em]">
-                <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {card.label}
-                  </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {card.value}
-                  </p>
-                </div>
-                <div className="rounded-[12px] bg-white/80 px-[0.625em] py-[0.5em] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,calc(var(--dash-inline-size,100vw)*0.007),10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Snapshot
-                  </p>
-                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {card.detail}
-                  </p>
-                </div>
-              </div>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.label}
+              </p>
+              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.value}
+              </p>
               <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.meta}
               </p>
@@ -2405,88 +2483,79 @@ function Frame2() {
           ))}
 
           {/* Main row: Opportunity Funnel (6) + Lead Sources (3) = 9 */}
-          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<CircleDollarSign className="size-[18px] text-black" strokeWidth={1.9} />}
                 subtitle="Lead to deal flow across the current pipeline"
                 title="Opportunity Funnel"
               />
-              <div className="flex items-center gap-[10px]">
-                <div className="rounded-[10px] border border-solid border-[#e4edf4] bg-white/85 px-[12px] py-[8px]">
-                  <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Win Rate
-                  </p>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    9.7%
+              <div className="flex items-center gap-[8px]">
+                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[6px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    9.7% win rate
                   </p>
                 </div>
-                <div className="rounded-[10px] border border-solid border-[#e4edf4] bg-white/85 px-[12px] py-[8px]">
-                  <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Avg. Cycle
-                  </p>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    24 d
+                <div className="rounded-[999px] bg-[#eef6ff] px-[12px] py-[6px]">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0f69ac]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    24 d avg cycle
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-[18px] grid flex-1 grid-cols-5 gap-[10px]">
+            <div className="mt-[12px] grid min-h-0 flex-1 grid-cols-5 gap-[10px]">
               {funnelStages.map((stage, index) => (
-                <div className="flex min-w-0 flex-col gap-[10px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[12px]" key={stage.label}>
+                <div className="flex min-h-0 min-w-0 flex-col gap-[6px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[10px]" key={stage.label}>
                   <div className="flex items-center justify-between gap-[8px]">
                     <div className="flex min-w-0 items-center gap-[8px]">
                       <span className="size-[8px] shrink-0 rounded-full" style={{ backgroundColor: stage.accent }} />
-                      <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {stage.label}
                       </p>
                     </div>
-                    <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:Bold',sans-serif] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {stage.rate}
                     </p>
                   </div>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[32px] leading-[1] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[24px] leading-[1] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {stage.count}
                   </p>
-                  <div className="h-[6px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                  <div className="h-[5px] overflow-hidden rounded-full bg-[#e8f0f8]">
                     <div className="h-full rounded-full" style={{ width: stage.width, backgroundColor: stage.accent }} />
                   </div>
-                  <p className="mt-auto font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-auto truncate font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {index === 0 ? stage.note : stage.note}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-[14px] flex items-center justify-between gap-[12px] border-t border-solid border-[#e4edf4] pt-[12px]">
-              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <div className="mt-[10px] flex items-center justify-between gap-[12px] border-t border-solid border-[#e4edf4] pt-[8px]">
+              <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Biggest drop-off appears between qualified opportunities and proposal-ready deals.
               </p>
-              <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0F9D89]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[12px] text-[#0F9D89]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Focus: Qualification → Proposal
               </p>
             </div>
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<UserRound className="size-[18px] text-black" strokeWidth={1.9} />}
                 subtitle="Count and contribution share"
                 title="Lead Sources"
               />
-              <div className="rounded-[10px] border border-solid border-[#e4edf4] bg-white/85 px-[12px] py-[8px] text-right">
-                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Total Leads
-                </p>
-                <p className="font-['Roboto:Bold',sans-serif] text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  320
+              <div className="rounded-[999px] bg-[#eef6ff] px-[12px] py-[6px]">
+                <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0f69ac]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  320 total leads
                 </p>
               </div>
             </div>
 
-            <div className="mt-[16px] grid grid-cols-[minmax(0,1fr)_60px] gap-[10px] border-b border-solid border-[#e8eef3] pb-[8px]">
+            <div className="mt-[12px] grid grid-cols-[minmax(0,1fr)_60px] gap-[10px] border-b border-solid border-[#e8eef3] pb-[6px]">
               <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Source
               </p>
@@ -2495,21 +2564,21 @@ function Frame2() {
               </p>
             </div>
 
-            <div className="mt-[2px] flex flex-1 flex-col">
-              {leadSources.map((item) => (
-                <div className="grid grid-cols-[minmax(0,1fr)_60px] items-center gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={item.source}>
+            <div ref={leadSourcesListRef} className="mt-[2px] min-h-0 flex-1 overflow-hidden">
+              {leadSourcesVisible.map((item) => (
+                <div className="grid grid-cols-[minmax(0,1fr)_60px] items-center gap-[10px] border-b border-solid border-[#edf2f6] py-[8px] last:border-b-0" key={item.source}>
                   <div className="flex min-w-0 items-center gap-[10px]">
                     <span className="size-[8px] shrink-0 rounded-full" style={{ backgroundColor: item.accent }} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-[8px]">
-                        <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.source}>
                           {item.source}
                         </p>
-                        <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.count}
                         </p>
                       </div>
-                      <div className="mt-[6px] h-[4px] overflow-hidden rounded-full bg-[#e8f0f8]">
+                      <div className="mt-[4px] h-[4px] overflow-hidden rounded-full bg-[#e8f0f8]">
                         <div className="h-full rounded-full" style={{ width: `${item.percentage}%`, backgroundColor: item.accent }} />
                       </div>
                     </div>
@@ -2520,41 +2589,41 @@ function Frame2() {
                 </div>
               ))}
             </div>
+            {leadSourcesTotalPages > 1 ? (
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Showing {leadSourcesStart + 1}–{leadSourcesStart + leadSourcesVisible.length} of {leadSources.length}
+                </p>
+                <div className="flex items-center gap-[6px]">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={leadSourcesCurrentPage <= 1} onClick={() => setLeadSourcesPage((p) => Math.max(1, p - 1))} type="button">
+                    <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {leadSourcesCurrentPage} of {leadSourcesTotalPages}
+                  </p>
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={leadSourcesCurrentPage >= leadSourcesTotalPages} onClick={() => setLeadSourcesPage((p) => Math.min(leadSourcesTotalPages, p + 1))} type="button">
+                    <ChevronRight className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {/* Support row: Inbox (3) + Calendar (3) + Tasks (3) = 9 */}
-          <div className="col-[1/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<Mail className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Unread mail and replies needing attention"
               title="Inbox"
             />
-            <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
-              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Unread
-                </p>
-                <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[34px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  02
-                </p>
-              </div>
-              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Reply Due
-                </p>
-                <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[34px] text-[#9a5c00]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  03
-                </p>
-              </div>
-            </div>
-            <div className="mt-[14px] min-h-0 flex-1 overflow-auto">
-              {inboxItems.map((item) => (
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#edf2f6] py-[12px] last:border-b-0" key={`${item.sender}-${item.subject}`}>
+            <div ref={inboxListRef} className="mt-[12px] min-h-0 flex-1 overflow-hidden">
+              {inboxVisible.map((item) => (
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={`${item.sender}-${item.subject}`}>
                   <div className="min-w-0">
-                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.sender}>
                       {item.sender}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.subject}>
                       {item.subject}
                     </p>
                   </div>
@@ -2564,83 +2633,83 @@ function Frame2() {
                 </div>
               ))}
             </div>
+            {inboxTotalPages > 1 ? (
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Showing {inboxStart + 1}–{inboxStart + inboxVisible.length} of {inboxItems.length}
+                </p>
+                <div className="flex items-center gap-[6px]">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={inboxCurrentPage <= 1} onClick={() => setInboxPage((p) => Math.max(1, p - 1))} type="button">
+                    <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {inboxCurrentPage} of {inboxTotalPages}
+                  </p>
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={inboxCurrentPage >= inboxTotalPages} onClick={() => setInboxPage((p) => Math.min(inboxTotalPages, p + 1))} type="button">
+                    <ChevronRight className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
 
-          <div className="col-[4/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[4/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<CalendarDays className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Today's schedule and upcoming events"
               title="Calendar"
             />
-            <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
-              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Today
-                </p>
-                <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[34px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  03
-                </p>
-              </div>
-              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Upcoming
-                </p>
-                <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[34px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  11
-                </p>
-              </div>
-            </div>
-            <div className="mt-[14px] min-h-0 flex-1 overflow-auto">
-              {calendarItems.map((item) => (
-                <div className="grid grid-cols-[78px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#edf2f6] py-[12px] last:border-b-0" key={`${item.time}-${item.title}`}>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <div ref={calendarListRef} className="mt-[12px] min-h-0 flex-1 overflow-hidden">
+              {calendarVisible.map((item) => (
+                <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={`${item.time}-${item.title}`}>
+                  <p className="self-center whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.time}
                   </p>
                   <div className="min-w-0">
-                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.title}>
                       {item.title}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.meta}>
                       {item.meta}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
+            {calendarTotalPages > 1 ? (
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Showing {calendarStart + 1}–{calendarStart + calendarVisible.length} of {calendarItems.length}
+                </p>
+                <div className="flex items-center gap-[6px]">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={calendarCurrentPage <= 1} onClick={() => setCalendarPage((p) => Math.max(1, p - 1))} type="button">
+                    <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {calendarCurrentPage} of {calendarTotalPages}
+                  </p>
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={calendarCurrentPage >= calendarTotalPages} onClick={() => setCalendarPage((p) => Math.min(calendarTotalPages, p + 1))} type="button">
+                    <ChevronRight className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<NotebookText className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Today's follow-ups and assigned work"
               title="My Tasks"
             />
-            <div className="mt-[16px] grid grid-cols-2 gap-[10px]">
-              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Open
-                </p>
-                <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[34px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  08
-                </p>
-              </div>
-              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  Assigned
-                </p>
-                <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[34px] text-[#5f4aa6]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  03
-                </p>
-              </div>
-            </div>
-            <div className="mt-[14px] min-h-0 flex-1 overflow-auto">
-              {taskItems.map((task) => (
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#edf2f6] py-[12px] last:border-b-0" key={task.title}>
+            <div ref={taskListRef} className="mt-[12px] min-h-0 flex-1 overflow-hidden">
+              {taskVisible.map((task) => (
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={task.title}>
                   <div className="min-w-0">
-                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.title}>
                       {task.title}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.meta}>
                       {task.meta}
                     </p>
                   </div>
@@ -2650,55 +2719,79 @@ function Frame2() {
                 </div>
               ))}
             </div>
+            {taskTotalPages > 1 ? (
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Showing {taskStart + 1}–{taskStart + taskVisible.length} of {taskItems.length}
+                </p>
+                <div className="flex items-center gap-[6px]">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={taskCurrentPage <= 1} onClick={() => setTaskPage((p) => Math.max(1, p - 1))} type="button">
+                    <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {taskCurrentPage} of {taskTotalPages}
+                  </p>
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={taskCurrentPage >= taskTotalPages} onClick={() => setTaskPage((p) => Math.min(taskTotalPages, p + 1))} type="button">
+                    <ChevronRight className="size-[14px]" strokeWidth={1.9} />
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {/* Bottom row: Customer activity (6) + Social (3) = 9 */}
-          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<UserRound className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Accounts currently moving through the pipeline"
               title="Active Customers"
             />
-            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_1fr_0.9fr_0.7fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
-              {["Company", "Primary Contact", "Stage", "Deal Value", "Response"].map((heading) => (
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
-                  {heading}
+            <div className="mt-[12px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.7fr)] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[8px]">
+              {[
+                { label: "Company", align: "left" as const },
+                { label: "Primary Contact", align: "left" as const },
+                { label: "Stage", align: "left" as const },
+                { label: "Deal Value", align: "right" as const },
+                { label: "Response", align: "right" as const },
+              ].map((heading) => (
+                <p className={`truncate font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
+                  {heading.label}
                 </p>
               ))}
             </div>
-            <div className="mt-[2px] flex-1">
-              {customerRows.map((row) => (
-                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_1fr_0.9fr_0.7fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={row.name}>
-                  <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <div ref={customerListRef} className="mt-[2px] min-h-0 flex-1 overflow-hidden">
+              {customerVisible.map((row) => (
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.7fr)] items-center gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[10px] last:border-b-0" key={row.name}>
+                  <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.name}>
                     {row.name}
                   </p>
-                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.contact}>
                     {row.contact}
                   </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.stage}>
                     {row.stage}
                   </p>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[13px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.value}>
                     {row.value}
                   </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="truncate text-right font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.response}>
                     {row.response}
                   </p>
                 </div>
               ))}
             </div>
-            <div className="mt-[12px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[12px]">
+            <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
               <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Showing 1-4 of 36 active accounts
+                Showing {customerStart + 1}–{customerStart + customerVisible.length} of {customerRows.length} active accounts
               </p>
               <div className="flex items-center gap-[8px]">
-                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled type="button">
+                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={customerCurrentPage <= 1} onClick={() => setCustomerPage((p) => Math.max(1, p - 1))} type="button">
                   <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                 </button>
                 <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  1 of 9
+                  {customerCurrentPage} of {customerTotalPages}
                 </p>
-                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff]" type="button">
+                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={customerCurrentPage >= customerTotalPages} onClick={() => setCustomerPage((p) => Math.min(customerTotalPages, p + 1))} type="button">
                   <ChevronRight className="size-[14px]" strokeWidth={1.9} />
                 </button>
               </div>
@@ -3486,7 +3579,7 @@ function HomeTicketsPanel() {
 function HomeView() {
   return (
     <div className="h-full overflow-auto px-[12px] pb-[14px]">
-      <div className="mx-auto min-w-[1200px] max-w-[1836px]" style={{ containerType: "inline-size" }}>
+      <div className="w-full" style={{ containerType: "inline-size" }}>
         <div className="grid grid-cols-9 grid-rows-[136px_200px_200px] gap-x-[12px] gap-y-[12px] w-full">
         <div className="col-[1/span_6] flex items-center px-[8px]">
           <div>
@@ -6397,10 +6490,10 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
               >
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
                 <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7065,10 +7158,10 @@ function ProspectsView() {
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.value}
                   </p>
                 </div>
@@ -7094,13 +7187,13 @@ function ProspectsView() {
                 subtitle="Prioritized leads by score, response speed, and estimated pipeline value"
                 title="Prospect Grid"
               />
-              <div className="flex items-center gap-[10px]">
-                <div className="rounded-[999px] bg-[#eef6ff] px-[12px] py-[8px]">
+              <div className="flex items-center gap-[8px]">
+                <div className="rounded-[999px] bg-[#eef6ff] px-[12px] py-[6px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0f69ac]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     18 qualified
                   </p>
                 </div>
-                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[8px]">
+                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[6px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     92 min avg follow-up
                   </p>
@@ -7458,10 +7551,10 @@ function TasksView({ onClose }: { onClose: () => void }) {
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.value}
                   </p>
                 </div>
@@ -7487,13 +7580,13 @@ function TasksView({ onClose }: { onClose: () => void }) {
                 subtitle="Priority work across proposals, opportunities, and follow-ups"
                 title="Task Queue"
               />
-              <div className="flex items-center gap-[10px]">
-                <div className="rounded-[999px] bg-[#ffe4e4] px-[12px] py-[8px]">
+              <div className="flex items-center gap-[8px]">
+                <div className="rounded-[999px] bg-[#ffe4e4] px-[12px] py-[6px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#a33f3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     4 blocked
                   </p>
                 </div>
-                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[8px]">
+                <div className="rounded-[999px] bg-[#ddf4e8] px-[12px] py-[6px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     83% on time
                   </p>
@@ -7890,24 +7983,12 @@ function CalendarView({ onClose }: { onClose: () => void }) {
               key={card.label}
               style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
             >
-              <div className="flex items-start justify-between gap-[0.75em]">
-                <div>
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {card.label}
-                  </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {card.value}
-                  </p>
-                </div>
-                <div className="rounded-[12px] bg-white/80 px-[0.625em] py-[0.5em] text-right shadow-[0_4px_12px_rgba(15,23,42,0.04)]">
-                  <p className="font-['Roboto:Bold',sans-serif] font-bold text-[clamp(9px,calc(var(--dash-inline-size,100vw)*0.007),10px)] uppercase tracking-[0.12em] text-[#8a90a2]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Snapshot
-                  </p>
-                  <p className="mt-[2px] font-['Roboto:Bold',sans-serif] font-bold text-[clamp(11px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {card.detail}
-                  </p>
-                </div>
-              </div>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.label}
+              </p>
+              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                {card.value}
+              </p>
               <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.meta}
               </p>
@@ -9106,10 +9187,45 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   }));
   const [dropShipment, setDropShipment] = useState(false);
   const [holdPayment, setHoldPayment] = useState(true);
-  const invoiceLines = [
+  const [invoiceLines, setInvoiceLines] = useState([
     { lineNo: "10", product: "Blower", attribute: "BL", charge: "Equipment", uom: "Each", quantity: "4", price: "100.00", tax: "Standard", amount: "400.00" },
     { lineNo: "20", product: "Installation", attribute: "IN", charge: "Service", uom: "Hour", quantity: "2", price: "65.00", tax: "Standard", amount: "130.00" },
+  ]);
+  // Attributes available for each product. Real systems will source this from the product master;
+  // here it's a static mock so the dropdown has something to render.
+  const productAttributes: Record<string, string[]> = {
+    Blower: ["BL", "BL-XL", "BL-M", "BL-HD"],
+    Installation: ["IN", "OUT", "EM"],
+  };
+  // Product catalog the search field autocompletes against.
+  const productCatalog = [
+    "Blower",
+    "Compressor",
+    "Installation",
+    "Maintenance Kit",
+    "Pipe Fitting",
+    "Sensor Module",
+    "Service Charge",
+    "Wiring Harness",
   ];
+  type EditableField = "product" | "quantity" | "attribute";
+  const [editingCell, setEditingCell] = useState<{ lineNo: string; field: EditableField } | null>(null);
+  // Controlled search value for the product autocomplete. Re-initialized whenever the user
+  // opens the product cell on a different line so the input pre-fills with the current value.
+  const [productSearchValue, setProductSearchValue] = useState("");
+  useEffect(() => {
+    if (editingCell?.field === "product") {
+      const line = invoiceLines.find((l) => l.lineNo === editingCell.lineNo);
+      setProductSearchValue(line?.product ?? "");
+    }
+  }, [editingCell?.lineNo, editingCell?.field, invoiceLines]);
+  const updateLineField = (lineNo: string, field: EditableField, value: string) => {
+    setInvoiceLines((lines) => lines.map((l) => (l.lineNo === lineNo ? { ...l, [field]: value } : l)));
+  };
+  // Single shared grid template — header + every body row use this constant so columns
+  // line up across rows (Grid Data Widget > Column Sizing And Truncation).
+  // Columns: Product/Charge · Attribute · Quantity/UOM · Price · Tax · Line Amount
+  const apInvoiceLineCols = "grid-cols-[minmax(0,1.6fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1fr)]";
   const windowActions = [
     { id: "save", icon: <HardDrive className="size-[18px]" strokeWidth={1.8} /> },
     { id: "save-as", icon: <FilePlus2 className="size-[18px]" strokeWidth={1.8} /> },
@@ -9228,7 +9344,12 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     { id: "approval-notes" as const, label: "Approval Notes" },
   ];
   const activeRightPanelLabel = rightPanelOptions.find((option) => option.id === activeRightPanel)?.label ?? "Vendor Insights";
-  const rightPanelWidth = "50cqw";
+  // Right panel scales with container width but stays compact on small laptops so the
+  // left workspace keeps room for the line grid + form fields.
+  //   1280 px viewport (≈1208 px container) → 400 px (floor)
+  //   1600 px → 480 px
+  //   1920 px → 500 px (ceiling)
+  const rightPanelWidth = "clamp(400px, 30cqw, 500px)";
   const rightPanelNavWidth = 20;
   const windowActionRailWidth = 56;
   const rightPanelContentGap = 8;
@@ -9520,94 +9641,259 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                   </div>
 
                   <div className="mt-[30px] border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
-                    <div className="flex h-[56px] items-center justify-between px-[20px]">
-                      <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        Invoice Lines & Summary
-                      </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        Lines, navigation, and posting totals
-                      </p>
+                    <div className="flex min-h-[56px] flex-wrap items-center justify-between gap-[12px] px-[20px] py-[10px]">
+                      <div className="min-w-0">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Invoice Lines & Summary
+                        </p>
+                        <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Lines, navigation, and posting totals
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-[10px]">
+                        <button
+                          className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[14px] py-[8px] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                          type="button"
+                        >
+                          <Plus className="size-[14px]" strokeWidth={2} />
+                          Add line
+                        </button>
+                        <button
+                          className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef7ff]"
+                          type="button"
+                        >
+                          <ExternalLink className="size-[14px]" strokeWidth={2} />
+                          Open Window
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="px-[20px] py-[18px]">
-                      <div className="flex items-center justify-between gap-[12px]">
-                        <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          Invoice Lines
-                        </p>
-                        <div className="flex flex-wrap items-center gap-[10px]">
-                          {["Lines", "Navigations", "Create lines from", "Actions"].map((action, index) => (
-                            <button
-                              className={`${index > 1 ? "border-[#0083da] bg-[#0083da] text-white" : "border-[#0083da] bg-white text-[#0083da]"} rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px]`}
-                              key={action}
-                              type="button"
-                            >
-                              {action}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="mt-[14px] overflow-hidden rounded-[14px] border border-solid border-[#dbe6ee] bg-white shadow-[0_8px_20px_rgba(15,61,97,0.04)]">
-                        <div className="grid grid-cols-[0.7fr_1.3fr_1.3fr_1fr_0.8fr_0.9fr_0.9fr_1fr_1fr] gap-[12px] border-b border-solid border-[#e6eef5] bg-[#fbfdff] px-[14px] py-[12px]">
-                          {["Line No", "Product", "Attribute", "Charge", "UOM", "Quantity", "Price", "Tax", "Line Amount"].map((heading) => (
-                            <p className="font-['Roboto:Bold',sans-serif] text-[13px] capitalize text-[#102c3f]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {heading}
+                    <div className="px-[20px] pb-[18px] pt-[8px]">
+                      <div>
+                        <div className={`grid ${apInvoiceLineCols} gap-[12px] border-b border-solid border-[#dbe6ee] py-[10px]`}>
+                          {[
+                            { label: "Product / Charge", align: "left" as const },
+                            { label: "Attribute", align: "left" as const },
+                            { label: "Quantity / UOM", align: "right" as const },
+                            { label: "Price", align: "right" as const },
+                            { label: "Tax", align: "left" as const },
+                            { label: "Line Amount", align: "right" as const },
+                          ].map((heading) => (
+                            <p className={`truncate font-['Roboto:Bold',sans-serif] text-[13px] capitalize text-[#102c3f] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
+                              {heading.label}
                             </p>
                           ))}
                         </div>
                         {invoiceLines.map((line) => (
-                          <div className="grid grid-cols-[0.7fr_1.3fr_1.3fr_1fr_0.8fr_0.9fr_0.9fr_1fr_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[14px] py-[14px] last:border-b-0" key={line.lineNo}>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {line.lineNo}
-                            </p>
-                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {line.product}
-                            </p>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {line.attribute}
-                            </p>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {line.charge}
-                            </p>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {line.uom}
-                            </p>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              {line.quantity}
-                            </p>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <div className={`grid ${apInvoiceLineCols} items-center gap-[12px] border-b border-solid border-[#edf2f6] py-[12px] last:border-b-0`} key={line.lineNo}>
+                            <div
+                              className="-mx-[6px] -my-[2px] min-w-0 cursor-text rounded-[6px] px-[6px] py-[2px] transition-colors hover:bg-[#f1f8ff]"
+                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "product" ? null : setEditingCell({ lineNo: line.lineNo, field: "product" })}
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setEditingCell({ lineNo: line.lineNo, field: "product" });
+                                }
+                              }}
+                            >
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "product" ? (
+                                <div className="relative" onClick={(e) => e.stopPropagation()}>
+                                  <div className="flex items-center gap-[4px] rounded-[4px] border border-solid border-[#0083da] bg-white px-[6px] py-[2px]">
+                                    <Search className="size-[12px] shrink-0 text-[#748494]" strokeWidth={2} />
+                                    <input
+                                      autoFocus
+                                      className="min-w-0 flex-1 bg-transparent font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f] outline-none"
+                                      onBlur={(e) => {
+                                        // If focus moved to a dropdown option, the option's onMouseDown
+                                        // already committed. Skip committing on blur in that case.
+                                        if (e.relatedTarget && (e.relatedTarget as HTMLElement).dataset?.productOption === "true") {
+                                          return;
+                                        }
+                                        updateLineField(line.lineNo, "product", productSearchValue);
+                                        setEditingCell(null);
+                                      }}
+                                      onChange={(e) => setProductSearchValue(e.target.value)}
+                                      onKeyDown={(e) => {
+                                        if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                                        if (e.key === "Escape") setEditingCell(null);
+                                      }}
+                                      placeholder="Search product…"
+                                      style={{ fontVariationSettings: "'wdth' 100" }}
+                                      value={productSearchValue}
+                                    />
+                                  </div>
+                                  {(() => {
+                                    const q = productSearchValue.trim().toLowerCase();
+                                    const matches = productCatalog.filter((opt) => opt !== productSearchValue && (q === "" || opt.toLowerCase().includes(q)));
+                                    if (matches.length === 0) {
+                                      return null;
+                                    }
+                                    return (
+                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] overflow-auto rounded-[8px] border border-solid border-[#dbe6ee] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "200px" }}>
+                                        {matches.map((opt) => (
+                                          <button
+                                            className="block w-full truncate px-[10px] py-[6px] text-left font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] hover:bg-[#f1f8ff] focus:bg-[#eef7ff] focus:outline-none"
+                                            data-product-option="true"
+                                            key={opt}
+                                            onMouseDown={(e) => {
+                                              // mousedown fires before input's blur; preventDefault
+                                              // keeps focus on the input so we can commit cleanly.
+                                              e.preventDefault();
+                                              updateLineField(line.lineNo, "product", opt);
+                                              setEditingCell(null);
+                                            }}
+                                            style={{ fontVariationSettings: "'wdth' 100" }}
+                                            type="button"
+                                            title={opt}
+                                          >
+                                            {opt}
+                                          </button>
+                                        ))}
+                                      </div>
+                                    );
+                                  })()}
+                                </div>
+                              ) : (
+                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.product}>
+                                  {line.product}
+                                </p>
+                              )}
+                              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.charge}>
+                                {line.charge}
+                              </p>
+                            </div>
+                            <div
+                              className="-mx-[6px] -my-[2px] min-w-0 cursor-pointer rounded-[6px] px-[6px] py-[2px] transition-colors hover:bg-[#f1f8ff]"
+                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "attribute" ? null : setEditingCell({ lineNo: line.lineNo, field: "attribute" })}
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setEditingCell({ lineNo: line.lineNo, field: "attribute" });
+                                }
+                              }}
+                            >
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "attribute" ? (
+                                <select
+                                  autoFocus
+                                  className="w-full rounded-[4px] border border-solid border-[#0083da] bg-white px-[4px] py-[2px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283] outline-none"
+                                  defaultValue={line.attribute}
+                                  onChange={(e) => {
+                                    updateLineField(line.lineNo, "attribute", e.target.value);
+                                    setEditingCell(null);
+                                  }}
+                                  onBlur={() => setEditingCell(null)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Escape") setEditingCell(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                >
+                                  {(() => {
+                                    const opts = productAttributes[line.product] ?? [line.attribute];
+                                    const list = opts.includes(line.attribute) ? opts : [line.attribute, ...opts];
+                                    return list.map((opt) => (
+                                      <option key={opt} value={opt}>
+                                        {opt}
+                                      </option>
+                                    ));
+                                  })()}
+                                </select>
+                              ) : (
+                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.attribute}>
+                                  {line.attribute}
+                                </p>
+                              )}
+                            </div>
+                            <div
+                              className="-mx-[6px] -my-[2px] min-w-0 cursor-text rounded-[6px] px-[6px] py-[2px] text-right transition-colors hover:bg-[#f1f8ff]"
+                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "quantity" ? null : setEditingCell({ lineNo: line.lineNo, field: "quantity" })}
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setEditingCell({ lineNo: line.lineNo, field: "quantity" });
+                                }
+                              }}
+                            >
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "quantity" ? (
+                                <input
+                                  autoFocus
+                                  className="w-full rounded-[4px] border border-solid border-[#0083da] bg-white px-[6px] py-[2px] text-right font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f] outline-none"
+                                  defaultValue={line.quantity}
+                                  inputMode="decimal"
+                                  onBlur={(e) => {
+                                    updateLineField(line.lineNo, "quantity", e.target.value);
+                                    setEditingCell(null);
+                                  }}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                                    if (e.key === "Escape") setEditingCell(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                />
+                              ) : (
+                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.quantity}>
+                                  {line.quantity}
+                                </p>
+                              )}
+                              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.uom}>
+                                {line.uom}
+                              </p>
+                            </div>
+                            <p className="truncate text-right font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.price}>
                               {line.price}
                             </p>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.tax}>
                               {line.tax}
                             </p>
-                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.amount}>
                               {line.amount}
                             </p>
                           </div>
                         ))}
                       </div>
 
-                      <div className="mt-[18px]">
-                        <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          Invoice Summary
-                        </p>
-                        <div className="mt-[12px] grid grid-cols-4 gap-[12px]">
-                          {[
-                            { label: "Subtotal", value: "530.00" },
-                            { label: "Tax", value: "95.40" },
-                            { label: "Total", value: "625.40" },
-                            { label: "Posting Status", value: holdPayment ? "On hold" : "Ready" },
-                          ].map((item) => (
-                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
-                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                {item.label}
-                              </p>
-                              <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                {item.value}
-                              </p>
-                            </div>
-                          ))}
+                      <div className="mt-[18px] flex flex-wrap items-start justify-between gap-[24px]">
+                        <div className="flex items-center gap-[10px]">
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] uppercase tracking-[0.06em] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            Posting Status
+                          </p>
+                          <span className={`rounded-[999px] px-[10px] py-[4px] font-['Roboto:Bold',sans-serif] text-[12px] ${holdPayment ? "bg-[#fff3d6] text-[#9a5c00]" : "bg-[#ddf4e8] text-[#0b6b45]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {holdPayment ? "On hold" : "Ready"}
+                          </span>
+                        </div>
+
+                        <div className="min-w-[260px] max-w-[320px] flex-1">
+                          <div className="flex items-center justify-between py-[6px]">
+                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Subtotal
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              530.00
+                            </p>
+                          </div>
+                          <div className="flex items-center justify-between border-b border-solid border-[#edf2f6] py-[6px]">
+                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Tax
+                            </p>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              95.40
+                            </p>
+                          </div>
+                          <div className="flex items-center justify-between pt-[8px]">
+                            <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              Total
+                            </p>
+                            <p className="font-['Roboto:Bold',sans-serif] text-[16px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              625.40
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>

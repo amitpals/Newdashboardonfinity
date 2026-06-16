@@ -23,7 +23,7 @@ This document provides the styles for the three configurable parts of a row: the
 
 ## Row container
 
-Paste into the **Row style** field.
+Paste into the **Row style** field.kar
 
 ```css
 display: grid;
