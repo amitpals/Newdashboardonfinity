@@ -29,6 +29,7 @@ import {
   Phone,
   Plus,
   ReceiptText,
+  MoreVertical,
   RotateCcw,
   Search,
   Send,
@@ -45,7 +46,7 @@ import { imgImage33, imgGroup97, imgGroup100 } from "./svg-k0rdy";
 
 function MaterialSymbolsMenu() {
   return (
-    <div className="relative shrink-0 size-[32px]" data-name="material-symbols:menu">
+    <div className="relative shrink-0 size-[20px]" data-name="material-symbols:menu">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
         <g id="material-symbols:menu">
           <path d={svgPaths.p16ee8f00} fill="var(--fill-0, #0083DA)" id="Vector" />
@@ -87,7 +88,7 @@ function Frame61() {
 
 function Group() {
   return (
-    <div className="col-1 ml-0 mt-0 relative row-1 size-[50px]" data-name="Group">
+    <div className="col-1 ml-0 mt-0 relative row-1 size-[32px]" data-name="Group">
       <div className="absolute inset-[-6%_-12%_-18%_-12%]">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 62 62">
           <g filter="url(#filter0_d_1_1810)" id="Group">
@@ -112,8 +113,8 @@ function Group() {
 
 function MaskGroup() {
   return (
-    <div className="col-1 grid-cols-[max-content] grid-rows-[max-content] inline-grid ml-[-9px] mt-0 place-items-start relative row-1" data-name="Mask Group 18">
-      <div className="col-1 h-[51.75px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[9px_0px] mask-size-[45px_45px] ml-0 mt-0 relative row-1 w-[62.631px]" data-name="Image 33" style={{ maskImage: `url('${imgImage33}')` }}>
+    <div className="col-1 grid-cols-[max-content] grid-rows-[max-content] inline-grid ml-[-6px] mt-0 place-items-start relative row-1" data-name="Mask Group 18">
+      <div className="col-1 h-[37px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[6px_0px] mask-size-[32px_32px] ml-0 mt-0 relative row-1 w-[44px]" data-name="Image 33" style={{ maskImage: `url('${imgImage33}')` }}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img alt="" className="absolute left-0 max-w-none size-full top-0" src={imgImage34} />
         </div>
@@ -150,13 +151,13 @@ function AvatarUser() {
 function Frame1() {
   return (
     <div className="content-stretch flex gap-[12px] items-center relative shrink-0">
-      <div className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] h-[48px] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]" data-name="Icons Group">
-        <div className="content-stretch flex h-full items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[inherit]">
+      <div className="bg-gradient-to-b from-[rgba(255,255,255,0.7)] h-[32px] relative rounded-[8px] shrink-0 to-[rgba(255,255,255,0.49)]" data-name="Icons Group">
+        <div className="content-stretch flex h-full items-center justify-center overflow-clip px-[10px] py-[4px] relative rounded-[inherit]">
           <Slot />
         </div>
         <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
       </div>
-      <div className="content-stretch flex gap-[16px] items-center overflow-clip p-[8px] relative shrink-0" data-name="User Info">
+      <div className="content-stretch flex gap-[12px] items-center overflow-clip p-[4px] relative shrink-0" data-name="User Info">
         <Frame61 />
         <AvatarUser />
       </div>
@@ -1742,11 +1743,11 @@ function DashboardWidgetHeader({
         </div>
       ) : null}
       <div className="min-w-0">
-        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[1.2] text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[1.2] text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
           {title}
         </p>
         {subtitle ? (
-          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[clamp(12px,calc(var(--dash-inline-size,100vw)*0.009625),16px)] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="mt-[2px] font-['Roboto:Regular',sans-serif] font-normal leading-[1.3] text-[clamp(12px,calc(var(--dash-inline-size,100vw)*0.009625),13px)] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
             {subtitle}
           </p>
         ) : null}
@@ -1767,7 +1768,7 @@ function DashboardSearchWidget({
       <div className="flex h-full w-full items-center justify-center">
         <div
           className="flex w-[80%] items-center gap-[12px] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] px-[18px] py-[16px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]"
-          style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+          style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
         >
           <svg className="size-[1.125em] shrink-0 text-[#1f83ff]" fill="none" viewBox="0 0 20 20">
             <circle cx="9" cy="9" r="5" stroke="currentColor" strokeWidth="1.8" />
@@ -1800,7 +1801,7 @@ function NewRecordWidget({
     <button
       className="col-span-1 relative overflow-hidden rounded-[14px] border-2 border-dashed border-[#9ed1ff] bg-[linear-gradient(135deg,rgba(234,248,255,0.92)_0%,rgba(255,255,255,0.82)_100%)] p-[0.875em] text-left shadow-[0_10px_24px_rgba(15,61,97,0.06)] transition-all hover:border-[#63b1ff] hover:bg-[linear-gradient(135deg,rgba(222,242,255,0.96)_0%,rgba(255,255,255,0.9)_100%)]"
       onClick={onClick}
-      style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+      style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
       type="button"
     >
       <div className="flex h-full flex-col justify-between">
@@ -1841,7 +1842,7 @@ function DynamicRowsWidget({
   const safePageIndex = Math.min(pageIndex, pageCount - 1);
   const visibleRows = rows.slice(safePageIndex * rowsPerPage, safePageIndex * rowsPerPage + rowsPerPage);
   const showVerticalPager = rows.length > rowsPerPage;
-  const sharedRowClass = "grid grid-cols-[minmax(0,1fr)_auto] gap-[12px] items-center border-b border-solid border-[#edf2f6] last:border-b-0 px-[10px] py-[14px]";
+  const sharedRowClass = "grid grid-cols-[minmax(0,1fr)_auto] gap-[12px] items-center border-b border-solid border-[#e2eaf1] last:border-b-0 px-[10px] py-[14px]";
   const sharedBadgeClass = "inline-flex shrink-0 rounded-[999px] bg-[#eef6ff] font-['Roboto:Bold',sans-serif] text-[12px] text-[#0f69ac] px-[12px] py-[6px]";
 
   useLayoutEffect(() => {
@@ -1916,7 +1917,7 @@ function DynamicRowsWidget({
               className={`flex size-[32px] items-center justify-center rounded-[12px] border border-solid transition-colors ${
                 safePageIndex > 0
                   ? "border-[#d8e5f0] bg-white text-[#0083da] hover:border-[#c6dcf1] hover:bg-[#f7fbff]"
-                  : "cursor-not-allowed border-[#edf2f6] bg-white/60 text-[#b8c6d2]"
+                  : "cursor-not-allowed border-[#e2eaf1] bg-white/60 text-[#b8c6d2]"
               }`}
               disabled={safePageIndex === 0}
               onClick={() => setPageIndex((current) => Math.max(0, current - 1))}
@@ -1931,7 +1932,7 @@ function DynamicRowsWidget({
               className={`flex size-[32px] items-center justify-center rounded-[12px] border border-solid transition-colors ${
                 safePageIndex < pageCount - 1
                   ? "border-[#d8e5f0] bg-white text-[#0083da] hover:border-[#c6dcf1] hover:bg-[#f7fbff]"
-                  : "cursor-not-allowed border-[#edf2f6] bg-white/60 text-[#b8c6d2]"
+                  : "cursor-not-allowed border-[#e2eaf1] bg-white/60 text-[#b8c6d2]"
               }`}
               disabled={safePageIndex >= pageCount - 1}
               onClick={() => setPageIndex((current) => Math.min(pageCount - 1, current + 1))}
@@ -2456,7 +2457,7 @@ function Frame2() {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+      <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
         <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
           {/* Top row: 1 + 2 + 2 + 2 + 2 = 9 */}
           <NewRecordWidget
@@ -2468,12 +2469,12 @@ function Frame2() {
             <div
               className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
-              style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+              style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
-              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.label}
               </p>
-              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.value}
               </p>
               <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -2506,7 +2507,7 @@ function Frame2() {
 
             <div className="mt-[12px] grid min-h-0 flex-1 grid-cols-5 gap-[10px]">
               {funnelStages.map((stage, index) => (
-                <div className="flex min-h-0 min-w-0 flex-col gap-[6px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[10px]" key={stage.label}>
+                <div className="flex min-h-0 min-w-0 flex-col gap-[6px] rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 p-[10px]" key={stage.label}>
                   <div className="flex items-center justify-between gap-[8px]">
                     <div className="flex min-w-0 items-center gap-[8px]">
                       <span className="size-[8px] shrink-0 rounded-full" style={{ backgroundColor: stage.accent }} />
@@ -2531,7 +2532,7 @@ function Frame2() {
               ))}
             </div>
 
-            <div className="mt-[10px] flex items-center justify-between gap-[12px] border-t border-solid border-[#e4edf4] pt-[8px]">
+            <div className="mt-[10px] flex items-center justify-between gap-[12px] border-t border-solid border-[#d9e2eb] pt-[8px]">
               <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Biggest drop-off appears between qualified opportunities and proposal-ready deals.
               </p>
@@ -2555,7 +2556,7 @@ function Frame2() {
               </div>
             </div>
 
-            <div className="mt-[12px] grid grid-cols-[minmax(0,1fr)_60px] gap-[10px] border-b border-solid border-[#e8eef3] pb-[6px]">
+            <div className="mt-[12px] grid grid-cols-[minmax(0,1fr)_60px] gap-[10px] border-b border-solid border-[#c5d2dd] pb-[6px]">
               <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Source
               </p>
@@ -2566,12 +2567,12 @@ function Frame2() {
 
             <div ref={leadSourcesListRef} className="mt-[2px] min-h-0 flex-1 overflow-hidden">
               {leadSourcesVisible.map((item) => (
-                <div className="grid grid-cols-[minmax(0,1fr)_60px] items-center gap-[10px] border-b border-solid border-[#edf2f6] py-[8px] last:border-b-0" key={item.source}>
+                <div className="grid grid-cols-[minmax(0,1fr)_60px] items-center gap-[10px] border-b border-solid border-[#e2eaf1] py-[8px] last:border-b-0" key={item.source}>
                   <div className="flex min-w-0 items-center gap-[10px]">
                     <span className="size-[8px] shrink-0 rounded-full" style={{ backgroundColor: item.accent }} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-[8px]">
-                        <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.source}>
+                        <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.source}>
                           {item.source}
                         </p>
                         <p className="whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -2590,18 +2591,18 @@ function Frame2() {
               ))}
             </div>
             {leadSourcesTotalPages > 1 ? (
-              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {leadSourcesStart + 1}–{leadSourcesStart + leadSourcesVisible.length} of {leadSources.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={leadSourcesCurrentPage <= 1} onClick={() => setLeadSourcesPage((p) => Math.max(1, p - 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={leadSourcesCurrentPage <= 1} onClick={() => setLeadSourcesPage((p) => Math.max(1, p - 1))} type="button">
                     <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                   </button>
-                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {leadSourcesCurrentPage} of {leadSourcesTotalPages}
                   </p>
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={leadSourcesCurrentPage >= leadSourcesTotalPages} onClick={() => setLeadSourcesPage((p) => Math.min(leadSourcesTotalPages, p + 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={leadSourcesCurrentPage >= leadSourcesTotalPages} onClick={() => setLeadSourcesPage((p) => Math.min(leadSourcesTotalPages, p + 1))} type="button">
                     <ChevronRight className="size-[14px]" strokeWidth={1.9} />
                   </button>
                 </div>
@@ -2618,9 +2619,9 @@ function Frame2() {
             />
             <div ref={inboxListRef} className="mt-[12px] min-h-0 flex-1 overflow-hidden">
               {inboxVisible.map((item) => (
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={`${item.sender}-${item.subject}`}>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#e2eaf1] py-[10px] last:border-b-0" key={`${item.sender}-${item.subject}`}>
                   <div className="min-w-0">
-                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.sender}>
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.sender}>
                       {item.sender}
                     </p>
                     <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.subject}>
@@ -2634,18 +2635,18 @@ function Frame2() {
               ))}
             </div>
             {inboxTotalPages > 1 ? (
-              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {inboxStart + 1}–{inboxStart + inboxVisible.length} of {inboxItems.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={inboxCurrentPage <= 1} onClick={() => setInboxPage((p) => Math.max(1, p - 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={inboxCurrentPage <= 1} onClick={() => setInboxPage((p) => Math.max(1, p - 1))} type="button">
                     <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                   </button>
-                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {inboxCurrentPage} of {inboxTotalPages}
                   </p>
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={inboxCurrentPage >= inboxTotalPages} onClick={() => setInboxPage((p) => Math.min(inboxTotalPages, p + 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={inboxCurrentPage >= inboxTotalPages} onClick={() => setInboxPage((p) => Math.min(inboxTotalPages, p + 1))} type="button">
                     <ChevronRight className="size-[14px]" strokeWidth={1.9} />
                   </button>
                 </div>
@@ -2661,7 +2662,7 @@ function Frame2() {
             />
             <div ref={calendarListRef} className="mt-[12px] min-h-0 flex-1 overflow-hidden">
               {calendarVisible.map((item) => (
-                <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={`${item.time}-${item.title}`}>
+                <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#e2eaf1] py-[10px] last:border-b-0" key={`${item.time}-${item.title}`}>
                   <p className="self-center whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[14px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.time}
                   </p>
@@ -2677,18 +2678,18 @@ function Frame2() {
               ))}
             </div>
             {calendarTotalPages > 1 ? (
-              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {calendarStart + 1}–{calendarStart + calendarVisible.length} of {calendarItems.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={calendarCurrentPage <= 1} onClick={() => setCalendarPage((p) => Math.max(1, p - 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={calendarCurrentPage <= 1} onClick={() => setCalendarPage((p) => Math.max(1, p - 1))} type="button">
                     <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                   </button>
-                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {calendarCurrentPage} of {calendarTotalPages}
                   </p>
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={calendarCurrentPage >= calendarTotalPages} onClick={() => setCalendarPage((p) => Math.min(calendarTotalPages, p + 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={calendarCurrentPage >= calendarTotalPages} onClick={() => setCalendarPage((p) => Math.min(calendarTotalPages, p + 1))} type="button">
                     <ChevronRight className="size-[14px]" strokeWidth={1.9} />
                   </button>
                 </div>
@@ -2704,9 +2705,9 @@ function Frame2() {
             />
             <div ref={taskListRef} className="mt-[12px] min-h-0 flex-1 overflow-hidden">
               {taskVisible.map((task) => (
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#edf2f6] py-[10px] last:border-b-0" key={task.title}>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-[10px] border-b border-solid border-[#e2eaf1] py-[10px] last:border-b-0" key={task.title}>
                   <div className="min-w-0">
-                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.title}>
+                    <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.title}>
                       {task.title}
                     </p>
                     <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.meta}>
@@ -2720,18 +2721,18 @@ function Frame2() {
               ))}
             </div>
             {taskTotalPages > 1 ? (
-              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {taskStart + 1}–{taskStart + taskVisible.length} of {taskItems.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={taskCurrentPage <= 1} onClick={() => setTaskPage((p) => Math.max(1, p - 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={taskCurrentPage <= 1} onClick={() => setTaskPage((p) => Math.max(1, p - 1))} type="button">
                     <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                   </button>
-                  <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {taskCurrentPage} of {taskTotalPages}
                   </p>
-                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={taskCurrentPage >= taskTotalPages} onClick={() => setTaskPage((p) => Math.min(taskTotalPages, p + 1))} type="button">
+                  <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={taskCurrentPage >= taskTotalPages} onClick={() => setTaskPage((p) => Math.min(taskTotalPages, p + 1))} type="button">
                     <ChevronRight className="size-[14px]" strokeWidth={1.9} />
                   </button>
                 </div>
@@ -2746,7 +2747,7 @@ function Frame2() {
               subtitle="Accounts currently moving through the pipeline"
               title="Active Customers"
             />
-            <div className="mt-[12px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.7fr)] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[8px]">
+            <div className="mt-[12px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.7fr)] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[8px]">
               {[
                 { label: "Company", align: "left" as const },
                 { label: "Primary Contact", align: "left" as const },
@@ -2754,15 +2755,15 @@ function Frame2() {
                 { label: "Deal Value", align: "right" as const },
                 { label: "Response", align: "right" as const },
               ].map((heading) => (
-                <p className={`truncate font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
+                <p className={`truncate font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
                   {heading.label}
                 </p>
               ))}
             </div>
             <div ref={customerListRef} className="mt-[2px] min-h-0 flex-1 overflow-hidden">
               {customerVisible.map((row) => (
-                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.7fr)] items-center gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[10px] last:border-b-0" key={row.name}>
-                  <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.name}>
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.7fr)] items-center gap-[12px] border-b border-solid border-[#e2eaf1] px-[10px] py-[10px] last:border-b-0" key={row.name}>
+                  <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.name}>
                     {row.name}
                   </p>
                   <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.contact}>
@@ -2780,18 +2781,18 @@ function Frame2() {
                 </div>
               ))}
             </div>
-            <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#e4edf4] pt-[8px]">
-              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
+              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Showing {customerStart + 1}–{customerStart + customerVisible.length} of {customerRows.length} active accounts
               </p>
               <div className="flex items-center gap-[8px]">
-                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={customerCurrentPage <= 1} onClick={() => setCustomerPage((p) => Math.max(1, p - 1))} type="button">
+                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={customerCurrentPage <= 1} onClick={() => setCustomerPage((p) => Math.max(1, p - 1))} type="button">
                   <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                 </button>
-                <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {customerCurrentPage} of {customerTotalPages}
                 </p>
-                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={customerCurrentPage >= customerTotalPages} onClick={() => setCustomerPage((p) => Math.min(customerTotalPages, p + 1))} type="button">
+                <button className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]" disabled={customerCurrentPage >= customerTotalPages} onClick={() => setCustomerPage((p) => Math.min(customerTotalPages, p + 1))} type="button">
                   <ChevronRight className="size-[14px]" strokeWidth={1.9} />
                 </button>
               </div>
@@ -2832,7 +2833,7 @@ function Frame2() {
             </div>
             <div className="mt-[12px] grid flex-1 grid-cols-2 gap-[10px]">
               {socialStats.map((item) => (
-                <div className="flex flex-col rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[12px] py-[10px]" key={item.label}>
+                <div className="flex flex-col rounded-[12px] border border-solid border-[#d9e2eb] bg-white/80 px-[12px] py-[10px]" key={item.label}>
                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
@@ -2905,7 +2906,7 @@ function Slot2() {
 
 function LeftIcon() {
   return (
-    <div className="content-stretch flex items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px]" data-name="Left Icon">
+    <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[8px] shrink-0 size-[32px]" data-name="Left Icon">
       <Slot2 />
     </div>
   );
@@ -2933,7 +2934,7 @@ function Slot3() {
 
 function LeftIcon1() {
   return (
-    <div className="content-stretch flex items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px]" data-name="Left Icon">
+    <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[8px] shrink-0 size-[32px]" data-name="Left Icon">
       <Slot3 />
     </div>
   );
@@ -2974,7 +2975,7 @@ function Slot4() {
 
 function LeftIcon2() {
   return (
-    <div className="content-stretch flex items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px]" data-name="Left Icon">
+    <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[8px] shrink-0 size-[32px]" data-name="Left Icon">
       <Slot4 />
     </div>
   );
@@ -3002,7 +3003,7 @@ function Slot5() {
 
 function LeftIcon3() {
   return (
-    <div className="content-stretch flex items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px]" data-name="Left Icon">
+    <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[8px] shrink-0 size-[32px]" data-name="Left Icon">
       <Slot5 />
     </div>
   );
@@ -3043,7 +3044,7 @@ function Slot6() {
 
 function LeftIcon4() {
   return (
-    <div className="content-stretch flex items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px]" data-name="Left Icon">
+    <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[8px] shrink-0 size-[32px]" data-name="Left Icon">
       <Slot6 />
     </div>
   );
@@ -3095,7 +3096,7 @@ function Slot7() {
 
 function LeftIcon5() {
   return (
-    <div className="content-stretch flex items-center justify-center overflow-clip px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px]" data-name="Left Icon">
+    <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[8px] shrink-0 size-[32px]" data-name="Left Icon">
       <Slot7 />
     </div>
   );
@@ -3146,12 +3147,12 @@ function IconWithTooltip({ children, label }: { children: ReactNode; label: stri
   
   return (
     <div 
-      className="content-stretch flex items-center justify-center px-[12px] py-[8px] relative rounded-[8px] shrink-0 size-[48px] hover:bg-gradient-to-b hover:from-[rgba(255,255,255,0.7)] hover:to-[rgba(255,255,255,0.49)] cursor-pointer transition-all group" 
+      className="content-stretch flex items-center justify-center p-[6px] relative rounded-[8px] shrink-0 size-[32px] hover:bg-gradient-to-b hover:from-[rgba(255,255,255,0.7)] hover:to-[rgba(255,255,255,0.49)] cursor-pointer transition-all group" 
       data-name="Left Icon"
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      <div className="overflow-clip size-[24px]">
+      <div className="overflow-clip size-[20px]">
         {children}
       </div>
       <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px] opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -3368,7 +3369,7 @@ function GlassPanel({
   return (
     <div
       className={`bg-gradient-to-b from-[rgba(255,255,255,0.76)] to-[rgba(255,255,255,0.52)] border-2 border-white rounded-[12px] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${className}`}
-      style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+      style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       {children}
     </div>
@@ -3679,11 +3680,11 @@ function LeftMenu({
       {/* Collapsed Menu */}
       <div className="absolute content-stretch flex flex-col gap-[12px] h-[820px] items-start left-[12px] rounded-[4px] top-[8px]" data-name="Left Menu">
         {/* Menu Toggle Button at Top */}
-        <div 
-          className="content-stretch flex items-center justify-center relative rounded-[8px] shrink-0 size-[48px] hover:bg-gradient-to-b hover:from-[rgba(255,255,255,0.7)] hover:to-[rgba(255,255,255,0.49)] cursor-pointer transition-all group" 
+        <div
+          className="content-stretch flex items-center justify-center relative rounded-[8px] shrink-0 size-[32px] hover:bg-gradient-to-b hover:from-[rgba(255,255,255,0.7)] hover:to-[rgba(255,255,255,0.49)] cursor-pointer transition-all group"
           onClick={() => setIsExpanded(!isExpanded)}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="transition-transform">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="transition-transform">
             {isExpanded ? (
               <path d="M15 18L9 12L15 6" stroke="#0083DA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             ) : (
@@ -4000,7 +4001,7 @@ function ActivityChangesModal({
         </div>
         <div className="mt-[16px] flex flex-col gap-[10px]">
           {activity.changes.map((change) => (
-            <div className="rounded-[12px] border border-solid border-[#edf2f6] bg-[#fbfdff] px-[14px] py-[12px]" key={change}>
+            <div className="rounded-[12px] border border-solid border-[#e2eaf1] bg-[#fbfdff] px-[14px] py-[12px]" key={change}>
               <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {change}
               </p>
@@ -4275,8 +4276,8 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-transparent">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between bg-transparent px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Opportunities
@@ -4304,7 +4305,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 </button>
               </div>
               <div
-                className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-t-0 border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${
+                className={`absolute bottom-[-10px] h-0 w-0 border-l-[8px] border-r-[8px] border-t-0 border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${
                   screenView === "dashboard" ? "left-[17px]" : "left-[63px]"
                 }`}
               />
@@ -4319,7 +4320,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
       </div>
 
       {screenView === "dashboard" ? (
-        <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+        <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
           <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
             <div className="col-[1/span_9] row-span-3 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.78)] to-[rgba(255,255,255,0.55)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between">
@@ -4436,9 +4437,9 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 </button>
               </div>
 
-              <div className="mt-[16px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+              <div className="mt-[16px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
                 {["Opportunity", "Company", "Stage", "Amount", "Owner", "Next Step"].map((heading) => (
-                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {heading}
                   </p>
                 ))}
@@ -4446,7 +4447,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
 
               <div className="min-h-0 flex-1 overflow-auto">
               {rows.map((row) => (
-                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px]" key={row.id}>
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#e2eaf1] px-[10px] py-[14px]" key={row.id}>
                   <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.opportunity}
                   </p>
@@ -4587,7 +4588,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 {rows.map((row) => {
                   return (
                     <div
-                      className="mb-[12px] flex min-h-[96px] items-center justify-between gap-[14px] rounded-[16px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[16px] py-[14px] transition-all last:mb-0 hover:border-[#d5e6f3] hover:bg-white"
+                      className="mb-[12px] flex min-h-[96px] items-center justify-between gap-[14px] rounded-[16px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[16px] py-[14px] transition-all last:mb-0 hover:border-[#d5e6f3] hover:bg-white"
                       key={row.id}
                     >
                       <div className="grid min-w-0 flex-1 grid-cols-[minmax(320px,1.2fr)_118px_132px_148px_minmax(190px,0.9fr)] items-center gap-x-[18px]">
@@ -4613,13 +4614,13 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         </div>
 
                         <div className="min-w-0">
-                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.owner}
                           </p>
                         </div>
 
                         <div className="min-w-0">
-                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.nextStep}
                           </p>
                         </div>
@@ -4643,7 +4644,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
 
           {isDetailOpen && (
             <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
-            <div className="flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-[#e4edf4] px-[24px]">
+            <div className="flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-[#d9e2eb] px-[24px]">
               <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Opportunity Overview
               </p>
@@ -4758,7 +4759,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         ? "border-[#d8e8f4] bg-[#f8fbfe] text-[#102c3f]"
                         : item.state === "active"
                           ? "border-[#cce4ff] bg-[#eef7ff] text-[#102c3f]"
-                          : "border-[#e4edf4] bg-[#fbfdff] text-[#102c3f]";
+                          : "border-[#d9e2eb] bg-[#fbfdff] text-[#102c3f]";
 
                     return (
                       <div className={`rounded-[14px] border border-solid px-[12px] py-[10px] text-center ${tone}`} key={`${selectedOpportunity.id}-${item.label}`}>
@@ -4787,7 +4788,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 </div>
 
                 <div className="grid w-full grid-cols-2 gap-[12px]">
-                  <div className="rounded-[14px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]">
+                  <div className="rounded-[14px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]">
                     <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Opportunity Notes
                     </p>
@@ -4796,7 +4797,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                     </p>
                   </div>
 
-                  <div className="rounded-[14px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]">
+                  <div className="rounded-[14px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]">
                     <div className="flex items-center justify-between">
                       <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         Recent Activity
@@ -4810,7 +4811,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         const activityMeta = getOpportunityActivityTypeMeta(activity.type);
 
                         return (
-                          <div className="flex items-start justify-between gap-[16px] border-b border-solid border-[#edf2f6] pb-[10px] last:border-b-0 last:pb-0" key={`${selectedOpportunity.id}-${activity.title}-${activity.meta}`}>
+                          <div className="flex items-start justify-between gap-[16px] border-b border-solid border-[#e2eaf1] pb-[10px] last:border-b-0 last:pb-0" key={`${selectedOpportunity.id}-${activity.title}-${activity.meta}`}>
                             <div className="flex items-start gap-[10px]">
                               <div className={`mt-[2px] inline-flex items-center gap-[6px] rounded-[999px] px-[8px] py-[5px] text-[12px] ${activityMeta.badge}`}>
                                 {activityMeta.icon}
@@ -4846,7 +4847,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                   <div className="grid w-full grid-cols-2 gap-[12px]">
                     {otherRelatedOpportunities.map((opportunity) => (
                       <button
-                        className="rounded-[14px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[16px] py-[14px] text-left transition-all hover:border-[#c9e1f5] hover:bg-[#f4fbff]"
+                        className="rounded-[14px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[16px] py-[14px] text-left transition-all hover:border-[#c9e1f5] hover:bg-[#f4fbff]"
                         key={opportunity.id}
                         onClick={() => selectOpportunity(opportunity.id)}
                         type="button"
@@ -4987,8 +4988,8 @@ function SalesProposalView({
 
   return (
     <div className="content-stretch flex flex-col h-full items-start relative w-full">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Sales Proposal
@@ -5080,7 +5081,7 @@ function SalesProposalView({
 
           <div className="bg-white content-stretch flex flex-[1_0_0] flex-col min-h-0 min-w-px relative self-stretch">
             <div className="content-stretch flex flex-col gap-[18px] h-full items-start overflow-auto px-[24px] py-[22px] relative">
-            <div className="bg-[#fbfdff] border border-solid border-[#e4edf4] rounded-[18px] content-stretch flex flex-col gap-[18px] items-start px-[22px] py-[20px] relative shrink-0 w-full shadow-[0_10px_30px_rgba(15,35,52,0.05)]">
+            <div className="bg-[#fbfdff] border border-solid border-[#d9e2eb] rounded-[18px] content-stretch flex flex-col gap-[18px] items-start px-[22px] py-[20px] relative shrink-0 w-full shadow-[0_10px_30px_rgba(15,35,52,0.05)]">
               <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
                 <div className="content-stretch flex flex-col gap-[6px] items-start relative shrink-0">
                   <div className="content-stretch flex items-center gap-[10px] relative shrink-0">
@@ -5224,15 +5225,15 @@ function SalesProposalView({
                       Draft proposal: edit line items inline.
                     </p>
                   ) : null}
-                  <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] pb-[8px] border-b border-solid border-[#e8eef3]">
+                  <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] pb-[8px] border-b border-solid border-[#c5d2dd]">
                     {["Item", "Quantity", "Price", "Discount", "Total"].map((heading) => (
-                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                         {heading}
                       </p>
                     ))}
                   </div>
                   {activeLineItems.map((line, index) => (
-                    <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] py-[12px] border-b border-solid border-[#edf2f6]" key={line.item}>
+                    <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] py-[12px] border-b border-solid border-[#e2eaf1]" key={line.item}>
                       {isEditingCurrentDraft ? (
                         <input
                           className="rounded-[8px] border border-solid border-[#dbe7f1] px-[10px] py-[8px] text-[14px] text-[#102c3f] outline-none focus:border-[#0083da]"
@@ -5303,7 +5304,7 @@ function SalesProposalView({
               ) : (
                 <div className="content-stretch flex flex-col gap-[14px] items-start relative shrink-0 w-full">
                   {selectedProposal.activities.map((activity, index) => (
-                    <div className="w-full border-b border-solid border-[#edf2f6] px-[6px] py-[12px]" key={`${activity.title}-${index}`}>
+                    <div className="w-full border-b border-solid border-[#e2eaf1] px-[6px] py-[12px]" key={`${activity.title}-${index}`}>
                       <div className="content-stretch flex items-start justify-between gap-[16px] w-full">
                         <div className="min-w-0">
                           <div className="content-stretch flex items-center gap-[8px]">
@@ -5632,7 +5633,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between px-[20px] relative shrink-0 w-full">
           <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
             Inbox
           </p>
@@ -5933,12 +5934,12 @@ function InboxView({ onClose }: { onClose: () => void }) {
         <div className="min-w-0 h-0 flex-1 overflow-auto pr-[64px]">
           <div className="px-[18px] py-[18px]">
           <div className="flex flex-col bg-white">
-            <div className="grid grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[18px] py-[12px]">
+            <div className="grid grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[18px] py-[12px]">
               <label className="flex items-center">
                 <input checked={allSelected} className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]" onChange={toggleAllMessages} type="checkbox" />
               </label>
               {["Channel", "Communication", "Contact / Company", "Priority", "Received", "Status"].map((heading) => (
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -5953,7 +5954,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                     className={`grid w-full grid-cols-[40px_110px_minmax(0,2.1fr)_1.15fr_0.9fr_0.95fr_1fr] gap-[12px] border-b border-solid px-[18px] py-[14px] text-left transition-all ${
                       isSelected
                         ? "border-[#d8ebfb] bg-[linear-gradient(109deg,#f4fbff_0%,#eef8ff_100%)] shadow-[inset_4px_0_0_0_#0083da]"
-                        : "border-[#edf2f6] bg-transparent hover:bg-[#f9fcff]"
+                        : "border-[#e2eaf1] bg-transparent hover:bg-[#f9fcff]"
                     }`}
                     key={message.id}
                     onClick={() => setSelectedMessageId(message.id)}
@@ -6038,7 +6039,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                     { label: "Urgency", value: selectedMessage.urgency },
                     { label: "Sentiment", value: selectedMessage.sentiment },
                   ].map((item) => (
-                    <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                    <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
                       <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {item.label}
                       </p>
@@ -6083,7 +6084,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                   </p>
                   <div className="mt-[10px] flex flex-col gap-[10px]">
                     {selectedMessage.highlights.map((highlight) => (
-                      <div className="flex items-start gap-[10px] rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={highlight}>
+                      <div className="flex items-start gap-[10px] rounded-[12px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[12px] py-[10px]" key={highlight}>
                         <div className="mt-[5px] size-[7px] shrink-0 rounded-full bg-[#1f83ff]" />
                         <p className="font-['Roboto:Regular',sans-serif] text-[13px] leading-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {highlight}
@@ -6434,8 +6435,8 @@ function CustomersView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-transparent">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between bg-transparent px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Customers
@@ -6462,7 +6463,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                   {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
                 </button>
               </div>
-              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+              <div className={`absolute bottom-[-10px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
             </div>
           </div>
           <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
@@ -6474,7 +6475,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
       </div>
 
       {viewMode === "dashboard" ? (
-        <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+        <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
           <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
             <DashboardSearchWidget
               placeholder="Search customers, contacts, account owners, balances, or health"
@@ -6488,12 +6489,12 @@ function CustomersView({ onClose }: { onClose: () => void }) {
               <div
                 className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
-                style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+                style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
-                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
                 <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6514,16 +6515,16 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                 </button>
               </div>
 
-              <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+              <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
                 {["Customer", "Contact", "Segment", "Owner", "Balance", "Health"].map((heading) => (
-                  <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {heading}
                   </p>
                 ))}
               </div>
               <div className="min-h-0 flex-1 overflow-auto">
               {customerRows.map((row) => (
-                <button className="grid w-full grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] text-left" key={row.name} onClick={() => setViewMode("window")} type="button">
+                <button className="grid w-full grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#e2eaf1] px-[10px] py-[14px] text-left" key={row.name} onClick={() => setViewMode("window")} type="button">
                   <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.name}
                   </p>
@@ -6770,7 +6771,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                   <div className="size-[10px] rounded-full bg-[#1f83ff]" />
                                   <div className="mt-[4px] h-[40px] w-px bg-[#d9e6f2] last:hidden" />
                                 </div>
-                                <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]">
+                                <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]">
                                   <div className="flex items-center justify-between gap-[12px]">
                                     <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {item.title}
@@ -6813,7 +6814,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                               { label: "Latest Proposal", value: "2 days ago" },
                               { label: "Account Health", value: "Healthy" },
                             ].map((item) => (
-                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={item.label}>
+                              <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={item.label}>
                                 <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {item.label}
                                 </p>
@@ -6915,10 +6916,10 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                 {subscriptionModules.filter((m) => m.status === "Active").length} of {subscriptionModules.length} enabled
                               </p>
                             </div>
-                            <div className="overflow-hidden rounded-[12px] border border-solid border-[#e4edf4] bg-white">
+                            <div className="overflow-hidden rounded-[12px] border border-solid border-[#d9e2eb] bg-white">
                               {subscriptionModules.map((module, index) => (
                                 <div
-                                  className={`flex items-center justify-between gap-[12px] px-[12px] py-[10px] ${index < subscriptionModules.length - 1 ? "border-b border-solid border-[#edf2f6]" : ""}`}
+                                  className={`flex items-center justify-between gap-[12px] px-[12px] py-[10px] ${index < subscriptionModules.length - 1 ? "border-b border-solid border-[#e2eaf1]" : ""}`}
                                   key={module.name}
                                 >
                                   <div className="min-w-0">
@@ -6943,10 +6944,10 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                             <p className="mb-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Recent Payments
                             </p>
-                            <div className="overflow-hidden rounded-[12px] border border-solid border-[#e4edf4] bg-white">
+                            <div className="overflow-hidden rounded-[12px] border border-solid border-[#d9e2eb] bg-white">
                               {subscriptionHistory.map((entry, index) => (
                                 <div
-                                  className={`flex items-center justify-between gap-[12px] px-[12px] py-[10px] ${index < subscriptionHistory.length - 1 ? "border-b border-solid border-[#edf2f6]" : ""}`}
+                                  className={`flex items-center justify-between gap-[12px] px-[12px] py-[10px] ${index < subscriptionHistory.length - 1 ? "border-b border-solid border-[#e2eaf1]" : ""}`}
                                   key={`${entry.date}-${entry.description}`}
                                 >
                                   <div className="min-w-0">
@@ -7121,8 +7122,8 @@ function ProspectsView() {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Prospects
@@ -7144,7 +7145,7 @@ function ProspectsView() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+      <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
         <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
           <NewRecordWidget
             subtitle="Add a lead, referral, or inbound contact."
@@ -7154,14 +7155,14 @@ function ProspectsView() {
             <div
               className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
-              style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+              style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.value}
                   </p>
                 </div>
@@ -7201,9 +7202,9 @@ function ProspectsView() {
               </div>
             </div>
 
-            <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+            <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
               {["Company", "Contact", "Source", "Score", "Stage", "Value", "Response"].map((heading) => (
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -7211,7 +7212,7 @@ function ProspectsView() {
 
             <div className="mt-[2px] min-h-0 flex-1 overflow-auto">
               {prospects.map((prospect) => (
-                <div className="grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={`${prospect.company}-${prospect.contact}`}>
+                <div className="grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#e2eaf1] px-[10px] py-[14px] last:border-b-0" key={`${prospect.company}-${prospect.contact}`}>
                   <div className="min-w-0">
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {prospect.company}
@@ -7266,7 +7267,7 @@ function ProspectsView() {
                 { label: "Under 30m", value: "19" },
                 { label: "Needs Follow-up", value: "6" },
               ].map((item) => (
-                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]" key={item.label}>
+                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/80 px-[14px] py-[12px]" key={item.label}>
                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
@@ -7277,7 +7278,7 @@ function ProspectsView() {
               ))}
             </div>
 
-            <div className="mt-[16px] min-h-0 flex-1 overflow-auto rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]">
+            <div className="mt-[16px] min-h-0 flex-1 overflow-auto rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]">
               <div className="flex items-center justify-between">
                 <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Fastest Sources
@@ -7319,7 +7320,7 @@ function ProspectsView() {
 
             <div className="mt-[18px] flex min-h-0 flex-1 flex-col gap-[12px] overflow-auto">
               {funnelSteps.map((step) => (
-                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[12px]" key={step.label}>
+                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 p-[12px]" key={step.label}>
                   <div className="flex items-center justify-between">
                     <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {step.label}
@@ -7367,7 +7368,7 @@ function ProspectsView() {
                 { label: "Highest value", value: "Partner", meta: "$91K created" },
                 { label: "Focus queue", value: "6 prospects", meta: "Score 70-84, no follow-up" },
               ].map((item) => (
-                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]" key={item.label}>
+                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]" key={item.label}>
                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
@@ -7519,8 +7520,8 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Tasks
@@ -7537,7 +7538,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+      <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
         <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
           <NewRecordWidget
             subtitle="Create a follow-up, proposal edit task, or client action item."
@@ -7547,14 +7548,14 @@ function TasksView({ onClose }: { onClose: () => void }) {
             <div
               className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
-              style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+              style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
               <div className="flex items-start justify-between gap-[0.75em]">
                 <div>
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.value}
                   </p>
                 </div>
@@ -7594,9 +7595,9 @@ function TasksView({ onClose }: { onClose: () => void }) {
               </div>
             </div>
 
-            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
               {["Task", "Account", "Priority", "Status", "Due", "Assignee"].map((heading) => (
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -7604,7 +7605,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[2px]">
               {tasks.map((task) => (
-                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={`${task.title}-${task.assignee}`}>
+                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#e2eaf1] px-[10px] py-[14px] last:border-b-0" key={`${task.title}-${task.assignee}`}>
                   <div className="min-w-0">
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {task.title}
@@ -7645,7 +7646,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
             </div>
 
             <div className="mt-[18px] flex min-h-0 flex-1 flex-col">
-              <div className={`flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-solid border-[#e4edf4] p-[12px] ${activeBoardColumn.tone}`}>
+              <div className={`flex min-h-0 flex-1 flex-col overflow-hidden rounded-[12px] border border-solid border-[#d9e2eb] p-[12px] ${activeBoardColumn.tone}`}>
                 <div className="flex items-center justify-between">
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {activeBoardColumn.label}
@@ -7680,7 +7681,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                     className={`flex size-[24px] items-center justify-center rounded-[6px] border border-solid transition-colors ${
                       focusBoardHasPrevPage
                         ? "border-[#d8e5f0] bg-white text-[#0083da] hover:border-[#bfdcf1] hover:bg-[#eef8ff]"
-                        : "border-[#edf2f6] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
+                        : "border-[#e2eaf1] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
                     }`}
                     disabled={!focusBoardHasPrevPage}
                     onClick={() => setFocusBoardPageIndex((current) => Math.max(0, current - 1))}
@@ -7696,7 +7697,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                     className={`flex size-[24px] items-center justify-center rounded-[6px] border border-solid transition-colors ${
                       focusBoardHasNextPage
                         ? "border-[#d8e5f0] bg-white text-[#0083da] hover:border-[#bfdcf1] hover:bg-[#eef8ff]"
-                        : "border-[#edf2f6] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
+                        : "border-[#e2eaf1] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
                     }`}
                     disabled={!focusBoardHasNextPage}
                     onClick={() => setFocusBoardPageIndex((current) => Math.min(focusBoardPageCount - 1, current + 1))}
@@ -7712,7 +7713,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                     className={`flex h-[28px] items-center gap-[6px] rounded-[8px] border border-solid px-[10px] text-[12px] font-['Roboto:Medium',sans-serif] transition-colors ${
                       focusBoardHasPrevSection
                         ? "border-[#d8e5f0] bg-white text-[#0083da] hover:border-[#bfdcf1] hover:bg-[#eef8ff]"
-                        : "border-[#edf2f6] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
+                        : "border-[#e2eaf1] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
                     }`}
                     disabled={!focusBoardHasPrevSection}
                     onClick={() => changeFocusBoardSection(Math.max(0, focusBoardIndex - 1))}
@@ -7727,7 +7728,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                     className={`flex h-[28px] items-center gap-[6px] rounded-[8px] border border-solid px-[10px] text-[12px] font-['Roboto:Medium',sans-serif] transition-colors ${
                       focusBoardHasNextSection
                         ? "border-[#d8e5f0] bg-white text-[#0083da] hover:border-[#bfdcf1] hover:bg-[#eef8ff]"
-                        : "border-[#edf2f6] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
+                        : "border-[#e2eaf1] bg-white/60 text-[#b8c6d2] cursor-not-allowed"
                     }`}
                     disabled={!focusBoardHasNextSection}
                     onClick={() => changeFocusBoardSection(Math.min(boardColumns.length - 1, focusBoardIndex + 1))}
@@ -7753,7 +7754,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[18px] flex min-h-0 flex-1 flex-col gap-[12px] overflow-auto">
               {workload.map((person) => (
-                <div className="grid grid-cols-[110px_70px_minmax(0,1fr)] items-center gap-[12px] border-b border-solid border-[#e4edf4] py-[10px] last:border-b-0 last:pb-0 first:pt-0" key={person.label}>
+                <div className="grid grid-cols-[110px_70px_minmax(0,1fr)] items-center gap-[12px] border-b border-solid border-[#d9e2eb] py-[10px] last:border-b-0 last:pb-0 first:pt-0" key={person.label}>
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {person.label}
                   </p>
@@ -7801,7 +7802,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                 { label: "Oldest open", value: "4 days", meta: "2 tasks exceeded target age" },
                 { label: "Team note", value: "Proposal edits peaking", meta: "Most volume from pricing changes" },
               ].map((item) => (
-                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]" key={item.label}>
+                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]" key={item.label}>
                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
@@ -7953,8 +7954,8 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[14px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Calendar
@@ -7971,7 +7972,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+      <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
         <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
           <NewRecordWidget
             subtitle="Create an appointment or client call."
@@ -7981,12 +7982,12 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             <div
               className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
-              style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+              style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
-              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),20px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.label}
               </p>
-              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[clamp(32px,calc(var(--dash-inline-size,100vw)*0.025),64px)] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.value}
               </p>
               <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8020,15 +8021,15 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             <div className="mt-[18px] min-h-0 flex-1 overflow-auto pr-[4px]">
               <div className="grid grid-cols-5 gap-[8px]">
               {weekDays.map((day) => (
-                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 p-[12px]" key={day.label}>
-                  <div className="border-b border-solid border-[#edf2f6] pb-[8px]">
+                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 p-[12px]" key={day.label}>
+                  <div className="border-b border-solid border-[#e2eaf1] pb-[8px]">
                     <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {day.label}
                     </p>
                   </div>
                   <div className="mt-[8px] flex flex-col gap-[8px]">
                     {day.items.map((item) => (
-                      <div className="rounded-[10px] border border-solid border-[#edf2f6] bg-[#fbfdff] p-[10px]" key={`${day.label}-${item.time}-${item.title}`}>
+                      <div className="rounded-[10px] border border-solid border-[#e2eaf1] bg-[#fbfdff] p-[10px]" key={`${day.label}-${item.time}-${item.title}`}>
                         <div className="flex items-center justify-between gap-[8px]">
                           <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {item.time}
@@ -8061,7 +8062,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
               />
             </div>
 
-            <div className="mt-[16px] rounded-[12px] border border-solid border-[#e4edf4] bg-white/80 px-[14px] py-[12px]">
+            <div className="mt-[16px] rounded-[12px] border border-solid border-[#d9e2eb] bg-white/80 px-[14px] py-[12px]">
               <div className="flex items-center justify-between">
                 <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {currentAgendaPage.day}
@@ -8080,7 +8081,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[14px] min-h-0 flex-1 overflow-auto pr-[4px]">
               {currentAgendaPage.items.map((item) => (
-                <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#e4edf4] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={`${item.time}-${item.title}`}>
+                <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#d9e2eb] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={`${item.time}-${item.title}`}>
                   <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.time}
                   </p>
@@ -8089,7 +8090,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                       <div className="flex size-[24px] items-center justify-center rounded-[999px] bg-[#eef6ff] text-[#1f83ff]">
                         {item.icon}
                       </div>
-                      <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {item.title}
                       </p>
                     </div>
@@ -8101,24 +8102,24 @@ function CalendarView({ onClose }: { onClose: () => void }) {
               ))}
             </div>
 
-            <div className="mt-[16px] flex items-center justify-between gap-[12px] border-t border-solid border-[#e4edf4] pt-[12px]">
+            <div className="mt-[16px] flex items-center justify-between gap-[12px] border-t border-solid border-[#d9e2eb] pt-[12px]">
               <p className="min-w-0 font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {currentAgendaPage.helper}
               </p>
               <div className="flex shrink-0 items-center gap-[8px]">
                 <button
-                  className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]"
+                  className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]"
                   disabled={agendaPageIndex === 0}
                   onClick={() => setAgendaPageIndex((current) => Math.max(0, current - 1))}
                   type="button"
                 >
                   <ChevronLeft className="size-[14px]" strokeWidth={1.9} />
                 </button>
-                <p className="font-['Roboto:Medium',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {agendaPageIndex + 1} of {agendaPages.length}
                 </p>
                 <button
-                  className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#e4edf4] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]"
+                  className="flex size-[24px] items-center justify-center rounded-[8px] border border-solid border-[#d9e2eb] bg-white/85 text-[#0083da] transition-colors hover:bg-[#eef7ff] disabled:text-[#b8c6d2]"
                   disabled={agendaPageIndex === agendaPages.length - 1}
                   onClick={() => setAgendaPageIndex((current) => Math.min(agendaPages.length - 1, current + 1))}
                   type="button"
@@ -8140,7 +8141,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[18px] flex flex-col gap-[12px]">
               {availabilityRows.map((row) => (
-                <div className="grid grid-cols-[100px_100px_minmax(0,1fr)] items-center gap-[12px] border-b border-solid border-[#e4edf4] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={row.label}>
+                <div className="grid grid-cols-[100px_100px_minmax(0,1fr)] items-center gap-[12px] border-b border-solid border-[#d9e2eb] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={row.label}>
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.label}
                   </p>
@@ -8164,9 +8165,9 @@ function CalendarView({ onClose }: { onClose: () => void }) {
               />
             </div>
 
-            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#e8eef3] px-[10px] pb-[10px]">
+            <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
               {["Follow-up", "Due", "Owner"].map((heading) => (
-                <p className="font-['Roboto:Regular',sans-serif] text-[13px] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -8174,7 +8175,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[2px]">
               {followUps.map((item) => (
-                <div className="grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#edf2f6] px-[10px] py-[14px] last:border-b-0" key={item.title}>
+                <div className="grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#e2eaf1] px-[10px] py-[14px] last:border-b-0" key={item.title}>
                   <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.title}
                   </p>
@@ -8194,7 +8195,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                 { label: "Internal reviews", value: "4", meta: "This week" },
                 { label: "Longest free gap", value: "1.5h", meta: "Today" },
               ].map((item) => (
-                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white/75 px-[14px] py-[12px]" key={item.label}>
+                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]" key={item.label}>
                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
@@ -8232,12 +8233,12 @@ function FinanceMetricCard({
   return (
     <div
       className={`${className} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${accent}`}
-      style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+      style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
         {label}
       </p>
-      <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
         {value}
       </p>
       <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8254,6 +8255,7 @@ function FinanceTableCard({
   columns,
   rows,
   className,
+  headerVariant = "rail",
 }: {
   title: string;
   subtitle: string;
@@ -8261,19 +8263,33 @@ function FinanceTableCard({
   columns: string[];
   rows: string[][];
   className: string;
+  headerVariant?: "default" | "rail";
 }) {
+  const isRailHeader = headerVariant === "rail";
   return (
     <div
       className={`${className} flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
-      style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+      style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       <DashboardWidgetHeader icon={icon} subtitle={subtitle} title={title} />
       <div
-        className="mt-[0.75em] grid gap-[0.75em] border-b border-solid border-[#e8eef3] px-[0.5em] pb-[0.5em]"
+        className={`mt-[0.75em] grid gap-[0.75em] border-b border-solid px-[0.5em] ${
+          isRailHeader
+            ? "border-[#c5d2dd] py-[0.5em]"
+            : "border-[#e8eef3] pb-[0.5em]"
+        }`}
         style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
       >
         {columns.map((heading) => (
-          <p className="font-['Roboto:Regular',sans-serif] text-[0.75em] capitalize text-[#748494]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p
+            className={
+              isRailHeader
+                ? "font-['Roboto:Medium',sans-serif] font-medium text-[0.625em] uppercase tracking-[0.04em] text-[#5f7283]"
+                : "font-['Roboto:Regular',sans-serif] text-[0.75em] capitalize text-[#748494]"
+            }
+            key={heading}
+            style={{ fontVariationSettings: "'wdth' 100" }}
+          >
             {heading}
           </p>
         ))}
@@ -8281,7 +8297,7 @@ function FinanceTableCard({
       <div className="mt-[0.125em] min-h-0 flex-1 overflow-auto">
         {rows.map((row, rowIndex) => (
           <div
-            className="grid gap-[0.75em] border-b border-solid border-[#edf2f6] px-[0.5em] py-[0.625em] last:border-b-0"
+            className="grid gap-[0.75em] border-b border-solid border-[#e2eaf1] px-[0.5em] py-[0.625em] last:border-b-0"
             key={`${title}-${rowIndex}`}
             style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
           >
@@ -8317,12 +8333,12 @@ function FinanceListCard({
   return (
     <div
       className={`${className} flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
-      style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+      style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       <DashboardWidgetHeader icon={icon} subtitle={subtitle} title={title} />
       <div className="mt-[0.75em] flex min-h-0 flex-1 flex-col overflow-auto">
         {items.map((item) => (
-          <div className="flex items-start justify-between gap-[0.75em] border-b border-solid border-[#edf2f6] py-[0.625em] last:border-b-0 last:pb-0 first:pt-0" key={`${title}-${item.label}`}>
+          <div className="flex items-start justify-between gap-[0.75em] border-b border-solid border-[#e2eaf1] py-[0.625em] last:border-b-0 last:pb-0 first:pt-0" key={`${title}-${item.label}`}>
             <div className="min-w-0">
               <p className="font-['Roboto:Bold',sans-serif] text-[0.75em] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {item.label}
@@ -8347,7 +8363,7 @@ function FinancePageShell({
   children: ReactNode;
 }) {
   return (
-    <div className="h-full overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+    <div className="h-full overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
       <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
         {children}
       </div>
@@ -8366,8 +8382,8 @@ function FinanceWindowShell({
 }) {
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between px-[20px] relative shrink-0 w-full">
           <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
             {title}
           </p>
@@ -8378,7 +8394,7 @@ function FinanceWindowShell({
           </button>
         </div>
       </div>
-      <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+      <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
         <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
           {children}
         </div>
@@ -8609,8 +8625,8 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-transparent">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between bg-transparent px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Purchase Invoice
@@ -8637,7 +8653,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                   {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
                 </button>
               </div>
-              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+              <div className={`absolute bottom-[-10px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
             </div>
           </div>
           <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
@@ -8649,7 +8665,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
       </div>
 
       {viewMode === "dashboard" ? (
-        <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+        <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
           <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
             <NewRecordWidget
               onClick={() => setViewMode("window")}
@@ -8661,12 +8677,12 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
               <div
                 className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
-                style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+                style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
                 <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8888,7 +8904,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                                 <div className="size-[10px] rounded-full bg-[#1f83ff]" />
                                 <div className="mt-[4px] h-[40px] w-px bg-[#d9e6f2]" />
                               </div>
-                              <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]">
+                              <div className="min-w-0 flex-1 rounded-[12px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[12px] py-[10px]">
                                 <div className="flex items-center justify-between gap-[12px]">
                                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {item.title}
@@ -8929,7 +8945,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                             { label: "Payment Method", value: "ACH" },
                             { label: "Budget Status", value: "Within limit" },
                           ].map((item) => (
-                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
+                            <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
                               <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 {item.label}
                               </p>
@@ -9015,7 +9031,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                             </p>
 
                             <div className="mt-[14px] flex flex-col gap-[12px]">
-                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[12px]">
+                              <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[12px]">
                                 <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {fieldValues["Vendor Name"] ?? ""}
                                 </p>
@@ -9029,7 +9045,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
 
                               <div className="flex flex-col gap-[10px]">
                                 {vendorPerformanceStats.map((item) => (
-                                  <div className="border-b border-solid border-[#e8eef3] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
+                                  <div className="border-b border-solid border-[#c5d2dd] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
                                     <div className="flex items-center justify-between gap-[12px]">
                                       <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {item.label}
@@ -9055,7 +9071,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                             </p>
                             <div className="mt-[2px] flex flex-col gap-[10px]">
                               {vendorOrderHistory.map((order) => (
-                                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={order.order}>
+                                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={order.order}>
                                   <div className="flex items-center justify-between gap-[12px]">
                                     <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {order.order}
@@ -9081,7 +9097,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                               </p>
                               <div className="mt-[10px] flex flex-col gap-[10px]">
                                 {dueInvoiceAlerts.map((invoice) => (
-                                  <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={invoice.ref}>
+                                  <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={invoice.ref}>
                                     <div className="flex items-center justify-between gap-[12px]">
                                       <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {invoice.ref}
@@ -9110,7 +9126,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                               `Cost center allocated to ${fieldValues["Cost Center"] ?? ""}; confirm split with the platform team before release.`,
                               fieldValues["Approval Notes"] ?? "No internal approval notes are recorded for this invoice yet.",
                             ].map((note) => (
-                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={note}>
+                              <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={note}>
                                 <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {note}
                                 </p>
@@ -9188,15 +9204,9 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const [dropShipment, setDropShipment] = useState(false);
   const [holdPayment, setHoldPayment] = useState(true);
   const [invoiceLines, setInvoiceLines] = useState([
-    { lineNo: "10", product: "Blower", attribute: "BL", charge: "Equipment", uom: "Each", quantity: "4", price: "100.00", tax: "Standard", amount: "400.00" },
-    { lineNo: "20", product: "Installation", attribute: "IN", charge: "Service", uom: "Hour", quantity: "2", price: "65.00", tax: "Standard", amount: "130.00" },
+    { lineNo: "10", product: "Blower", charge: "", attribute: "BL", description: "Industrial blower for warehouse ventilation system", uom: "Each", quantity: "4", price: "100.00", tax: "18%", amount: "400.00", discount: "", notes: "" },
+    { lineNo: "20", product: "", charge: "Installation Service", attribute: "IN", description: "On-site installation labor incl. testing & sign-off", uom: "Hour", quantity: "2", price: "65.00", tax: "18%", amount: "130.00", discount: "", notes: "" },
   ]);
-  // Attributes available for each product. Real systems will source this from the product master;
-  // here it's a static mock so the dropdown has something to render.
-  const productAttributes: Record<string, string[]> = {
-    Blower: ["BL", "BL-XL", "BL-M", "BL-HD"],
-    Installation: ["IN", "OUT", "EM"],
-  };
   // Product catalog the search field autocompletes against.
   const productCatalog = [
     "Blower",
@@ -9208,24 +9218,280 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     "Service Charge",
     "Wiring Harness",
   ];
-  type EditableField = "product" | "quantity" | "attribute";
-  const [editingCell, setEditingCell] = useState<{ lineNo: string; field: EditableField } | null>(null);
-  // Controlled search value for the product autocomplete. Re-initialized whenever the user
-  // opens the product cell on a different line so the input pre-fills with the current value.
-  const [productSearchValue, setProductSearchValue] = useState("");
+  // Charge catalog used when the line represents a non-product charge.
+  const chargeCatalog = [
+    "Installation Service",
+    "Freight Charge",
+    "Setup Cost",
+    "Maintenance Fee",
+    "Service Surcharge",
+    "Misc Fee",
+  ];
+  // Tax + UOM catalogs power the inline selects on Price→Tax and Quantity→UOM cells.
+  // Tax is rendered as a percentage rate so the cell scans as a number across rows
+  // (no localized labels like "Standard" / "Exempt" — those vary by jurisdiction).
+  const taxCatalog = ["0%", "5%", "12%", "18%", "28%"];
+  const uomCatalog = ["Each", "Hour", "Day", "Kg", "Box", "Liter", "Meter"];
+  // Per-product / per-charge defaults — auto-applied to UOM and Price when the user
+  // picks an item from the catalog. The user can still hand-edit those cells after.
+  const productDefaults: Record<string, { uom: string; price: string }> = {
+    Blower: { uom: "Each", price: "100.00" },
+    Compressor: { uom: "Each", price: "250.00" },
+    Installation: { uom: "Hour", price: "65.00" },
+    "Maintenance Kit": { uom: "Box", price: "120.00" },
+    "Pipe Fitting": { uom: "Each", price: "8.50" },
+    "Sensor Module": { uom: "Each", price: "75.00" },
+    "Service Charge": { uom: "Hour", price: "85.00" },
+    "Wiring Harness": { uom: "Each", price: "45.00" },
+  };
+  const chargeDefaults: Record<string, { uom: string; price: string }> = {
+    "Installation Service": { uom: "Hour", price: "65.00" },
+    "Freight Charge": { uom: "Each", price: "150.00" },
+    "Setup Cost": { uom: "Each", price: "200.00" },
+    "Maintenance Fee": { uom: "Each", price: "300.00" },
+    "Service Surcharge": { uom: "Each", price: "50.00" },
+    "Misc Fee": { uom: "Each", price: "25.00" },
+  };
+  // Attributes available per product / per charge. In a real system these come from the master
+  // record; here static mocks drive the picker that opens after a product/charge changes.
+  const productAttributes: Record<string, string[]> = {
+    Blower: ["BL", "BL-XL", "BL-M", "BL-HD"],
+    Compressor: ["CP-S", "CP-M", "CP-L"],
+    Installation: ["IN-S", "IN-M", "IN-L"],
+    "Maintenance Kit": ["MK-A", "MK-B"],
+    "Pipe Fitting": ["PF-1", "PF-2", "PF-3"],
+    "Sensor Module": ["SM-A", "SM-B"],
+    "Service Charge": ["SC-STD", "SC-PRIO"],
+    "Wiring Harness": ["WH-S", "WH-L"],
+  };
+  const chargeAttributes: Record<string, string[]> = {
+    "Installation Service": ["IN", "OUT", "EM"],
+    "Freight Charge": ["FC-AIR", "FC-SEA", "FC-LAND"],
+    "Setup Cost": ["SC-STD"],
+    "Maintenance Fee": ["MF-STD", "MF-PREM"],
+    "Service Surcharge": ["SS-STD"],
+    "Misc Fee": ["MF"],
+  };
+  type EditableField = "product" | "charge" | "quantity" | "uom" | "description" | "price" | "tax" | "attribute" | "discount" | "notes";
+  // Per-row "more options" popover — anchored to the trailing ⋮ icon. Holds optional
+  // fields that don't earn a visible column (Discount + Notes for now).
+  const [moreRowOpen, setMoreRowOpen] = useState<string | null>(null);
+  const [editingCell, setEditingCell] = useState<{ lineNo: string; field: Exclude<EditableField, "attribute"> } | null>(null);
+  // Controlled value for the product/charge autocomplete input. Re-initialized whenever the
+  // user opens a different primary cell so the input pre-fills with the current value.
+  const [searchValue, setSearchValue] = useState("");
   useEffect(() => {
-    if (editingCell?.field === "product") {
+    if (editingCell?.field === "product" || editingCell?.field === "charge") {
       const line = invoiceLines.find((l) => l.lineNo === editingCell.lineNo);
-      setProductSearchValue(line?.product ?? "");
+      setSearchValue((editingCell.field === "product" ? line?.product : line?.charge) ?? "");
     }
   }, [editingCell?.lineNo, editingCell?.field, invoiceLines]);
   const updateLineField = (lineNo: string, field: EditableField, value: string) => {
     setInvoiceLines((lines) => lines.map((l) => (l.lineNo === lineNo ? { ...l, [field]: value } : l)));
   };
+  // Attribute picker — opens after a product/charge is changed so the user can pick a fresh
+  // attribute for the new item (the previously selected attribute may not be valid anymore).
+  const [attributePicker, setAttributePicker] = useState<{
+    lineNo: string;
+    primaryLabel: string;
+    options: string[];
+    selectedAttribute: string;
+  } | null>(null);
+  const commitPrimary = (lineNo: string, field: "product" | "charge", newValue: string) => {
+    const line = invoiceLines.find((l) => l.lineNo === lineNo);
+    const oldValue = line ? line[field] : "";
+    setEditingCell(null);
+    if (newValue === oldValue) {
+      return;
+    }
+    // Look up auto-fill defaults for the new item. The new picked item replaces any
+    // existing UOM / Price the user may have set — switching the item means it's a
+    // different SKU with its own defaults. User can still edit either cell after.
+    const defaults = (field === "product" ? productDefaults : chargeDefaults)[newValue];
+    setInvoiceLines((lines) =>
+      lines.map((l) =>
+        l.lineNo === lineNo
+          ? {
+              ...l,
+              [field]: newValue,
+              ...(defaults ? { uom: defaults.uom, price: defaults.price } : {}),
+            }
+          : l,
+      ),
+    );
+    const options = (field === "product" ? productAttributes : chargeAttributes)[newValue] ?? [];
+    if (options.length === 0) {
+      return;
+    }
+    const currentAttr = line?.attribute ?? "";
+    setAttributePicker({
+      lineNo,
+      primaryLabel: newValue,
+      options,
+      selectedAttribute: options.includes(currentAttr) ? currentAttr : options[0],
+    });
+  };
+  // Row selection — drives the Delete button's enabled state and the per-row checkbox.
+  const [selectedLineNos, setSelectedLineNos] = useState<Set<string>>(new Set());
+  // Unsaved row tracking — a row enters this set when added via the +Add button or
+  // by tabbing past Tax on an existing row; it exits when the user clicks Save (which
+  // drops empty rows and keeps the rest).
+  const [unsavedLineNos, setUnsavedLineNos] = useState<Set<string>>(new Set());
+  const hasUnsavedRows = unsavedLineNos.size > 0;
+  const toggleLineSelection = (lineNo: string) => {
+    setSelectedLineNos((current) => {
+      const next = new Set(current);
+      if (next.has(lineNo)) {
+        next.delete(lineNo);
+      } else {
+        next.add(lineNo);
+      }
+      return next;
+    });
+  };
+  const toggleAllLinesSelection = () => {
+    if (invoiceLines.length === 0) {
+      return;
+    }
+    if (selectedLineNos.size === invoiceLines.length) {
+      setSelectedLineNos(new Set());
+    } else {
+      setSelectedLineNos(new Set(invoiceLines.map((l) => l.lineNo)));
+    }
+  };
+  const handleAddLine = () => {
+    setInvoiceLines((current) => {
+      // Read the largest existing lineNo from the freshest state so successive Add /
+      // tab-past-tax calls inside the same render frame don't all generate the same id.
+      const maxNo = current.reduce((acc, line) => Math.max(acc, parseInt(line.lineNo, 10) || 0), 0);
+      const nextNo = String(maxNo + 10).padStart(2, "0");
+      const blank = {
+        lineNo: nextNo,
+        product: "",
+        charge: "",
+        attribute: "",
+        description: "",
+        uom: "",
+        quantity: "",
+        price: "",
+        tax: "",
+        amount: "",
+        discount: "",
+        notes: "",
+      };
+      setUnsavedLineNos((set) => {
+        const next = new Set(set);
+        next.add(nextNo);
+        return next;
+      });
+      // Drop the new row into edit mode so the user can type immediately. The same
+      // commitPrimary flow that fires after the user picks a product / charge then
+      // opens the attribute picker — so the new line walks through the exact same
+      // product → attribute hand-off as an existing line.
+      setEditingCell({ lineNo: nextNo, field: "product" });
+      setSearchValue("");
+      return [blank, ...current];
+    });
+  };
+  const handleDeleteSelected = () => {
+    if (selectedLineNos.size === 0) {
+      return;
+    }
+    setInvoiceLines((current) => current.filter((l) => !selectedLineNos.has(l.lineNo)));
+    setSelectedLineNos(new Set());
+    setUnsavedLineNos((current) => {
+      const next = new Set(current);
+      selectedLineNos.forEach((id) => next.delete(id));
+      return next;
+    });
+  };
+  const handleSaveRows = () => {
+    // Persist all rows that carry data; drop unsaved rows that are still empty.
+    // "Empty" = no product and no charge — the rest of the cells are derivative
+    // (UOM and Price come from the product picker, the amount is computed) so
+    // they don't qualify a row for keeping.
+    setInvoiceLines((current) =>
+      current.filter((l) => {
+        if (!unsavedLineNos.has(l.lineNo)) {
+          return true;
+        }
+        return l.product !== "" || l.charge !== "";
+      }),
+    );
+    setUnsavedLineNos(new Set());
+    setEditingCell(null);
+  };
+  // Numeric helpers — every invoice math number flows through these so the same
+  // parsing/formatting rules apply to row Amount AND footer Subtotal/Tax/Total.
+  const formatMoney = (n: number) => n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const parseMoney = (s: string) => {
+    const n = parseFloat(String(s).replace(/[, ]/g, ""));
+    return Number.isFinite(n) ? n : 0;
+  };
+  const parseTax = (s: string) => parseMoney(String(s).replace(/%/g, ""));
+  // lineSubtotal applies the row's discount before tax — so discount tweaks in the
+  // popover immediately reflect in both the row's visible Line Amount AND the footer
+  // Subtotal / Tax / Total. Tax is computed on the post-discount base, matching
+  // typical invoice math (tax never applies to the discount portion).
+  const lineSubtotal = (line: { quantity: string; price: string; discount?: string }) => {
+    const gross = parseMoney(line.quantity) * parseMoney(line.price);
+    const disc = line.discount ? parseMoney(line.discount) : 0;
+    return gross * Math.max(0, 1 - disc / 100);
+  };
+  const lineTaxAmount = (line: { quantity: string; price: string; tax: string; discount?: string }) => lineSubtotal(line) * (parseTax(line.tax) / 100);
+  const lineAmount = (line: { quantity: string; price: string; tax: string; discount?: string }) => lineSubtotal(line) + lineTaxAmount(line);
+  const invoiceSubtotal = invoiceLines.reduce((acc, l) => acc + lineSubtotal(l), 0);
+  const invoiceTax = invoiceLines.reduce((acc, l) => acc + lineTaxAmount(l), 0);
+  const invoiceTotal = invoiceSubtotal + invoiceTax;
+  // Tab order within a row. Primary cell (product OR charge) is the only branched node;
+  // every line lives on exactly one of the two so we collapse both into a "primary" step.
+  type RowField = "product" | "charge" | "description" | "quantity" | "uom" | "price" | "tax";
+  const advanceField = (lineNo: string, currentField: RowField, value: string, direction: 1 | -1 = 1) => {
+    // Commit the value the user just typed/picked in `currentField`.
+    if (currentField === "product" || currentField === "charge") {
+      commitPrimary(lineNo, currentField, value);
+    } else {
+      updateLineField(lineNo, currentField, value);
+    }
+    // Resolve "what's next" — use the line's primary field for the first slot
+    const line = invoiceLines.find((l) => l.lineNo === lineNo);
+    const primary: "product" | "charge" = line && line.charge !== "" && line.product === "" ? "charge" : "product";
+    const order: RowField[] = [primary, "description", "quantity", "uom", "price", "tax"];
+    const idx = order.indexOf(currentField);
+    const nextIdx = idx + direction;
+    if (idx === -1 || nextIdx < 0) {
+      setEditingCell(null);
+      return;
+    }
+    if (nextIdx >= order.length) {
+      // Tab past Tax (the last column) creates a new row and jumps the cursor into it,
+      // so the user can keep adding lines without leaving the keyboard.
+      handleAddLine();
+      return;
+    }
+    setEditingCell({ lineNo, field: order[nextIdx] });
+  };
+  const openAttributePicker = (line: typeof invoiceLines[number]) => {
+    const primaryField = line.product !== "" ? "product" : "charge";
+    const primaryValue = line.product || line.charge;
+    const options = (primaryField === "product" ? productAttributes : chargeAttributes)[primaryValue] ?? [];
+    if (options.length === 0) {
+      return;
+    }
+    setAttributePicker({
+      lineNo: line.lineNo,
+      primaryLabel: primaryValue,
+      options,
+      selectedAttribute: options.includes(line.attribute) ? line.attribute : options[0],
+    });
+  };
   // Single shared grid template — header + every body row use this constant so columns
   // line up across rows (Grid Data Widget > Column Sizing And Truncation).
-  // Columns: Product/Charge · Attribute · Quantity/UOM · Price · Tax · Line Amount
-  const apInvoiceLineCols = "grid-cols-[minmax(0,1.6fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1fr)]";
+  // Columns: Product or Charge (+ Attribute below) · Description · Quantity/UOM · Price · Tax · Line Amount
+  const apInvoiceLineCols = "grid-cols-[28px_minmax(0,1.9fr)_minmax(0,2fr)_minmax(0,1fr)_90px_70px_100px_32px]";
+  // Right-panel Invoice History grid — same shared-template rule.
+  // Columns: Reference · Date · Amount · Status · Aging
+  const vendorInvoiceGridCols = "grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,0.8fr)_minmax(0,0.9fr)]";
   const windowActions = [
     { id: "save", icon: <HardDrive className="size-[18px]" strokeWidth={1.8} /> },
     { id: "save-as", icon: <FilePlus2 className="size-[18px]" strokeWidth={1.8} /> },
@@ -9360,8 +9626,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-transparent">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between bg-transparent px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               AP Invoice
@@ -9388,7 +9654,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                   {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
                 </button>
               </div>
-              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+              <div className={`absolute bottom-[-10px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
             </div>
           </div>
           <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
@@ -9400,7 +9666,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
       </div>
 
       {viewMode === "dashboard" ? (
-        <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+        <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
           <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
             <NewRecordWidget
               onClick={() => setViewMode("window")}
@@ -9412,12 +9678,12 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
               <div
                 className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
-                style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+                style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
                 <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -9429,6 +9695,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
             <FinanceTableCard
               className="col-[1/span_6] row-span-2"
               columns={["Vendor", "Reference", "Org", "Status"]}
+              headerVariant="rail"
               rows={[
                 ["George Supplies", "111", "VA Mobile", "Needs lines"],
                 ["Harbor Components", "198", "VA Mobile", "Ready to post"],
@@ -9640,7 +9907,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                     </div>
                   </div>
 
-                  <div className="mt-[30px] border-t border-solid border-[#dce6ee] bg-[linear-gradient(180deg,#fbfdff_0%,#f6fbff_100%)] pt-[8px]">
+                  <div className="mt-[30px] border-t border-solid border-[#dce6ee] bg-white pt-[8px]">
                     <div className="flex min-h-[56px] flex-wrap items-center justify-between gap-[12px] px-[20px] py-[10px]">
                       <div className="min-w-0">
                         <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#141414]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -9651,29 +9918,57 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                         </p>
                       </div>
                       <div className="flex flex-wrap items-center gap-[10px]">
+                        {hasUnsavedRows ? (
+                          <button
+                            className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[14px] py-[8px] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                            onClick={handleSaveRows}
+                            type="button"
+                          >
+                            <HardDrive className="size-[14px]" strokeWidth={2} />
+                            Save row{unsavedLineNos.size > 1 ? "s" : ""} ({unsavedLineNos.size})
+                          </button>
+                        ) : (
+                          <button
+                            className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef7ff]"
+                            onClick={handleAddLine}
+                            type="button"
+                          >
+                            <Plus className="size-[14px]" strokeWidth={2} />
+                            Add line
+                          </button>
+                        )}
                         <button
-                          className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[14px] py-[8px] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                          className={`flex items-center gap-[6px] rounded-[999px] border border-solid px-[14px] py-[8px] text-[13px] transition-colors ${
+                            selectedLineNos.size > 0
+                              ? "border-[#a33f3f] bg-white text-[#a33f3f] hover:bg-[#fbe6e6]"
+                              : "cursor-not-allowed border-[#dbe6ee] bg-white text-[#9aa6b2]"
+                          }`}
+                          disabled={selectedLineNos.size === 0}
+                          onClick={handleDeleteSelected}
                           type="button"
                         >
-                          <Plus className="size-[14px]" strokeWidth={2} />
-                          Add line
-                        </button>
-                        <button
-                          className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef7ff]"
-                          type="button"
-                        >
-                          <ExternalLink className="size-[14px]" strokeWidth={2} />
-                          Open Window
+                          <Trash2 className="size-[14px]" strokeWidth={2} />
+                          Delete line{selectedLineNos.size > 1 ? "s" : ""}
+                          {selectedLineNos.size > 0 ? ` (${selectedLineNos.size})` : ""}
                         </button>
                       </div>
                     </div>
 
                     <div className="px-[20px] pb-[18px] pt-[8px]">
                       <div>
-                        <div className={`grid ${apInvoiceLineCols} gap-[12px] border-b border-solid border-[#dbe6ee] py-[10px]`}>
+                        <div className={`grid ${apInvoiceLineCols} items-center gap-[12px] border-b border-solid border-[#c5d2dd] py-[10px]`}>
+                          <div className="flex items-center justify-center">
+                            <input
+                              aria-label="Select all lines"
+                              checked={invoiceLines.length > 0 && selectedLineNos.size === invoiceLines.length}
+                              className="size-[16px] cursor-pointer accent-[#0083da]"
+                              onChange={toggleAllLinesSelection}
+                              type="checkbox"
+                            />
+                          </div>
                           {[
                             { label: "Product / Charge", align: "left" as const },
-                            { label: "Attribute", align: "left" as const },
+                            { label: "Description", align: "left" as const },
                             { label: "Quantity / UOM", align: "right" as const },
                             { label: "Price", align: "right" as const },
                             { label: "Tax", align: "left" as const },
@@ -9683,66 +9978,87 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               {heading.label}
                             </p>
                           ))}
+                          <span aria-hidden="true" />
                         </div>
-                        {invoiceLines.map((line) => (
-                          <div className={`grid ${apInvoiceLineCols} items-center gap-[12px] border-b border-solid border-[#edf2f6] py-[12px] last:border-b-0`} key={line.lineNo}>
+                        {invoiceLines.map((line) => {
+                          // Charge wins only if it is the line's actual identity (product is empty).
+                          // For a brand-new empty line (both empty) we want clicks to open the Product
+                          // catalog by default — that's what users mean when they say "add a line."
+                          const primaryField: "product" | "charge" = line.charge !== "" && line.product === "" ? "charge" : "product";
+                          const primaryValue = line.product || line.charge;
+                          const primaryCatalog = primaryField === "product" ? productCatalog : chargeCatalog;
+                          const isEditingPrimary = editingCell?.lineNo === line.lineNo && (editingCell.field === "product" || editingCell.field === "charge");
+                          const isSelected = selectedLineNos.has(line.lineNo);
+                          return (
+                          <div className={`grid ${apInvoiceLineCols} items-center gap-[12px] border-b border-solid border-[#e2eaf1] py-[12px] last:border-b-0 transition-colors ${isSelected ? "bg-[#eef7ff]" : ""}`} key={line.lineNo}>
+                            <div className="flex items-center justify-center">
+                              <input
+                                aria-label={`Select line ${line.lineNo}`}
+                                checked={isSelected}
+                                className="size-[16px] cursor-pointer accent-[#0083da]"
+                                onChange={() => toggleLineSelection(line.lineNo)}
+                                onClick={(e) => e.stopPropagation()}
+                                type="checkbox"
+                              />
+                            </div>
                             <div
-                              className="-mx-[6px] -my-[2px] min-w-0 cursor-text rounded-[6px] px-[6px] py-[2px] transition-colors hover:bg-[#f1f8ff]"
-                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "product" ? null : setEditingCell({ lineNo: line.lineNo, field: "product" })}
+                              className={`-mx-[3px] -my-[2px] flex min-h-[40px] flex-col justify-center min-w-0 cursor-text rounded-[6px] px-[3px] py-[2px] transition-colors ${
+                                isEditingPrimary
+                                  ? "bg-white outline outline-2 outline-[#0083da]"
+                                  : "hover:bg-[#f1f8ff]"
+                              }`}
+                              onClick={() => isEditingPrimary ? null : setEditingCell({ lineNo: line.lineNo, field: primaryField })}
                               role="button"
                               tabIndex={0}
                               onKeyDown={(e) => {
                                 if (e.key === "Enter" || e.key === " ") {
                                   e.preventDefault();
-                                  setEditingCell({ lineNo: line.lineNo, field: "product" });
+                                  setEditingCell({ lineNo: line.lineNo, field: primaryField });
                                 }
                               }}
                             >
-                              {editingCell?.lineNo === line.lineNo && editingCell.field === "product" ? (
+                              {isEditingPrimary ? (
                                 <div className="relative" onClick={(e) => e.stopPropagation()}>
-                                  <div className="flex items-center gap-[4px] rounded-[4px] border border-solid border-[#0083da] bg-white px-[6px] py-[2px]">
-                                    <Search className="size-[12px] shrink-0 text-[#748494]" strokeWidth={2} />
-                                    <input
-                                      autoFocus
-                                      className="min-w-0 flex-1 bg-transparent font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f] outline-none"
-                                      onBlur={(e) => {
-                                        // If focus moved to a dropdown option, the option's onMouseDown
-                                        // already committed. Skip committing on blur in that case.
-                                        if (e.relatedTarget && (e.relatedTarget as HTMLElement).dataset?.productOption === "true") {
-                                          return;
-                                        }
-                                        updateLineField(line.lineNo, "product", productSearchValue);
-                                        setEditingCell(null);
-                                      }}
-                                      onChange={(e) => setProductSearchValue(e.target.value)}
-                                      onKeyDown={(e) => {
-                                        if (e.key === "Enter") (e.target as HTMLInputElement).blur();
-                                        if (e.key === "Escape") setEditingCell(null);
-                                      }}
-                                      placeholder="Search product…"
-                                      style={{ fontVariationSettings: "'wdth' 100" }}
-                                      value={productSearchValue}
-                                    />
-                                  </div>
+                                  <input
+                                    autoFocus
+                                    className="block w-full bg-transparent p-0 font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#102c3f] outline-none placeholder:text-[#9aa6b2]"
+                                    onBlur={(e) => {
+                                      if (e.relatedTarget && (e.relatedTarget as HTMLElement).dataset?.productOption === "true") {
+                                        return;
+                                      }
+                                      commitPrimary(line.lineNo, editingCell!.field as "product" | "charge", searchValue);
+                                    }}
+                                    onChange={(e) => setSearchValue(e.target.value)}
+                                    onKeyDown={(e) => {
+                                      e.stopPropagation();
+                                      if (e.key === "Tab") {
+                                        e.preventDefault();
+                                        advanceField(line.lineNo, editingCell!.field as "product" | "charge", searchValue, e.shiftKey ? -1 : 1);
+                                        return;
+                                      }
+                                      if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                                      if (e.key === "Escape") setEditingCell(null);
+                                    }}
+                                    placeholder={editingCell!.field === "product" ? "Search product…" : "Search charge…"}
+                                    style={{ fontVariationSettings: "'wdth' 100" }}
+                                    value={searchValue}
+                                  />
                                   {(() => {
-                                    const q = productSearchValue.trim().toLowerCase();
-                                    const matches = productCatalog.filter((opt) => opt !== productSearchValue && (q === "" || opt.toLowerCase().includes(q)));
+                                    const q = searchValue.trim().toLowerCase();
+                                    const matches = primaryCatalog.filter((opt) => opt !== searchValue && (q === "" || opt.toLowerCase().includes(q)));
                                     if (matches.length === 0) {
                                       return null;
                                     }
                                     return (
-                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] overflow-auto rounded-[8px] border border-solid border-[#dbe6ee] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "200px" }}>
+                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "200px" }}>
                                         {matches.map((opt) => (
                                           <button
                                             className="block w-full truncate px-[10px] py-[6px] text-left font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] hover:bg-[#f1f8ff] focus:bg-[#eef7ff] focus:outline-none"
                                             data-product-option="true"
                                             key={opt}
                                             onMouseDown={(e) => {
-                                              // mousedown fires before input's blur; preventDefault
-                                              // keeps focus on the input so we can commit cleanly.
                                               e.preventDefault();
-                                              updateLineField(line.lineNo, "product", opt);
-                                              setEditingCell(null);
+                                              commitPrimary(line.lineNo, editingCell!.field as "product" | "charge", opt);
                                             }}
                                             style={{ fontVariationSettings: "'wdth' 100" }}
                                             type="button"
@@ -9756,60 +10072,69 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   })()}
                                 </div>
                               ) : (
-                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.product}>
-                                  {line.product}
+                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={primaryValue}>
+                                  {primaryValue}
                                 </p>
                               )}
-                              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.charge}>
-                                {line.charge}
+                              <p
+                                className="mt-[2px] truncate cursor-pointer rounded-[4px] font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] text-[#748494] hover:bg-[#f1f8ff] hover:text-[#0083da]"
+                                onClick={(e) => { e.stopPropagation(); openAttributePicker(line); }}
+                                style={{ fontVariationSettings: "'wdth' 100" }}
+                                title={`${line.attribute} (click to change attribute)`}
+                              >
+                                {line.attribute}
                               </p>
                             </div>
                             <div
-                              className="-mx-[6px] -my-[2px] min-w-0 cursor-pointer rounded-[6px] px-[6px] py-[2px] transition-colors hover:bg-[#f1f8ff]"
-                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "attribute" ? null : setEditingCell({ lineNo: line.lineNo, field: "attribute" })}
+                              className={`-mx-[3px] -my-[2px] flex min-h-[40px] flex-col justify-center min-w-0 cursor-text rounded-[6px] px-[3px] py-[2px] transition-colors ${
+                                editingCell?.lineNo === line.lineNo && editingCell.field === "description"
+                                  ? "bg-white outline outline-2 outline-[#0083da]"
+                                  : "hover:bg-[#f1f8ff]"
+                              }`}
+                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "description" ? null : setEditingCell({ lineNo: line.lineNo, field: "description" })}
                               role="button"
                               tabIndex={0}
                               onKeyDown={(e) => {
                                 if (e.key === "Enter" || e.key === " ") {
                                   e.preventDefault();
-                                  setEditingCell({ lineNo: line.lineNo, field: "attribute" });
+                                  setEditingCell({ lineNo: line.lineNo, field: "description" });
                                 }
                               }}
                             >
-                              {editingCell?.lineNo === line.lineNo && editingCell.field === "attribute" ? (
-                                <select
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "description" ? (
+                                <input
                                   autoFocus
-                                  className="w-full rounded-[4px] border border-solid border-[#0083da] bg-white px-[4px] py-[2px] font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283] outline-none"
-                                  defaultValue={line.attribute}
-                                  onChange={(e) => {
-                                    updateLineField(line.lineNo, "attribute", e.target.value);
+                                  className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#5f7283] outline-none"
+                                  defaultValue={line.description}
+                                  onBlur={(e) => {
+                                    updateLineField(line.lineNo, "description", e.target.value);
                                     setEditingCell(null);
                                   }}
-                                  onBlur={() => setEditingCell(null)}
                                   onKeyDown={(e) => {
+                                    e.stopPropagation();
+                                    if (e.key === "Tab") {
+                                      e.preventDefault();
+                                      advanceField(line.lineNo, "description", (e.target as HTMLInputElement).value, e.shiftKey ? -1 : 1);
+                                      return;
+                                    }
+                                    if (e.key === "Enter") (e.target as HTMLInputElement).blur();
                                     if (e.key === "Escape") setEditingCell(null);
                                   }}
                                   onClick={(e) => e.stopPropagation()}
                                   style={{ fontVariationSettings: "'wdth' 100" }}
-                                >
-                                  {(() => {
-                                    const opts = productAttributes[line.product] ?? [line.attribute];
-                                    const list = opts.includes(line.attribute) ? opts : [line.attribute, ...opts];
-                                    return list.map((opt) => (
-                                      <option key={opt} value={opt}>
-                                        {opt}
-                                      </option>
-                                    ));
-                                  })()}
-                                </select>
+                                />
                               ) : (
-                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.attribute}>
-                                  {line.attribute}
+                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.description}>
+                                  {line.description}
                                 </p>
                               )}
                             </div>
                             <div
-                              className="-mx-[6px] -my-[2px] min-w-0 cursor-text rounded-[6px] px-[6px] py-[2px] text-right transition-colors hover:bg-[#f1f8ff]"
+                              className={`-mx-[3px] -my-[2px] flex min-h-[40px] flex-col justify-center min-w-0 cursor-text rounded-[6px] px-[3px] py-[2px] text-right transition-colors ${
+                                editingCell?.lineNo === line.lineNo && editingCell.field === "quantity"
+                                  ? "bg-white outline outline-2 outline-[#0083da]"
+                                  : "hover:bg-[#f1f8ff]"
+                              }`}
                               onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "quantity" ? null : setEditingCell({ lineNo: line.lineNo, field: "quantity" })}
                               role="button"
                               tabIndex={0}
@@ -9823,7 +10148,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               {editingCell?.lineNo === line.lineNo && editingCell.field === "quantity" ? (
                                 <input
                                   autoFocus
-                                  className="w-full rounded-[4px] border border-solid border-[#0083da] bg-white px-[6px] py-[2px] text-right font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f] outline-none"
+                                  className="block w-full bg-transparent p-0 text-right font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#102c3f] outline-none"
                                   defaultValue={line.quantity}
                                   inputMode="decimal"
                                   onBlur={(e) => {
@@ -9831,6 +10156,12 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                     setEditingCell(null);
                                   }}
                                   onKeyDown={(e) => {
+                                    e.stopPropagation();
+                                    if (e.key === "Tab") {
+                                      e.preventDefault();
+                                      advanceField(line.lineNo, "quantity", (e.target as HTMLInputElement).value, e.shiftKey ? -1 : 1);
+                                      return;
+                                    }
                                     if (e.key === "Enter") (e.target as HTMLInputElement).blur();
                                     if (e.key === "Escape") setEditingCell(null);
                                   }}
@@ -9838,25 +10169,237 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   style={{ fontVariationSettings: "'wdth' 100" }}
                                 />
                               ) : (
-                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.quantity}>
+                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.quantity}>
                                   {line.quantity}
                                 </p>
                               )}
-                              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.uom}>
-                                {line.uom}
-                              </p>
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "uom" ? (
+                                <select
+                                  autoFocus
+                                  className="mt-[2px] block w-full bg-white p-0 text-right font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] leading-[1.5] text-[#5f7283] outline outline-2 outline-[#0083da] rounded-[4px]"
+                                  defaultValue={line.uom}
+                                  onChange={(e) => {
+                                    updateLineField(line.lineNo, "uom", e.target.value);
+                                    setEditingCell(null);
+                                  }}
+                                  onBlur={() => setEditingCell(null)}
+                                  onKeyDown={(e) => {
+                                    e.stopPropagation();
+                                    if (e.key === "Tab") {
+                                      e.preventDefault();
+                                      advanceField(line.lineNo, "uom", (e.target as HTMLSelectElement).value, e.shiftKey ? -1 : 1);
+                                      return;
+                                    }
+                                    if (e.key === "Escape") setEditingCell(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                >
+                                  {(() => {
+                                    const list = uomCatalog.includes(line.uom) ? uomCatalog : [line.uom, ...uomCatalog];
+                                    return list.map((opt) => (
+                                      <option key={opt} value={opt}>{opt}</option>
+                                    ));
+                                  })()}
+                                </select>
+                              ) : (
+                                <p
+                                  className="mt-[2px] truncate cursor-pointer rounded-[4px] font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] text-[#748494] hover:bg-[#f1f8ff] hover:text-[#0083da]"
+                                  onClick={(e) => { e.stopPropagation(); setEditingCell({ lineNo: line.lineNo, field: "uom" }); }}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                  title={`${line.uom} (click to change UOM)`}
+                                >
+                                  {line.uom}
+                                </p>
+                              )}
                             </div>
-                            <p className="truncate text-right font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.price}>
-                              {line.price}
-                            </p>
-                            <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.tax}>
-                              {line.tax}
-                            </p>
-                            <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.amount}>
-                              {line.amount}
-                            </p>
+                            <div
+                              className={`-mx-[3px] -my-[2px] flex min-h-[40px] flex-col justify-center min-w-0 cursor-text rounded-[6px] px-[3px] py-[2px] text-right transition-colors ${
+                                editingCell?.lineNo === line.lineNo && editingCell.field === "price"
+                                  ? "bg-white outline outline-2 outline-[#0083da]"
+                                  : "hover:bg-[#f1f8ff]"
+                              }`}
+                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "price" ? null : setEditingCell({ lineNo: line.lineNo, field: "price" })}
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setEditingCell({ lineNo: line.lineNo, field: "price" });
+                                }
+                              }}
+                            >
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "price" ? (
+                                <input
+                                  autoFocus
+                                  className="block w-full bg-transparent p-0 text-right font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#102c3f] outline-none"
+                                  defaultValue={line.price}
+                                  inputMode="decimal"
+                                  onBlur={(e) => {
+                                    updateLineField(line.lineNo, "price", e.target.value);
+                                    setEditingCell(null);
+                                  }}
+                                  onKeyDown={(e) => {
+                                    e.stopPropagation();
+                                    if (e.key === "Tab") {
+                                      e.preventDefault();
+                                      advanceField(line.lineNo, "price", (e.target as HTMLInputElement).value, e.shiftKey ? -1 : 1);
+                                      return;
+                                    }
+                                    if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                                    if (e.key === "Escape") setEditingCell(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                />
+                              ) : (
+                                <p className="truncate text-right font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.price}>
+                                  {line.price}
+                                </p>
+                              )}
+                            </div>
+                            <div
+                              className={`-mx-[3px] -my-[2px] flex min-h-[40px] flex-col justify-center min-w-0 cursor-pointer rounded-[6px] px-[3px] py-[2px] transition-colors ${
+                                editingCell?.lineNo === line.lineNo && editingCell.field === "tax"
+                                  ? "bg-white outline outline-2 outline-[#0083da]"
+                                  : "hover:bg-[#f1f8ff]"
+                              }`}
+                              onClick={() => editingCell?.lineNo === line.lineNo && editingCell.field === "tax" ? null : setEditingCell({ lineNo: line.lineNo, field: "tax" })}
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  setEditingCell({ lineNo: line.lineNo, field: "tax" });
+                                }
+                              }}
+                            >
+                              {editingCell?.lineNo === line.lineNo && editingCell.field === "tax" ? (
+                                <select
+                                  autoFocus
+                                  className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#5f7283] outline-none"
+                                  defaultValue={line.tax}
+                                  onChange={(e) => {
+                                    updateLineField(line.lineNo, "tax", e.target.value);
+                                    setEditingCell(null);
+                                  }}
+                                  onBlur={() => setEditingCell(null)}
+                                  onKeyDown={(e) => {
+                                    e.stopPropagation();
+                                    if (e.key === "Tab") {
+                                      e.preventDefault();
+                                      advanceField(line.lineNo, "tax", (e.target as HTMLSelectElement).value, e.shiftKey ? -1 : 1);
+                                      return;
+                                    }
+                                    if (e.key === "Escape") setEditingCell(null);
+                                  }}
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                >
+                                  {(() => {
+                                    const list = taxCatalog.includes(line.tax) ? taxCatalog : [line.tax, ...taxCatalog];
+                                    return list.map((opt) => (
+                                      <option key={opt} value={opt}>{opt}</option>
+                                    ));
+                                  })()}
+                                </select>
+                              ) : (
+                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.tax}>
+                                  {line.tax}
+                                </p>
+                              )}
+                            </div>
+                            {(() => {
+                              const computed = lineAmount(line);
+                              const display = computed > 0 ? formatMoney(computed) : "";
+                              return (
+                                <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={display}>
+                                  {display}
+                                </p>
+                              );
+                            })()}
+                            <div className="relative flex items-center justify-center">
+                              <button
+                                aria-haspopup="dialog"
+                                aria-expanded={moreRowOpen === line.lineNo}
+                                aria-label={`More fields for line ${line.lineNo}`}
+                                className={`flex size-[24px] items-center justify-center rounded-[6px] transition-colors ${moreRowOpen === line.lineNo ? "bg-[#eef7ff] text-[#0083da]" : "text-[#748494] hover:bg-[#f1f8ff] hover:text-[#0083da]"}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setMoreRowOpen((current) => (current === line.lineNo ? null : line.lineNo));
+                                }}
+                                type="button"
+                              >
+                                <MoreVertical className="size-[16px]" strokeWidth={2} />
+                              </button>
+                              {moreRowOpen === line.lineNo ? (
+                                <>
+                                  <div className="fixed inset-0 z-30" onClick={() => setMoreRowOpen(null)} />
+                                  <div
+                                    className="absolute right-0 bottom-full z-40 mb-[6px] w-[260px] overflow-hidden rounded-[10px] border border-solid border-[#c5d2dd] bg-white shadow-[0_-18px_36px_rgba(15,61,97,0.18)]"
+                                    onClick={(e) => e.stopPropagation()}
+                                    role="dialog"
+                                    aria-label={`Additional fields for line ${line.lineNo}`}
+                                  >
+                                    <div className="border-b border-solid border-[#e2eaf1] px-[12px] py-[8px]">
+                                      <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        Additional fields
+                                      </p>
+                                    </div>
+                                    <div className="flex flex-col gap-[10px] px-[12px] py-[10px]">
+                                      <label className="flex flex-col gap-[4px]">
+                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                          Discount (%)
+                                        </span>
+                                        <input
+                                          autoFocus
+                                          className="block w-full rounded-[6px] border border-solid border-[#c5d2dd] bg-white px-[8px] py-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none focus:border-[#0083da] focus:outline focus:outline-2 focus:outline-[#0083da]"
+                                          defaultValue={line.discount ?? ""}
+                                          inputMode="decimal"
+                                          onBlur={(e) => updateLineField(line.lineNo, "discount", e.target.value)}
+                                          onKeyDown={(e) => {
+                                            e.stopPropagation();
+                                            if (e.key === "Escape") setMoreRowOpen(null);
+                                          }}
+                                          placeholder="0"
+                                          style={{ fontVariationSettings: "'wdth' 100" }}
+                                        />
+                                      </label>
+                                      <label className="flex flex-col gap-[4px]">
+                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                          Notes
+                                        </span>
+                                        <textarea
+                                          className="block w-full resize-y rounded-[6px] border border-solid border-[#c5d2dd] bg-white px-[8px] py-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none focus:border-[#0083da] focus:outline focus:outline-2 focus:outline-[#0083da]"
+                                          defaultValue={line.notes ?? ""}
+                                          onBlur={(e) => updateLineField(line.lineNo, "notes", e.target.value)}
+                                          onKeyDown={(e) => {
+                                            e.stopPropagation();
+                                            if (e.key === "Escape") setMoreRowOpen(null);
+                                          }}
+                                          placeholder="Optional note…"
+                                          rows={3}
+                                          style={{ fontVariationSettings: "'wdth' 100" }}
+                                        />
+                                      </label>
+                                    </div>
+                                    <div className="flex justify-end gap-[8px] border-t border-solid border-[#e2eaf1] px-[12px] py-[8px]">
+                                      <button
+                                        className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[14px] py-[6px] font-['Roboto:Bold',sans-serif] text-[12px] text-white transition-colors hover:bg-[#0069ae]"
+                                        onClick={() => setMoreRowOpen(null)}
+                                        style={{ fontVariationSettings: "'wdth' 100" }}
+                                        type="button"
+                                      >
+                                        Done
+                                      </button>
+                                    </div>
+                                  </div>
+                                </>
+                              ) : null}
+                            </div>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
 
                       <div className="mt-[18px] flex flex-wrap items-start justify-between gap-[24px]">
@@ -9875,15 +10418,15 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               Subtotal
                             </p>
                             <p className="font-['Roboto:Regular',sans-serif] text-[13px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              530.00
+                              {formatMoney(invoiceSubtotal)}
                             </p>
                           </div>
-                          <div className="flex items-center justify-between border-b border-solid border-[#edf2f6] py-[6px]">
+                          <div className="flex items-center justify-between border-b border-solid border-[#e2eaf1] py-[6px]">
                             <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Tax
                             </p>
                             <p className="font-['Roboto:Regular',sans-serif] text-[13px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              95.40
+                              {formatMoney(invoiceTax)}
                             </p>
                           </div>
                           <div className="flex items-center justify-between pt-[8px]">
@@ -9891,7 +10434,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               Total
                             </p>
                             <p className="font-['Roboto:Bold',sans-serif] text-[16px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                              625.40
+                              {formatMoney(invoiceTotal)}
                             </p>
                           </div>
                         </div>
@@ -9970,7 +10513,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               Context for approval, posting, and payment risk before releasing this AP invoice.
                             </p>
 
-                            <div className="rounded-[14px] border border-solid border-[#e4edf4] bg-white px-[16px] py-[14px]">
+                            <div className="rounded-[14px] border border-solid border-[#d9e2eb] bg-white px-[16px] py-[14px]">
                               <div className="flex items-start justify-between gap-[16px]">
                                 <div className="min-w-0 flex-1">
                                   <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -9997,7 +10540,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
                             <div className="grid grid-cols-2 gap-[10px]">
                               {vendorInsightSections.map((item) => (
-                                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]" key={item.label}>
+                                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]" key={item.label}>
                                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {item.label}
                                   </p>
@@ -10017,7 +10560,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               </p>
                               <div className="grid grid-cols-2 gap-[10px]">
                                 {vendorContacts.map((contact) => (
-                                  <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={contact.name}>
+                                  <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={contact.name}>
                                     <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {contact.name}
                                     </p>
@@ -10039,7 +10582,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               <p className="mb-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 Compliance & Contract
                               </p>
-                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]">
+                              <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]">
                                 <div className="grid grid-cols-2 gap-x-[16px] gap-y-[10px]">
                                   {vendorComplianceChecks.map((check) => (
                                     <div className="flex items-start gap-[8px]" key={check.label}>
@@ -10073,7 +10616,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
                             <div className="grid grid-cols-3 gap-[10px]">
                               {invoiceHistoryStats.map((stat) => (
-                                <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={stat.label}>
+                                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={stat.label}>
                                   <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {stat.label}
                                   </p>
@@ -10084,32 +10627,39 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               ))}
                             </div>
 
-                            <div className="overflow-hidden rounded-[12px] border border-solid border-[#e4edf4] bg-white">
-                              <div className="grid grid-cols-[1.1fr_0.9fr_0.9fr_0.8fr_0.9fr] gap-[10px] border-b border-solid border-[#e6eef5] bg-[#fbfdff] px-[14px] py-[10px]">
-                                {["Reference", "Date", "Amount", "Status", "Aging"].map((heading) => (
-                                  <p className="font-['Roboto:Bold',sans-serif] text-[12px] capitalize text-[#102c3f]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
-                                    {heading}
+                            <div>
+                              <div className={`grid ${vendorInvoiceGridCols} gap-[10px] border-b border-solid border-[#c5d2dd] py-[8px]`}>
+                                {[
+                                  { label: "Reference", align: "left" as const },
+                                  { label: "Date", align: "left" as const },
+                                  { label: "Amount", align: "right" as const },
+                                  { label: "Status", align: "left" as const },
+                                  { label: "Aging", align: "left" as const },
+                                ].map((heading) => (
+                                  <p className={`truncate font-['Roboto:Bold',sans-serif] text-[12px] capitalize text-[#102c3f] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
+                                    {heading.label}
                                   </p>
                                 ))}
                               </div>
                               {recentVendorInvoices.map((invoice) => (
-                                <div className="grid grid-cols-[1.1fr_0.9fr_0.9fr_0.8fr_0.9fr] items-center gap-[10px] border-b border-solid border-[#edf2f6] px-[14px] py-[12px] last:border-b-0" key={invoice.ref}>
-                                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <div className={`grid ${vendorInvoiceGridCols} items-center gap-[10px] border-b border-solid border-[#e2eaf1] py-[10px] last:border-b-0`} key={invoice.ref}>
+                                  <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.ref}>
                                     {invoice.ref}
                                   </p>
-                                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.date}>
                                     {invoice.date}
                                   </p>
-                                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.amount}>
                                     {invoice.amount}
                                   </p>
                                   <span
-                                    className={`justify-self-start rounded-[999px] px-[8px] py-[3px] text-[11px] font-['Roboto:Bold',sans-serif] ${invoice.tone}`}
+                                    className={`justify-self-start truncate rounded-[999px] px-[8px] py-[3px] text-[11px] font-['Roboto:Bold',sans-serif] ${invoice.tone}`}
                                     style={{ fontVariationSettings: "'wdth' 100" }}
+                                    title={invoice.status}
                                   >
                                     {invoice.status}
                                   </span>
-                                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.aging}>
                                     {invoice.aging}
                                   </p>
                                 </div>
@@ -10125,7 +10675,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   Trend across recent posting periods
                                 </p>
                               </div>
-                              <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[14px]">
+                              <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[14px]">
                                 <div className="flex h-[96px] items-end gap-[10px]">
                                   {monthlySpend.map((bar) => (
                                     <div className="flex flex-1 flex-col items-center gap-[6px]" key={bar.month}>
@@ -10149,7 +10699,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               Short guidance for approvers before posting and payment release decisions are made.
                             </p>
 
-                            <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[14px] py-[12px]">
+                            <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]">
                               <p className="mb-[10px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 Approval Routing
                               </p>
@@ -10162,7 +10712,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                           ? "border-[#cfead9] bg-[#e7f7ef]"
                                           : step.status === "active"
                                             ? "border-[#bfe4ff] bg-[#eaf8ff]"
-                                            : "border-[#e4edf4] bg-[#fbfdff]"
+                                            : "border-[#d9e2eb] bg-[#fbfdff]"
                                       }`}
                                     >
                                       <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10183,7 +10733,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 <p className="mb-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Approval Criteria
                                 </p>
-                                <div className="flex flex-col gap-[8px] rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[12px]">
+                                <div className="flex flex-col gap-[8px] rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[12px]">
                                   {approvalCriteria.map((criterion) => (
                                     <div className="flex items-start gap-[8px]" key={criterion.label}>
                                       <span className={`mt-[1px] flex size-[16px] shrink-0 items-center justify-center rounded-full ${criterion.met ? "bg-[#e7f7ef] text-[#18734d]" : "bg-[#fbe6e6] text-[#b04343]"}`}>
@@ -10211,7 +10761,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 </p>
                                 <div className="flex flex-col gap-[8px]">
                                   {approverNotes.map((note) => (
-                                    <div className="rounded-[12px] border border-solid border-[#e4edf4] bg-white px-[12px] py-[10px]" key={note.text}>
+                                    <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={note.text}>
                                       <div className="flex items-center justify-between gap-[8px]">
                                         <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                           {note.author}
@@ -10255,6 +10805,68 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
           <ProposalFooter currentPage={1} totalPages={1} totalRecords={18} />
         </>
       )}
+
+      {attributePicker ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,27,45,0.42)] px-[16px] backdrop-blur-[2px]"
+          onClick={() => setAttributePicker(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Select attribute"
+        >
+          <div
+            className="w-[min(420px,100%)] overflow-hidden rounded-[14px] bg-white shadow-[0_20px_50px_rgba(15,61,97,0.20)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="border-b border-solid border-[#e2eaf1] px-[20px] py-[14px]">
+              <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                Select attribute
+              </p>
+              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={attributePicker.primaryLabel}>
+                For {attributePicker.primaryLabel}
+              </p>
+            </div>
+
+            <div className="px-[12px] py-[8px]">
+              {attributePicker.options.map((opt) => {
+                const isSelected = attributePicker.selectedAttribute === opt;
+                return (
+                  <button
+                    className={`flex w-full items-center gap-[10px] rounded-[8px] px-[10px] py-[8px] text-left transition-colors ${isSelected ? "bg-[#eef7ff]" : "hover:bg-[#f7fbff]"}`}
+                    key={opt}
+                    onClick={() => setAttributePicker((current) => (current ? { ...current, selectedAttribute: opt } : current))}
+                    type="button"
+                  >
+                    <span className={`flex size-[16px] shrink-0 items-center justify-center rounded-full border-2 border-solid ${isSelected ? "border-[#0083da]" : "border-[#c5d2dd]"}`}>
+                      {isSelected ? <span className="size-[8px] rounded-full bg-[#0083da]" /> : null}
+                    </span>
+                    <span className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {opt}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-end gap-[8px] border-t border-solid border-[#e2eaf1] px-[20px] py-[12px]">
+              <button
+                className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                onClick={() => {
+                  updateLineField(attributePicker.lineNo, "attribute", attributePicker.selectedAttribute);
+                  const targetLineNo = attributePicker.lineNo;
+                  setAttributePicker(null);
+                  // Drop focus into Description so the user can keep typing the row.
+                  setEditingCell({ lineNo: targetLineNo, field: "description" });
+                }}
+                style={{ fontVariationSettings: "'wdth' 100" }}
+                type="button"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -10335,8 +10947,8 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-transparent">
-      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start overflow-clip relative w-full">
-        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[56px] items-center justify-between overflow-clip bg-transparent px-[20px] relative shrink-0 w-full">
+      <div className="bg-[rgba(255,255,255,0.4)] content-stretch flex flex-col gap-[4px] items-start relative w-full">
+        <div className="border-[#1f83ff] border-b border-solid content-stretch flex h-[42px] items-center justify-between bg-transparent px-[20px] relative shrink-0 w-full">
           <div className="content-stretch flex items-center gap-[18px] relative shrink-0">
             <p className="font-['Roboto:Regular',sans-serif] font-normal text-[16px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
               Payment Entry
@@ -10363,7 +10975,7 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
                   {viewMode === "window" ? <div className="absolute inset-[-6px] rounded-[8px] border border-[#bfe4ff] bg-[#eaf8ff] -z-10" /> : null}
                 </button>
               </div>
-              <div className={`absolute bottom-[-21px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
+              <div className={`absolute bottom-[-10px] h-0 w-0 border-l-[8px] border-r-[8px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#1f83ff] transition-all ${viewMode === "dashboard" ? "left-[17px]" : "left-[63px]"}`} />
             </div>
           </div>
           <button className="content-stretch flex items-center justify-center size-[32px]" onClick={onClose} type="button">
@@ -10375,7 +10987,7 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
       </div>
 
       {viewMode === "dashboard" ? (
-        <div className="flex-1 overflow-auto px-[18px] py-[18px]" style={{ containerType: "inline-size" }}>
+        <div className="flex-1 overflow-auto px-[12px] pt-[12px] pb-[12px]" style={{ containerType: "inline-size" }}>
           <div className="grid grid-cols-9 gap-[12px]" style={{ gridAutoRows: "calc((100cqw - 96px) / 9)" }}>
             <NewRecordWidget
               onClick={() => setViewMode("window")}
@@ -10387,12 +10999,12 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
               <div
                 className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
-                style={{ fontSize: "clamp(16px, 1.4cqi, 24px)" }}
+                style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Medium',sans-serif] font-medium text-[1.75em] leading-[1.1] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
                 <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10995,7 +11607,7 @@ function Frame59({
 
   return (
     <div className="h-full relative shrink-0 w-full">
-      <div className="absolute bottom-0 left-[72px] overflow-auto right-0 top-[8px]" data-name="Canvas_WH">
+      <div className="absolute bottom-0 left-[56px] overflow-auto right-0 top-[8px]" data-name="Canvas_WH">
         {moduleId === "finance" ? (
           activeView === "fin_sales" ? (
             <FinanceSalesInvoiceView onClose={() => onNavigateView("dashboard")} />
@@ -11400,7 +12012,7 @@ export default function WidgetOnWindowHome() {
 
   return (
     <div className="content-stretch flex flex-col items-start relative size-full min-h-0 overflow-hidden" data-name="Widget on Window Home" style={{ backgroundImage: "linear-gradient(129.795deg, rgb(199, 232, 255) 20.389%, rgb(255, 255, 196) 116.98%)" }}>
-      <div className="content-stretch flex h-[80px] items-center justify-between px-[12px] relative shrink-0 w-full" data-name="Top Bar">
+      <div className="content-stretch flex h-[42px] items-center justify-between px-[12px] relative shrink-0 w-full" data-name="Top Bar">
         <div className="content-stretch flex gap-[20px] items-center relative shrink-0">
           <div className="relative">
             <button
@@ -11409,13 +12021,13 @@ export default function WidgetOnWindowHome() {
               onClick={() => setIsModuleChooserOpen((current) => !current)}
               type="button"
             >
-              <div className="content-stretch flex items-center justify-center overflow-clip p-[8px] relative rounded-[inherit]">
+              <div className="content-stretch flex items-center justify-center overflow-clip p-[6px] relative rounded-[inherit]">
                 <MaterialSymbolsMenu />
               </div>
               <div aria-hidden="true" className="absolute border-2 border-solid border-white inset-0 pointer-events-none rounded-[8px]" />
             </button>
             {isModuleChooserOpen ? (
-              <div className="absolute left-0 top-[60px] z-[220] w-[320px] rounded-[16px] border-2 border-white bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.88))] p-[12px] shadow-[0_18px_40px_rgba(15,61,97,0.14)] backdrop-blur-xl">
+              <div className="absolute left-0 top-[44px] z-[220] w-[320px] rounded-[16px] border-2 border-white bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.88))] p-[12px] shadow-[0_18px_40px_rgba(15,61,97,0.14)] backdrop-blur-xl">
                 <p className="px-[8px] pb-[10px] font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Open Module
                 </p>
