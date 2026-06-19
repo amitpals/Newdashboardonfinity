@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import {
+  AlertTriangle,
   ArrowLeft,
   BadgeCheck,
   Building2,
@@ -15,6 +16,7 @@ import {
   ExternalLink,
   FilePlus2,
   FileSpreadsheet,
+  FileText,
   Github,
   GraduationCap,
   HardDrive,
@@ -1767,7 +1769,7 @@ function DashboardSearchWidget({
     <div className="col-[1/span_9] bg-transparent py-[18px]">
       <div className="flex h-full w-full items-center justify-center">
         <div
-          className="flex w-[80%] items-center gap-[12px] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] px-[18px] py-[16px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]"
+          className="flex w-[80%] items-center gap-[12px] rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] px-[18px] py-[16px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]"
           style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
         >
           <svg className="size-[1.125em] shrink-0 text-[#1f83ff]" fill="none" viewBox="0 0 20 20">
@@ -1814,7 +1816,7 @@ function NewRecordWidget({
           <p className="font-['Roboto:Medium',sans-serif] font-medium text-[0.75em] leading-[1.2] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
             {title}
           </p>
-          <p className="mt-[0.25em] line-clamp-2 font-['Roboto:Regular',sans-serif] text-[0.625em] leading-[1.35] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="mt-[0.25em] line-clamp-2 font-['Roboto:Regular',sans-serif] text-[0.625em] leading-[1.35] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
             {subtitle}
           </p>
         </div>
@@ -1885,7 +1887,7 @@ function DynamicRowsWidget({
 
   return (
     <div
-      className={`${className} relative flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
+      className={`${className} relative flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
       ref={widgetRef}
     >
       <p className="truncate font-['Roboto:Medium',sans-serif] text-[18px] leading-[1.2] text-[#111827]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -1925,7 +1927,7 @@ function DynamicRowsWidget({
             >
               <ChevronUp className="size-[16px]" strokeWidth={1.9} />
             </button>
-            <p className="font-['Roboto:Medium',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <p className="font-['Roboto:Medium',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
               {safePageIndex + 1} of {pageCount}
             </p>
             <button
@@ -2086,7 +2088,7 @@ function Component6X2OpportunityFunnel() {
                         {stage.rate}
                       </p>
                     </div>
-                    <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] text-[34px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:SemiBold',sans-serif] font-semibold leading-[normal] text-[34px] text-black whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {stage.count}
                     </p>
                     <div className="bg-[#deebf4] h-[8px] overflow-hidden relative rounded-full shrink-0 w-full">
@@ -2371,20 +2373,20 @@ function Frame2() {
   ];
 
   const customerRows = [
-    { name: "Kumaan Pvt. Ltd.", contact: "Parkash Chaudary", stage: "Negotiation", value: "$ 92K", response: "2h" },
-    { name: "Northwind Energy", contact: "Rina Patel", stage: "Proposal", value: "$ 64K", response: "4h" },
-    { name: "Apex Med Systems", contact: "Diana Morris", stage: "Qualified", value: "$ 48K", response: "1h" },
-    { name: "UrbanAxis Retail", contact: "Kevin Smith", stage: "Negotiation", value: "$ 81K", response: "6h" },
-    { name: "Mainline Logistics", contact: "Marco Vega", stage: "Proposal", value: "$ 58K", response: "3h" },
-    { name: "Aziz Tech Group", contact: "Tariq Aziz", stage: "Discovery", value: "$ 39K", response: "8h" },
-    { name: "Acme Holdings", contact: "Hannah Lee", stage: "Negotiation", value: "$ 110K", response: "1h" },
-    { name: "Brightwave Media", contact: "Ada Owusu", stage: "Qualified", value: "$ 27K", response: "12h" },
-    { name: "Polar Foods", contact: "Owen Reilly", stage: "Discovery", value: "$ 34K", response: "5h" },
-    { name: "Vertex Industries", contact: "Sara Ng", stage: "Proposal", value: "$ 72K", response: "2h" },
-    { name: "Cascade Health", contact: "Liam Park", stage: "Negotiation", value: "$ 95K", response: "4h" },
-    { name: "Helix Robotics", contact: "Iris Tan", stage: "Discovery", value: "$ 41K", response: "9h" },
-    { name: "Northcove Marine", contact: "Ben Patel", stage: "Qualified", value: "$ 53K", response: "2h" },
-    { name: "Stellar Print", contact: "Nora Sims", stage: "Proposal", value: "$ 36K", response: "7h" },
+    { name: "Kumaan Pvt. Ltd.", contact: "Parkash Chaudary", stage: "Negotiation", value: "$92K", response: "2h" },
+    { name: "Northwind Energy", contact: "Rina Patel", stage: "Proposal", value: "$64K", response: "4h" },
+    { name: "Apex Med Systems", contact: "Diana Morris", stage: "Qualified", value: "$48K", response: "1h" },
+    { name: "UrbanAxis Retail", contact: "Kevin Smith", stage: "Negotiation", value: "$81K", response: "6h" },
+    { name: "Mainline Logistics", contact: "Marco Vega", stage: "Proposal", value: "$58K", response: "3h" },
+    { name: "Aziz Tech Group", contact: "Tariq Aziz", stage: "Discovery", value: "$39K", response: "8h" },
+    { name: "Acme Holdings", contact: "Hannah Lee", stage: "Negotiation", value: "$110K", response: "1h" },
+    { name: "Brightwave Media", contact: "Ada Owusu", stage: "Qualified", value: "$27K", response: "12h" },
+    { name: "Polar Foods", contact: "Owen Reilly", stage: "Discovery", value: "$34K", response: "5h" },
+    { name: "Vertex Industries", contact: "Sara Ng", stage: "Proposal", value: "$72K", response: "2h" },
+    { name: "Cascade Health", contact: "Liam Park", stage: "Negotiation", value: "$95K", response: "4h" },
+    { name: "Helix Robotics", contact: "Iris Tan", stage: "Discovery", value: "$41K", response: "9h" },
+    { name: "Northcove Marine", contact: "Ben Patel", stage: "Qualified", value: "$53K", response: "2h" },
+    { name: "Stellar Print", contact: "Nora Sims", stage: "Proposal", value: "$36K", response: "7h" },
   ];
 
   const socialStats = [
@@ -2467,24 +2469,24 @@ function Frame2() {
 
           {summaryCards.map((card, index) => (
             <div
-              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
               style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
               <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.label}
               </p>
-              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.value}
               </p>
-              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.meta}
               </p>
             </div>
           ))}
 
           {/* Main row: Opportunity Funnel (6) + Lead Sources (3) = 9 */}
-          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<CircleDollarSign className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -2525,7 +2527,7 @@ function Frame2() {
                   <div className="h-[5px] overflow-hidden rounded-full bg-[#e8f0f8]">
                     <div className="h-full rounded-full" style={{ width: stage.width, backgroundColor: stage.accent }} />
                   </div>
-                  <p className="mt-auto truncate font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-auto truncate font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {index === 0 ? stage.note : stage.note}
                   </p>
                 </div>
@@ -2533,7 +2535,7 @@ function Frame2() {
             </div>
 
             <div className="mt-[10px] flex items-center justify-between gap-[12px] border-t border-solid border-[#d9e2eb] pt-[8px]">
-              <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Biggest drop-off appears between qualified opportunities and proposal-ready deals.
               </p>
               <p className="whitespace-nowrap font-['Roboto:Bold',sans-serif] text-[12px] text-[#0F9D89]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -2542,7 +2544,7 @@ function Frame2() {
             </div>
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<UserRound className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -2557,10 +2559,10 @@ function Frame2() {
             </div>
 
             <div className="mt-[12px] grid grid-cols-[minmax(0,1fr)_60px] gap-[10px] border-b border-solid border-[#c5d2dd] pb-[6px]">
-              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Source
               </p>
-              <p className="text-right font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="text-right font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Count / %
               </p>
             </div>
@@ -2592,7 +2594,7 @@ function Frame2() {
             </div>
             {leadSourcesTotalPages > 1 ? (
               <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {leadSourcesStart + 1}–{leadSourcesStart + leadSourcesVisible.length} of {leadSources.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
@@ -2611,7 +2613,7 @@ function Frame2() {
           </div>
 
           {/* Support row: Inbox (3) + Calendar (3) + Tasks (3) = 9 */}
-          <div className="col-[1/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<Mail className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Unread mail and replies needing attention"
@@ -2624,11 +2626,11 @@ function Frame2() {
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.sender}>
                       {item.sender}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.subject}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.subject}>
                       {item.subject}
                     </p>
                   </div>
-                  <p className="self-center whitespace-nowrap font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="self-center whitespace-nowrap font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.time}
                   </p>
                 </div>
@@ -2636,7 +2638,7 @@ function Frame2() {
             </div>
             {inboxTotalPages > 1 ? (
               <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {inboxStart + 1}–{inboxStart + inboxVisible.length} of {inboxItems.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
@@ -2654,7 +2656,7 @@ function Frame2() {
             ) : null}
           </div>
 
-          <div className="col-[4/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[4/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<CalendarDays className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Today's schedule and upcoming events"
@@ -2670,7 +2672,7 @@ function Frame2() {
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.title}>
                       {item.title}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.meta}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={item.meta}>
                       {item.meta}
                     </p>
                   </div>
@@ -2679,7 +2681,7 @@ function Frame2() {
             </div>
             {calendarTotalPages > 1 ? (
               <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {calendarStart + 1}–{calendarStart + calendarVisible.length} of {calendarItems.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
@@ -2697,7 +2699,7 @@ function Frame2() {
             ) : null}
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<NotebookText className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Today's follow-ups and assigned work"
@@ -2710,7 +2712,7 @@ function Frame2() {
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.title}>
                       {task.title}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.meta}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={task.meta}>
                       {task.meta}
                     </p>
                   </div>
@@ -2722,7 +2724,7 @@ function Frame2() {
             </div>
             {taskTotalPages > 1 ? (
               <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Showing {taskStart + 1}–{taskStart + taskVisible.length} of {taskItems.length}
                 </p>
                 <div className="flex items-center gap-[6px]">
@@ -2741,7 +2743,7 @@ function Frame2() {
           </div>
 
           {/* Bottom row: Customer activity (6) + Social (3) = 9 */}
-          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[14px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<UserRound className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Accounts currently moving through the pipeline"
@@ -2755,7 +2757,7 @@ function Frame2() {
                 { label: "Deal Value", align: "right" as const },
                 { label: "Response", align: "right" as const },
               ].map((heading) => (
-                <p className={`truncate font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
+                <p className={`truncate font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A] ${heading.align === "right" ? "text-right" : ""}`} key={heading.label} style={{ fontVariationSettings: "'wdth' 100" }} title={heading.label}>
                   {heading.label}
                 </p>
               ))}
@@ -2766,7 +2768,7 @@ function Frame2() {
                   <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.name}>
                     {row.name}
                   </p>
-                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.contact}>
+                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.contact}>
                     {row.contact}
                   </p>
                   <p className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.stage}>
@@ -2775,14 +2777,14 @@ function Frame2() {
                   <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[13px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.value}>
                     {row.value}
                   </p>
-                  <p className="truncate text-right font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.response}>
+                  <p className="truncate text-right font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.response}>
                     {row.response}
                   </p>
                 </div>
               ))}
             </div>
             <div className="mt-[8px] flex items-center justify-between border-t border-solid border-[#d9e2eb] pt-[8px]">
-              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Showing {customerStart + 1}–{customerStart + customerVisible.length} of {customerRows.length} active accounts
               </p>
               <div className="flex items-center gap-[8px]">
@@ -2799,7 +2801,7 @@ function Frame2() {
             </div>
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <DashboardWidgetHeader
               icon={<Send className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Instagram performance this month"
@@ -2834,7 +2836,7 @@ function Frame2() {
             <div className="mt-[12px] grid flex-1 grid-cols-2 gap-[10px]">
               {socialStats.map((item) => (
                 <div className="flex flex-col rounded-[12px] border border-solid border-[#d9e2eb] bg-white/80 px-[12px] py-[10px]" key={item.label}>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
                   <p className="mt-[4px] font-['Roboto:Bold',sans-serif] text-[20px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -3989,7 +3991,7 @@ function ActivityChangesModal({
             <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
               {activity.title}
             </p>
-            <p className="mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <p className="mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
               Revision changes
             </p>
           </div>
@@ -4092,7 +4094,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
       opportunity: "Apex Modernization",
       company: "Apex Med Systems",
       stage: "Proposal",
-      amount: "$ 124,000",
+      amount: "$124,000",
       owner: "Mack Rod",
       nextStep: "Pricing review due",
       contact: "Diana Morris",
@@ -4127,7 +4129,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
       opportunity: "Northwind Expansion",
       company: "Northwind Energy",
       stage: "Qualified",
-      amount: "$ 81,500",
+      amount: "$81,500",
       owner: "Maya Chen",
       nextStep: "Schedule discovery call",
       contact: "Rina Patel",
@@ -4162,7 +4164,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
       opportunity: "UrbanAxis Rollout",
       company: "UrbanAxis Retail",
       stage: "Negotiation",
-      amount: "$ 212,800",
+      amount: "$212,800",
       owner: "Kevin Smith",
       nextStep: "Client legal feedback",
       contact: "Kevin Howard",
@@ -4197,7 +4199,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
       opportunity: "Kumaan Renewal",
       company: "Kumaan Pvt. Ltd.",
       stage: "Proposal",
-      amount: "$ 99,394",
+      amount: "$99,394",
       owner: "Parkash Chaudary",
       nextStep: "Send revised quote",
       contact: "Parkash Chaudary",
@@ -4232,7 +4234,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
       opportunity: "Apex Support Expansion",
       company: "Apex Med Systems",
       stage: "Qualified",
-      amount: "$ 58,600",
+      amount: "$58,600",
       owner: "Mack Rod",
       nextStep: "Prepare solution outline",
       contact: "Diana Morris",
@@ -4439,7 +4441,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
 
               <div className="mt-[16px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_0.9fr_0.9fr_0.9fr_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
                 {["Opportunity", "Company", "Stage", "Amount", "Owner", "Next Step"].map((heading) => (
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {heading}
                   </p>
                 ))}
@@ -4463,7 +4465,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.owner}
                   </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.nextStep}
                   </p>
                 </div>
@@ -4577,7 +4579,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                     <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {row.amount}
                     </p>
-                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {row.owner}
                     </p>
                   </div>
@@ -4596,7 +4598,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                           <p className="truncate font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.opportunity}
                           </p>
-                          <p className="mt-[5px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="mt-[5px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.company}
                           </p>
                         </div>
@@ -4620,7 +4622,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         </div>
 
                         <div className="min-w-0">
-                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {row.nextStep}
                           </p>
                         </div>
@@ -4671,7 +4673,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 </div>
                 <div className="grid w-full grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))] gap-[12px]">
                   <div className="rounded-[14px] border border-solid border-[#dfe8ef] bg-[linear-gradient(135deg,#f8fcff_0%,#eef6fb_100%)] px-[16px] py-[14px]">
-                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Company
                     </p>
                     <p className="mt-[4px] font-['Roboto:Bold',sans-serif] font-bold text-[24px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -4728,7 +4730,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         }`}
                         key={card.title}
                       >
-                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {card.title}
                         </p>
                         <p
@@ -4741,7 +4743,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         </p>
                         <p
                           className={`mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] leading-[18px] ${
-                            probabilityTone ? probabilityTone.meta : "text-[#5f7283]"
+                            probabilityTone ? probabilityTone.meta : "text-[#41576A]"
                           }`}
                           style={{ fontVariationSettings: "'wdth' 100" }}
                         >
@@ -4777,7 +4779,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                 <div className="grid w-full grid-cols-[120px_minmax(0,1fr)] gap-x-[14px] gap-y-[10px]">
                   {selectedOpportunity.snapshot.map((item) => (
                     <Fragment key={`${selectedOpportunity.id}-${item.label}`}>
-                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {item.label}
                       </p>
                       <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -4802,7 +4804,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                       <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         Recent Activity
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {selectedOpportunity.activities.length} updates
                       </p>
                     </div>
@@ -4823,7 +4825,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                                 {activity.title}
                               </p>
                             </div>
-                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5F7283] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                               {activity.meta}
                             </p>
                           </div>
@@ -4857,7 +4859,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                             <p className="font-['Roboto:Bold',sans-serif] font-bold text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               {opportunity.opportunity}
                             </p>
-                            <p className="mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="mt-[4px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               {opportunity.contact} • {opportunity.owner}
                             </p>
                           </div>
@@ -4867,7 +4869,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                         </div>
                         <div className="mt-[12px] flex items-end justify-between gap-[12px]">
                           <div>
-                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Value
                             </p>
                             <p className="font-['Roboto:Bold',sans-serif] font-bold text-[20px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -4875,7 +4877,7 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Close date
                             </p>
                             <p className="font-['Roboto:Bold',sans-serif] font-bold text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -5104,8 +5106,8 @@ function SalesProposalView({
               <div className="content-stretch flex items-center flex-wrap gap-x-[20px] gap-y-[10px] relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
                   <div className="content-stretch flex items-center gap-[6px]">
-                    <UserRound className="size-[14px] text-[#748494]" strokeWidth={1.8} />
-                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <UserRound className="size-[14px] text-[#5F7283]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Contact Person
                     </p>
                   </div>
@@ -5115,7 +5117,7 @@ function SalesProposalView({
                 </div>
                 <div className="h-[34px] w-px bg-[#d9e5ee]" />
                 <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Proposal ID
                   </p>
                   <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -5124,7 +5126,7 @@ function SalesProposalView({
                 </div>
                 <div className="h-[34px] w-px bg-[#d9e5ee]" />
                 <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Total Value
                   </p>
                   <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -5134,8 +5136,8 @@ function SalesProposalView({
                 <div className="h-[34px] w-px bg-[#d9e5ee]" />
                 <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
                   <div className="content-stretch flex items-center gap-[6px]">
-                    <CalendarClock className="size-[14px] text-[#748494]" strokeWidth={1.8} />
-                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <CalendarClock className="size-[14px] text-[#5F7283]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Valid Until
                     </p>
                   </div>
@@ -5146,8 +5148,8 @@ function SalesProposalView({
                 <div className="h-[34px] w-px bg-[#d9e5ee]" />
                 <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
                   <div className="content-stretch flex items-center gap-[6px]">
-                    <Eye className="size-[14px] text-[#748494]" strokeWidth={1.8} />
-                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <Eye className="size-[14px] text-[#5F7283]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Last Viewed
                     </p>
                   </div>
@@ -5158,8 +5160,8 @@ function SalesProposalView({
                 <div className="h-[34px] w-px bg-[#d9e5ee]" />
                 <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0">
                   <div className="content-stretch flex items-center gap-[6px]">
-                    <Percent className="size-[14px] text-[#748494]" strokeWidth={1.8} />
-                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <Percent className="size-[14px] text-[#5F7283]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Probability
                     </p>
                   </div>
@@ -5227,7 +5229,7 @@ function SalesProposalView({
                   ) : null}
                   <div className="grid grid-cols-[minmax(0,2.2fr)_0.7fr_0.9fr_0.8fr_0.9fr] gap-[12px] w-full px-[12px] pb-[8px] border-b border-solid border-[#c5d2dd]">
                     {["Item", "Quantity", "Price", "Discount", "Total"].map((heading) => (
-                      <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                         {heading}
                       </p>
                     ))}
@@ -5291,7 +5293,7 @@ function SalesProposalView({
                       { label: "Total", value: isEditingCurrentDraft ? lineTotals.total : selectedProposal.totals.total },
                     ].map((row) => (
                       <div className="content-stretch flex items-center justify-between py-[6px] w-full" key={row.label}>
-                        <p className={`font-['Roboto:Regular',sans-serif] ${row.label === "Total" ? "font-bold text-[16px] text-[#102c3f]" : "font-normal text-[14px] text-[#748494]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className={`font-['Roboto:Regular',sans-serif] ${row.label === "Total" ? "font-bold text-[16px] text-[#102c3f]" : "font-normal text-[14px] text-[#5F7283]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                           {row.label}
                         </p>
                         <p className={`font-['Roboto:Regular',sans-serif] ${row.label === "Total" ? "font-bold text-[16px] text-[#102c3f]" : "font-normal text-[14px] text-[#102c3f]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -5313,11 +5315,11 @@ function SalesProposalView({
                               {activity.title}
                             </p>
                           </div>
-                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="mt-[6px] font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {activity.description}
                           </p>
                           <div className="mt-[8px] flex items-center gap-[10px]">
-                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               By {activity.actor}
                             </p>
                             {activity.changes?.length ? (
@@ -5331,7 +5333,7 @@ function SalesProposalView({
                             ) : null}
                           </div>
                         </div>
-                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#748494] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5F7283] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {activity.meta}
                         </p>
                       </div>
@@ -5723,14 +5725,14 @@ function InboxView({ onClose }: { onClose: () => void }) {
                       </div>
                       <div className="flex items-center gap-[8px]">
                         <button
-                          className="rounded-[999px] border border-solid border-[#d4e3ee] bg-white px-[12px] py-[7px] text-[12px] text-[#5f7283] hover:bg-[#f7fbff]"
+                          className="rounded-[999px] border border-solid border-[#d4e3ee] bg-white px-[12px] py-[7px] text-[12px] text-[#41576A] hover:bg-[#f7fbff]"
                           onClick={clearFilters}
                           type="button"
                         >
                           Clear
                         </button>
                         <button
-                          className="flex size-[30px] items-center justify-center rounded-[999px] text-[#5f7283] hover:bg-[#eef5fa]"
+                          className="flex size-[30px] items-center justify-center rounded-[999px] text-[#41576A] hover:bg-[#eef5fa]"
                           onClick={() => setIsFilterOpen(false)}
                           type="button"
                         >
@@ -5762,7 +5764,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                                 className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
                                   filterState.datePreset === option.id
                                     ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
-                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                    : "border-[#dbe7ef] bg-white text-[#41576A] hover:bg-[#f5fbff]"
                                 }`}
                                 key={option.id}
                                 onClick={() => toggleDatePreset(option.id)}
@@ -5832,7 +5834,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                                 className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
                                   filterState.actionTaken === option
                                     ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
-                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                    : "border-[#dbe7ef] bg-white text-[#41576A] hover:bg-[#f5fbff]"
                                 }`}
                                 key={option}
                                 onClick={() => toggleFilterField("actionTaken", option)}
@@ -5862,7 +5864,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                                 className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
                                   filterState.readStatus === option
                                     ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
-                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                    : "border-[#dbe7ef] bg-white text-[#41576A] hover:bg-[#f5fbff]"
                                 }`}
                                 key={option}
                                 onClick={() => toggleFilterField("readStatus", option)}
@@ -5884,7 +5886,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                                 className={`rounded-[999px] border border-solid px-[12px] py-[7px] text-[12px] transition-colors ${
                                   filterState.documentType === option
                                     ? "border-[#0083da] bg-[#eaf6ff] text-[#0083da]"
-                                    : "border-[#dbe7ef] bg-white text-[#5f7283] hover:bg-[#f5fbff]"
+                                    : "border-[#dbe7ef] bg-white text-[#41576A] hover:bg-[#f5fbff]"
                                 }`}
                                 key={option}
                                 onClick={() => toggleFilterField("documentType", option)}
@@ -5904,7 +5906,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                       </p>
                       <div className="flex items-center gap-[10px]">
                         <button
-                          className="whitespace-nowrap rounded-[999px] border border-solid border-[#d4e3ee] bg-white px-[14px] py-[8px] text-[13px] text-[#5f7283] hover:bg-[#f7fbff]"
+                          className="whitespace-nowrap rounded-[999px] border border-solid border-[#d4e3ee] bg-white px-[14px] py-[8px] text-[13px] text-[#41576A] hover:bg-[#f7fbff]"
                           onClick={() => setIsFilterOpen(false)}
                           type="button"
                         >
@@ -5939,7 +5941,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                 <input checked={allSelected} className="size-[16px] rounded-[4px] border border-solid border-[#cbd8e3]" onChange={toggleAllMessages} type="checkbox" />
               </label>
               {["Channel", "Communication", "Contact / Company", "Priority", "Received", "Status"].map((heading) => (
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -5977,7 +5979,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                       <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {message.subject}
                       </p>
-                      <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {message.preview}
                       </p>
                     </div>
@@ -5985,7 +5987,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                       <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {message.contact}
                       </p>
-                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {message.company}
                       </p>
                     </div>
@@ -5998,11 +6000,11 @@ function InboxView({ onClose }: { onClose: () => void }) {
                       <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {message.receivedAt}
                       </p>
-                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         Owner: {message.owner}
                       </p>
                     </div>
-                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {message.status}
                     </p>
                   </button>
@@ -6040,7 +6042,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                     { label: "Sentiment", value: selectedMessage.sentiment },
                   ].map((item) => (
                     <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {item.label}
                       </p>
                       <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6054,7 +6056,7 @@ function InboxView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     CRM Recommendation
                   </p>
-                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[14px] leading-[22px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {selectedMessage.recommendation}
                   </p>
                 </div>
@@ -6369,7 +6371,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
     seats: "85 of 100 seats",
     renewsOn: "12 Sep 2026",
     billingCycle: "Annual",
-    contractValue: "$ 42,000 / year",
+    contractValue: "$42,000 / year",
   };
   const subscriptionModules = [
     { name: "Sales CRM", status: "Active", users: 38, addedOn: "12 Sep 2024", tone: "bg-[#e7f7ef] text-[#18734d]" },
@@ -6377,10 +6379,10 @@ function CustomersView({ onClose }: { onClose: () => void }) {
     { name: "Billing & Invoicing", status: "Active", users: 12, addedOn: "12 Sep 2024", tone: "bg-[#e7f7ef] text-[#18734d]" },
     { name: "Analytics Pro", status: "Active", users: 8, addedOn: "18 Jan 2026", tone: "bg-[#e7f7ef] text-[#18734d]" },
     { name: "Field Service", status: "Trial", users: 5, addedOn: "02 May 2026", tone: "bg-[#fff2df] text-[#9a6500]" },
-    { name: "Marketing Hub", status: "Not enabled", users: 0, addedOn: "—", tone: "bg-[#eef2f6] text-[#5f7283]" },
+    { name: "Marketing Hub", status: "Not enabled", users: 0, addedOn: "—", tone: "bg-[#eef2f6] text-[#41576A]" },
   ];
   const nextPayment = {
-    amount: "$ 3,500.00",
+    amount: "$3,500.00",
     dueOn: "01 Jul 2026",
     daysAway: 34,
     method: "ACH • HDFC •••• 4421",
@@ -6388,10 +6390,10 @@ function CustomersView({ onClose }: { onClose: () => void }) {
     description: "Monthly subscription • Jul 2026 cycle",
   };
   const subscriptionHistory = [
-    { date: "01 Jun 2026", description: "Monthly subscription • Jun 2026", amount: "$ 3,500.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
-    { date: "01 May 2026", description: "Monthly subscription • May 2026", amount: "$ 3,500.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
-    { date: "20 Apr 2026", description: "Analytics Pro add-on (8 seats)", amount: "$ 640.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
-    { date: "01 Apr 2026", description: "Monthly subscription • Apr 2026", amount: "$ 3,200.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
+    { date: "01 Jun 2026", description: "Monthly subscription • Jun 2026", amount: "$3,500.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
+    { date: "01 May 2026", description: "Monthly subscription • May 2026", amount: "$3,500.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
+    { date: "20 Apr 2026", description: "Analytics Pro add-on (8 seats)", amount: "$640.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
+    { date: "01 Apr 2026", description: "Monthly subscription • Apr 2026", amount: "$3,200.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]" },
   ];
   const rightPanelWidths: Record<typeof activeRightPanel, string> = {
     activity: "440px",
@@ -6487,23 +6489,23 @@ function CustomersView({ onClose }: { onClose: () => void }) {
             />
             {summaryCards.map((card) => (
               <div
-                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
-                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.meta}
                 </p>
               </div>
             ))}
 
-            <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+            <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
               <div className="flex items-center justify-between gap-[12px]">
                 <DashboardWidgetHeader
                   icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -6517,7 +6519,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
 
               <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_1.1fr_0.95fr_0.95fr_0.9fr_0.8fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
                 {["Customer", "Contact", "Segment", "Owner", "Balance", "Health"].map((heading) => (
-                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {heading}
                   </p>
                 ))}
@@ -6540,7 +6542,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.balance}
                   </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.health}
                   </p>
                 </button>
@@ -6612,14 +6614,14 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                     <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {fieldValues["Primary Contact"] ?? ""}
                     </p>
-                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {fieldValues["Email"] ?? ""}
                     </p>
-                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {fieldValues["Phone"] ?? ""}
                     </p>
                   </div>
-                  <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {fieldValues["Customer Name"] ?? ""} • {fieldValues["Customer Type"] ?? ""}
                   </p>
                 </div>
@@ -6761,7 +6763,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                     <div className="min-h-0 flex-1 overflow-auto px-[18px] py-[14px]">
                       {activeRightPanel === "activity" ? (
                         <div className="flex flex-col gap-[12px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {isNewCustomer ? "Lead to customer journey" : "Recent customer activity"}
                           </p>
                           <div className="mt-[2px] flex flex-col gap-[12px]">
@@ -6780,7 +6782,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                       {isNewCustomer ? "Journey" : "Update"}
                                     </span>
                                   </div>
-                                  <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {item.meta}
                                   </p>
                                 </div>
@@ -6792,7 +6794,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
 
                       {activeRightPanel === "actions" ? (
                         <div className="flex flex-col gap-[14px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             Quick actions and account snapshot for this customer.
                           </p>
                           <div className="flex flex-wrap gap-[10px]">
@@ -6815,7 +6817,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                               { label: "Account Health", value: "Healthy" },
                             ].map((item) => (
                               <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={item.label}>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {item.label}
                                 </p>
                                 <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6829,7 +6831,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
 
                       {activeRightPanel === "subscription" ? (
                         <div className="flex flex-col gap-[14px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             Active plan, enabled modules, and upcoming payment for this customer.
                           </p>
 
@@ -6839,7 +6841,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                 <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {subscriptionPlan.name}
                                 </p>
-                                <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {subscriptionPlan.tier} • {subscriptionPlan.seats}
                                 </p>
                               </div>
@@ -6849,7 +6851,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                             </div>
                             <div className="mt-[10px] grid grid-cols-2 gap-x-[14px] gap-y-[6px]">
                               <div>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Renews on
                                 </p>
                                 <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6857,7 +6859,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                 </p>
                               </div>
                               <div>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Contract value
                                 </p>
                                 <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6880,16 +6882,16 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                               <p className="font-['Roboto:Bold',sans-serif] text-[24px] text-[#0b6b45]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 {nextPayment.amount}
                               </p>
-                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 due {nextPayment.dueOn}
                               </p>
                             </div>
-                            <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               {nextPayment.description}
                             </p>
                             <div className="mt-[10px] grid grid-cols-2 gap-x-[14px] gap-y-[6px] border-t border-solid border-[#d9ebde] pt-[10px]">
                               <div>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Payment method
                                 </p>
                                 <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6897,7 +6899,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                 </p>
                               </div>
                               <div>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Invoice reference
                                 </p>
                                 <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -6912,7 +6914,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                               <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 Active Modules
                               </p>
-                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 {subscriptionModules.filter((m) => m.status === "Active").length} of {subscriptionModules.length} enabled
                               </p>
                             </div>
@@ -6926,7 +6928,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                     <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {module.name}
                                     </p>
-                                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {module.users > 0 ? `${module.users} active users` : "No users assigned"} • Added {module.addedOn}
                                     </p>
                                   </div>
@@ -6954,7 +6956,7 @@ function CustomersView({ onClose }: { onClose: () => void }) {
                                     <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {entry.date}
                                     </p>
-                                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {entry.description}
                                     </p>
                                   </div>
@@ -7134,7 +7136,7 @@ function ProspectsView() {
           </div>
           <div className="content-stretch flex items-center gap-[10px] relative shrink-0">
             <div className="rounded-[999px] border border-solid border-[#d7e7f6] bg-white px-[12px] py-[7px]">
-              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#5f7283] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="font-['Roboto:Regular',sans-serif] font-normal text-[12px] text-[#41576A] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Last 30 days
               </p>
             </div>
@@ -7153,7 +7155,7 @@ function ProspectsView() {
           />
           {summaryCards.map((card, index) => (
             <div
-              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
               style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
@@ -7162,7 +7164,7 @@ function ProspectsView() {
                   <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.value}
                   </p>
                 </div>
@@ -7175,13 +7177,13 @@ function ProspectsView() {
                   </p>
                 </div>
               </div>
-              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.meta}
               </p>
             </div>
           ))}
 
-          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7204,7 +7206,7 @@ function ProspectsView() {
 
             <div className="mt-[18px] grid grid-cols-[minmax(0,1.8fr)_minmax(0,1.3fr)_0.9fr_0.8fr_0.9fr_0.9fr_0.9fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
               {["Company", "Contact", "Source", "Score", "Stage", "Value", "Response"].map((heading) => (
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -7217,7 +7219,7 @@ function ProspectsView() {
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {prospect.company}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Owner: {prospect.owner}
                     </p>
                   </div>
@@ -7243,7 +7245,7 @@ function ProspectsView() {
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {prospect.value}
                   </p>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {prospect.responseTime}
                   </p>
                 </div>
@@ -7251,7 +7253,7 @@ function ProspectsView() {
             </div>
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<CalendarClock className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7268,7 +7270,7 @@ function ProspectsView() {
                 { label: "Needs Follow-up", value: "6" },
               ].map((item) => (
                 <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/80 px-[14px] py-[12px]" key={item.label}>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
                   <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[22px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7283,7 +7285,7 @@ function ProspectsView() {
                 <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   Fastest Sources
                 </p>
-                <Hourglass className="size-[16px] text-[#5f7283]" strokeWidth={1.8} />
+                <Hourglass className="size-[16px] text-[#41576A]" strokeWidth={1.8} />
               </div>
               <div className="mt-[10px] flex flex-col gap-[10px]">
                 {[
@@ -7296,7 +7298,7 @@ function ProspectsView() {
                       <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {item.label}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {item.share}
                       </p>
                     </div>
@@ -7309,7 +7311,7 @@ function ProspectsView() {
             </div>
           </div>
 
-          <div className="col-[1/span_4] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_4] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<Percent className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7337,7 +7339,7 @@ function ProspectsView() {
             </div>
           </div>
 
-          <div className="col-[5/span_5] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[5/span_5] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<BadgeCheck className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7352,7 +7354,7 @@ function ProspectsView() {
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {bucket.label}
                   </p>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {bucket.count} leads
                   </p>
                   <div className="h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
@@ -7369,13 +7371,13 @@ function ProspectsView() {
                 { label: "Focus queue", value: "6 prospects", meta: "Score 70-84, no follow-up" },
               ].map((item) => (
                 <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]" key={item.label}>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
                   <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.value}
                   </p>
-                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.meta}
                   </p>
                 </div>
@@ -7546,7 +7548,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
           />
           {summaryCards.map((card, index) => (
             <div
-              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
               style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
@@ -7555,7 +7557,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.label}
                   </p>
-                  <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                     {card.value}
                   </p>
                 </div>
@@ -7568,13 +7570,13 @@ function TasksView({ onClose }: { onClose: () => void }) {
                   </p>
                 </div>
               </div>
-              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.meta}
               </p>
             </div>
           ))}
 
-          <div className="col-[1/span_6] row-span-2 flex h-full min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex h-full min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<NotebookText className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7597,7 +7599,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_0.8fr_1fr_1fr_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
               {["Task", "Account", "Priority", "Status", "Due", "Assignee"].map((heading) => (
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -7610,7 +7612,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                     <p className="truncate font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {task.title}
                     </p>
-                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Client: {task.client}
                     </p>
                   </div>
@@ -7625,7 +7627,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                       {task.status}
                     </span>
                   </div>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {task.due}
                   </p>
                   <p className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -7636,7 +7638,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<NotebookText className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7662,7 +7664,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                         <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.title}
                         </p>
-                        <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="mt-[4px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.meta}
                         </p>
                       </div>
@@ -7743,7 +7745,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="col-[1/span_4] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_4] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<UserRound className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7758,7 +7760,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {person.label}
                   </p>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {person.count} open
                   </p>
                   <div className="h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
@@ -7769,7 +7771,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="col-[5/span_5] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[5/span_5] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<CalendarDays className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -7788,7 +7790,7 @@ function TasksView({ onClose }: { onClose: () => void }) {
                     <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {item.value}
                     </p>
-                    <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {item.label}
                     </p>
                   </div>
@@ -7803,13 +7805,13 @@ function TasksView({ onClose }: { onClose: () => void }) {
                 { label: "Team note", value: "Proposal edits peaking", meta: "Most volume from pricing changes" },
               ].map((item) => (
                 <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]" key={item.label}>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
                   <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.value}
                   </p>
-                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.meta}
                   </p>
                 </div>
@@ -7980,23 +7982,23 @@ function CalendarView({ onClose }: { onClose: () => void }) {
           />
           {summaryCards.map((card, index) => (
             <div
-              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+              className={`${summarySpans[index]} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
               key={card.label}
               style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
             >
               <p className="font-['Roboto:Regular',sans-serif] font-normal text-[clamp(16px,calc(var(--dash-inline-size,100vw)*0.011375),17px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.label}
               </p>
-              <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.value}
               </p>
-              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {card.meta}
               </p>
             </div>
           ))}
 
-          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_6] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-center justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<CalendarDays className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -8005,7 +8007,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
               />
               <div className="flex items-center gap-[8px]">
                 <button className="flex size-[24px] items-center justify-center rounded-[999px] border border-solid border-[#d7e7f6] bg-white" type="button">
-                  <ChevronLeft className="size-[14px] text-[#5f7283]" strokeWidth={1.8} />
+                  <ChevronLeft className="size-[14px] text-[#41576A]" strokeWidth={1.8} />
                 </button>
                 <div className="rounded-[999px] border border-solid border-[#d7e7f6] bg-white px-[14px] py-[8px]">
                   <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8013,7 +8015,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                   </p>
                 </div>
                 <button className="flex size-[24px] items-center justify-center rounded-[999px] border border-solid border-[#d7e7f6] bg-white" type="button">
-                  <ChevronRight className="size-[14px] text-[#5f7283]" strokeWidth={1.8} />
+                  <ChevronRight className="size-[14px] text-[#41576A]" strokeWidth={1.8} />
                 </button>
               </div>
             </div>
@@ -8041,7 +8043,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                         <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[13px] leading-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.title}
                         </p>
-                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                        <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                           {item.meta}
                         </p>
                       </div>
@@ -8053,7 +8055,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[7/span_3] row-span-2 flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<CalendarClock className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -8064,7 +8066,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[16px] rounded-[12px] border border-solid border-[#d9e2eb] bg-white/80 px-[14px] py-[12px]">
               <div className="flex items-center justify-between">
-                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {currentAgendaPage.day}
                 </p>
                 <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#1f83ff]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8074,7 +8076,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
               <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[18px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {currentAgendaPage.nextUpTitle}
               </p>
-              <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {currentAgendaPage.nextUpMeta}
               </p>
             </div>
@@ -8082,7 +8084,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             <div className="mt-[14px] min-h-0 flex-1 overflow-auto pr-[4px]">
               {currentAgendaPage.items.map((item) => (
                 <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-[10px] border-b border-solid border-[#d9e2eb] py-[10px] first:pt-0 last:border-b-0 last:pb-0" key={`${item.time}-${item.title}`}>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.time}
                   </p>
                   <div className="min-w-0">
@@ -8094,7 +8096,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                         {item.title}
                       </p>
                     </div>
-                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {item.type} • {item.contact}
                     </p>
                   </div>
@@ -8103,7 +8105,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             </div>
 
             <div className="mt-[16px] flex items-center justify-between gap-[12px] border-t border-solid border-[#d9e2eb] pt-[12px]">
-              <p className="min-w-0 font-['Roboto:Regular',sans-serif] text-[13px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="min-w-0 font-['Roboto:Regular',sans-serif] text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {currentAgendaPage.helper}
               </p>
               <div className="flex shrink-0 items-center gap-[8px]">
@@ -8130,7 +8132,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="col-[1/span_4] row-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[1/span_4] row-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<Hourglass className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -8145,7 +8147,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.label}
                   </p>
-                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {row.value}
                   </p>
                   <div className="h-[10px] overflow-hidden rounded-full bg-[#e8f0f8]">
@@ -8156,7 +8158,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
             </div>
           </div>
 
-          <div className="col-[5/span_5] row-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
+          <div className="col-[5/span_5] row-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[18px] shadow-[0_10px_24px_rgba(15,61,97,0.06)]">
             <div className="flex items-start justify-between gap-[12px]">
               <DashboardWidgetHeader
                 icon={<Mail className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -8167,7 +8169,7 @@ function CalendarView({ onClose }: { onClose: () => void }) {
 
             <div className="mt-[18px] grid grid-cols-[minmax(0,2fr)_110px_1fr] gap-[12px] border-b border-solid border-[#c5d2dd] px-[10px] pb-[10px]">
               {["Follow-up", "Due", "Owner"].map((heading) => (
-                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="font-['Roboto:Medium',sans-serif] font-medium text-[11px] capitalize text-[#41576A]" key={heading} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {heading}
                 </p>
               ))}
@@ -8196,13 +8198,13 @@ function CalendarView({ onClose }: { onClose: () => void }) {
                 { label: "Longest free gap", value: "1.5h", meta: "Today" },
               ].map((item) => (
                 <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white/75 px-[14px] py-[12px]" key={item.label}>
-                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.label}
                   </p>
                   <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[19px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.value}
                   </p>
-                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                     {item.meta}
                   </p>
                 </div>
@@ -8232,16 +8234,16 @@ function FinanceMetricCard({
 }) {
   return (
     <div
-      className={`${className} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${accent}`}
+      className={`${className} rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${accent}`}
       style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
         {label}
       </p>
-      <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
         {value}
       </p>
-      <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
         {meta}
       </p>
     </div>
@@ -8268,7 +8270,7 @@ function FinanceTableCard({
   const isRailHeader = headerVariant === "rail";
   return (
     <div
-      className={`${className} flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
+      className={`${className} flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
       style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       <DashboardWidgetHeader icon={icon} subtitle={subtitle} title={title} />
@@ -8284,8 +8286,8 @@ function FinanceTableCard({
           <p
             className={
               isRailHeader
-                ? "font-['Roboto:Medium',sans-serif] font-medium text-[0.625em] uppercase tracking-[0.04em] text-[#5f7283]"
-                : "font-['Roboto:Regular',sans-serif] text-[0.75em] capitalize text-[#748494]"
+                ? "font-['Roboto:Medium',sans-serif] font-medium text-[0.6875em] capitalize text-[#41576A]"
+                : "font-['Roboto:Regular',sans-serif] text-[0.75em] capitalize text-[#5F7283]"
             }
             key={heading}
             style={{ fontVariationSettings: "'wdth' 100" }}
@@ -8303,7 +8305,7 @@ function FinanceTableCard({
           >
             {row.map((cell, cellIndex) => (
               <p
-                className={`${cellIndex === 0 ? "font-['Roboto:Bold',sans-serif] text-[#102c3f]" : "font-['Roboto:Regular',sans-serif] text-[#5f7283]"} text-[0.75em]`}
+                className={`${cellIndex === 0 ? "font-['Roboto:Bold',sans-serif] text-[#102c3f]" : "font-['Roboto:Regular',sans-serif] text-[#41576A]"} text-[0.75em]`}
                 key={`${title}-${rowIndex}-${cellIndex}`}
                 style={{ fontVariationSettings: "'wdth' 100" }}
               >
@@ -8332,7 +8334,7 @@ function FinanceListCard({
 }) {
   return (
     <div
-      className={`${className} flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
+      className={`${className} flex min-h-0 flex-col overflow-hidden rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)]`}
       style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
     >
       <DashboardWidgetHeader icon={icon} subtitle={subtitle} title={title} />
@@ -8343,7 +8345,7 @@ function FinanceListCard({
               <p className="font-['Roboto:Bold',sans-serif] text-[0.75em] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {item.label}
               </p>
-              <p className="mt-[0.125em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="mt-[0.125em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {item.meta}
               </p>
             </div>
@@ -8406,10 +8408,10 @@ function FinanceWindowShell({
 function FinanceModuleDashboard() {
   return (
     <FinancePageShell>
-      <FinanceMetricCard accent="border-[#cde9ff]" label="Cash Position" meta="Across bank accounts and cashbooks" value="$ 1.82M" />
-      <FinanceMetricCard accent="border-[#f3dfb8]" label="Receivables Due" meta="Customer invoices due this month" value="$ 426K" valueClass="text-[#9a5c00]" />
-      <FinanceMetricCard accent="border-[#f5cfcf]" label="Payables Due" meta="Vendor obligations scheduled this month" value="$ 281K" valueClass="text-[#b04343]" />
-      <FinanceMetricCard accent="border-[#cfead9]" className="col-span-3" label="Tax Exposure" meta="Net GST/VAT position before filing adjustments" value="$ 84K" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="border-[#cde9ff]" label="Cash Position" meta="Across bank accounts and cashbooks" value="$1.82M" />
+      <FinanceMetricCard accent="border-[#f3dfb8]" label="Receivables Due" meta="Customer invoices due this month" value="$426K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="border-[#f5cfcf]" label="Payables Due" meta="Vendor obligations scheduled this month" value="$281K" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="border-[#cfead9]" className="col-span-3" label="Tax Exposure" meta="Net GST/VAT position before filing adjustments" value="$84K" valueClass="text-[#0b6b45]" />
 
       <FinanceTableCard
         className="col-[1/span_5] row-span-2"
@@ -8427,7 +8429,7 @@ function FinanceModuleDashboard() {
         className="col-[6/span_4] row-span-2"
         items={[
           { label: "Vendor payroll batch", value: "Tomorrow", meta: "Primary operating account • balance check pending" },
-          { label: "Quarterly tax set-aside", value: "$ 42K", meta: "Hold back before next vendor release" },
+          { label: "Quarterly tax set-aside", value: "$42K", meta: "Hold back before next vendor release" },
           { label: "Insurance reimbursement", value: "Expected Fri", meta: "Will improve short-term cash position" },
         ]}
         icon={<WalletCards className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -8438,9 +8440,9 @@ function FinanceModuleDashboard() {
       <FinanceListCard
         className="col-[1/span_3] row-span-2"
         items={[
-          { label: "Operating account", value: "$ 982K", meta: "Axis Bank • reconciled today" },
-          { label: "Collections account", value: "$ 488K", meta: "HDFC • 3 unmatched deposits" },
-          { label: "Petty cash network", value: "$ 12K", meta: "Across 4 active branches" },
+          { label: "Operating account", value: "$982K", meta: "Axis Bank • reconciled today" },
+          { label: "Collections account", value: "$488K", meta: "HDFC • 3 unmatched deposits" },
+          { label: "Petty cash network", value: "$12K", meta: "Across 4 active branches" },
         ]}
         icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />}
         subtitle="Balances across banking and cashbook heads"
@@ -8462,9 +8464,9 @@ function FinanceModuleDashboard() {
         className="col-[7/span_3] row-span-2"
         columns={["Jurisdiction", "Collected", "Net"]}
         rows={[
-          ["India GST", "$ 118K", "$ 22K payable"],
-          ["EU VAT", "$ 64K", "$ 9K reclaim"],
-          ["UAE VAT", "$ 28K", "$ 4K payable"],
+          ["India GST", "$118K", "$22K payable"],
+          ["EU VAT", "$64K", "$9K reclaim"],
+          ["UAE VAT", "$28K", "$4K payable"],
         ]}
         icon={<Percent className="size-[18px] text-black" strokeWidth={1.9} />}
         subtitle="Tax view by reporting region"
@@ -8477,8 +8479,8 @@ function FinanceModuleDashboard() {
 function FinanceSalesInvoiceView({ onClose }: { onClose: () => void }) {
   return (
     <FinanceWindowShell onClose={onClose} title="Sales Invoice">
-      <FinanceMetricCard accent="border-[#cde9ff]" label="Outstanding Receivables" meta="Open customer invoices" value="$ 426K" />
-      <FinanceMetricCard accent="border-[#f5cfcf]" label="Overdue" meta="Past due receivables" value="$ 118K" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="border-[#cde9ff]" label="Outstanding Receivables" meta="Open customer invoices" value="$426K" />
+      <FinanceMetricCard accent="border-[#f5cfcf]" label="Overdue" meta="Past due receivables" value="$118K" valueClass="text-[#b04343]" />
       <FinanceMetricCard accent="border-[#cfead9]" label="Invoices This Week" meta="Newly issued and posted" value="42" valueClass="text-[#0b6b45]" />
       <FinanceMetricCard accent="border-[#f3dfb8]" className="col-span-3" label="Average Days to Collect" meta="Rolling 90-day collection cycle" value="24 days" valueClass="text-[#9a5c00]" />
       <FinanceTableCard
@@ -8486,10 +8488,10 @@ function FinanceSalesInvoiceView({ onClose }: { onClose: () => void }) {
         columns={["Customer", "Invoice", "Amount", "Due"]}
         icon={<ReceiptText className="size-[18px] text-black" strokeWidth={1.9} />}
         rows={[
-          ["Apex Med Systems", "INV-30291", "$ 64K", "12 May"],
-          ["Northwind Energy", "INV-30294", "$ 28K", "14 May"],
-          ["UrbanAxis Retail", "INV-30301", "$ 93K", "20 May"],
-          ["Kumaan Pvt. Ltd.", "INV-30307", "$ 36K", "24 May"],
+          ["Apex Med Systems", "INV-30291", "$64K", "12 May"],
+          ["Northwind Energy", "INV-30294", "$28K", "14 May"],
+          ["UrbanAxis Retail", "INV-30301", "$93K", "20 May"],
+          ["Kumaan Pvt. Ltd.", "INV-30307", "$36K", "24 May"],
         ]}
         subtitle="Invoices needing collections outreach or approval follow-up"
         title="Invoices Needing Attention"
@@ -8498,9 +8500,9 @@ function FinanceSalesInvoiceView({ onClose }: { onClose: () => void }) {
         className="col-[7/span_3] row-span-2"
         icon={<Hourglass className="size-[18px] text-black" strokeWidth={1.9} />}
         items={[
-          { label: "0-30 days", value: "$ 208K", meta: "Healthy current receivables" },
-          { label: "31-60 days", value: "$ 76K", meta: "Needs owner follow-up" },
-          { label: "60+ days", value: "$ 42K", meta: "Escalate with account owner" },
+          { label: "0-30 days", value: "$208K", meta: "Healthy current receivables" },
+          { label: "31-60 days", value: "$76K", meta: "Needs owner follow-up" },
+          { label: "60+ days", value: "$42K", meta: "Escalate with account owner" },
         ]}
         subtitle="Receivables aging summary"
         title="Aging Receivables"
@@ -8515,8 +8517,8 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
   const [activeRightPanel, setActiveRightPanel] = useState<"vendor-insights" | "invoice-history" | "approval-notes">("vendor-insights");
   const [isRightPanelMenuOpen, setIsRightPanelMenuOpen] = useState(false);
   const summaryCards = [
-    { label: "Pending Bills", value: "$ 281K", meta: "Awaiting release or approval", accent: "border-[#f3dfb8]", valueClass: "text-[#9a5c00]" },
-    { label: "Approved to Pay", value: "$ 164K", meta: "Ready for payment scheduling", accent: "border-[#cde9ff]", valueClass: "text-[#102c3f]" },
+    { label: "Pending Bills", value: "$281K", meta: "Awaiting release or approval", accent: "border-[#f3dfb8]", valueClass: "text-[#9a5c00]" },
+    { label: "Approved to Pay", value: "$164K", meta: "Ready for payment scheduling", accent: "border-[#cde9ff]", valueClass: "text-[#102c3f]" },
     { label: "Exception Queue", value: "09", meta: "Mismatch or compliance issue", accent: "border-[#f5cfcf]", valueClass: "text-[#b04343]" },
     { label: "Avg Approval Time", value: "2.1 days", meta: "Posting to release cycle", accent: "border-[#cfead9]", valueClass: "text-[#0b6b45]" },
   ];
@@ -8531,7 +8533,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
     { label: "Currency", value: "USD", icon: <CircleDollarSign className="size-[22px]" strokeWidth={1.8} />, required: true },
     { label: "Receiving Warehouse", value: "Platform Ops", icon: <HardDrive className="size-[22px]" strokeWidth={1.8} /> },
     { label: "Tax Code", value: "GST Input 18%", icon: <Percent className="size-[22px]" strokeWidth={1.8} />, required: true },
-    { label: "Amount", value: "$ 19,400.00", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Amount", value: "$19,400.00", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
     { label: "Approval Owner", value: "Anita Verma", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
   ];
   const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => ({
@@ -8565,17 +8567,17 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
   const vendorPerformanceStats = [
     { label: "On-time Delivery", value: "93%", meta: "Across the last 12 purchase orders" },
     { label: "Open Due Invoices", value: "02", meta: "One exceeds the agreed due date" },
-    { label: "Credit Exposure", value: "$ 28.6K", meta: "Open balance including this bill" },
+    { label: "Credit Exposure", value: "$28.6K", meta: "Open balance including this bill" },
     { label: "Quality Flags", value: "Low", meta: "No recent receiving or return exceptions" },
   ];
   const vendorOrderHistory = [
-    { order: "PO-44291", amount: "$ 19.4K", status: "Invoiced", meta: "Cloud hosting expansion • 06 May 2026" },
-    { order: "PO-43872", amount: "$ 12.8K", status: "Paid", meta: "Monitoring services • 22 Apr 2026" },
-    { order: "PO-43318", amount: "$ 8.1K", status: "Due", meta: "Security patch support • 11 Apr 2026" },
+    { order: "PO-44291", amount: "$19,400", status: "Invoiced", statusTone: "bg-[#EAF8FF] text-[#005FA3]", meta: "Cloud hosting expansion", sub: "06 May 2026" },
+    { order: "PO-43872", amount: "$12,800", status: "Paid", statusTone: "bg-[#E9F6EE] text-[#0B6B45]", meta: "Monitoring services", sub: "22 Apr 2026" },
+    { order: "PO-43318", amount: "$8,100", status: "Due", statusTone: "bg-[#FFF6E2] text-[#9A6500]", meta: "Security patch support", sub: "11 Apr 2026" },
   ];
   const dueInvoiceAlerts = [
-    { ref: "PIN-1834", amount: "$ 8.1K", age: "Due in 2 days" },
-    { ref: "PIN-1807", amount: "$ 4.6K", age: "Overdue by 5 days" },
+    { ref: "PIN-1834", amount: "$8,100", severity: "Due soon", severityTone: "bg-[#FFF6E2] text-[#9A6500]", meta: "Cloud security retainer", sub: "Due in 2 days" },
+    { ref: "PIN-1807", amount: "$4,600", severity: "Overdue", severityTone: "bg-[#FCEFEF] text-[#A33F3F]", meta: "Quarterly monitoring license", sub: "Overdue by 5 days" },
   ];
   const rightPanelOptions = [
     { id: "vendor-insights" as const, label: "Vendor Insights" },
@@ -8585,7 +8587,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
   const activeRightPanelLabel = rightPanelOptions.find((option) => option.id === activeRightPanel)?.label ?? "Vendor Insights";
   const rightPanelWidths: Record<typeof activeRightPanel, string> = {
     "vendor-insights": "560px",
-    "invoice-history": "460px",
+    "invoice-history": "760px",
     "approval-notes": "460px",
   };
   const rightPanelWidth = rightPanelWidths[activeRightPanel];
@@ -8675,17 +8677,17 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
 
             {summaryCards.map((card) => (
               <div
-                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
-                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.meta}
                 </p>
               </div>
@@ -8695,9 +8697,9 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
               className="col-[1/span_5] row-span-2"
               columns={["Vendor", "Bill", "Amount", "Status"]}
               rows={[
-                ["Delphi Services", "PIN-1884", "$ 38K", "Needs approval"],
-                ["Vertex Cloud", "PIN-1888", "$ 19K", "Approved"],
-                ["Urban Logistics", "PIN-1892", "$ 27K", "3-way mismatch"],
+                ["Delphi Services", "PIN-1884", "$38K", "Needs approval"],
+                ["Vertex Cloud", "PIN-1888", "$19K", "Approved"],
+                ["Urban Logistics", "PIN-1892", "$27K", "3-way mismatch"],
               ]}
               icon={<FileSpreadsheet className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Vendor bills and exception status"
@@ -8706,9 +8708,9 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
             <FinanceListCard
               className="col-[6/span_4] row-span-2"
               items={[
-                { label: "Rent & facilities", value: "$ 62K", meta: "Largest payable bucket this month" },
-                { label: "Cloud infrastructure", value: "$ 54K", meta: "Already approved for release" },
-                { label: "Professional services", value: "$ 31K", meta: "Contract review still pending" },
+                { label: "Rent & facilities", value: "$62K", meta: "Largest payable bucket this month" },
+                { label: "Cloud infrastructure", value: "$54K", meta: "Already approved for release" },
+                { label: "Professional services", value: "$31K", meta: "Contract review still pending" },
               ]}
               icon={<WalletCards className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Top spend categories by open bill amount"
@@ -8777,14 +8779,14 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                       <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Vendor Name"] ?? ""}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Vendor Contact"] ?? ""}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Vendor Email"] ?? ""}
                       </p>
                     </div>
-                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {fieldValues["Invoice Number"] ?? ""} • {fieldValues["Amount"] ?? ""} • Due {fieldValues["Due Date"] ?? ""}
                     </p>
                   </div>
@@ -8913,7 +8915,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                                     Update
                                   </span>
                                 </div>
-                                <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {item.meta}
                                 </p>
                               </div>
@@ -8946,7 +8948,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                             { label: "Budget Status", value: "Within limit" },
                           ].map((item) => (
                             <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-[#fbfdff] px-[12px] py-[10px]" key={item.label}>
-                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                              <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 {item.label}
                               </p>
                               <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -8965,7 +8967,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                 {isRightPanelOpen ? (
                   <div
                     className="shrink-0 border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#fcfeff_0%,#f7fbff_100%)]"
-                    style={{ width: rightPanelWidth }}
+                    style={{ width: rightPanelWidth, containerType: "inline-size" }}
                   >
                     <div className="flex h-full min-h-0 flex-col">
                       <div className="relative flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-[#e6eef5] px-[18px]">
@@ -9023,10 +9025,13 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                         ) : null}
                       </div>
 
-                      <div className="min-h-0 flex-1 overflow-auto px-[18px] py-[14px]">
+                      <div
+                        className="min-h-0 flex-1 overflow-auto px-[1.125em] py-[0.875em]"
+                        style={{ fontSize: "clamp(15px, 2.8cqi, 17px)" }}
+                      >
                         {activeRightPanel === "vendor-insights" ? (
                           <>
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Performance and payable context for {fieldValues["Vendor Name"] ?? "this vendor"} before you approve the bill.
                             </p>
 
@@ -9035,10 +9040,10 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                                 <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {fieldValues["Vendor Name"] ?? ""}
                                 </p>
-                                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {fieldValues["Vendor Contact"] ?? ""} • {fieldValues["Vendor Email"] ?? ""}
                                 </p>
-                                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Preferred terms: {fieldValues["Payment Term"] ?? ""} • Currency: {fieldValues["Currency"] ?? ""}
                                 </p>
                               </div>
@@ -9047,14 +9052,14 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                                 {vendorPerformanceStats.map((item) => (
                                   <div className="border-b border-solid border-[#c5d2dd] pb-[10px] last:border-b-0 last:pb-0" key={item.label}>
                                     <div className="flex items-center justify-between gap-[12px]">
-                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {item.label}
                                       </p>
                                       <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {item.value}
                                       </p>
                                     </div>
-                                    <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {item.meta}
                                     </p>
                                   </div>
@@ -9065,50 +9070,110 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                         ) : null}
 
                         {activeRightPanel === "invoice-history" ? (
-                          <div className="flex flex-col gap-[12px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <div className="flex flex-col gap-[0.875em]">
+                            <p className="font-['Roboto:Regular',sans-serif] text-[0.75em] leading-[1.5] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Recent purchase orders and bills from this vendor, including settlement status.
                             </p>
-                            <div className="mt-[2px] flex flex-col gap-[10px]">
-                              {vendorOrderHistory.map((order) => (
-                                <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={order.order}>
-                                  <div className="flex items-center justify-between gap-[12px]">
-                                    <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                      {order.order}
-                                    </p>
-                                    <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                      {order.amount}
-                                    </p>
-                                  </div>
-                                  <div className="mt-[5px] flex items-center justify-between gap-[12px]">
-                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                      {order.meta}
-                                    </p>
-                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                      {order.status}
-                                    </p>
-                                  </div>
+
+                            <div>
+                              <div className="mb-[0.5em] flex items-center justify-between gap-[0.5em]">
+                                <p className="font-['Roboto:Bold',sans-serif] text-[1em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  Recent Orders
+                                </p>
+                                <div className="flex items-center gap-[0.5em]">
+                                  <p className="font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    {vendorOrderHistory.length} in 90d
+                                  </p>
+                                  <button
+                                    className="flex items-center gap-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.8125em] text-[#0083DA] transition-colors hover:text-[#005FA3]"
+                                    style={{ fontVariationSettings: "'wdth' 100" }}
+                                    type="button"
+                                  >
+                                    <ExternalLink className="size-[1em]" strokeWidth={1.9} />
+                                    <span>View all</span>
+                                  </button>
                                 </div>
-                              ))}
-                            </div>
-                            <div className="mt-[6px] border-t border-solid border-[#e6eef5] pt-[12px]">
-                              <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                Due Invoice Alerts
-                              </p>
-                              <div className="mt-[10px] flex flex-col gap-[10px]">
-                                {dueInvoiceAlerts.map((invoice) => (
-                                  <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={invoice.ref}>
-                                    <div className="flex items-center justify-between gap-[12px]">
-                                      <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                        {invoice.ref}
-                                      </p>
-                                      <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                        {invoice.amount}
+                              </div>
+
+                              <div className="flex flex-col">
+                                {vendorOrderHistory.map((order, idx) => (
+                                  <div
+                                    className={`flex items-start gap-[0.75em] py-[0.625em] ${idx < vendorOrderHistory.length - 1 ? "border-b border-solid border-[#E2EAF1]" : ""}`}
+                                    key={order.order}
+                                  >
+                                    <div className="flex size-[2.25em] shrink-0 items-center justify-center rounded-[8px] bg-[#EAF8FF]">
+                                      <FileText className="size-[1.25em] text-[#0083DA]" strokeWidth={1.9} />
+                                    </div>
+
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex flex-wrap items-center gap-[0.5em]">
+                                        <span className="truncate font-['Roboto:Bold',sans-serif] text-[0.875em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                          {order.order}
+                                        </span>
+                                        <span className={`shrink-0 rounded-[999px] px-[0.5em] py-[0.1875em] font-['Roboto:Bold',sans-serif] text-[0.6875em] ${order.statusTone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                                          {order.status}
+                                        </span>
+                                      </div>
+                                      <p className="mt-[0.1875em] truncate font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {order.meta}
                                       </p>
                                     </div>
-                                    <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#b04343]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                      {invoice.age}
-                                    </p>
+
+                                    <div className="shrink-0 text-right">
+                                      <p className="font-['Roboto:Bold',sans-serif] text-[0.9375em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {order.amount}
+                                      </p>
+                                      <p className="mt-[0.1875em] font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {order.sub}
+                                      </p>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div>
+                              <div className="mb-[0.5em] flex items-center justify-between gap-[0.5em]">
+                                <p className="font-['Roboto:Bold',sans-serif] text-[1em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  Due Invoice Alerts
+                                </p>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  {dueInvoiceAlerts.length} open
+                                </p>
+                              </div>
+
+                              <div className="flex flex-col">
+                                {dueInvoiceAlerts.map((invoice, idx) => (
+                                  <div
+                                    className={`flex items-start gap-[0.75em] py-[0.625em] ${idx < dueInvoiceAlerts.length - 1 ? "border-b border-solid border-[#E2EAF1]" : ""}`}
+                                    key={invoice.ref}
+                                  >
+                                    <div className="flex size-[2.25em] shrink-0 items-center justify-center rounded-[8px] bg-[#FCEFEF]">
+                                      <AlertTriangle className="size-[1.25em] text-[#D14545]" strokeWidth={1.9} />
+                                    </div>
+
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex flex-wrap items-center gap-[0.5em]">
+                                        <span className="truncate font-['Roboto:Bold',sans-serif] text-[0.875em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                          {invoice.ref}
+                                        </span>
+                                        <span className={`shrink-0 rounded-[999px] px-[0.5em] py-[0.1875em] font-['Roboto:Bold',sans-serif] text-[0.6875em] ${invoice.severityTone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                                          {invoice.severity}
+                                        </span>
+                                      </div>
+                                      <p className="mt-[0.1875em] truncate font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {invoice.meta}
+                                      </p>
+                                    </div>
+
+                                    <div className="shrink-0 text-right">
+                                      <p className="font-['Roboto:Bold',sans-serif] text-[0.9375em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {invoice.amount}
+                                      </p>
+                                      <p className="mt-[0.1875em] font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        {invoice.sub}
+                                      </p>
+                                    </div>
                                   </div>
                                 ))}
                               </div>
@@ -9118,7 +9183,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
 
                         {activeRightPanel === "approval-notes" ? (
                           <div className="flex flex-col gap-[12px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Short guidance for approvers before submitting and posting this purchase invoice.
                             </p>
                             {[
@@ -9127,7 +9192,7 @@ function FinancePurchaseInvoiceView({ onClose }: { onClose: () => void }) {
                               fieldValues["Approval Notes"] ?? "No internal approval notes are recorded for this invoice yet.",
                             ].map((note) => (
                               <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={note}>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   {note}
                                 </p>
                               </div>
@@ -9173,7 +9238,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   });
   const summaryCards = [
     { label: "Invoices in Draft", value: "18", meta: "Header created, lines pending review", accent: "border-[#cde9ff]", valueClass: "text-[#102c3f]" },
-    { label: "Ready to Post", value: "$ 146K", meta: "Validated AP invoices for posting", accent: "border-[#cfead9]", valueClass: "text-[#0b6b45]" },
+    { label: "Ready to Post", value: "$146K", meta: "Validated AP invoices for posting", accent: "border-[#cfead9]", valueClass: "text-[#0b6b45]" },
     { label: "Hold Payment", value: "07", meta: "Invoices blocked for release", accent: "border-[#f5cfcf]", valueClass: "text-[#b04343]" },
     { label: "Average Lines", value: "4.2", meta: "Invoice lines per AP document", accent: "border-[#f3dfb8]", valueClass: "text-[#9a5c00]" },
   ];
@@ -9488,7 +9553,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   // Single shared grid template — header + every body row use this constant so columns
   // line up across rows (Grid Data Widget > Column Sizing And Truncation).
   // Columns: Product or Charge (+ Attribute below) · Description · Quantity/UOM · Price · Tax · Line Amount
-  const apInvoiceLineCols = "grid-cols-[28px_minmax(0,1.9fr)_minmax(0,2fr)_minmax(0,1fr)_90px_70px_100px_32px]";
+  const apInvoiceLineCols = "grid-cols-[28px_minmax(0,1.9fr)_minmax(0,2fr)_minmax(0,1fr)_minmax(96px,0.7fr)_minmax(76px,0.4fr)_minmax(108px,0.85fr)_32px]";
   // Right-panel Invoice History grid — same shared-template rule.
   // Columns: Reference · Date · Amount · Status · Aging
   const vendorInvoiceGridCols = "grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)_minmax(0,0.9fr)_minmax(0,0.8fr)_minmax(0,0.9fr)]";
@@ -9546,7 +9611,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   };
   const vendorInsightSections = [
     { label: "Vendor Status", value: holdPayment ? "On payment hold" : "Active for payment", meta: "Mapped supplier account is active in AP master" },
-    { label: "Open Exposure", value: "$ 42.8K", meta: "Across 4 unpaid vendor documents" },
+    { label: "Open Exposure", value: "$42.8K", meta: "Across 4 unpaid vendor documents" },
     { label: "Last Payment", value: "28 May 2026", meta: "ACH release cleared in 2 business days" },
     { label: "Duplicate Risk", value: "Low", meta: "Reference and amount do not match recent posted invoices" },
   ];
@@ -9565,15 +9630,15 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     { label: "Sanctions screening clear", met: true },
   ];
   const recentVendorInvoices = [
-    { ref: "INV-2104", date: "12 May 2026", amount: "$ 18,400.00", status: "Posted", tone: "bg-[#eaf8ff] text-[#0f69ac]", aging: "Within terms" },
-    { ref: "INV-2087", date: "04 May 2026", amount: "$ 9,640.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]", aging: "Settled" },
-    { ref: "INV-2061", date: "27 Apr 2026", amount: "$ 14,820.00", status: "Hold", tone: "bg-[#fbe6e6] text-[#b04343]", aging: "5 days overdue" },
-    { ref: "INV-2034", date: "18 Apr 2026", amount: "$ 22,150.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]", aging: "Settled" },
-    { ref: "INV-1998", date: "08 Apr 2026", amount: "$ 11,300.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]", aging: "Settled" },
-    { ref: "INV-1962", date: "30 Mar 2026", amount: "$ 16,720.00", status: "Posted", tone: "bg-[#eaf8ff] text-[#0f69ac]", aging: "Within terms" },
+    { ref: "INV-2104", date: "12 May 2026", amount: "$18,400.00", status: "Posted", tone: "bg-[#eaf8ff] text-[#0f69ac]", aging: "Within terms" },
+    { ref: "INV-2087", date: "04 May 2026", amount: "$9,640.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]", aging: "Settled" },
+    { ref: "INV-2061", date: "27 Apr 2026", amount: "$14,820.00", status: "Hold", tone: "bg-[#fbe6e6] text-[#b04343]", aging: "5 days overdue" },
+    { ref: "INV-2034", date: "18 Apr 2026", amount: "$22,150.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]", aging: "Settled" },
+    { ref: "INV-1998", date: "08 Apr 2026", amount: "$11,300.00", status: "Paid", tone: "bg-[#e7f7ef] text-[#18734d]", aging: "Settled" },
+    { ref: "INV-1962", date: "30 Mar 2026", amount: "$16,720.00", status: "Posted", tone: "bg-[#eaf8ff] text-[#0f69ac]", aging: "Within terms" },
   ];
   const invoiceHistoryStats = [
-    { label: "Billed YTD", value: "$ 184.6K" },
+    { label: "Billed YTD", value: "$184.6K" },
     { label: "Avg Cycle Time", value: "8.4 days" },
     { label: "On-time Rate", value: "92%" },
   ];
@@ -9596,7 +9661,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     { label: "3-way match: invoice, PO, and receipt agree on quantity and amount", met: true },
     { label: "Line tax codes match the vendor's tax registration", met: true },
     { label: "Cost allocation aligned to active project budget", met: holdPayment ? false : true },
-    { label: "Total within approver delegation of authority ($ 25K)", met: true },
+    { label: "Total within approver delegation of authority ($25K)", met: true },
     { label: "Hold flag cleared before posting", met: !holdPayment },
   ];
   const approverNotes = [
@@ -9612,10 +9677,16 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const activeRightPanelLabel = rightPanelOptions.find((option) => option.id === activeRightPanel)?.label ?? "Vendor Insights";
   // Right panel scales with container width but stays compact on small laptops so the
   // left workspace keeps room for the line grid + form fields.
-  //   1280 px viewport (≈1208 px container) → 400 px (floor)
-  //   1600 px → 480 px
-  //   1920 px → 500 px (ceiling)
-  const rightPanelWidth = "clamp(400px, 30cqw, 500px)";
+  // Invoice History is wider because it renders two Entity List sections (Recent Orders
+  // + Due Invoice Alerts) with inline status pills + trailing amount/sub-line pairs.
+  //   Vendor Insights / Approval Notes — 1280 → 400 (floor), 1600 → 480, 1920 → 500 (ceiling)
+  //   Invoice History                   — 1280 → 560 (floor), 1600 → 642, 1920 → 760 (ceiling)
+  const rightPanelWidths: Record<typeof activeRightPanel, string> = {
+    "vendor-insights": "clamp(400px, 30cqw, 500px)",
+    "invoice-history": "clamp(560px, 42cqw, 760px)",
+    "approval-notes": "clamp(400px, 30cqw, 500px)",
+  };
+  const rightPanelWidth = rightPanelWidths[activeRightPanel];
   const rightPanelNavWidth = 20;
   const windowActionRailWidth = 56;
   const rightPanelContentGap = 8;
@@ -9676,17 +9747,17 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
             {summaryCards.map((card) => (
               <div
-                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
-                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.meta}
                 </p>
               </div>
@@ -9779,14 +9850,14 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                       <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Organization"] ?? ""}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Vendor"] ?? ""}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         Ref {fieldValues["Vendor Invoice Reference"] ?? ""}
                       </p>
                     </div>
-                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {invoiceLines.length} lines • {fieldValues["Payment Method"] ?? ""} • Due {fieldValues["Due Date"] ?? ""}
                     </p>
                   </div>
@@ -10077,7 +10148,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 </p>
                               )}
                               <p
-                                className="mt-[2px] truncate cursor-pointer rounded-[4px] font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] text-[#748494] hover:bg-[#f1f8ff] hover:text-[#0083da]"
+                                className="mt-[2px] truncate cursor-pointer rounded-[4px] font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] text-[#5F7283] hover:bg-[#f1f8ff] hover:text-[#0083da]"
                                 onClick={(e) => { e.stopPropagation(); openAttributePicker(line); }}
                                 style={{ fontVariationSettings: "'wdth' 100" }}
                                 title={`${line.attribute} (click to change attribute)`}
@@ -10104,7 +10175,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               {editingCell?.lineNo === line.lineNo && editingCell.field === "description" ? (
                                 <input
                                   autoFocus
-                                  className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#5f7283] outline-none"
+                                  className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#41576A] outline-none"
                                   defaultValue={line.description}
                                   onBlur={(e) => {
                                     updateLineField(line.lineNo, "description", e.target.value);
@@ -10124,7 +10195,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   style={{ fontVariationSettings: "'wdth' 100" }}
                                 />
                               ) : (
-                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.description}>
+                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.description}>
                                   {line.description}
                                 </p>
                               )}
@@ -10176,7 +10247,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               {editingCell?.lineNo === line.lineNo && editingCell.field === "uom" ? (
                                 <select
                                   autoFocus
-                                  className="mt-[2px] block w-full bg-white p-0 text-right font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] leading-[1.5] text-[#5f7283] outline outline-2 outline-[#0083da] rounded-[4px]"
+                                  className="mt-[2px] block w-full bg-white p-0 text-right font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] leading-[1.5] text-[#41576A] outline outline-2 outline-[#0083da] rounded-[4px]"
                                   defaultValue={line.uom}
                                   onChange={(e) => {
                                     updateLineField(line.lineNo, "uom", e.target.value);
@@ -10204,7 +10275,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 </select>
                               ) : (
                                 <p
-                                  className="mt-[2px] truncate cursor-pointer rounded-[4px] font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] text-[#748494] hover:bg-[#f1f8ff] hover:text-[#0083da]"
+                                  className="mt-[2px] truncate cursor-pointer rounded-[4px] font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] text-[#5F7283] hover:bg-[#f1f8ff] hover:text-[#0083da]"
                                   onClick={(e) => { e.stopPropagation(); setEditingCell({ lineNo: line.lineNo, field: "uom" }); }}
                                   style={{ fontVariationSettings: "'wdth' 100" }}
                                   title={`${line.uom} (click to change UOM)`}
@@ -10277,7 +10348,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               {editingCell?.lineNo === line.lineNo && editingCell.field === "tax" ? (
                                 <select
                                   autoFocus
-                                  className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#5f7283] outline-none"
+                                  className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#41576A] outline-none"
                                   defaultValue={line.tax}
                                   onChange={(e) => {
                                     updateLineField(line.lineNo, "tax", e.target.value);
@@ -10304,7 +10375,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   })()}
                                 </select>
                               ) : (
-                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.tax}>
+                                <p className="truncate font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={line.tax}>
                                   {line.tax}
                                 </p>
                               )}
@@ -10323,7 +10394,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 aria-haspopup="dialog"
                                 aria-expanded={moreRowOpen === line.lineNo}
                                 aria-label={`More fields for line ${line.lineNo}`}
-                                className={`flex size-[24px] items-center justify-center rounded-[6px] transition-colors ${moreRowOpen === line.lineNo ? "bg-[#eef7ff] text-[#0083da]" : "text-[#748494] hover:bg-[#f1f8ff] hover:text-[#0083da]"}`}
+                                className={`flex size-[24px] items-center justify-center rounded-[6px] transition-colors ${moreRowOpen === line.lineNo ? "bg-[#eef7ff] text-[#0083da]" : "text-[#5F7283] hover:bg-[#f1f8ff] hover:text-[#0083da]"}`}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setMoreRowOpen((current) => (current === line.lineNo ? null : line.lineNo));
@@ -10348,7 +10419,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                     </div>
                                     <div className="flex flex-col gap-[10px] px-[12px] py-[10px]">
                                       <label className="flex flex-col gap-[4px]">
-                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] capitalize text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                           Discount (%)
                                         </span>
                                         <input
@@ -10366,7 +10437,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                         />
                                       </label>
                                       <label className="flex flex-col gap-[4px]">
-                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] capitalize text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                           Notes
                                         </span>
                                         <textarea
@@ -10404,7 +10475,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
                       <div className="mt-[18px] flex flex-wrap items-start justify-between gap-[24px]">
                         <div className="flex items-center gap-[10px]">
-                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] uppercase tracking-[0.06em] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="font-['Roboto:Regular',sans-serif] text-[12px] uppercase tracking-[0.06em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             Posting Status
                           </p>
                           <span className={`rounded-[999px] px-[10px] py-[4px] font-['Roboto:Bold',sans-serif] text-[12px] ${holdPayment ? "bg-[#fff3d6] text-[#9a5c00]" : "bg-[#ddf4e8] text-[#0b6b45]"}`} style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10414,7 +10485,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
                         <div className="min-w-[260px] max-w-[320px] flex-1">
                           <div className="flex items-center justify-between py-[6px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Subtotal
                             </p>
                             <p className="font-['Roboto:Regular',sans-serif] text-[13px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10422,7 +10493,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                             </p>
                           </div>
                           <div className="flex items-center justify-between border-b border-solid border-[#e2eaf1] py-[6px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Tax
                             </p>
                             <p className="font-['Roboto:Regular',sans-serif] text-[13px] tabular-nums text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10448,7 +10519,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                 {isRightPanelOpen ? (
                   <div
                     className="shrink-0 border-l border-solid border-[#e6edf3] bg-[linear-gradient(180deg,#fcfeff_0%,#f7fbff_100%)]"
-                    style={{ width: rightPanelWidth }}
+                    style={{ width: rightPanelWidth, containerType: "inline-size" }}
                   >
                     <div className="flex h-full min-h-0 flex-col">
                       <div className="relative flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-[#e6eef5] px-[18px]">
@@ -10509,7 +10580,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                       <div className="min-h-0 flex-1 overflow-auto px-[18px] py-[14px]">
                         {activeRightPanel === "vendor-insights" ? (
                           <div className="flex flex-col gap-[16px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Context for approval, posting, and payment risk before releasing this AP invoice.
                             </p>
 
@@ -10519,13 +10590,13 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {fieldValues["Vendor"] ?? ""}
                                   </p>
-                                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     Supplier ID: VND-2014 • Onboarded 14 Aug 2022
                                   </p>
-                                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="mt-[8px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {fieldValues["Vendor Contact"] ?? ""} • {fieldValues["Vendor Email"] ?? ""}
                                   </p>
-                                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     Preferred method: {fieldValues["Payment Method"] ?? ""} • Currency: USD
                                   </p>
                                 </div>
@@ -10541,13 +10612,13 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                             <div className="grid grid-cols-2 gap-[10px]">
                               {vendorInsightSections.map((item) => (
                                 <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]" key={item.label}>
-                                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {item.label}
                                   </p>
                                   <p className="mt-[6px] font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {item.value}
                                   </p>
-                                  <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {item.meta}
                                   </p>
                                 </div>
@@ -10564,13 +10635,13 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                     <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {contact.name}
                                     </p>
-                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {contact.role}
                                     </p>
-                                    <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    <p className="mt-[5px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {contact.email}
                                     </p>
-                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                       {contact.phone}
                                     </p>
                                   </div>
@@ -10597,7 +10668,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                           </svg>
                                         )}
                                       </span>
-                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {check.label}
                                       </p>
                                     </div>
@@ -10610,14 +10681,14 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
                         {activeRightPanel === "invoice-history" ? (
                           <div className="flex flex-col gap-[16px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Recent AP documents from this vendor, including current settlement and exception status.
                             </p>
 
                             <div className="grid grid-cols-3 gap-[10px]">
                               {invoiceHistoryStats.map((stat) => (
                                 <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[12px] py-[10px]" key={stat.label}>
-                                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                     {stat.label}
                                   </p>
                                   <p className="mt-[5px] font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -10646,7 +10717,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.ref}>
                                     {invoice.ref}
                                   </p>
-                                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.date}>
+                                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.date}>
                                     {invoice.date}
                                   </p>
                                   <p className="truncate text-right font-['Roboto:Bold',sans-serif] text-[13px] text-[#0083da]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.amount}>
@@ -10659,7 +10730,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   >
                                     {invoice.status}
                                   </span>
-                                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.aging}>
+                                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={invoice.aging}>
                                     {invoice.aging}
                                   </p>
                                 </div>
@@ -10671,7 +10742,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   6-Month Spend
                                 </p>
-                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                   Trend across recent posting periods
                                 </p>
                               </div>
@@ -10682,7 +10753,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                       <div className="flex w-full flex-1 items-end">
                                         <div className="w-full rounded-t-[6px] bg-[#1f83ff]" style={{ height: bar.pct }} />
                                       </div>
-                                      <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {bar.month}
                                       </p>
                                     </div>
@@ -10695,7 +10766,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 
                         {activeRightPanel === "approval-notes" ? (
                           <div className="flex flex-col gap-[16px]">
-                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                               Short guidance for approvers before posting and payment release decisions are made.
                             </p>
 
@@ -10718,7 +10789,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                       <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {step.role}
                                       </p>
-                                      <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[11px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {step.name}
                                       </p>
                                     </div>
@@ -10747,7 +10818,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                           </svg>
                                         )}
                                       </span>
-                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {criterion.label}
                                       </p>
                                     </div>
@@ -10770,7 +10841,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                           {note.time}
                                         </p>
                                       </div>
-                                      <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                      <p className="mt-[6px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                         {note.text}
                                       </p>
                                     </div>
@@ -10822,7 +10893,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
               <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Select attribute
               </p>
-              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={attributePicker.primaryLabel}>
+              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={attributePicker.primaryLabel}>
                 For {attributePicker.primaryLabel}
               </p>
             </div>
@@ -10874,8 +10945,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
 function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
   const [viewMode, setViewMode] = useState<"dashboard" | "window">("dashboard");
   const summaryCards = [
-    { label: "Paid This Month", value: "$ 612K", meta: "Released vendor and utility payments", accent: "border-[#cde9ff]", valueClass: "text-[#102c3f]" },
-    { label: "Cleared", value: "$ 588K", meta: "Bank-confirmed settlements", accent: "border-[#cfead9]", valueClass: "text-[#0b6b45]" },
+    { label: "Paid This Month", value: "$612K", meta: "Released vendor and utility payments", accent: "border-[#cde9ff]", valueClass: "text-[#102c3f]" },
+    { label: "Cleared", value: "$588K", meta: "Bank-confirmed settlements", accent: "border-[#cfead9]", valueClass: "text-[#0b6b45]" },
     { label: "Failed / Returned", value: "03", meta: "Needs retry or bank fix", accent: "border-[#f5cfcf]", valueClass: "text-[#b04343]" },
     { label: "Reconciliation Status", value: "91%", meta: "Bank-matched vs pending entries", accent: "border-[#ddd4ff]", valueClass: "text-[#5f4aa6]" },
   ];
@@ -10888,7 +10959,7 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
     { label: "Beneficiary", value: "Vertex Cloud Ltd.", icon: <Building2 className="size-[22px]" strokeWidth={1.8} />, required: true },
     { label: "Payment Method", value: "ACH", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
     { label: "Currency", value: "USD", icon: <CircleDollarSign className="size-[22px]" strokeWidth={1.8} />, required: true },
-    { label: "Amount", value: "$ 19,400.00", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
+    { label: "Amount", value: "$19,400.00", icon: <WalletCards className="size-[22px]" strokeWidth={1.8} />, required: true },
     { label: "Related Invoice", value: "PIN-1888", icon: <ReceiptText className="size-[22px]" strokeWidth={1.8} />, required: true },
     { label: "Approval Owner", value: "Anita Verma", icon: <UserRound className="size-[22px]" strokeWidth={1.8} /> },
     { label: "Payment Status", value: "Ready for release", icon: <BadgeCheck className="size-[22px]" strokeWidth={1.8} /> },
@@ -10997,17 +11068,17 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
 
             {summaryCards.map((card) => (
               <div
-                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,0.82)] to-[rgba(255,255,255,0.58)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
+                className={`col-span-2 rounded-[14px] border-2 border-white bg-gradient-to-b from-[rgba(255,255,255,1)] to-[rgba(255,255,255,0.6)] p-[0.875em] shadow-[0_10px_24px_rgba(15,61,97,0.06)] ${card.accent}`}
                 key={card.label}
                 style={{ fontSize: "clamp(16px, 1.2cqi, 20px)" }}
               >
                 <p className="font-['Roboto:Medium',sans-serif] font-medium text-[clamp(13px,calc(var(--dash-inline-size,100vw)*0.011375),16px)] leading-[1.3] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.label}
                 </p>
-                <p className={`mt-[0.25em] font-['Roboto:Regular',sans-serif] font-normal text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className={`mt-[0.25em] font-['Roboto:SemiBold',sans-serif] font-semibold text-[1.75em] leading-[1.05] ${card.valueClass}`} style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.value}
                 </p>
-                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="mt-[0.25em] font-['Roboto:Regular',sans-serif] text-[0.6875em] leading-[1.3] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                   {card.meta}
                 </p>
               </div>
@@ -11017,9 +11088,9 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
               className="col-[1/span_6] row-span-2"
               columns={["Payee", "Method", "Amount", "Posted"]}
               rows={[
-                ["Urban Logistics", "Wire transfer", "$ 27K", "Today, 10:12 AM"],
-                ["Vertex Cloud", "ACH", "$ 19K", "Today, 09:05 AM"],
-                ["Delphi Services", "Manual release", "$ 38K", "Yesterday, 04:48 PM"],
+                ["Urban Logistics", "Wire transfer", "$27K", "Today, 10:12 AM"],
+                ["Vertex Cloud", "ACH", "$19K", "Today, 09:05 AM"],
+                ["Delphi Services", "Manual release", "$38K", "Yesterday, 04:48 PM"],
               ]}
               icon={<Send className="size-[18px] text-black" strokeWidth={1.9} />}
               subtitle="Most recent outgoing payments"
@@ -11099,14 +11170,14 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
                       <p className="font-['Roboto:Bold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Beneficiary"] ?? ""}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Beneficiary Contact"] ?? ""}
                       </p>
-                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      <p className="font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                         {fieldValues["Beneficiary Email"] ?? ""}
                       </p>
                     </div>
-                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#748494]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <p className="mt-[3px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       {fieldValues["Payment Reference"] ?? ""} • {fieldValues["Amount"] ?? ""} • {fieldValues["Payment Method"] ?? ""}
                     </p>
                   </div>
@@ -11202,8 +11273,8 @@ function FinancePaymentEntryView({ onClose }: { onClose: () => void }) {
 function FinancePaymentCockpitView({ onClose }: { onClose: () => void }) {
   return (
     <FinanceWindowShell onClose={onClose} title="Payment Cockpit">
-      <FinanceMetricCard accent="border-[#f3dfb8]" label="Suggested This Week" meta="System-prioritized releases" value="$ 172K" valueClass="text-[#9a5c00]" />
-      <FinanceMetricCard accent="border-[#cde9ff]" label="Available for Release" meta="Within approved cash thresholds" value="$ 248K" />
+      <FinanceMetricCard accent="border-[#f3dfb8]" label="Suggested This Week" meta="System-prioritized releases" value="$172K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="border-[#cde9ff]" label="Available for Release" meta="Within approved cash thresholds" value="$248K" />
       <FinanceMetricCard accent="border-[#f5cfcf]" label="Needs Decision" meta="Conflicting due date vs cash priority" value="11" valueClass="text-[#b04343]" />
       <FinanceMetricCard accent="border-[#cfead9]" className="col-span-3" label="Best Release Window" meta="Based on due dates and projected inflows" value="Thu PM" valueClass="text-[#0b6b45]" />
       <FinanceTableCard
@@ -11221,8 +11292,8 @@ function FinancePaymentCockpitView({ onClose }: { onClose: () => void }) {
       <FinanceListCard
         className="col-[6/span_4] row-span-2"
         items={[
-          { label: "Hold non-critical marketing bills", value: "$ 18K", meta: "Preserves cash for payroll and tax" },
-          { label: "Split logistics vendor release", value: "$ 12K", meta: "Align with receivables timing" },
+          { label: "Hold non-critical marketing bills", value: "$18K", meta: "Preserves cash for payroll and tax" },
+          { label: "Split logistics vendor release", value: "$12K", meta: "Align with receivables timing" },
           { label: "Use HDFC collections account", value: "2 payments", meta: "Cleaner reconciliation path" },
         ]}
         icon={<BadgeCheck className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -11236,16 +11307,16 @@ function FinancePaymentCockpitView({ onClose }: { onClose: () => void }) {
 function FinanceBankingView({ onClose }: { onClose: () => void }) {
   return (
     <FinanceWindowShell onClose={onClose} title="Banking">
-      <FinanceMetricCard accent="border-[#cde9ff]" label="Total Cash" meta="Across connected bank accounts" value="$ 1.74M" />
+      <FinanceMetricCard accent="border-[#cde9ff]" label="Total Cash" meta="Across connected bank accounts" value="$1.74M" />
       <FinanceMetricCard accent="border-[#cfead9]" label="Matched Today" meta="Transactions reconciled" value="124" valueClass="text-[#0b6b45]" />
       <FinanceMetricCard accent="border-[#f5cfcf]" label="Unmatched" meta="Needs review or mapping" value="17" valueClass="text-[#b04343]" />
-      <FinanceMetricCard accent="border-[#ddd4ff]" className="col-span-3" label="Cash Position Change" meta="Compared with last week" value="+ $ 92K" valueClass="text-[#5f4aa6]" />
+      <FinanceMetricCard accent="border-[#ddd4ff]" className="col-span-3" label="Cash Position Change" meta="Compared with last week" value="+$92K" valueClass="text-[#5f4aa6]" />
       <FinanceListCard
         className="col-[1/span_4] row-span-2"
         items={[
-          { label: "Axis Bank", value: "$ 982K", meta: "Primary operating account" },
-          { label: "HDFC Bank", value: "$ 488K", meta: "Collections and settlements" },
-          { label: "SBI Bank", value: "$ 270K", meta: "Tax and statutory reserve" },
+          { label: "Axis Bank", value: "$982K", meta: "Primary operating account" },
+          { label: "HDFC Bank", value: "$488K", meta: "Collections and settlements" },
+          { label: "SBI Bank", value: "$270K", meta: "Tax and statutory reserve" },
         ]}
         icon={<Building2 className="size-[18px] text-black" strokeWidth={1.9} />}
         subtitle="Account balances by bank"
@@ -11255,9 +11326,9 @@ function FinanceBankingView({ onClose }: { onClose: () => void }) {
         className="col-[5/span_5] row-span-2"
         columns={["Narration", "Account", "Amount", "Status"]}
         rows={[
-          ["Apex payment received", "HDFC", "$ 64K", "Matched"],
-          ["Payroll release", "Axis", "$ 92K", "Pending match"],
-          ["Vendor wire - logistics", "Axis", "$ 27K", "Matched"],
+          ["Apex payment received", "HDFC", "$64K", "Matched"],
+          ["Payroll release", "Axis", "$92K", "Pending match"],
+          ["Vendor wire - logistics", "Axis", "$27K", "Matched"],
         ]}
         icon={<ReceiptText className="size-[18px] text-black" strokeWidth={1.9} />}
         subtitle="Recent bank-feed events and reconciliation state"
@@ -11270,15 +11341,15 @@ function FinanceBankingView({ onClose }: { onClose: () => void }) {
 function FinanceCashbookView({ onClose }: { onClose: () => void }) {
   return (
     <FinanceWindowShell onClose={onClose} title="Cashbook">
-      <FinanceMetricCard accent="border-[#cfead9]" label="Cash In Today" meta="Receipts posted to cashbooks" value="$ 12.4K" valueClass="text-[#0b6b45]" />
-      <FinanceMetricCard accent="border-[#f5cfcf]" label="Cash Out Today" meta="Disbursements and reimbursements" value="$ 8.1K" valueClass="text-[#b04343]" />
-      <FinanceMetricCard accent="border-[#cde9ff]" label="Net Today" meta="Opening vs current balance movement" value="+ $ 4.3K" />
-      <FinanceMetricCard accent="border-[#f3dfb8]" className="col-span-3" label="Petty Cash Exposure" meta="Across active office cashbooks" value="$ 18.7K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="border-[#cfead9]" label="Cash In Today" meta="Receipts posted to cashbooks" value="$12.4K" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="border-[#f5cfcf]" label="Cash Out Today" meta="Disbursements and reimbursements" value="$8.1K" valueClass="text-[#b04343]" />
+      <FinanceMetricCard accent="border-[#cde9ff]" label="Net Today" meta="Opening vs current balance movement" value="+$4.3K" />
+      <FinanceMetricCard accent="border-[#f3dfb8]" className="col-span-3" label="Petty Cash Exposure" meta="Across active office cashbooks" value="$18.7K" valueClass="text-[#9a5c00]" />
       <FinanceListCard
         className="col-[1/span_4] row-span-2"
         items={[
-          { label: "Cashbook Head Office", value: "$ 80K", meta: "Primary location cashbook" },
-          { label: "Cashbook Register Branch", value: "$ 18.7K", meta: "Retail counter activity" },
+          { label: "Cashbook Head Office", value: "$80K", meta: "Primary location cashbook" },
+          { label: "Cashbook Register Branch", value: "$18.7K", meta: "Retail counter activity" },
           { label: "Tejoo Cashbook", value: "AED 18.7K", meta: "Regional operational cash" },
         ]}
         icon={<WalletCards className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -11289,8 +11360,8 @@ function FinanceCashbookView({ onClose }: { onClose: () => void }) {
         className="col-[5/span_5] row-span-2"
         columns={["Entry", "Book", "Amount", "Type"]}
         rows={[
-          ["Courier reimbursement", "Head Office", "$ 420", "Cash out"],
-          ["Walk-in customer deposit", "Register Branch", "$ 1.8K", "Cash in"],
+          ["Courier reimbursement", "Head Office", "$420", "Cash out"],
+          ["Walk-in customer deposit", "Register Branch", "$1.8K", "Cash in"],
           ["Office supplies top-up", "Tejoo", "AED 620", "Cash out"],
         ]}
         icon={<ReceiptText className="size-[18px] text-black" strokeWidth={1.9} />}
@@ -11304,17 +11375,17 @@ function FinanceCashbookView({ onClose }: { onClose: () => void }) {
 function FinanceTaxationView({ onClose }: { onClose: () => void }) {
   return (
     <FinanceWindowShell onClose={onClose} title="Taxation">
-      <FinanceMetricCard accent="border-[#cde9ff]" label="Tax Collected" meta="Output tax from customer billing" value="$ 210K" />
-      <FinanceMetricCard accent="border-[#cfead9]" label="Tax Paid" meta="Input tax and credits booked" value="$ 126K" valueClass="text-[#0b6b45]" />
-      <FinanceMetricCard accent="border-[#f3dfb8]" label="Net Owed" meta="Current estimated filing obligation" value="$ 84K" valueClass="text-[#9a5c00]" />
+      <FinanceMetricCard accent="border-[#cde9ff]" label="Tax Collected" meta="Output tax from customer billing" value="$210K" />
+      <FinanceMetricCard accent="border-[#cfead9]" label="Tax Paid" meta="Input tax and credits booked" value="$126K" valueClass="text-[#0b6b45]" />
+      <FinanceMetricCard accent="border-[#f3dfb8]" label="Net Owed" meta="Current estimated filing obligation" value="$84K" valueClass="text-[#9a5c00]" />
       <FinanceMetricCard accent="border-[#ddd4ff]" className="col-span-3" label="Next Filing Deadline" meta="Nearest statutory submission date" value="18 May" valueClass="text-[#5f4aa6]" />
       <FinanceTableCard
         className="col-[1/span_5] row-span-2"
         columns={["Region", "Collected", "Paid", "Net"]}
         rows={[
-          ["India GST", "$ 118K", "$ 96K", "$ 22K payable"],
-          ["EU VAT", "$ 64K", "$ 73K", "$ 9K reclaim"],
-          ["UAE VAT", "$ 28K", "$ 24K", "$ 4K payable"],
+          ["India GST", "$118K", "$96K", "$22K payable"],
+          ["EU VAT", "$64K", "$73K", "$9K reclaim"],
+          ["UAE VAT", "$28K", "$24K", "$4K payable"],
         ]}
         icon={<Percent className="size-[18px] text-black" strokeWidth={1.9} />}
         subtitle="Tax position by jurisdiction"
@@ -11375,7 +11446,7 @@ function Frame59({
       clientName: "Kumaan Pvt. Ltd.",
       contactPerson: "Parkash Chaudary",
       title: "Q2 Renewal",
-      amount: "$ 99,3942.00",
+      amount: "$99,3942.00",
       status: "Accepted",
       owner: "Parkash Chaudary",
       ownerRole: "Manager",
@@ -11392,14 +11463,14 @@ function Frame59({
         { label: "Stage", value: "Accepted by client" },
       ],
       lineItems: [
-        { item: "Staffing Renewal Package", quantity: 1, price: "$ 58,000.00", discount: "5%", total: "$ 55,100.00" },
-        { item: "Support & Monitoring", quantity: 12, price: "$ 2,150.00", discount: "0%", total: "$ 25,800.00" },
-        { item: "Implementation Services", quantity: 1, price: "$ 15,420.00", discount: "3%", total: "$ 14,957.40" },
+        { item: "Staffing Renewal Package", quantity: 1, price: "$58,000.00", discount: "5%", total: "$55,100.00" },
+        { item: "Support & Monitoring", quantity: 12, price: "$2,150.00", discount: "0%", total: "$25,800.00" },
+        { item: "Implementation Services", quantity: 1, price: "$15,420.00", discount: "3%", total: "$14,957.40" },
       ],
       totals: {
-        subtotal: "$ 95,857.40",
-        tax: "$ 3,536.80",
-        total: "$ 99,394.20",
+        subtotal: "$95,857.40",
+        tax: "$3,536.80",
+        total: "$99,394.20",
       },
       activities: [
         { title: "Viewed by client", meta: "14 Apr 2026, 2:15 PM", actor: "Kumaan Procurement Team", description: "Client opened the proposal and reviewed the commercial summary and SLA details." },
@@ -11434,7 +11505,7 @@ function Frame59({
       clientName: "Northwind Energy",
       contactPerson: "Rina Patel",
       title: "Plant Audit Package",
-      amount: "$ 52,180.00",
+      amount: "$52,180.00",
       status: "Rejected",
       owner: "Maya Chen",
       ownerRole: "Senior Sales Lead",
@@ -11451,14 +11522,14 @@ function Frame59({
         { label: "Stage", value: "Commercial feedback received" },
       ],
       lineItems: [
-        { item: "Site Audit Team", quantity: 1, price: "$ 31,500.00", discount: "8%", total: "$ 28,980.00" },
-        { item: "Process Mapping Workshop", quantity: 2, price: "$ 8,400.00", discount: "0%", total: "$ 16,800.00" },
-        { item: "Risk Assessment Report", quantity: 1, price: "$ 5,800.00", discount: "0%", total: "$ 5,800.00" },
+        { item: "Site Audit Team", quantity: 1, price: "$31,500.00", discount: "8%", total: "$28,980.00" },
+        { item: "Process Mapping Workshop", quantity: 2, price: "$8,400.00", discount: "0%", total: "$16,800.00" },
+        { item: "Risk Assessment Report", quantity: 1, price: "$5,800.00", discount: "0%", total: "$5,800.00" },
       ],
       totals: {
-        subtotal: "$ 51,580.00",
-        tax: "$ 600.00",
-        total: "$ 52,180.00",
+        subtotal: "$51,580.00",
+        tax: "$600.00",
+        total: "$52,180.00",
       },
       activities: [
         { title: "Rejected by client", meta: "15 Apr 2026, 5:40 PM", actor: "Northwind Energy", description: "Client declined the package due to budget concerns and phased rollout preference." },
@@ -11482,7 +11553,7 @@ function Frame59({
       clientName: "UrbanAxis Retail",
       contactPerson: "Kevin Howard",
       title: "Warehouse Automation",
-      amount: "$ 128,450.00",
+      amount: "$128,450.00",
       status: "Draft",
       owner: "Kevin Smith",
       ownerRole: "Business Consultant",
@@ -11499,14 +11570,14 @@ function Frame59({
         { label: "Stage", value: "Awaiting internal review" },
       ],
       lineItems: [
-        { item: "Automation Blueprint", quantity: 1, price: "$ 42,000.00", discount: "0%", total: "$ 42,000.00" },
-        { item: "Forecasting Engine Setup", quantity: 1, price: "$ 54,500.00", discount: "4%", total: "$ 52,320.00" },
-        { item: "On-site Training", quantity: 3, price: "$ 9,800.00", discount: "0%", total: "$ 29,400.00" },
+        { item: "Automation Blueprint", quantity: 1, price: "$42,000.00", discount: "0%", total: "$42,000.00" },
+        { item: "Forecasting Engine Setup", quantity: 1, price: "$54,500.00", discount: "4%", total: "$52,320.00" },
+        { item: "On-site Training", quantity: 3, price: "$9,800.00", discount: "0%", total: "$29,400.00" },
       ],
       totals: {
-        subtotal: "$ 123,720.00",
-        tax: "$ 4,730.00",
-        total: "$ 128,450.00",
+        subtotal: "$123,720.00",
+        tax: "$4,730.00",
+        total: "$128,450.00",
       },
       activities: [
         { title: "Draft reviewed", meta: "16 Apr 2026, 9:05 AM", actor: "Kevin Smith", description: "Internal review requested final confirmation on leasing and installation terms." },
@@ -11529,7 +11600,7 @@ function Frame59({
       clientName: "Apex Med Systems",
       contactPerson: "Diana Morris",
       title: "Service Expansion",
-      amount: "$ 74,900.00",
+      amount: "$74,900.00",
       status: "Sent",
       owner: "Mack Rod",
       ownerRole: "Regional Manager",
@@ -11546,14 +11617,14 @@ function Frame59({
         { label: "Stage", value: "Sent for approval" },
       ],
       lineItems: [
-        { item: "Facility Expansion Audit", quantity: 1, price: "$ 24,500.00", discount: "0%", total: "$ 24,500.00" },
-        { item: "Service Rollout Package", quantity: 1, price: "$ 38,400.00", discount: "5%", total: "$ 36,480.00" },
-        { item: "Support Retainer", quantity: 6, price: "$ 2,650.00", discount: "0%", total: "$ 15,900.00" },
+        { item: "Facility Expansion Audit", quantity: 1, price: "$24,500.00", discount: "0%", total: "$24,500.00" },
+        { item: "Service Rollout Package", quantity: 1, price: "$38,400.00", discount: "5%", total: "$36,480.00" },
+        { item: "Support Retainer", quantity: 6, price: "$2,650.00", discount: "0%", total: "$15,900.00" },
       ],
       totals: {
-        subtotal: "$ 76,880.00",
-        tax: "-$ 1,980.00",
-        total: "$ 74,900.00",
+        subtotal: "$76,880.00",
+        tax: "-$1,980.00",
+        total: "$74,900.00",
       },
       activities: [
         { title: "Sent to client", meta: "17 Apr 2026, 1:35 PM", actor: "Mack Rod", description: "Proposal sent to procurement and operations stakeholders for review." },
@@ -12053,7 +12124,7 @@ export default function WidgetOnWindowHome() {
                           <p className="font-['Roboto:Bold',sans-serif] text-[15px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {option.label}
                           </p>
-                          <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#5f7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] leading-[18px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
                             {option.description}
                           </p>
                         </div>
