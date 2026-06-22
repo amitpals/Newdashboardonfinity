@@ -31,7 +31,7 @@ import {
   Phone,
   Plus,
   ReceiptText,
-  MoreVertical,
+  MoreHorizontal,
   RotateCcw,
   ScanLine,
   Search,
@@ -10664,7 +10664,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 }}
                                 type="button"
                               >
-                                <MoreVertical className="size-[16px]" strokeWidth={2} />
+                                <MoreHorizontal className="size-[16px]" strokeWidth={2} />
                               </button>
                               {moreRowOpen === line.lineNo ? (
                                 <>
