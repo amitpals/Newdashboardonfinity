@@ -33,6 +33,7 @@ import {
   ReceiptText,
   MoreVertical,
   RotateCcw,
+  ScanLine,
   Search,
   Send,
   Ticket,
@@ -9272,26 +9273,35 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     { lineNo: "10", product: "Blower", charge: "", attribute: "BL", description: "Industrial blower for warehouse ventilation system", uom: "Each", quantity: "4", price: "100.00", tax: "18%", amount: "400.00", discount: "", notes: "" },
     { lineNo: "20", product: "", charge: "Installation Service", attribute: "IN", description: "On-site installation labor incl. testing & sign-off", uom: "Hour", quantity: "2", price: "65.00", tax: "18%", amount: "130.00", discount: "", notes: "" },
   ]);
-  // Product catalog the search field autocompletes against.
-  const productCatalog = [
-    "Blower",
-    "Compressor",
-    "Installation",
-    "Maintenance Kit",
-    "Pipe Fitting",
-    "Sensor Module",
-    "Service Charge",
-    "Wiring Harness",
+  // Unified catalog backing the autocomplete popover on the primary (Product / Charge) cell.
+  // Each entry carries:
+  //   - name : visible label
+  //   - type : "product" | "charge" — drives the badge in the popover row + which line
+  //            field gets set on commit (the other one is cleared).
+  //   - key  : unique search code (SKU-like). Shown under the name and matched by the
+  //            search filter so users can type either the name or the code.
+  type CatalogItem = { name: string; type: "product" | "charge"; key: string };
+  const catalogItems: CatalogItem[] = [
+    { name: "Blower", type: "product", key: "PRD-BLW-001" },
+    { name: "Compressor", type: "product", key: "PRD-CMP-002" },
+    { name: "Installation", type: "product", key: "PRD-INS-003" },
+    { name: "Maintenance Kit", type: "product", key: "PRD-MTK-004" },
+    { name: "Pipe Fitting", type: "product", key: "PRD-PPF-005" },
+    { name: "Sensor Module", type: "product", key: "PRD-SNM-006" },
+    { name: "Service Charge", type: "product", key: "PRD-SVC-007" },
+    { name: "Wiring Harness", type: "product", key: "PRD-WHN-008" },
+    { name: "Installation Service", type: "charge", key: "CHG-INS-001" },
+    { name: "Freight Charge", type: "charge", key: "CHG-FRT-002" },
+    { name: "Setup Cost", type: "charge", key: "CHG-STP-003" },
+    { name: "Maintenance Fee", type: "charge", key: "CHG-MTF-004" },
+    { name: "Service Surcharge", type: "charge", key: "CHG-SSC-005" },
+    { name: "Misc Fee", type: "charge", key: "CHG-MSC-006" },
   ];
-  // Charge catalog used when the line represents a non-product charge.
-  const chargeCatalog = [
-    "Installation Service",
-    "Freight Charge",
-    "Setup Cost",
-    "Maintenance Fee",
-    "Service Surcharge",
-    "Misc Fee",
-  ];
+  // Derived arrays for downstream consumers (default lookups, attribute lookups) that
+  // still key by name only — kept so the rest of the file is unaffected by the catalog
+  // restructure.
+  const productCatalog = catalogItems.filter((i) => i.type === "product").map((i) => i.name);
+  const chargeCatalog = catalogItems.filter((i) => i.type === "charge").map((i) => i.name);
   // Tax + UOM catalogs power the inline selects on Price→Tax and Quantity→UOM cells.
   // Tax is rendered as a percentage rate so the cell scans as a number across rows
   // (no localized labels like "Standard" / "Exempt" — those vary by jurisdiction).
@@ -9319,24 +9329,89 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   };
   // Attributes available per product / per charge. In a real system these come from the master
   // record; here static mocks drive the picker that opens after a product/charge changes.
-  const productAttributes: Record<string, string[]> = {
-    Blower: ["BL", "BL-XL", "BL-M", "BL-HD"],
-    Compressor: ["CP-S", "CP-M", "CP-L"],
-    Installation: ["IN-S", "IN-M", "IN-L"],
-    "Maintenance Kit": ["MK-A", "MK-B"],
-    "Pipe Fitting": ["PF-1", "PF-2", "PF-3"],
-    "Sensor Module": ["SM-A", "SM-B"],
-    "Service Charge": ["SC-STD", "SC-PRIO"],
-    "Wiring Harness": ["WH-S", "WH-L"],
+  // Each option carries the data the Select Attribute grid renders: code, label, a spec/mode
+  // detail, the price delta vs the base price, and availability (stock for products, lead time
+  // for charges). Codes are not globally unique across products vs charges, so the data is
+  // nested by primary name.
+  type AttributeOption = {
+    code: string;
+    label: string;
+    spec: string;
+    priceDelta: string;
+    availability: string;
   };
-  const chargeAttributes: Record<string, string[]> = {
-    "Installation Service": ["IN", "OUT", "EM"],
-    "Freight Charge": ["FC-AIR", "FC-SEA", "FC-LAND"],
-    "Setup Cost": ["SC-STD"],
-    "Maintenance Fee": ["MF-STD", "MF-PREM"],
-    "Service Surcharge": ["SS-STD"],
-    "Misc Fee": ["MF"],
-  };
+  const [productAttributeOptions, setProductAttributeOptions] = useState<Record<string, AttributeOption[]>>({
+    Blower: [
+      { code: "BL",    label: "Base model",       spec: "500 CFM",  priceDelta: "—",    availability: "128 in stock" },
+      { code: "BL-XL", label: "Extra Large",      spec: "1200 CFM", priceDelta: "+35%", availability: "42 in stock" },
+      { code: "BL-M",  label: "Medium duty",      spec: "800 CFM",  priceDelta: "+15%", availability: "86 in stock" },
+      { code: "BL-HD", label: "Heavy duty",       spec: "1000 CFM", priceDelta: "+25%", availability: "8 low" },
+    ],
+    Compressor: [
+      { code: "CP-S", label: "Small footprint",   spec: "5 HP",     priceDelta: "—",    availability: "64 in stock" },
+      { code: "CP-M", label: "Medium capacity",   spec: "10 HP",    priceDelta: "+20%", availability: "32 in stock" },
+      { code: "CP-L", label: "Large capacity",    spec: "20 HP",    priceDelta: "+45%", availability: "12 in stock" },
+    ],
+    Installation: [
+      { code: "IN-S", label: "Single-zone",       spec: "1 site",    priceDelta: "—",    availability: "2 days lead" },
+      { code: "IN-M", label: "Multi-zone",        spec: "2–5 sites", priceDelta: "+30%", availability: "5 days lead" },
+      { code: "IN-L", label: "Large-site",        spec: "6+ sites",  priceDelta: "+65%", availability: "10 days lead" },
+    ],
+    "Maintenance Kit": [
+      { code: "MK-A", label: "Annual kit",        spec: "12 mo cycle", priceDelta: "—",    availability: "54 in stock" },
+      { code: "MK-B", label: "Biannual kit",      spec: "6 mo cycle",  priceDelta: "+40%", availability: "28 in stock" },
+    ],
+    "Pipe Fitting": [
+      { code: "PF-1", label: "Half-inch",         spec: '1/2"',     priceDelta: "—",    availability: "420 in stock" },
+      { code: "PF-2", label: "Three-quarter",     spec: '3/4"',     priceDelta: "+10%", availability: "210 in stock" },
+      { code: "PF-3", label: "One-inch",          spec: '1"',       priceDelta: "+25%", availability: "150 in stock" },
+    ],
+    "Sensor Module": [
+      { code: "SM-A", label: "Analog sensor",     spec: "0–10 V",    priceDelta: "—",    availability: "76 in stock" },
+      { code: "SM-B", label: "Bluetooth sensor",  spec: "BLE 5.2",   priceDelta: "+50%", availability: "44 in stock" },
+    ],
+    "Service Charge": [
+      { code: "SC-STD",  label: "Standard service", spec: "Next-day",   priceDelta: "—",    availability: "Same-day book" },
+      { code: "SC-PRIO", label: "Priority service", spec: "Same-day",   priceDelta: "+60%", availability: "2 h slots" },
+    ],
+    "Wiring Harness": [
+      { code: "WH-S", label: "Short harness",     spec: "≤ 3 m",     priceDelta: "—",    availability: "180 in stock" },
+      { code: "WH-L", label: "Long harness",      spec: "≥ 6 m",     priceDelta: "+20%", availability: "95 in stock" },
+    ],
+  });
+  const [chargeAttributeOptions, setChargeAttributeOptions] = useState<Record<string, AttributeOption[]>>({
+    "Installation Service": [
+      { code: "IN",  label: "Indoor install",     spec: "On-site dispatch", priceDelta: "—",    availability: "1 day lead" },
+      { code: "OUT", label: "Outdoor install",    spec: "On-site dispatch", priceDelta: "+20%", availability: "2 days lead" },
+      { code: "EM",  label: "Emergency install",  spec: "24/7 dispatch",    priceDelta: "+75%", availability: "2 h response" },
+    ],
+    "Freight Charge": [
+      { code: "FC-AIR",  label: "Air freight",    spec: "Express",   priceDelta: "+80%", availability: "2 days lead" },
+      { code: "FC-SEA",  label: "Sea freight",    spec: "Container", priceDelta: "—",    availability: "21 days lead" },
+      { code: "FC-LAND", label: "Land transport", spec: "Trucking",  priceDelta: "+25%", availability: "5 days lead" },
+    ],
+    "Setup Cost": [
+      { code: "SC-STD", label: "Standard setup", spec: "Half-day", priceDelta: "—", availability: "Next-day book" },
+    ],
+    "Maintenance Fee": [
+      { code: "MF-STD",  label: "Standard maintenance", spec: "Yearly cycle",    priceDelta: "—",    availability: "Quarterly book" },
+      { code: "MF-PREM", label: "Premium maintenance",  spec: "Quarterly cycle", priceDelta: "+45%", availability: "Monthly book" },
+    ],
+    "Service Surcharge": [
+      { code: "SS-STD", label: "Standard surcharge", spec: "Flat fee", priceDelta: "—", availability: "Always" },
+    ],
+    "Misc Fee": [
+      { code: "MF", label: "Miscellaneous fee", spec: "One-time", priceDelta: "—", availability: "Always" },
+    ],
+  });
+  // Code-only arrays used by the existing lookup paths (default validation, fallback selection).
+  // Derived from the option maps so the source of truth stays in one place.
+  const productAttributes: Record<string, string[]> = Object.fromEntries(
+    Object.entries(productAttributeOptions).map(([k, v]) => [k, v.map((o) => o.code)]),
+  );
+  const chargeAttributes: Record<string, string[]> = Object.fromEntries(
+    Object.entries(chargeAttributeOptions).map(([k, v]) => [k, v.map((o) => o.code)]),
+  );
   type EditableField = "product" | "charge" | "quantity" | "uom" | "description" | "price" | "tax" | "attribute" | "discount" | "notes";
   // Per-row "more options" popover — anchored to the trailing ⋮ icon. Holds optional
   // fields that don't earn a visible column (Discount + Notes for now).
@@ -9359,13 +9434,69 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const [attributePicker, setAttributePicker] = useState<{
     lineNo: string;
     primaryLabel: string;
+    primaryType: "product" | "charge";
     options: string[];
     selectedAttribute: string;
   } | null>(null);
+  // Search field inside the Select Attribute dialog. Cleared whenever the picker
+  // (re)opens against a different primary so a stale query never leaks across primaries.
+  const [attributeSearch, setAttributeSearch] = useState("");
+  // Dialog body switches between the grid list and a create-attribute form.
+  const [attributePickerMode, setAttributePickerMode] = useState<"list" | "create">("list");
+  const blankNewAttribute: AttributeOption = { code: "", label: "", spec: "", priceDelta: "", availability: "" };
+  const [newAttribute, setNewAttribute] = useState<AttributeOption>(blankNewAttribute);
+  const [newAttributeError, setNewAttributeError] = useState<string>("");
+  useEffect(() => {
+    setAttributeSearch("");
+    setAttributePickerMode("list");
+    setNewAttribute(blankNewAttribute);
+    setNewAttributeError("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [attributePicker?.lineNo, attributePicker?.primaryLabel]);
+  // Commit a catalog pick (mouse / keyboard selection from the popover). The item carries
+  // its own type, so a line that was a product can become a charge in one click — we
+  // clear the opposite field at the same time so the line never holds both.
+  const commitCatalogItem = (lineNo: string, item: CatalogItem) => {
+    setEditingCell(null);
+    const targetField = item.type;
+    const otherField = targetField === "product" ? "charge" : "product";
+    const defaults = (targetField === "product" ? productDefaults : chargeDefaults)[item.name];
+    setInvoiceLines((lines) =>
+      lines.map((l) =>
+        l.lineNo === lineNo
+          ? {
+              ...l,
+              [targetField]: item.name,
+              [otherField]: "",
+              ...(defaults ? { uom: defaults.uom, price: defaults.price } : {}),
+            }
+          : l,
+      ),
+    );
+    const options = (targetField === "product" ? productAttributes : chargeAttributes)[item.name] ?? [];
+    if (options.length === 0) {
+      return;
+    }
+    const currentLine = invoiceLines.find((l) => l.lineNo === lineNo);
+    const currentAttr = currentLine?.attribute ?? "";
+    setAttributePicker({
+      lineNo,
+      primaryLabel: item.name,
+      primaryType: targetField,
+      options,
+      selectedAttribute: options.includes(currentAttr) ? currentAttr : options[0],
+    });
+  };
   const commitPrimary = (lineNo: string, field: "product" | "charge", newValue: string) => {
     const line = invoiceLines.find((l) => l.lineNo === lineNo);
     const oldValue = line ? line[field] : "";
     setEditingCell(null);
+    // Treat backspace-to-empty as "didn't commit a change" — keep the existing value.
+    // Without this guard, a user who clears the cell without picking a replacement (mouse
+    // away or Tab out) would wipe out the row's product/charge by accident.
+    if (newValue.trim() === "" && oldValue !== "") {
+      return;
+    }
     if (newValue === oldValue) {
       return;
     }
@@ -9392,6 +9523,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     setAttributePicker({
       lineNo,
       primaryLabel: newValue,
+      primaryType: field,
       options,
       selectedAttribute: options.includes(currentAttr) ? currentAttr : options[0],
     });
@@ -9423,6 +9555,94 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     } else {
       setSelectedLineNos(new Set(invoiceLines.map((l) => l.lineNo)));
     }
+  };
+  // Barcode-scan flow — open a dialog, capture scans (keyboard wedge stream that ends with
+  // Enter), stage them in a review list, and append the matched rows as new invoice lines
+  // on Submit. Duplicate scans of the same key increment quantity instead of stacking rows.
+  type ScannedRow = {
+    id: string;
+    key: string;            // the raw scanned barcode / catalog key
+    matched: CatalogItem | null;  // null when no catalog entry matches
+    quantity: string;
+  };
+  const [scanDialogOpen, setScanDialogOpen] = useState(false);
+  const [scanInput, setScanInput] = useState("");
+  const [scannedRows, setScannedRows] = useState<ScannedRow[]>([]);
+  const [scanError, setScanError] = useState<string>("");
+  const openScanDialog = () => {
+    setScannedRows([]);
+    setScanInput("");
+    setScanError("");
+    setScanDialogOpen(true);
+  };
+  const closeScanDialog = () => {
+    setScanDialogOpen(false);
+  };
+  const processScan = (rawKey: string) => {
+    const key = rawKey.trim();
+    if (key === "") return;
+    const match = catalogItems.find((i) => i.key.toLowerCase() === key.toLowerCase()) ?? null;
+    setScannedRows((current) => {
+      const existingIdx = current.findIndex((r) => r.key.toLowerCase() === key.toLowerCase());
+      if (existingIdx >= 0) {
+        const next = [...current];
+        const cur = next[existingIdx];
+        const incremented = String((parseInt(cur.quantity || "0", 10) || 0) + 1);
+        next[existingIdx] = { ...cur, quantity: incremented };
+        return next;
+      }
+      return [
+        ...current,
+        {
+          id: `scan-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+          key,
+          matched: match,
+          quantity: "1",
+        },
+      ];
+    });
+    setScanError(match ? "" : `No catalog match for "${key}"`);
+    setScanInput("");
+  };
+  const updateScannedQty = (id: string, nextValue: string) => {
+    setScannedRows((current) => current.map((r) => (r.id === id ? { ...r, quantity: nextValue } : r)));
+  };
+  const removeScannedRow = (id: string) => {
+    setScannedRows((current) => current.filter((r) => r.id !== id));
+  };
+  const handleSubmitScans = () => {
+    const matched = scannedRows.filter((r) => r.matched !== null);
+    if (matched.length === 0) return;
+    setInvoiceLines((current) => {
+      let maxNo = current.reduce((acc, l) => Math.max(acc, parseInt(l.lineNo, 10) || 0), 0);
+      const newLines = matched.map((row) => {
+        maxNo += 10;
+        const lineNo = String(maxNo).padStart(2, "0");
+        const item = row.matched!;
+        const defaults = (item.type === "product" ? productDefaults : chargeDefaults)[item.name];
+        return {
+          lineNo,
+          product: item.type === "product" ? item.name : "",
+          charge: item.type === "charge" ? item.name : "",
+          attribute: "",
+          description: "",
+          uom: defaults?.uom ?? "",
+          quantity: row.quantity.trim() === "" ? "1" : row.quantity,
+          price: defaults?.price ?? "",
+          tax: "",
+          amount: "",
+          discount: "",
+          notes: "",
+        };
+      });
+      setUnsavedLineNos((set) => {
+        const next = new Set(set);
+        newLines.forEach((l) => next.add(l.lineNo));
+        return next;
+      });
+      return [...newLines, ...current];
+    });
+    setScanDialogOpen(false);
   };
   const handleAddLine = () => {
     setInvoiceLines((current) => {
@@ -9546,6 +9766,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     setAttributePicker({
       lineNo: line.lineNo,
       primaryLabel: primaryValue,
+      primaryType: primaryField,
       options,
       selectedAttribute: options.includes(line.attribute) ? line.attribute : options[0],
     });
@@ -9989,6 +10210,14 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                         </p>
                       </div>
                       <div className="flex flex-wrap items-center gap-[10px]">
+                        <button
+                          className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[14px] py-[8px] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef7ff]"
+                          onClick={openScanDialog}
+                          type="button"
+                        >
+                          <ScanLine className="size-[14px]" strokeWidth={2} />
+                          Scan
+                        </button>
                         {hasUnsavedRows ? (
                           <button
                             className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[14px] py-[8px] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
@@ -10058,6 +10287,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                           const primaryField: "product" | "charge" = line.charge !== "" && line.product === "" ? "charge" : "product";
                           const primaryValue = line.product || line.charge;
                           const primaryCatalog = primaryField === "product" ? productCatalog : chargeCatalog;
+                          // Reserved for the legacy filter path; the new popover queries the full catalog.
+                          void primaryCatalog;
                           const isEditingPrimary = editingCell?.lineNo === line.lineNo && (editingCell.field === "product" || editingCell.field === "charge");
                           const isSelected = selectedLineNos.has(line.lineNo);
                           return (
@@ -10115,29 +10346,56 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                     value={searchValue}
                                   />
                                   {(() => {
+                                    // Unified popover: searches BOTH name and key across the full product+charge catalog,
+                                    // so users can find any item from either cell context. Each row carries a type
+                                    // badge so a charge among products is obvious, plus the unique search key
+                                    // (PRD-… / CHG-…) under the name.
                                     const q = searchValue.trim().toLowerCase();
-                                    const matches = primaryCatalog.filter((opt) => opt !== searchValue && (q === "" || opt.toLowerCase().includes(q)));
+                                    const matches = catalogItems.filter(
+                                      (item) =>
+                                        item.name !== searchValue &&
+                                        (q === "" || item.name.toLowerCase().includes(q) || item.key.toLowerCase().includes(q)),
+                                    );
                                     if (matches.length === 0) {
                                       return null;
                                     }
                                     return (
-                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "200px" }}>
-                                        {matches.map((opt) => (
-                                          <button
-                                            className="block w-full truncate px-[10px] py-[6px] text-left font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] hover:bg-[#f1f8ff] focus:bg-[#eef7ff] focus:outline-none"
-                                            data-product-option="true"
-                                            key={opt}
-                                            onMouseDown={(e) => {
-                                              e.preventDefault();
-                                              commitPrimary(line.lineNo, editingCell!.field as "product" | "charge", opt);
-                                            }}
-                                            style={{ fontVariationSettings: "'wdth' 100" }}
-                                            type="button"
-                                            title={opt}
-                                          >
-                                            {opt}
-                                          </button>
-                                        ))}
+                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] min-w-[280px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "260px" }}>
+                                        {matches.map((item) => {
+                                          const isProduct = item.type === "product";
+                                          const badgeClass = isProduct
+                                            ? "bg-[#EAF8FF] text-[#005FA3]"
+                                            : "bg-[#EFEEFF] text-[#5F4AA6]";
+                                          const badgeLabel = isProduct ? "Product" : "Charge";
+                                          return (
+                                            <button
+                                              className="flex w-full items-start justify-between gap-[10px] border-b border-solid border-[#eef2f6] px-[10px] py-[8px] text-left transition-colors last:border-b-0 hover:bg-[#f1f8ff] focus:bg-[#eef7ff] focus:outline-none"
+                                              data-product-option="true"
+                                              key={`${item.type}-${item.key}`}
+                                              onMouseDown={(e) => {
+                                                e.preventDefault();
+                                                commitCatalogItem(line.lineNo, item);
+                                              }}
+                                              type="button"
+                                              title={`${item.name} (${item.key})`}
+                                            >
+                                              <div className="min-w-0 flex-1">
+                                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                                  {item.name}
+                                                </p>
+                                                <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                                  {item.key}
+                                                </p>
+                                              </div>
+                                              <span
+                                                className={`shrink-0 rounded-[999px] px-[8px] py-[2px] font-['Roboto:SemiBold',sans-serif] font-semibold text-[10px] uppercase tracking-[0.04em] ${badgeClass}`}
+                                                style={{ fontVariationSettings: "'wdth' 100" }}
+                                              >
+                                                {badgeLabel}
+                                              </span>
+                                            </button>
+                                          );
+                                        })}
                                       </div>
                                     );
                                   })()}
@@ -10250,8 +10508,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   className="mt-[2px] block w-full bg-white p-0 text-right font-['Roboto:Regular',sans-serif] text-[12px] 2xl:text-[14px] leading-[1.5] text-[#41576A] outline outline-2 outline-[#0083da] rounded-[4px]"
                                   defaultValue={line.uom}
                                   onChange={(e) => {
+                                    // Commit but keep cell open — see Tax onChange note above.
                                     updateLineField(line.lineNo, "uom", e.target.value);
-                                    setEditingCell(null);
                                   }}
                                   onBlur={() => setEditingCell(null)}
                                   onKeyDown={(e) => {
@@ -10261,6 +10519,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                       advanceField(line.lineNo, "uom", (e.target as HTMLSelectElement).value, e.shiftKey ? -1 : 1);
                                       return;
                                     }
+                                    if (e.key === "Enter") (e.target as HTMLSelectElement).blur();
                                     if (e.key === "Escape") setEditingCell(null);
                                   }}
                                   onClick={(e) => e.stopPropagation()}
@@ -10351,8 +10610,11 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                   className="block w-full bg-transparent p-0 font-['Roboto:Regular',sans-serif] text-[14px] 2xl:text-[16px] leading-[1.5] text-[#41576A] outline-none"
                                   defaultValue={line.tax}
                                   onChange={(e) => {
+                                    // Commit the value but keep the cell in edit mode so the
+                                    // keyboard Tab handler below stays mounted — closing here
+                                    // would unmount the <select> and let the browser fall back
+                                    // to natural Tab order (next row's checkbox).
                                     updateLineField(line.lineNo, "tax", e.target.value);
-                                    setEditingCell(null);
                                   }}
                                   onBlur={() => setEditingCell(null)}
                                   onKeyDown={(e) => {
@@ -10362,6 +10624,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                       advanceField(line.lineNo, "tax", (e.target as HTMLSelectElement).value, e.shiftKey ? -1 : 1);
                                       return;
                                     }
+                                    if (e.key === "Enter") (e.target as HTMLSelectElement).blur();
                                     if (e.key === "Escape") setEditingCell(null);
                                   }}
                                   onClick={(e) => e.stopPropagation()}
@@ -10877,7 +11140,86 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
         </>
       )}
 
-      {attributePicker ? (
+      {attributePicker ? (() => {
+        const isProduct = attributePicker.primaryType === "product";
+        const optionsForPrimary =
+          (isProduct ? productAttributeOptions : chargeAttributeOptions)[attributePicker.primaryLabel] ?? [];
+        const q = attributeSearch.trim().toLowerCase();
+        const filteredOptions = optionsForPrimary.filter((opt) => {
+          if (q === "") return true;
+          return (
+            opt.code.toLowerCase().includes(q) ||
+            opt.label.toLowerCase().includes(q) ||
+            opt.spec.toLowerCase().includes(q) ||
+            opt.priceDelta.toLowerCase().includes(q) ||
+            opt.availability.toLowerCase().includes(q)
+          );
+        });
+        const typeBadgeTone = isProduct ? "bg-[#EAF8FF] text-[#005FA3]" : "bg-[#EFEEFF] text-[#5F4AA6]";
+        const typeBadgeLabel = isProduct ? "Product" : "Charge";
+        const specHeader = isProduct ? "Spec" : "Mode";
+        const availabilityHeader = isProduct ? "Stock" : "Lead time";
+        // Shared grid template: radio · code · description · spec · price delta · availability.
+        // minmax(min, fr) keeps the description elastic while the metric columns hold a floor.
+        const gridCols =
+          "grid grid-cols-[16px_minmax(72px,auto)_minmax(120px,1.4fr)_minmax(96px,1fr)_minmax(60px,auto)_minmax(108px,auto)] gap-[12px]";
+        const isCreateMode = attributePickerMode === "create";
+        const existingCodes = new Set(optionsForPrimary.map((o) => o.code.toLowerCase()));
+        const trimmedNew: AttributeOption = {
+          code: newAttribute.code.trim(),
+          label: newAttribute.label.trim(),
+          spec: newAttribute.spec.trim(),
+          priceDelta: newAttribute.priceDelta.trim(),
+          availability: newAttribute.availability.trim(),
+        };
+        const canSubmitNew = trimmedNew.code !== "" && trimmedNew.label !== "" && !existingCodes.has(trimmedNew.code.toLowerCase());
+        const submitNewAttribute = () => {
+          if (trimmedNew.code === "") {
+            setNewAttributeError("Code is required");
+            return;
+          }
+          if (trimmedNew.label === "") {
+            setNewAttributeError("Description is required");
+            return;
+          }
+          if (existingCodes.has(trimmedNew.code.toLowerCase())) {
+            setNewAttributeError(`Code "${trimmedNew.code}" already exists for ${attributePicker.primaryLabel}`);
+            return;
+          }
+          // Backfill blank optional fields with the em-dash baseline so the grid row reads
+          // consistently next to the seeded options.
+          const appended: AttributeOption = {
+            code: trimmedNew.code,
+            label: trimmedNew.label,
+            spec: trimmedNew.spec || "—",
+            priceDelta: trimmedNew.priceDelta || "—",
+            availability: trimmedNew.availability || "—",
+          };
+          const setter = isProduct ? setProductAttributeOptions : setChargeAttributeOptions;
+          setter((current) => ({
+            ...current,
+            [attributePicker.primaryLabel]: [...(current[attributePicker.primaryLabel] ?? []), appended],
+          }));
+          // Pre-select the freshly created attribute and bounce back to the list. The picker's
+          // options array is also updated so existing keyboard / select-by-code paths see it.
+          setAttributePicker((current) =>
+            current
+              ? {
+                  ...current,
+                  options: [...current.options, appended.code],
+                  selectedAttribute: appended.code,
+                }
+              : current,
+          );
+          setAttributePickerMode("list");
+          setNewAttribute(blankNewAttribute);
+          setNewAttributeError("");
+          setAttributeSearch("");
+        };
+        // Form-field shell used for every input in the create-mode form.
+        const formInputClass =
+          "h-[34px] w-full rounded-[8px] border border-solid border-[#D9E2EB] bg-white px-[10px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none focus:border-[#0083da] placeholder:text-[#9F9F9F]";
+        return (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,27,45,0.42)] px-[16px] backdrop-blur-[2px]"
           onClick={() => setAttributePicker(null)}
@@ -10886,58 +11228,470 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
           aria-label="Select attribute"
         >
           <div
-            className="w-[min(420px,100%)] overflow-hidden rounded-[14px] bg-white shadow-[0_20px_50px_rgba(15,61,97,0.20)]"
+            className="w-[min(680px,100%)] overflow-hidden rounded-[14px] bg-white shadow-[0_20px_50px_rgba(15,61,97,0.20)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="border-b border-solid border-[#e2eaf1] px-[20px] py-[14px]">
-              <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Select attribute
-              </p>
-              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={attributePicker.primaryLabel}>
-                For {attributePicker.primaryLabel}
-              </p>
-            </div>
-
-            <div className="px-[12px] py-[8px]">
-              {attributePicker.options.map((opt) => {
-                const isSelected = attributePicker.selectedAttribute === opt;
-                return (
+            <div className="border-b border-solid border-[#e2eaf1] px-[20px] pb-[12px] pt-[14px]">
+              <div className="flex items-center justify-between gap-[12px]">
+                {isCreateMode ? (
                   <button
-                    className={`flex w-full items-center gap-[10px] rounded-[8px] px-[10px] py-[8px] text-left transition-colors ${isSelected ? "bg-[#eef7ff]" : "hover:bg-[#f7fbff]"}`}
-                    key={opt}
-                    onClick={() => setAttributePicker((current) => (current ? { ...current, selectedAttribute: opt } : current))}
+                    className="flex items-center gap-[6px] rounded-[8px] px-[6px] py-[4px] font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f] transition-colors hover:bg-[#f7fbff]"
+                    onClick={() => {
+                      setAttributePickerMode("list");
+                      setNewAttributeError("");
+                    }}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
                     type="button"
                   >
-                    <span className={`flex size-[16px] shrink-0 items-center justify-center rounded-full border-2 border-solid ${isSelected ? "border-[#0083da]" : "border-[#c5d2dd]"}`}>
-                      {isSelected ? <span className="size-[8px] rounded-full bg-[#0083da]" /> : null}
-                    </span>
-                    <span className="font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {opt}
-                    </span>
+                    <ArrowLeft className="size-[16px] text-[#0083da]" strokeWidth={2} />
+                    New attribute
                   </button>
-                );
-              })}
+                ) : (
+                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Select attribute
+                  </p>
+                )}
+                {!isCreateMode ? (
+                  <button
+                    className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[12px] py-[6px] font-['Roboto:SemiBold',sans-serif] text-[12px] text-[#0083da] transition-colors hover:bg-[#eaf8ff]"
+                    onClick={() => {
+                      setAttributePickerMode("create");
+                      setNewAttribute(blankNewAttribute);
+                      setNewAttributeError("");
+                    }}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    <Plus className="size-[14px]" strokeWidth={2} />
+                    New attribute
+                  </button>
+                ) : null}
+              </div>
+              <div className="mt-[6px] flex items-center gap-[8px]">
+                <span className={`shrink-0 rounded-[999px] px-[8px] py-[2px] font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] ${typeBadgeTone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {typeBadgeLabel}
+                </span>
+                <p className="truncate font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={attributePicker.primaryLabel}>
+                  {attributePicker.primaryLabel}
+                </p>
+              </div>
+              {isCreateMode ? (
+                <div className="mt-[12px] flex items-center gap-[8px] rounded-[10px] border border-solid border-[#BFE4FF] bg-[#EAF8FF] px-[10px] py-[7px]">
+                  <Plus className="size-[14px] shrink-0 text-[#0083DA]" strokeWidth={2} />
+                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }} title={`New attribute under ${attributePicker.primaryLabel} — available to every line picking this ${typeBadgeLabel.toLowerCase()}.`}>
+                    New attribute under <span className="font-['Roboto:SemiBold',sans-serif]">{attributePicker.primaryLabel}</span> — available to every line picking this {typeBadgeLabel.toLowerCase()}.
+                  </p>
+                </div>
+              ) : (
+                <div className="mt-[12px] flex items-center gap-[8px] rounded-[10px] border border-solid border-[#D9E2EB] bg-white px-[10px] py-[7px] focus-within:border-[#0083da]">
+                  <Search className="size-[14px] text-[#5F7283]" strokeWidth={1.8} />
+                  <input
+                    autoFocus
+                    className="flex-1 bg-transparent font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none placeholder:text-[#9F9F9F]"
+                    onChange={(e) => setAttributeSearch(e.target.value)}
+                    placeholder="Search by code, description, spec, price delta, or availability"
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="text"
+                    value={attributeSearch}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="flex h-[360px] flex-col">
+            {isCreateMode ? (
+              <div className="flex-1 overflow-y-auto px-[20px] pb-[16px] pt-[16px]">
+                <div className="grid grid-cols-2 gap-x-[12px] gap-y-[12px]">
+                  <div className="flex flex-col gap-[4px]">
+                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Code <span className="text-[#D14545]">*</span>
+                    </label>
+                    <input
+                      autoFocus
+                      className={formInputClass}
+                      onChange={(e) => {
+                        setNewAttribute((c) => ({ ...c, code: e.target.value }));
+                        if (newAttributeError) setNewAttributeError("");
+                      }}
+                      placeholder="e.g. BL-2XL"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.code}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-[4px]">
+                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Description <span className="text-[#D14545]">*</span>
+                    </label>
+                    <input
+                      className={formInputClass}
+                      onChange={(e) => {
+                        setNewAttribute((c) => ({ ...c, label: e.target.value }));
+                        if (newAttributeError) setNewAttributeError("");
+                      }}
+                      placeholder="Short human label"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.label}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-[4px]">
+                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {specHeader}
+                    </label>
+                    <input
+                      className={formInputClass}
+                      onChange={(e) => setNewAttribute((c) => ({ ...c, spec: e.target.value }))}
+                      placeholder={isProduct ? "e.g. 1500 CFM" : "e.g. Express"}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.spec}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-[4px]">
+                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Δ Price
+                    </label>
+                    <input
+                      className={formInputClass}
+                      onChange={(e) => setNewAttribute((c) => ({ ...c, priceDelta: e.target.value }))}
+                      placeholder="e.g. +30% or —"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.priceDelta}
+                    />
+                  </div>
+                  <div className="col-span-2 flex flex-col gap-[4px]">
+                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {availabilityHeader}
+                    </label>
+                    <input
+                      className={formInputClass}
+                      onChange={(e) => setNewAttribute((c) => ({ ...c, availability: e.target.value }))}
+                      placeholder={isProduct ? "e.g. 24 in stock" : "e.g. 3 days lead"}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.availability}
+                    />
+                  </div>
+                </div>
+                {newAttributeError ? (
+                  <p className="mt-[12px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#D14545]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {newAttributeError}
+                  </p>
+                ) : null}
+              </div>
+            ) : (
+              <>
+                <div className={`${gridCols} shrink-0 border-b border-solid border-[#C5D2DD] bg-[#FBFDFF] px-[20px] py-[8px]`}>
+                  <span />
+                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Code</span>
+                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Description</span>
+                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>{specHeader}</span>
+                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Δ Price</span>
+                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>{availabilityHeader}</span>
+                </div>
+
+                <div className="flex-1 overflow-y-auto">
+                  {filteredOptions.length === 0 ? (
+                    <p className="px-[20px] py-[20px] text-center font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      No matches for "{attributeSearch}"
+                    </p>
+                  ) : (
+                    filteredOptions.map((opt) => {
+                      const isSelected = attributePicker.selectedAttribute === opt.code;
+                      const isBaseline = opt.priceDelta === "—";
+                      const isLowStock = opt.availability.toLowerCase().includes("low");
+                      return (
+                        <button
+                          className={`${gridCols} w-full items-center border-b border-solid border-[#EEF3F8] px-[20px] py-[10px] text-left transition-colors last:border-b-0 ${isSelected ? "bg-[#eef7ff]" : "hover:bg-[#f7fbff]"}`}
+                          key={opt.code}
+                          onClick={() => setAttributePicker((current) => (current ? { ...current, selectedAttribute: opt.code } : current))}
+                          type="button"
+                        >
+                          <span className={`flex size-[16px] shrink-0 items-center justify-center rounded-full border-2 border-solid ${isSelected ? "border-[#0083da]" : "border-[#c5d2dd]"}`}>
+                            {isSelected ? <span className="size-[8px] rounded-full bg-[#0083da]" /> : null}
+                          </span>
+                          <span className="truncate font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={opt.code}>
+                            {opt.code}
+                          </span>
+                          <span className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={opt.label}>
+                            {opt.label}
+                          </span>
+                          <span className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }} title={opt.spec}>
+                            {opt.spec}
+                          </span>
+                          <span className={`truncate font-['Roboto:SemiBold',sans-serif] text-[12px] ${isBaseline ? "text-[#5F7283]" : "text-[#0B6B45]"}`} style={{ fontVariationSettings: "'wdth' 100" }} title={opt.priceDelta}>
+                            {opt.priceDelta}
+                          </span>
+                          <span className={`truncate font-['Roboto:Regular',sans-serif] text-[12px] ${isLowStock ? "text-[#D14545]" : "text-[#41576A]"}`} style={{ fontVariationSettings: "'wdth' 100" }} title={opt.availability}>
+                            {opt.availability}
+                          </span>
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+              </>
+            )}
             </div>
 
             <div className="flex items-center justify-end gap-[8px] border-t border-solid border-[#e2eaf1] px-[20px] py-[12px]">
-              <button
-                className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
-                onClick={() => {
-                  updateLineField(attributePicker.lineNo, "attribute", attributePicker.selectedAttribute);
-                  const targetLineNo = attributePicker.lineNo;
-                  setAttributePicker(null);
-                  // Drop focus into Description so the user can keep typing the row.
-                  setEditingCell({ lineNo: targetLineNo, field: "description" });
-                }}
-                style={{ fontVariationSettings: "'wdth' 100" }}
-                type="button"
-              >
-                OK
-              </button>
+              {isCreateMode ? (
+                <>
+                  <button
+                    className="rounded-[999px] border border-solid border-[#D9E2EB] bg-white px-[18px] py-[8px] font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#41576A] transition-colors hover:bg-[#f7fbff]"
+                    onClick={() => {
+                      setAttributePickerMode("list");
+                      setNewAttributeError("");
+                    }}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className={`rounded-[999px] border border-solid px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors ${canSubmitNew ? "border-[#0083da] bg-[#0083da] hover:bg-[#0069ae]" : "cursor-not-allowed border-[#9FCDEC] bg-[#9FCDEC]"}`}
+                    disabled={!canSubmitNew}
+                    onClick={submitNewAttribute}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Add attribute
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                  onClick={() => {
+                    updateLineField(attributePicker.lineNo, "attribute", attributePicker.selectedAttribute);
+                    const targetLineNo = attributePicker.lineNo;
+                    setAttributePicker(null);
+                    // Drop focus into Description so the user can keep typing the row.
+                    setEditingCell({ lineNo: targetLineNo, field: "description" });
+                  }}
+                  style={{ fontVariationSettings: "'wdth' 100" }}
+                  type="button"
+                >
+                  OK
+                </button>
+              )}
             </div>
           </div>
         </div>
-      ) : null}
+        );
+      })() : null}
+
+      {scanDialogOpen ? (() => {
+        const matchedCount = scannedRows.filter((r) => r.matched !== null).length;
+        const unknownCount = scannedRows.length - matchedCount;
+        const totalUnits = scannedRows
+          .filter((r) => r.matched !== null)
+          .reduce((acc, r) => acc + (parseInt(r.quantity || "0", 10) || 0), 0);
+        // Grid: code · product · status · qty · remove. Shared template for header + rows.
+        const scanGridCols =
+          "grid grid-cols-[minmax(108px,auto)_minmax(140px,1.4fr)_minmax(96px,auto)_minmax(96px,auto)_28px] gap-[12px]";
+        return (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,27,45,0.42)] px-[16px] backdrop-blur-[2px]"
+            onClick={closeScanDialog}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Quick add by barcode"
+          >
+            <div
+              className="w-[min(720px,100%)] overflow-hidden rounded-[14px] bg-white shadow-[0_20px_50px_rgba(15,61,97,0.20)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="border-b border-solid border-[#e2eaf1] px-[20px] pb-[12px] pt-[14px]">
+                <div className="flex items-center justify-between gap-[12px]">
+                  <div className="flex items-center gap-[8px]">
+                    <ScanLine className="size-[18px] text-[#0083da]" strokeWidth={1.8} />
+                    <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Quick add by barcode
+                    </p>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Scan to add · review · submit
+                  </p>
+                </div>
+                <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  Point the scanner at a product barcode — items collect below. Duplicate scans increase quantity. Submit appends every matched row as a new invoice line.
+                </p>
+                <div className="mt-[12px] flex items-center gap-[8px] rounded-[10px] border-2 border-solid border-[#0083da] bg-[#F7FBFF] px-[12px] py-[8px] focus-within:bg-white">
+                  <button
+                    aria-label="Simulate scan"
+                    className="flex size-[22px] shrink-0 items-center justify-center rounded-[6px] text-[#0083da] transition-colors hover:bg-[#EAF8FF]"
+                    onClick={(e) => {
+                      // Demo only: pick a random catalog key and run the same scan path a real
+                      // keyboard-wedge scanner would trigger on Enter. Keeps the input focused
+                      // so the user can keep "scanning" without re-clicking.
+                      const pool = catalogItems;
+                      const pick = pool[Math.floor(Math.random() * pool.length)];
+                      if (pick) processScan(pick.key);
+                      const input = (e.currentTarget.parentElement?.querySelector("input") as HTMLInputElement | null);
+                      input?.focus();
+                    }}
+                    title="Simulate scan (demo)"
+                    type="button"
+                  >
+                    <ScanLine className="size-[16px]" strokeWidth={2} />
+                  </button>
+                  <input
+                    autoFocus
+                    className="flex-1 bg-transparent font-['Roboto:Regular',sans-serif] text-[14px] text-[#102c3f] outline-none placeholder:text-[#9F9F9F]"
+                    onChange={(e) => setScanInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        processScan(scanInput);
+                      }
+                    }}
+                    placeholder="Listening for scans... (click the icon to simulate, or type a key + Enter)"
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="text"
+                    value={scanInput}
+                  />
+                </div>
+                {scanError ? (
+                  <p className="mt-[8px] flex items-center gap-[6px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#D14545]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    <AlertTriangle className="size-[14px]" strokeWidth={1.8} />
+                    {scanError}
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="flex h-[320px] flex-col">
+              {scannedRows.length === 0 ? (
+                <div className="flex flex-1 flex-col items-center justify-center px-[20px] text-center">
+                  <div className="flex size-[56px] items-center justify-center rounded-full bg-[#EAF8FF]">
+                    <ScanLine className="size-[28px] text-[#0083da]" strokeWidth={1.6} />
+                  </div>
+                  <p className="mt-[14px] font-['Roboto:SemiBold',sans-serif] text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Scan a barcode to begin
+                  </p>
+                  <p className="mt-[4px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    e.g. PRD-BLW-001 · CHG-INS-001
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className={`${scanGridCols} shrink-0 border-b border-solid border-[#C5D2DD] bg-[#FBFDFF] px-[20px] py-[8px]`}>
+                    <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Code</span>
+                    <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Product / Charge</span>
+                    <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Status</span>
+                    <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Qty</span>
+                    <span />
+                  </div>
+                  <div className="flex-1 overflow-y-auto">
+                    {scannedRows.map((row) => {
+                      const matched = row.matched;
+                      const isProduct = matched?.type === "product";
+                      const isCharge = matched?.type === "charge";
+                      const statusTone = matched
+                        ? isProduct
+                          ? "bg-[#EAF8FF] text-[#005FA3]"
+                          : "bg-[#EFEEFF] text-[#5F4AA6]"
+                        : "bg-[#FCE7E7] text-[#A33F3F]";
+                      const statusLabel = matched ? (isProduct ? "Product" : isCharge ? "Charge" : "Catalog") : "Unknown";
+                      return (
+                        <div
+                          className={`${scanGridCols} items-center border-b border-solid border-[#EEF3F8] px-[20px] py-[10px] last:border-b-0 ${matched ? "" : "bg-[#FFF7F7]"}`}
+                          key={row.id}
+                        >
+                          <span className="truncate font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={row.key}>
+                            {row.key}
+                          </span>
+                          <span className="truncate font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={matched?.name ?? "—"}>
+                            {matched?.name ?? "—"}
+                          </span>
+                          <span className={`w-fit shrink-0 rounded-[999px] px-[8px] py-[2px] font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] ${statusTone}`} style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {statusLabel}
+                          </span>
+                          <div className="flex items-center gap-[4px]">
+                            <button
+                              aria-label="Decrease quantity"
+                              className="flex size-[24px] items-center justify-center rounded-[6px] border border-solid border-[#D9E2EB] bg-white text-[14px] text-[#41576A] transition-colors hover:bg-[#f7fbff] disabled:cursor-not-allowed disabled:opacity-50"
+                              disabled={!matched || (parseInt(row.quantity || "0", 10) || 0) <= 1}
+                              onClick={() => {
+                                const cur = parseInt(row.quantity || "0", 10) || 0;
+                                updateScannedQty(row.id, String(Math.max(1, cur - 1)));
+                              }}
+                              type="button"
+                            >
+                              −
+                            </button>
+                            <input
+                              className="h-[24px] w-[40px] rounded-[6px] border border-solid border-[#D9E2EB] bg-white px-[4px] text-center font-['Roboto:SemiBold',sans-serif] text-[12px] text-[#102c3f] outline-none focus:border-[#0083da] disabled:cursor-not-allowed disabled:opacity-50"
+                              disabled={!matched}
+                              inputMode="numeric"
+                              onChange={(e) => {
+                                const sanitized = e.target.value.replace(/[^0-9]/g, "");
+                                updateScannedQty(row.id, sanitized);
+                              }}
+                              style={{ fontVariationSettings: "'wdth' 100" }}
+                              type="text"
+                              value={row.quantity}
+                            />
+                            <button
+                              aria-label="Increase quantity"
+                              className="flex size-[24px] items-center justify-center rounded-[6px] border border-solid border-[#D9E2EB] bg-white text-[14px] text-[#41576A] transition-colors hover:bg-[#f7fbff] disabled:cursor-not-allowed disabled:opacity-50"
+                              disabled={!matched}
+                              onClick={() => {
+                                const cur = parseInt(row.quantity || "0", 10) || 0;
+                                updateScannedQty(row.id, String(cur + 1));
+                              }}
+                              type="button"
+                            >
+                              +
+                            </button>
+                          </div>
+                          <button
+                            aria-label="Remove scan"
+                            className="flex size-[24px] items-center justify-center rounded-[6px] text-[#A33F3F] transition-colors hover:bg-[#fbe6e6]"
+                            onClick={() => removeScannedRow(row.id)}
+                            type="button"
+                          >
+                            <Trash2 className="size-[14px]" strokeWidth={1.8} />
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+              </div>
+
+              <div className="flex items-center justify-between gap-[8px] border-t border-solid border-[#e2eaf1] px-[20px] py-[12px]">
+                <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                  {scannedRows.length === 0
+                    ? "No scans yet"
+                    : `${matchedCount} matched · ${totalUnits} unit${totalUnits === 1 ? "" : "s"}${unknownCount > 0 ? ` · ${unknownCount} unknown` : ""}`}
+                </p>
+                <div className="flex items-center gap-[8px]">
+                  <button
+                    className="rounded-[999px] border border-solid border-[#D9E2EB] bg-white px-[18px] py-[8px] font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#41576A] transition-colors hover:bg-[#f7fbff]"
+                    onClick={closeScanDialog}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className={`rounded-[999px] border border-solid px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors ${matchedCount > 0 ? "border-[#0083da] bg-[#0083da] hover:bg-[#0069ae]" : "cursor-not-allowed border-[#9FCDEC] bg-[#9FCDEC]"}`}
+                    disabled={matchedCount === 0}
+                    onClick={handleSubmitScans}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Add {matchedCount} line{matchedCount === 1 ? "" : "s"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })() : null}
     </div>
   );
 }
