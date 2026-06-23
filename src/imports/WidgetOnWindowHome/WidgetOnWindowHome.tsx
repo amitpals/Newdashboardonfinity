@@ -9420,12 +9420,19 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   // Controlled value for the product/charge autocomplete input. Re-initialized whenever the
   // user opens a different primary cell so the input pre-fills with the current value.
   const [searchValue, setSearchValue] = useState("");
+  // Active highlight in the catalog popover. Arrow keys move it; Enter commits.
+  // Resets to 0 whenever the cell changes or the user types — that way the "first
+  // visible match" is always pre-armed for Enter.
+  const [catalogHighlightIdx, setCatalogHighlightIdx] = useState(0);
   useEffect(() => {
     if (editingCell?.field === "product" || editingCell?.field === "charge") {
       const line = invoiceLines.find((l) => l.lineNo === editingCell.lineNo);
       setSearchValue((editingCell.field === "product" ? line?.product : line?.charge) ?? "");
     }
   }, [editingCell?.lineNo, editingCell?.field, invoiceLines]);
+  useEffect(() => {
+    setCatalogHighlightIdx(0);
+  }, [editingCell?.lineNo, editingCell?.field, searchValue]);
   const updateLineField = (lineNo: string, field: EditableField, value: string) => {
     setInvoiceLines((lines) => lines.map((l) => (l.lineNo === lineNo ? { ...l, [field]: value } : l)));
   };
@@ -10329,7 +10336,23 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                 }
                               }}
                             >
-                              {isEditingPrimary ? (
+                              {isEditingPrimary ? (() => {
+                                // Unified popover: searches BOTH name and key across the full product+charge catalog,
+                                // so users can find any item from either cell context. Each row carries a type
+                                // badge so a charge among products is obvious, plus the unique search key
+                                // (PRD-… / CHG-…) under the name. Arrow keys + Enter drive selection so
+                                // the user can stay on the keyboard.
+                                const q = searchValue.trim().toLowerCase();
+                                const catalogMatches = catalogItems.filter(
+                                  (item) =>
+                                    item.name !== searchValue &&
+                                    (q === "" || item.name.toLowerCase().includes(q) || item.key.toLowerCase().includes(q)),
+                                );
+                                const safeHighlightIdx =
+                                  catalogMatches.length > 0
+                                    ? Math.min(Math.max(0, catalogHighlightIdx), catalogMatches.length - 1)
+                                    : -1;
+                                return (
                                 <div className="relative" onClick={(e) => e.stopPropagation()}>
                                   <input
                                     autoFocus
@@ -10348,69 +10371,80 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                         advanceField(line.lineNo, editingCell!.field as "product" | "charge", searchValue, e.shiftKey ? -1 : 1);
                                         return;
                                       }
-                                      if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                                      if (e.key === "ArrowDown") {
+                                        e.preventDefault();
+                                        setCatalogHighlightIdx((idx) =>
+                                          catalogMatches.length === 0 ? 0 : Math.min(catalogMatches.length - 1, idx + 1),
+                                        );
+                                        return;
+                                      }
+                                      if (e.key === "ArrowUp") {
+                                        e.preventDefault();
+                                        setCatalogHighlightIdx((idx) => Math.max(0, idx - 1));
+                                        return;
+                                      }
+                                      if (e.key === "Enter") {
+                                        if (safeHighlightIdx >= 0) {
+                                          // A highlighted catalog item commits like a click on it.
+                                          e.preventDefault();
+                                          commitCatalogItem(line.lineNo, catalogMatches[safeHighlightIdx]);
+                                          return;
+                                        }
+                                        // Otherwise treat Enter as "commit raw text" — same as before.
+                                        (e.target as HTMLInputElement).blur();
+                                        return;
+                                      }
                                       if (e.key === "Escape") setEditingCell(null);
                                     }}
                                     placeholder={editingCell!.field === "product" ? "Search product…" : "Search charge…"}
                                     style={{ fontVariationSettings: "'wdth' 100" }}
                                     value={searchValue}
                                   />
-                                  {(() => {
-                                    // Unified popover: searches BOTH name and key across the full product+charge catalog,
-                                    // so users can find any item from either cell context. Each row carries a type
-                                    // badge so a charge among products is obvious, plus the unique search key
-                                    // (PRD-… / CHG-…) under the name.
-                                    const q = searchValue.trim().toLowerCase();
-                                    const matches = catalogItems.filter(
-                                      (item) =>
-                                        item.name !== searchValue &&
-                                        (q === "" || item.name.toLowerCase().includes(q) || item.key.toLowerCase().includes(q)),
-                                    );
-                                    if (matches.length === 0) {
-                                      return null;
-                                    }
-                                    return (
-                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] min-w-[360px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "260px" }}>
-                                        {matches.map((item) => {
-                                          const isProduct = item.type === "product";
-                                          const badgeClass = isProduct
-                                            ? "bg-[#EAF8FF] text-[#005FA3]"
-                                            : "bg-[#EFEEFF] text-[#5F4AA6]";
-                                          const badgeLabel = isProduct ? "Product" : "Charge";
-                                          return (
-                                            <button
-                                              className="flex w-full items-start justify-between gap-[10px] border-b border-solid border-[#eef2f6] px-[10px] py-[8px] text-left transition-colors last:border-b-0 hover:bg-[#f1f8ff] focus:bg-[#eef7ff] focus:outline-none"
-                                              data-product-option="true"
-                                              key={`${item.type}-${item.key}`}
-                                              onMouseDown={(e) => {
-                                                e.preventDefault();
-                                                commitCatalogItem(line.lineNo, item);
-                                              }}
-                                              type="button"
-                                              title={`${item.name} (${item.key})`}
+                                  {catalogMatches.length > 0 ? (
+                                    <div className="absolute left-0 right-0 top-full z-20 mt-[4px] min-w-[360px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "260px" }}>
+                                      {catalogMatches.map((item, idx) => {
+                                        const isProduct = item.type === "product";
+                                        const badgeClass = isProduct
+                                          ? "bg-[#EAF8FF] text-[#005FA3]"
+                                          : "bg-[#EFEEFF] text-[#5F4AA6]";
+                                        const badgeLabel = isProduct ? "Product" : "Charge";
+                                        const isHighlighted = idx === safeHighlightIdx;
+                                        return (
+                                          <button
+                                            className={`flex w-full items-start justify-between gap-[10px] border-b border-solid border-[#eef2f6] px-[10px] py-[8px] text-left transition-colors last:border-b-0 focus:outline-none ${isHighlighted ? "bg-[#eef7ff]" : "hover:bg-[#f1f8ff]"}`}
+                                            data-product-option="true"
+                                            key={`${item.type}-${item.key}`}
+                                            onMouseDown={(e) => {
+                                              e.preventDefault();
+                                              commitCatalogItem(line.lineNo, item);
+                                            }}
+                                            onMouseEnter={() => setCatalogHighlightIdx(idx)}
+                                            ref={isHighlighted ? (el) => { el?.scrollIntoView({ block: "nearest" }); } : undefined}
+                                            type="button"
+                                            title={`${item.name} (${item.key})`}
+                                          >
+                                            <div className="min-w-0 flex-1">
+                                              <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                                {item.name}
+                                              </p>
+                                              <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                                                {item.key}
+                                              </p>
+                                            </div>
+                                            <span
+                                              className={`shrink-0 rounded-[999px] px-[8px] py-[2px] font-['Roboto:SemiBold',sans-serif] font-semibold text-[10px] uppercase tracking-[0.04em] ${badgeClass}`}
+                                              style={{ fontVariationSettings: "'wdth' 100" }}
                                             >
-                                              <div className="min-w-0 flex-1">
-                                                <p className="truncate font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                                  {item.name}
-                                                </p>
-                                                <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                                  {item.key}
-                                                </p>
-                                              </div>
-                                              <span
-                                                className={`shrink-0 rounded-[999px] px-[8px] py-[2px] font-['Roboto:SemiBold',sans-serif] font-semibold text-[10px] uppercase tracking-[0.04em] ${badgeClass}`}
-                                                style={{ fontVariationSettings: "'wdth' 100" }}
-                                              >
-                                                {badgeLabel}
-                                              </span>
-                                            </button>
-                                          );
-                                        })}
-                                      </div>
-                                    );
-                                  })()}
+                                              {badgeLabel}
+                                            </span>
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  ) : null}
                                 </div>
-                              ) : (
+                                );
+                              })() : (
                                 <p className="truncate font-['Roboto:Bold',sans-serif] text-[14px] 2xl:text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }} title={primaryValue}>
                                   {primaryValue}
                                 </p>
