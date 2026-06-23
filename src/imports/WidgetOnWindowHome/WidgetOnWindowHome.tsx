@@ -10291,8 +10291,18 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                           void primaryCatalog;
                           const isEditingPrimary = editingCell?.lineNo === line.lineNo && (editingCell.field === "product" || editingCell.field === "charge");
                           const isSelected = selectedLineNos.has(line.lineNo);
+                          const isUnsaved = unsavedLineNos.has(line.lineNo);
+                          // Unsaved rows get a soft amber wash so draft entries are scannable at
+                          // a glance. Selection (blue) wins on background since it's a transient
+                          // action state — but the inset left bar keeps the "needs save" cue
+                          // visible even when the row is selected.
+                          const rowBg = isSelected ? "bg-[#eef7ff]" : isUnsaved ? "bg-[#FFF6E0]" : "";
                           return (
-                          <div className={`grid ${apInvoiceLineCols} items-center gap-[12px] border-b border-solid border-[#e2eaf1] py-[12px] last:border-b-0 transition-colors ${isSelected ? "bg-[#eef7ff]" : ""}`} key={line.lineNo}>
+                          <div
+                            className={`grid ${apInvoiceLineCols} items-center gap-[12px] border-b border-solid border-[#e2eaf1] py-[12px] last:border-b-0 transition-colors ${rowBg}`}
+                            key={line.lineNo}
+                            style={isUnsaved ? { boxShadow: "inset 3px 0 0 #D78B10" } : undefined}
+                          >
                             <div className="flex items-center justify-center">
                               <input
                                 aria-label={`Select line ${line.lineNo}`}
@@ -10360,7 +10370,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                                       return null;
                                     }
                                     return (
-                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] min-w-[280px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "260px" }}>
+                                      <div className="absolute left-0 right-0 top-full z-20 mt-[4px] min-w-[360px] overflow-auto rounded-[8px] border border-solid border-[#c5d2dd] bg-white shadow-[0_10px_24px_rgba(15,61,97,0.12)]" style={{ maxHeight: "260px" }}>
                                         {matches.map((item) => {
                                           const isProduct = item.type === "product";
                                           const badgeClass = isProduct
