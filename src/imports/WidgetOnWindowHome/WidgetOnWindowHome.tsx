@@ -6,6 +6,7 @@ import {
   Building2,
   CalendarClock,
   CalendarDays,
+  Check,
   ChevronLeft,
   ChevronDown,
   ChevronRight,
@@ -40,6 +41,7 @@ import {
   Trash2,
   UserRound,
   WalletCards,
+  X,
 } from "lucide-react";
 import { register as registerDashboardWidth, unregister as unregisterDashboardWidth } from "../../lib/dashboardWidth";
 import { useAdaptiveRowCount } from "../../lib/useAdaptiveRowCount";
@@ -4048,6 +4050,11 @@ function ProposalHeaderAction({
 function OpportunitiesView({ onClose }: { onClose: () => void }) {
   const [screenView, setScreenView] = useState<"dashboard" | "card" | "detail">("dashboard");
   const [selectedOpportunityId, setSelectedOpportunityId] = useState("opp-001");
+  // Which stage the Pipeline Stage detail strip is showing. null → fall back to the
+  // active stage (or last done if complete). Resets when the opportunity changes so
+  // the new opp's active stage is shown by default.
+  const [selectedStageIdx, setSelectedStageIdx] = useState<number | null>(null);
+  useEffect(() => { setSelectedStageIdx(null); }, [selectedOpportunityId]);
   const windowActions = getWindowActionItems();
   const pipelineColumns = [
     {
@@ -4668,11 +4675,38 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                   <p className="font-['Roboto:Bold',sans-serif] font-bold text-[18px] text-black" style={{ fontVariationSettings: "'wdth' 100" }}>
                     Opportunity Snapshot
                   </p>
-                  <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#717182]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {selectedOpportunity.company} • {relatedOpportunityCount} opportunities
-                  </p>
+                  <div className="flex items-center gap-[8px]">
+                    <button
+                      aria-label="Send email"
+                      className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[12px] py-[6px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      title="Send email"
+                      type="button"
+                    >
+                      <Mail className="size-[14px]" strokeWidth={1.8} />
+                      Email
+                    </button>
+                    <button
+                      aria-label="Schedule meeting"
+                      className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[12px] py-[6px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#0083da] transition-colors hover:bg-[#eef8ff]"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      title="Schedule meeting"
+                      type="button"
+                    >
+                      <CalendarDays className="size-[14px]" strokeWidth={1.8} />
+                      Schedule meeting
+                    </button>
+                    <button
+                      aria-label="More actions"
+                      className="flex size-[32px] items-center justify-center rounded-[999px] border border-solid border-[#d9e2eb] bg-white text-[#41576a] transition-colors hover:border-[#bfe4ff] hover:bg-[#eef8ff] hover:text-[#0083da]"
+                      title="More actions"
+                      type="button"
+                    >
+                      <MoreHorizontal className="size-[16px]" strokeWidth={1.8} />
+                    </button>
+                  </div>
                 </div>
-                <div className="grid w-full grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))] gap-[12px]">
+                <div className="grid w-full grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))] gap-[12px]">
                   <div className="rounded-[14px] border border-solid border-[#dfe8ef] bg-[linear-gradient(135deg,#f8fcff_0%,#eef6fb_100%)] px-[16px] py-[14px]">
                     <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
                       Company
@@ -4694,12 +4728,6 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                   </div>
 
                   {[
-                    {
-                      title: "Current Stage",
-                      value: selectedOpportunity.stage,
-                      meta: selectedOpportunity.stageDetail,
-                      valueClass: "text-[18px]",
-                    },
                     {
                       title: "Probability",
                       value: selectedOpportunity.probability,
@@ -4755,40 +4783,141 @@ function OpportunitiesView({ onClose }: { onClose: () => void }) {
                   })}
                 </div>
 
-                <div className="grid w-full grid-cols-5 gap-[10px]">
-                  {selectedOpportunity.progress.map((item) => {
-                    const tone =
-                      item.state === "done"
-                        ? "border-[#d8e8f4] bg-[#f8fbfe] text-[#102c3f]"
-                        : item.state === "active"
-                          ? "border-[#cce4ff] bg-[#eef7ff] text-[#102c3f]"
-                          : "border-[#d9e2eb] bg-[#fbfdff] text-[#102c3f]";
-
-                    return (
-                      <div className={`rounded-[14px] border border-solid px-[12px] py-[10px] text-center ${tone}`} key={`${selectedOpportunity.id}-${item.label}`}>
-                        <p className="font-['Roboto:Bold',sans-serif] font-bold text-[13px] text-[#5d7487]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          {item.label}
+                {(() => {
+                  // Stage Pipeline (primitive #10): horizontal milestone circles + progress-tinted rail.
+                  // Section header uses the Summary variant — "Stage 4 of 5" gives the reader
+                  // absolute position at a glance without scanning each circle.
+                  const stages = selectedOpportunity.progress;
+                  const totalStages = stages.length;
+                  const activeIdx = stages.findIndex((p) => p.state === "active");
+                  const blockedIdx = stages.findIndex((p) => p.state === "blocked");
+                  const allDone = stages.every((p) => p.state === "done");
+                  const pipelineSummary =
+                    blockedIdx >= 0
+                      ? `Blocked at stage ${blockedIdx + 1}`
+                      : allDone
+                        ? "Complete"
+                        : activeIdx >= 0
+                          ? `Stage ${activeIdx + 1} of ${totalStages}`
+                          : `Stage ${totalStages} of ${totalStages}`;
+                  // Stage description lookup. Existing data uses "Lead" instead of "Qualification"
+                  // and has no "Closure" entry, so we map progress label → snapshot label and
+                  // fall back to a generic line for stages without captured detail.
+                  const stageDescriptionMap = new Map(selectedOpportunity.snapshot.map((s) => [s.label, s.value] as const));
+                  const progressToSnapshotKey: Record<string, string> = { Qualification: "Lead" };
+                  const getStageDescription = (stageLabel: string): string => {
+                    const lookupKey = progressToSnapshotKey[stageLabel] ?? stageLabel;
+                    return stageDescriptionMap.get(lookupKey) ?? "No detail captured for this stage yet.";
+                  };
+                  // Which stage's detail to show below the rail. Falls back to active, then to
+                  // last done if complete, then to first stage.
+                  const defaultStageIdx = activeIdx >= 0 ? activeIdx : allDone ? totalStages - 1 : 0;
+                  const displayedStageIdx =
+                    selectedStageIdx !== null && selectedStageIdx >= 0 && selectedStageIdx < totalStages
+                      ? selectedStageIdx
+                      : defaultStageIdx;
+                  const displayedStage = stages[displayedStageIdx];
+                  const displayedBadgeTone =
+                    displayedStage.state === "done"
+                      ? "bg-[#E7F7EF] text-[#0B6B45]"
+                      : displayedStage.state === "active"
+                        ? "bg-[#EAF8FF] text-[#005FA3]"
+                        : displayedStage.state === "blocked"
+                          ? "bg-[#FCEFEF] text-[#A33F3F]"
+                          : "bg-[#F1F4F8] text-[#5F7283]";
+                  return (
+                    <div className="w-full rounded-[14px] border border-solid border-[#DFE8EF] bg-white px-[1em] py-[0.875em]">
+                      <div className="mb-[0.875em] flex items-center justify-between">
+                        <p className="font-['Roboto:Bold',sans-serif] text-[1em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          Pipeline Stage
                         </p>
-                        <p className="mt-[6px] font-['Roboto:Bold',sans-serif] font-bold text-[16px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                          {item.state === "done" ? "✓" : item.value}
+                        <p className="font-['Roboto:Regular',sans-serif] text-[0.75em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                          {pipelineSummary}
                         </p>
                       </div>
-                    );
-                  })}
-                </div>
-
-                <div className="grid w-full grid-cols-[120px_minmax(0,1fr)] gap-x-[14px] gap-y-[10px]">
-                  {selectedOpportunity.snapshot.map((item) => (
-                    <Fragment key={`${selectedOpportunity.id}-${item.label}`}>
-                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[13px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        {item.label}
-                      </p>
-                      <p className="font-['Roboto:Regular',sans-serif] font-normal text-[14px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                        {item.value}
-                      </p>
-                    </Fragment>
-                  ))}
-                </div>
+                      <div className="relative w-full">
+                        <div className="grid" style={{ gridTemplateColumns: `repeat(${totalStages}, minmax(0, 1fr))` }}>
+                          {stages.map((item, i) => {
+                            const isLast = i === totalStages - 1;
+                            const isDone = item.state === "done";
+                            const isActive = item.state === "active";
+                            const isBlocked = item.state === "blocked";
+                            const isDisplayed = i === displayedStageIdx;
+                            // Show an explicit selection ring only when the displayed stage is
+                            // NOT the active one — active already has its own blue ring, so an
+                            // extra outline would read as noise.
+                            const showSelectionRing = isDisplayed && !isActive;
+                            const segmentColor = isDone ? "bg-[#0083DA]" : "bg-[#E2EAF1]";
+                            const circleClass = isDone
+                              ? "bg-[#0083DA]"
+                              : isBlocked
+                                ? "bg-[#D14545]"
+                                : isActive
+                                  ? "border-2 border-solid border-[#0083DA] bg-white"
+                                  : "border-2 border-solid border-[#D9E2EB] bg-white";
+                            const labelClass = isDone
+                              ? "font-['Roboto:SemiBold',sans-serif] text-[#0083DA]"
+                              : isBlocked
+                                ? "font-['Roboto:Bold',sans-serif] text-[#D14545]"
+                                : isActive
+                                  ? "font-['Roboto:Bold',sans-serif] text-[#0083DA]"
+                                  : "font-['Roboto:Regular',sans-serif] text-[#9AB0C0]";
+                            return (
+                              <button
+                                aria-label={`${item.label} — ${item.value}. Click to view details`}
+                                aria-pressed={isDisplayed}
+                                className="group relative flex flex-col items-center bg-transparent p-0 text-inherit"
+                                key={`${selectedOpportunity.id}-${item.label}`}
+                                onClick={() => setSelectedStageIdx(i)}
+                                type="button"
+                              >
+                                {isLast ? null : (
+                                  <span
+                                    aria-hidden="true"
+                                    className={`absolute left-[50%] right-[-50%] top-[1em] h-[2px] -translate-y-[1px] ${segmentColor}`}
+                                  />
+                                )}
+                                <div
+                                  className={`relative z-10 flex size-[2em] items-center justify-center rounded-full transition-shadow ${circleClass} ${showSelectionRing ? "shadow-[0_0_0_3px_white,0_0_0_5px_#0083DA]" : ""} group-hover:shadow-[0_0_0_3px_white,0_0_0_5px_rgba(0,131,218,0.35)]`}
+                                >
+                                  {isDone ? <Check className="size-[1em] text-white" strokeWidth={2.5} /> : null}
+                                  {isBlocked ? <X className="size-[1em] text-white" strokeWidth={2.5} /> : null}
+                                  {isActive ? <span className="size-[0.5em] rounded-full bg-[#0083DA]" aria-hidden="true" /> : null}
+                                </div>
+                                <p
+                                  className={`mt-[0.5em] w-full truncate text-center text-[0.8125em] ${labelClass}`}
+                                  style={{ fontVariationSettings: "'wdth' 100" }}
+                                  title={item.label}
+                                >
+                                  {item.label}
+                                </p>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <div className="mt-[1em] border-t border-solid border-[#E2EAF1] pt-[0.875em]">
+                        <div className="flex items-center gap-[0.5em]">
+                          <p className="font-['Roboto:Bold',sans-serif] text-[0.9375em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            {displayedStage.label}
+                          </p>
+                          <span
+                            className={`shrink-0 rounded-[999px] px-[0.5em] py-[0.1875em] font-['Roboto:Bold',sans-serif] text-[0.6875em] uppercase tracking-[0.04em] ${displayedBadgeTone}`}
+                            style={{ fontVariationSettings: "'wdth' 100" }}
+                          >
+                            {displayedStage.value}
+                          </span>
+                        </div>
+                        <p
+                          className="mt-[0.375em] font-['Roboto:Regular',sans-serif] text-[0.8125em] leading-[1.5] text-[#41576A]"
+                          style={{ fontVariationSettings: "'wdth' 100" }}
+                        >
+                          {getStageDescription(displayedStage.label)}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 <div className="grid w-full grid-cols-2 gap-[12px]">
                   <div className="rounded-[14px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]">
@@ -9270,8 +9399,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const [dropShipment, setDropShipment] = useState(false);
   const [holdPayment, setHoldPayment] = useState(true);
   const [invoiceLines, setInvoiceLines] = useState([
-    { lineNo: "10", product: "Blower", charge: "", attribute: "BL", description: "Industrial blower for warehouse ventilation system", uom: "Each", quantity: "4", price: "100.00", tax: "18%", amount: "400.00", discount: "", notes: "" },
-    { lineNo: "20", product: "", charge: "Installation Service", attribute: "IN", description: "On-site installation labor incl. testing & sign-off", uom: "Hour", quantity: "2", price: "65.00", tax: "18%", amount: "130.00", discount: "", notes: "" },
+    { lineNo: "10", product: "Blower", charge: "", attribute: "LOT-BLW-2026-0001", description: "Industrial blower for warehouse ventilation system", uom: "Each", quantity: "4", price: "100.00", tax: "18%", amount: "400.00", discount: "", notes: "" },
+    { lineNo: "20", product: "", charge: "Installation Service", attribute: "LOT-INS-2026-0001", description: "On-site installation labor incl. testing & sign-off", uom: "Hour", quantity: "2", price: "65.00", tax: "18%", amount: "130.00", discount: "", notes: "" },
   ]);
   // Unified catalog backing the autocomplete popover on the primary (Product / Charge) cell.
   // Each entry carries:
@@ -9327,12 +9456,11 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     "Service Surcharge": { uom: "Each", price: "50.00" },
     "Misc Fee": { uom: "Each", price: "25.00" },
   };
-  // Attributes available per product / per charge. In a real system these come from the master
-  // record; here static mocks drive the picker that opens after a product/charge changes.
-  // Each option carries the data the Select Attribute grid renders: code, label, a spec/mode
-  // detail, the price delta vs the base price, and availability (stock for products, lead time
-  // for charges). Codes are not globally unique across products vs charges, so the data is
-  // nested by primary name.
+  // Attributes available per product / per charge. Each option carries what the picker grid
+  // renders: code, description label, spec/mode detail, price delta, and availability (stock
+  // for products, lead time for charges). Codes are not globally unique across products vs
+  // charges, so the data is nested by primary name. Generated or picked lot/serial numbers
+  // are appended to these maps as new options so they show up in the same picker grid.
   type AttributeOption = {
     code: string;
     label: string;
@@ -9342,70 +9470,70 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   };
   const [productAttributeOptions, setProductAttributeOptions] = useState<Record<string, AttributeOption[]>>({
     Blower: [
-      { code: "BL",    label: "Base model",       spec: "500 CFM",  priceDelta: "—",    availability: "128 in stock" },
-      { code: "BL-XL", label: "Extra Large",      spec: "1200 CFM", priceDelta: "+35%", availability: "42 in stock" },
-      { code: "BL-M",  label: "Medium duty",      spec: "800 CFM",  priceDelta: "+15%", availability: "86 in stock" },
-      { code: "BL-HD", label: "Heavy duty",       spec: "1000 CFM", priceDelta: "+25%", availability: "8 low" },
+      { code: "LOT-BLW-2026-0001", label: "Base model",  spec: "500 CFM",  priceDelta: "—",    availability: "128 in stock" },
+      { code: "LOT-BLW-2026-0002", label: "Extra Large", spec: "1200 CFM", priceDelta: "+35%", availability: "42 in stock" },
+      { code: "LOT-BLW-2026-0003", label: "Medium duty", spec: "800 CFM",  priceDelta: "+15%", availability: "86 in stock" },
+      { code: "LOT-BLW-2026-0004", label: "Heavy duty",  spec: "1000 CFM", priceDelta: "+25%", availability: "8 low" },
     ],
     Compressor: [
-      { code: "CP-S", label: "Small footprint",   spec: "5 HP",     priceDelta: "—",    availability: "64 in stock" },
-      { code: "CP-M", label: "Medium capacity",   spec: "10 HP",    priceDelta: "+20%", availability: "32 in stock" },
-      { code: "CP-L", label: "Large capacity",    spec: "20 HP",    priceDelta: "+45%", availability: "12 in stock" },
+      { code: "LOT-CMP-2026-0001", label: "Small footprint", spec: "5 HP",  priceDelta: "—",    availability: "64 in stock" },
+      { code: "LOT-CMP-2026-0002", label: "Medium capacity", spec: "10 HP", priceDelta: "+20%", availability: "32 in stock" },
+      { code: "LOT-CMP-2026-0003", label: "Large capacity",  spec: "20 HP", priceDelta: "+45%", availability: "12 in stock" },
     ],
     Installation: [
-      { code: "IN-S", label: "Single-zone",       spec: "1 site",    priceDelta: "—",    availability: "2 days lead" },
-      { code: "IN-M", label: "Multi-zone",        spec: "2–5 sites", priceDelta: "+30%", availability: "5 days lead" },
-      { code: "IN-L", label: "Large-site",        spec: "6+ sites",  priceDelta: "+65%", availability: "10 days lead" },
+      { code: "LOT-INS-2026-0001", label: "Single-zone", spec: "1 site",    priceDelta: "—",    availability: "2 days lead" },
+      { code: "LOT-INS-2026-0002", label: "Multi-zone",  spec: "2–5 sites", priceDelta: "+30%", availability: "5 days lead" },
+      { code: "LOT-INS-2026-0003", label: "Large-site",  spec: "6+ sites",  priceDelta: "+65%", availability: "10 days lead" },
     ],
     "Maintenance Kit": [
-      { code: "MK-A", label: "Annual kit",        spec: "12 mo cycle", priceDelta: "—",    availability: "54 in stock" },
-      { code: "MK-B", label: "Biannual kit",      spec: "6 mo cycle",  priceDelta: "+40%", availability: "28 in stock" },
+      { code: "LOT-MTK-2026-0001", label: "Annual kit",   spec: "12 mo cycle", priceDelta: "—",    availability: "54 in stock" },
+      { code: "LOT-MTK-2026-0002", label: "Biannual kit", spec: "6 mo cycle",  priceDelta: "+40%", availability: "28 in stock" },
     ],
     "Pipe Fitting": [
-      { code: "PF-1", label: "Half-inch",         spec: '1/2"',     priceDelta: "—",    availability: "420 in stock" },
-      { code: "PF-2", label: "Three-quarter",     spec: '3/4"',     priceDelta: "+10%", availability: "210 in stock" },
-      { code: "PF-3", label: "One-inch",          spec: '1"',       priceDelta: "+25%", availability: "150 in stock" },
+      { code: "LOT-PPF-2026-0001", label: "Half-inch",     spec: '1/2"', priceDelta: "—",    availability: "420 in stock" },
+      { code: "LOT-PPF-2026-0002", label: "Three-quarter", spec: '3/4"', priceDelta: "+10%", availability: "210 in stock" },
+      { code: "LOT-PPF-2026-0003", label: "One-inch",      spec: '1"',   priceDelta: "+25%", availability: "150 in stock" },
     ],
     "Sensor Module": [
-      { code: "SM-A", label: "Analog sensor",     spec: "0–10 V",    priceDelta: "—",    availability: "76 in stock" },
-      { code: "SM-B", label: "Bluetooth sensor",  spec: "BLE 5.2",   priceDelta: "+50%", availability: "44 in stock" },
+      { code: "LOT-SNM-2026-0001", label: "Analog sensor",    spec: "0–10 V",  priceDelta: "—",    availability: "76 in stock" },
+      { code: "LOT-SNM-2026-0002", label: "Bluetooth sensor", spec: "BLE 5.2", priceDelta: "+50%", availability: "44 in stock" },
     ],
     "Service Charge": [
-      { code: "SC-STD",  label: "Standard service", spec: "Next-day",   priceDelta: "—",    availability: "Same-day book" },
-      { code: "SC-PRIO", label: "Priority service", spec: "Same-day",   priceDelta: "+60%", availability: "2 h slots" },
+      { code: "LOT-SVC-2026-0001", label: "Standard service", spec: "Next-day", priceDelta: "—",    availability: "Same-day book" },
+      { code: "LOT-SVC-2026-0002", label: "Priority service", spec: "Same-day", priceDelta: "+60%", availability: "2 h slots" },
     ],
     "Wiring Harness": [
-      { code: "WH-S", label: "Short harness",     spec: "≤ 3 m",     priceDelta: "—",    availability: "180 in stock" },
-      { code: "WH-L", label: "Long harness",      spec: "≥ 6 m",     priceDelta: "+20%", availability: "95 in stock" },
+      { code: "LOT-WRH-2026-0001", label: "Short harness", spec: "≤ 3 m", priceDelta: "—",    availability: "180 in stock" },
+      { code: "LOT-WRH-2026-0002", label: "Long harness",  spec: "≥ 6 m", priceDelta: "+20%", availability: "95 in stock" },
     ],
   });
   const [chargeAttributeOptions, setChargeAttributeOptions] = useState<Record<string, AttributeOption[]>>({
     "Installation Service": [
-      { code: "IN",  label: "Indoor install",     spec: "On-site dispatch", priceDelta: "—",    availability: "1 day lead" },
-      { code: "OUT", label: "Outdoor install",    spec: "On-site dispatch", priceDelta: "+20%", availability: "2 days lead" },
-      { code: "EM",  label: "Emergency install",  spec: "24/7 dispatch",    priceDelta: "+75%", availability: "2 h response" },
+      { code: "LOT-INS-2026-0001", label: "Indoor install",    spec: "On-site dispatch", priceDelta: "—",    availability: "1 day lead" },
+      { code: "LOT-INS-2026-0002", label: "Outdoor install",   spec: "On-site dispatch", priceDelta: "+20%", availability: "2 days lead" },
+      { code: "LOT-INS-2026-0003", label: "Emergency install", spec: "24/7 dispatch",    priceDelta: "+75%", availability: "2 h response" },
     ],
     "Freight Charge": [
-      { code: "FC-AIR",  label: "Air freight",    spec: "Express",   priceDelta: "+80%", availability: "2 days lead" },
-      { code: "FC-SEA",  label: "Sea freight",    spec: "Container", priceDelta: "—",    availability: "21 days lead" },
-      { code: "FC-LAND", label: "Land transport", spec: "Trucking",  priceDelta: "+25%", availability: "5 days lead" },
+      { code: "LOT-FRT-2026-0001", label: "Air freight",    spec: "Express",   priceDelta: "+80%", availability: "2 days lead" },
+      { code: "LOT-FRT-2026-0002", label: "Sea freight",    spec: "Container", priceDelta: "—",    availability: "21 days lead" },
+      { code: "LOT-FRT-2026-0003", label: "Land transport", spec: "Trucking",  priceDelta: "+25%", availability: "5 days lead" },
     ],
     "Setup Cost": [
-      { code: "SC-STD", label: "Standard setup", spec: "Half-day", priceDelta: "—", availability: "Next-day book" },
+      { code: "LOT-STP-2026-0001", label: "Standard setup", spec: "Half-day", priceDelta: "—", availability: "Next-day book" },
     ],
     "Maintenance Fee": [
-      { code: "MF-STD",  label: "Standard maintenance", spec: "Yearly cycle",    priceDelta: "—",    availability: "Quarterly book" },
-      { code: "MF-PREM", label: "Premium maintenance",  spec: "Quarterly cycle", priceDelta: "+45%", availability: "Monthly book" },
+      { code: "LOT-MNT-2026-0001", label: "Standard maintenance", spec: "Yearly cycle",    priceDelta: "—",    availability: "Quarterly book" },
+      { code: "LOT-MNT-2026-0002", label: "Premium maintenance",  spec: "Quarterly cycle", priceDelta: "+45%", availability: "Monthly book" },
     ],
     "Service Surcharge": [
-      { code: "SS-STD", label: "Standard surcharge", spec: "Flat fee", priceDelta: "—", availability: "Always" },
+      { code: "LOT-SVS-2026-0001", label: "Standard surcharge", spec: "Flat fee", priceDelta: "—", availability: "Always" },
     ],
     "Misc Fee": [
-      { code: "MF", label: "Miscellaneous fee", spec: "One-time", priceDelta: "—", availability: "Always" },
+      { code: "LOT-MSC-2026-0001", label: "Miscellaneous fee", spec: "One-time", priceDelta: "—", availability: "Always" },
     ],
   });
-  // Code-only arrays used by the existing lookup paths (default validation, fallback selection).
-  // Derived from the option maps so the source of truth stays in one place.
+  // Code-only arrays used by lookups (commit hand-off, picker bail-out). Derived from the
+  // option maps so the source of truth stays in one place.
   const productAttributes: Record<string, string[]> = Object.fromEntries(
     Object.entries(productAttributeOptions).map(([k, v]) => [k, v.map((o) => o.code)]),
   );
@@ -9416,6 +9544,28 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   // Per-row "more options" popover — anchored to the trailing ⋮ icon. Holds optional
   // fields that don't earn a visible column (Discount + Notes for now).
   const [moreRowOpen, setMoreRowOpen] = useState<string | null>(null);
+  // Per-line additional fields that don't earn a visible column on the lines table —
+  // surfaced via the per-row "..." button modal. Keyed by lineNo, then by field name.
+  const [additionalFields, setAdditionalFields] = useState<Record<string, Record<string, string>>>({
+    "10": { costCenter: "CC-101", projectCode: "P-2026-04", department: "Operations", poReference: "PO-44218" },
+  });
+  const getAdditionalField = (lineNo: string, key: string): string =>
+    additionalFields[lineNo]?.[key] ?? "";
+  const setAdditionalField = (lineNo: string, key: string, value: string) => {
+    setAdditionalFields((current) => ({
+      ...current,
+      [lineNo]: { ...(current[lineNo] ?? {}), [key]: value },
+    }));
+  };
+  // Escape closes the additional-fields modal — same UX as the attribute / scan dialogs.
+  useEffect(() => {
+    if (!moreRowOpen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMoreRowOpen(null);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [moreRowOpen]);
   const [editingCell, setEditingCell] = useState<{ lineNo: string; field: Exclude<EditableField, "attribute"> } | null>(null);
   // Controlled value for the product/charge autocomplete input. Re-initialized whenever the
   // user opens a different primary cell so the input pre-fills with the current value.
@@ -9436,8 +9586,9 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
   const updateLineField = (lineNo: string, field: EditableField, value: string) => {
     setInvoiceLines((lines) => lines.map((l) => (l.lineNo === lineNo ? { ...l, [field]: value } : l)));
   };
-  // Attribute picker — opens after a product/charge is changed so the user can pick a fresh
+  // Attribute picker — opens after a product/charge is committed so the user can pick a fresh
   // attribute for the new item (the previously selected attribute may not be valid anymore).
+  // The picker has three modes (see attributePickerMode below).
   const [attributePicker, setAttributePicker] = useState<{
     lineNo: string;
     primaryLabel: string;
@@ -9445,21 +9596,128 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     options: string[];
     selectedAttribute: string;
   } | null>(null);
-  // Search field inside the Select Attribute dialog. Cleared whenever the picker
-  // (re)opens against a different primary so a stale query never leaks across primaries.
+  // Search field inside the variant list mode.
   const [attributeSearch, setAttributeSearch] = useState("");
-  // Dialog body switches between the grid list and a create-attribute form.
-  const [attributePickerMode, setAttributePickerMode] = useState<"list" | "create">("list");
-  const blankNewAttribute: AttributeOption = { code: "", label: "", spec: "", priceDelta: "", availability: "" };
-  const [newAttribute, setNewAttribute] = useState<AttributeOption>(blankNewAttribute);
+  // Dialog body modes:
+  //   list   → pick mode: lot-code dropdown of all existing attributes + read-only form
+  //            showing the selected attribute's set (description, spec, Δ price, availability)
+  //   create → user clicked "+ New attribute"; auto-generated lot code at top + editable
+  //            form below for description / spec / Δ price / availability
+  //   edit   → user clicked Edit; lot code read-only chip + editable form
+  const [attributePickerMode, setAttributePickerMode] = useState<"list" | "create" | "edit">("list");
+  // Create-mode form state. Lot Code is pre-filled with the next generated code on form open;
+  // user can edit, regenerate, or pick from existing pool.
+  const [newAttribute, setNewAttribute] = useState<{ lotCode: string; label: string; spec: string; priceDelta: string; availability: string }>({
+    lotCode: "", label: "", spec: "", priceDelta: "", availability: "",
+  });
   const [newAttributeError, setNewAttributeError] = useState<string>("");
+  // Edit-mode state — holds the original code (so we can find the row to replace) and the
+  // current draft values from the form. Code is read-only by design; changing identity
+  // would cascade to every line that already references this attribute.
+  const [editingAttribute, setEditingAttribute] = useState<{ originalCode: string; draft: AttributeOption } | null>(null);
+  const [editAttributeError, setEditAttributeError] = useState<string>("");
+  // Per-primary pool of lot/serial numbers — seeded with mock data. Generating or picking
+  // appends here AND inserts a matching AttributeOption into the variant list above so the
+  // new lot shows up alongside existing variants.
+  const [lotPools, setLotPools] = useState<Record<string, string[]>>({
+    // Each pool is a superset of the attribute codes for that primary plus a few
+    // "free-floating" lots that haven't been adopted as attributes yet — those are the
+    // ones the create form's "Use existing" dropdown surfaces (it filters out any code
+    // already in productAttributeOptions / chargeAttributeOptions to avoid duplicates).
+    Blower: [
+      "LOT-BLW-2026-0021", "LOT-BLW-2026-0017", "LOT-BLW-2026-0009",
+      "LOT-BLW-2026-0001", "LOT-BLW-2026-0002", "LOT-BLW-2026-0003", "LOT-BLW-2026-0004",
+    ],
+    Compressor: [
+      "LOT-CMP-2026-0014", "LOT-CMP-2026-0011",
+      "LOT-CMP-2026-0001", "LOT-CMP-2026-0002", "LOT-CMP-2026-0003",
+    ],
+    "Installation Service": [
+      "LOT-INS-2026-0006",
+      "LOT-INS-2026-0001", "LOT-INS-2026-0002", "LOT-INS-2026-0003",
+    ],
+  });
+  // Search inside the lot-pick mode.
+  const [lotSearch, setLotSearch] = useState("");
   useEffect(() => {
     setAttributeSearch("");
     setAttributePickerMode("list");
-    setNewAttribute(blankNewAttribute);
+    setLotSearch("");
+    setEditingAttribute(null);
+    setEditAttributeError("");
+    setNewAttribute({ lotCode: "", label: "", spec: "", priceDelta: "", availability: "" });
     setNewAttributeError("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributePicker?.lineNo, attributePicker?.primaryLabel]);
+  // Derive a lot-code SKU prefix from the primary's catalog key.
+  //   "PRD-BLW-001" → "BLW"  ·  "CHG-INS-001" → "INS"
+  // Falls back to a 3-letter slug of the primary name when no catalog match exists, so the
+  // generator stays robust if the user types a brand-new primary that isn't in catalogItems.
+  const lotSkuFor = (primary: string): string => {
+    const cataloged = catalogItems.find((i) => i.name === primary)?.key;
+    if (cataloged) {
+      const parts = cataloged.split("-");
+      if (parts.length >= 2 && parts[1]) return parts[1];
+    }
+    return primary.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase() || "GEN";
+  };
+  // Generate the next sequential lot/serial code for a primary, scoped to the current year.
+  //   format: LOT-{SKU}-{YYYY}-{4-digit seq}
+  // Sequence = max sequence in this year for this primary + 1. Pads to 4 digits.
+  const generateLotCode = (primary: string): string => {
+    const sku = lotSkuFor(primary);
+    const year = new Date().getFullYear();
+    const yearStr = String(year);
+    const existing = lotPools[primary] ?? [];
+    let maxSeq = 0;
+    existing.forEach((code) => {
+      if (!code.includes(`-${yearStr}-`)) return;
+      const m = code.match(/-(\d{4})$/);
+      if (!m) return;
+      const n = parseInt(m[1], 10);
+      if (!Number.isNaN(n) && n > maxSeq) maxSeq = n;
+    });
+    const seq = String(maxSeq + 1).padStart(4, "0");
+    return `LOT-${sku}-${year}-${seq}`;
+  };
+  // Add a lot/serial code as a new attribute option for the given primary. Updates lotPools
+  // (dedupe-safe), inserts a matching AttributeOption row, and pre-selects the new row in
+  // the picker — then bounces back to list mode so the user sees the new row alongside the
+  // variants. Final commit to line.attribute happens when the user clicks OK in list mode.
+  const addLotAsAttribute = (code: string, primary: string, primaryType: "product" | "charge", origin: "generated" | "existing") => {
+    // 1. Append to lot pool if new.
+    setLotPools((pools) => {
+      const current = pools[primary] ?? [];
+      if (current.includes(code)) return pools;
+      return { ...pools, [primary]: [code, ...current] };
+    });
+    // 2. Add to the attribute options for this primary (dedupe by code).
+    const newOption: AttributeOption = {
+      code,
+      label: origin === "generated" ? "Newly generated lot" : "Existing lot / serial",
+      spec: "—",
+      priceDelta: "—",
+      availability: "1 unit",
+    };
+    const setter = primaryType === "product" ? setProductAttributeOptions : setChargeAttributeOptions;
+    setter((current) => {
+      const cur = current[primary] ?? [];
+      if (cur.some((o) => o.code === code)) return current;
+      return { ...current, [primary]: [...cur, newOption] };
+    });
+    // 3. Add to picker options + pre-select, then return to list mode.
+    setAttributePicker((current) =>
+      current
+        ? {
+            ...current,
+            options: current.options.includes(code) ? current.options : [...current.options, code],
+            selectedAttribute: code,
+          }
+        : current,
+    );
+    setAttributePickerMode("list");
+    setLotSearch("");
+    setAttributeSearch("");
+  };
   // Commit a catalog pick (mouse / keyboard selection from the popover). The item carries
   // its own type, so a line that was a product can become a charge in one click — we
   // clear the opposite field at the same time so the line never holds both.
@@ -10710,70 +10968,8 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               >
                                 <MoreHorizontal className="size-[16px]" strokeWidth={2} />
                               </button>
-                              {moreRowOpen === line.lineNo ? (
-                                <>
-                                  <div className="fixed inset-0 z-30" onClick={() => setMoreRowOpen(null)} />
-                                  <div
-                                    className="absolute right-0 bottom-full z-40 mb-[6px] w-[260px] overflow-hidden rounded-[10px] border border-solid border-[#c5d2dd] bg-white shadow-[0_-18px_36px_rgba(15,61,97,0.18)]"
-                                    onClick={(e) => e.stopPropagation()}
-                                    role="dialog"
-                                    aria-label={`Additional fields for line ${line.lineNo}`}
-                                  >
-                                    <div className="border-b border-solid border-[#e2eaf1] px-[12px] py-[8px]">
-                                      <p className="font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                        Additional fields
-                                      </p>
-                                    </div>
-                                    <div className="flex flex-col gap-[10px] px-[12px] py-[10px]">
-                                      <label className="flex flex-col gap-[4px]">
-                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] capitalize text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                          Discount (%)
-                                        </span>
-                                        <input
-                                          autoFocus
-                                          className="block w-full rounded-[6px] border border-solid border-[#c5d2dd] bg-white px-[8px] py-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none focus:border-[#0083da] focus:outline focus:outline-2 focus:outline-[#0083da]"
-                                          defaultValue={line.discount ?? ""}
-                                          inputMode="decimal"
-                                          onBlur={(e) => updateLineField(line.lineNo, "discount", e.target.value)}
-                                          onKeyDown={(e) => {
-                                            e.stopPropagation();
-                                            if (e.key === "Escape") setMoreRowOpen(null);
-                                          }}
-                                          placeholder="0"
-                                          style={{ fontVariationSettings: "'wdth' 100" }}
-                                        />
-                                      </label>
-                                      <label className="flex flex-col gap-[4px]">
-                                        <span className="font-['Roboto:Regular',sans-serif] text-[11px] capitalize text-[#41576A]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                          Notes
-                                        </span>
-                                        <textarea
-                                          className="block w-full resize-y rounded-[6px] border border-solid border-[#c5d2dd] bg-white px-[8px] py-[4px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none focus:border-[#0083da] focus:outline focus:outline-2 focus:outline-[#0083da]"
-                                          defaultValue={line.notes ?? ""}
-                                          onBlur={(e) => updateLineField(line.lineNo, "notes", e.target.value)}
-                                          onKeyDown={(e) => {
-                                            e.stopPropagation();
-                                            if (e.key === "Escape") setMoreRowOpen(null);
-                                          }}
-                                          placeholder="Optional note…"
-                                          rows={3}
-                                          style={{ fontVariationSettings: "'wdth' 100" }}
-                                        />
-                                      </label>
-                                    </div>
-                                    <div className="flex justify-end gap-[8px] border-t border-solid border-[#e2eaf1] px-[12px] py-[8px]">
-                                      <button
-                                        className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[14px] py-[6px] font-['Roboto:Bold',sans-serif] text-[12px] text-white transition-colors hover:bg-[#0069ae]"
-                                        onClick={() => setMoreRowOpen(null)}
-                                        style={{ fontVariationSettings: "'wdth' 100" }}
-                                        type="button"
-                                      >
-                                        Done
-                                      </button>
-                                    </div>
-                                  </div>
-                                </>
-                              ) : null}
+                              {/* The actual modal is rendered once at the top-level — see
+                                  the Additional-fields dialog below the attribute picker. */}
                             </div>
                           </div>
                           );
@@ -11077,32 +11273,44 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                               Short guidance for approvers before posting and payment release decisions are made.
                             </p>
 
-                            <div className="rounded-[12px] border border-solid border-[#d9e2eb] bg-white px-[14px] py-[12px]">
-                              <p className="mb-[10px] font-['Roboto:Bold',sans-serif] text-[13px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                            <div>
+                              <p className="mb-[0.5em] font-['Roboto:Bold',sans-serif] text-[1em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
                                 Approval Routing
                               </p>
-                              <div className="flex flex-wrap items-center gap-[8px]">
-                                {approvalRouting.map((step, index) => (
-                                  <Fragment key={step.role}>
-                                    <div
-                                      className={`min-w-[120px] rounded-[10px] border border-solid px-[10px] py-[8px] ${
-                                        step.status === "done"
-                                          ? "border-[#cfead9] bg-[#e7f7ef]"
-                                          : step.status === "active"
-                                            ? "border-[#bfe4ff] bg-[#eaf8ff]"
-                                            : "border-[#d9e2eb] bg-[#fbfdff]"
-                                      }`}
-                                    >
-                                      <p className="font-['Roboto:Bold',sans-serif] text-[12px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                        {step.role}
-                                      </p>
-                                      <p className="mt-[2px] font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                                        {step.name}
-                                      </p>
+                              <div className="flex flex-col">
+                                {approvalRouting.map((step, index) => {
+                                  const isLast = index === approvalRouting.length - 1;
+                                  const dotBg =
+                                    step.status === "done"
+                                      ? "bg-[#20A464]"
+                                      : step.status === "active"
+                                        ? "bg-[#0083DA]"
+                                        : "bg-[#9AB0C0]";
+                                  const cardTone =
+                                    step.status === "done"
+                                      ? "border-[#CFEAD9] bg-[#E7F7EF]"
+                                      : step.status === "active"
+                                        ? "border-[#BFE4FF] bg-[#EAF8FF]"
+                                        : "border-[#D9E2EB] bg-[#FBFDFF]";
+                                  return (
+                                    <div key={step.role} className={`flex items-stretch gap-[0.75em] ${isLast ? "" : "pb-[0.5em]"}`}>
+                                      <div className="flex w-[10px] shrink-0 flex-col items-center">
+                                        <span className={`mt-[0.5em] size-[10px] shrink-0 rounded-full ${dotBg}`} aria-hidden="true" />
+                                        {isLast ? null : (
+                                          <span className="mt-[0.25em] w-px flex-1 bg-[#D9E6F2]" aria-hidden="true" />
+                                        )}
+                                      </div>
+                                      <div className={`min-w-0 flex-1 rounded-[10px] border border-solid px-[0.75em] py-[0.5em] ${cardTone}`}>
+                                        <p className="truncate font-['Roboto:Bold',sans-serif] text-[0.8125em] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }} title={step.role}>
+                                          {step.role}
+                                        </p>
+                                        <p className="mt-[0.125em] truncate font-['Roboto:Regular',sans-serif] text-[0.6875em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={step.name}>
+                                          {step.name}
+                                        </p>
+                                      </div>
                                     </div>
-                                    {index < approvalRouting.length - 1 ? <ChevronRight className="size-[14px] text-[#9ab0c0]" strokeWidth={2} /> : null}
-                                  </Fragment>
-                                ))}
+                                  );
+                                })}
                               </div>
                             </div>
 
@@ -11203,66 +11411,141 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
         const typeBadgeLabel = isProduct ? "Product" : "Charge";
         const specHeader = isProduct ? "Spec" : "Mode";
         const availabilityHeader = isProduct ? "Stock" : "Lead time";
-        // Shared grid template: radio · code · description · spec · price delta · availability.
-        // minmax(min, fr) keeps the description elastic while the metric columns hold a floor.
+        // 7-column grid: radio · code · description · spec · price delta · availability · edit
         const gridCols =
-          "grid grid-cols-[16px_minmax(72px,auto)_minmax(120px,1.4fr)_minmax(96px,1fr)_minmax(60px,auto)_minmax(108px,auto)] gap-[12px]";
+          "grid grid-cols-[16px_minmax(72px,auto)_minmax(120px,1.4fr)_minmax(96px,1fr)_minmax(60px,auto)_minmax(108px,auto)_28px] gap-[12px]";
+        const isListMode = attributePickerMode === "list";
         const isCreateMode = attributePickerMode === "create";
-        const existingCodes = new Set(optionsForPrimary.map((o) => o.code.toLowerCase()));
-        const trimmedNew: AttributeOption = {
-          code: newAttribute.code.trim(),
-          label: newAttribute.label.trim(),
-          spec: newAttribute.spec.trim(),
-          priceDelta: newAttribute.priceDelta.trim(),
-          availability: newAttribute.availability.trim(),
+        const isEditMode = attributePickerMode === "edit";
+        // Currently-selected option in pick mode — drives the read-only form below the dropdown.
+        const selectedOption = optionsForPrimary.find((o) => o.code === attributePicker.selectedAttribute);
+        // Switch to edit mode with the selected option pre-loaded into the draft.
+        const enterEditModeForSelected = () => {
+          if (!selectedOption) return;
+          setEditingAttribute({ originalCode: selectedOption.code, draft: { ...selectedOption } });
+          setAttributePickerMode("edit");
+          setEditAttributeError("");
         };
-        const canSubmitNew = trimmedNew.code !== "" && trimmedNew.label !== "" && !existingCodes.has(trimmedNew.code.toLowerCase());
+        // Submit the create-mode form: validate, append to lotPools + options, pre-select new
+        // row in list mode. Empty optionals are backfilled with "—" so the grid stays aligned.
         const submitNewAttribute = () => {
-          if (trimmedNew.code === "") {
-            setNewAttributeError("Code is required");
+          const draft: AttributeOption = {
+            code: newAttribute.lotCode.trim(),
+            label: newAttribute.label.trim(),
+            spec: newAttribute.spec.trim() || "—",
+            priceDelta: newAttribute.priceDelta.trim() || "—",
+            availability: newAttribute.availability.trim() || "—",
+          };
+          if (!draft.code) {
+            setNewAttributeError("Lot code is required");
             return;
           }
-          if (trimmedNew.label === "") {
+          if (!draft.label) {
             setNewAttributeError("Description is required");
             return;
           }
-          if (existingCodes.has(trimmedNew.code.toLowerCase())) {
-            setNewAttributeError(`Code "${trimmedNew.code}" already exists for ${attributePicker.primaryLabel}`);
+          const existing = optionsForPrimary.map((o) => o.code.toLowerCase());
+          if (existing.includes(draft.code.toLowerCase())) {
+            setNewAttributeError(`Lot code "${draft.code}" already exists for ${attributePicker.primaryLabel}`);
             return;
           }
-          // Backfill blank optional fields with the em-dash baseline so the grid row reads
-          // consistently next to the seeded options.
-          const appended: AttributeOption = {
-            code: trimmedNew.code,
-            label: trimmedNew.label,
-            spec: trimmedNew.spec || "—",
-            priceDelta: trimmedNew.priceDelta || "—",
-            availability: trimmedNew.availability || "—",
-          };
+          // Pool gets the new lot too — keeps the per-primary pool in sync.
+          setLotPools((pools) => {
+            const cur = pools[attributePicker.primaryLabel] ?? [];
+            if (cur.includes(draft.code)) return pools;
+            return { ...pools, [attributePicker.primaryLabel]: [draft.code, ...cur] };
+          });
           const setter = isProduct ? setProductAttributeOptions : setChargeAttributeOptions;
           setter((current) => ({
             ...current,
-            [attributePicker.primaryLabel]: [...(current[attributePicker.primaryLabel] ?? []), appended],
+            [attributePicker.primaryLabel]: [...(current[attributePicker.primaryLabel] ?? []), draft],
           }));
-          // Pre-select the freshly created attribute and bounce back to the list. The picker's
-          // options array is also updated so existing keyboard / select-by-code paths see it.
           setAttributePicker((current) =>
             current
               ? {
                   ...current,
-                  options: [...current.options, appended.code],
-                  selectedAttribute: appended.code,
+                  options: current.options.includes(draft.code) ? current.options : [...current.options, draft.code],
+                  selectedAttribute: draft.code,
                 }
               : current,
           );
           setAttributePickerMode("list");
-          setNewAttribute(blankNewAttribute);
+          setNewAttribute({ lotCode: "", label: "", spec: "", priceDelta: "", availability: "" });
           setNewAttributeError("");
-          setAttributeSearch("");
         };
-        // Form-field shell used for every input in the create-mode form.
-        const formInputClass =
-          "h-[34px] w-full rounded-[8px] border border-solid border-[#D9E2EB] bg-white px-[10px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none focus:border-[#0083da] placeholder:text-[#9F9F9F]";
+        // Enter create mode with the form pre-filled by the next generated lot code.
+        const enterCreateMode = () => {
+          setNewAttribute({
+            lotCode: generateLotCode(attributePicker.primaryLabel),
+            label: "", spec: "", priceDelta: "", availability: "",
+          });
+          setNewAttributeError("");
+          setAttributePickerMode("create");
+        };
+        // Toggle handlers for the "Generate New / Edit Existing" pill inside the form body.
+        // Generate switches to create mode with a fresh draft; Edit switches to edit mode
+        // pre-loaded with the currently-selected (or first) attribute.
+        const switchToGenerate = () => {
+          setNewAttribute({
+            lotCode: generateLotCode(attributePicker.primaryLabel),
+            label: "", spec: "", priceDelta: "", availability: "",
+          });
+          setNewAttributeError("");
+          setEditAttributeError("");
+          setAttributePickerMode("create");
+        };
+        const switchToEditExisting = () => {
+          if (optionsForPrimary.length === 0) return;
+          const target =
+            optionsForPrimary.find((o) => o.code === attributePicker.selectedAttribute) ?? optionsForPrimary[0];
+          setEditingAttribute({ originalCode: target.code, draft: { ...target } });
+          setNewAttributeError("");
+          setEditAttributeError("");
+          setAttributePickerMode("edit");
+        };
+        // Canonical Onfinity underline form field (same class used in the additional-fields modal).
+        const editInputClass =
+          "block w-full border-0 border-b border-solid border-[#D7D7D7] bg-transparent px-0 py-[6px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102C3F] outline-none transition-colors hover:border-[#0083DA] focus:border-[#0083DA] placeholder:text-[#9F9F9F]";
+        const editLabelClass =
+          "font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]";
+        const saveAttributeEdit = () => {
+          if (!editingAttribute) return;
+          const draft: AttributeOption = {
+            code: editingAttribute.draft.code, // code stays read-only
+            label: editingAttribute.draft.label.trim(),
+            spec: editingAttribute.draft.spec.trim() || "—",
+            priceDelta: editingAttribute.draft.priceDelta.trim() || "—",
+            availability: editingAttribute.draft.availability.trim() || "—",
+          };
+          if (!draft.label) {
+            setEditAttributeError("Description is required");
+            return;
+          }
+          const setter = isProduct ? setProductAttributeOptions : setChargeAttributeOptions;
+          setter((current) => {
+            const cur = current[attributePicker.primaryLabel] ?? [];
+            return {
+              ...current,
+              [attributePicker.primaryLabel]: cur.map((o) => (o.code === editingAttribute.originalCode ? draft : o)),
+            };
+          });
+          setAttributePickerMode("list");
+          setEditingAttribute(null);
+          setEditAttributeError("");
+        };
+        // Lot pool for this primary + filter for lot-pick search.
+        const existingLotsForPrimary = lotPools[attributePicker.primaryLabel] ?? [];
+        const lotQ = lotSearch.trim().toLowerCase();
+        const filteredLots = lotQ === ""
+          ? existingLotsForPrimary
+          : existingLotsForPrimary.filter((l) => l.toLowerCase().includes(lotQ));
+        // Lots that are NOT already attribute options — these are the ones the create form's
+        // "Use existing" dropdown should surface. Picking a code that's already an attribute
+        // would just trigger the duplicate-code error on submit.
+        const attributeOptionCodes = new Set(optionsForPrimary.map((o) => o.code));
+        const availableExistingLots = existingLotsForPrimary.filter((code) => !attributeOptionCodes.has(code));
+        // Preview the next code the generate flow would produce.
+        const nextLotPreview = generateLotCode(attributePicker.primaryLabel);
         return (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,27,45,0.42)] px-[16px] backdrop-blur-[2px]"
@@ -11277,32 +11560,31 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
           >
             <div className="border-b border-solid border-[#e2eaf1] px-[20px] pb-[12px] pt-[14px]">
               <div className="flex items-center justify-between gap-[12px]">
-                {isCreateMode ? (
+                {isListMode ? (
+                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Select attribute
+                  </p>
+                ) : (
                   <button
                     className="flex items-center gap-[6px] rounded-[8px] px-[6px] py-[4px] font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f] transition-colors hover:bg-[#f7fbff]"
                     onClick={() => {
                       setAttributePickerMode("list");
-                      setNewAttributeError("");
+                      if (isEditMode) {
+                        setEditingAttribute(null);
+                        setEditAttributeError("");
+                      }
                     }}
                     style={{ fontVariationSettings: "'wdth' 100" }}
                     type="button"
                   >
                     <ArrowLeft className="size-[16px] text-[#0083da]" strokeWidth={2} />
-                    New attribute
+                    {isEditMode ? `Edit ${editingAttribute?.originalCode ?? "attribute"}` : "New attribute"}
                   </button>
-                ) : (
-                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102c3f]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    Select attribute
-                  </p>
                 )}
-                {!isCreateMode ? (
+                {isListMode ? (
                   <button
                     className="flex items-center gap-[6px] rounded-[999px] border border-solid border-[#0083da] bg-white px-[12px] py-[6px] font-['Roboto:SemiBold',sans-serif] text-[12px] text-[#0083da] transition-colors hover:bg-[#eaf8ff]"
-                    onClick={() => {
-                      setAttributePickerMode("create");
-                      setNewAttribute(blankNewAttribute);
-                      setNewAttributeError("");
-                    }}
+                    onClick={enterCreateMode}
                     style={{ fontVariationSettings: "'wdth' 100" }}
                     type="button"
                   >
@@ -11319,139 +11601,93 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                   {attributePicker.primaryLabel}
                 </p>
               </div>
-              {isCreateMode ? (
-                <div className="mt-[12px] flex items-center gap-[8px] rounded-[10px] border border-solid border-[#BFE4FF] bg-[#EAF8FF] px-[10px] py-[7px]">
-                  <Plus className="size-[14px] shrink-0 text-[#0083DA]" strokeWidth={2} />
-                  <p className="truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }} title={`New attribute under ${attributePicker.primaryLabel} — available to every line picking this ${typeBadgeLabel.toLowerCase()}.`}>
-                    New attribute under <span className="font-['Roboto:SemiBold',sans-serif]">{attributePicker.primaryLabel}</span> — available to every line picking this {typeBadgeLabel.toLowerCase()}.
-                  </p>
-                </div>
-              ) : (
+              {isListMode ? (
                 <div className="mt-[12px] flex items-center gap-[8px] rounded-[10px] border border-solid border-[#D9E2EB] bg-white px-[10px] py-[7px] focus-within:border-[#0083da]">
                   <Search className="size-[14px] text-[#5F7283]" strokeWidth={1.8} />
                   <input
                     autoFocus
                     className="flex-1 bg-transparent font-['Roboto:Regular',sans-serif] text-[13px] text-[#102c3f] outline-none placeholder:text-[#9F9F9F]"
                     onChange={(e) => setAttributeSearch(e.target.value)}
-                    placeholder="Search by code, description, spec, price delta, or availability"
+                    placeholder="Search by lot code, description, spec, price delta, or availability"
                     style={{ fontVariationSettings: "'wdth' 100" }}
                     type="text"
                     value={attributeSearch}
                   />
                 </div>
-              )}
+              ) : (isCreateMode || isEditMode) ? (
+                // Toggle pill (Generate New / Edit Existing) + plain info text below.
+                <div className="mt-[12px] flex flex-col gap-[10px]">
+                  <div className="inline-flex self-start rounded-[999px] border border-solid border-[#D9E2EB] bg-white p-[2px]">
+                    <button
+                      className={`rounded-[999px] px-[14px] py-[5px] font-['Roboto:SemiBold',sans-serif] text-[12px] transition-colors ${isCreateMode ? "bg-[#0083DA] text-white" : "bg-transparent text-[#41576A] hover:bg-[#F7FBFF] hover:text-[#0083DA]"}`}
+                      onClick={switchToGenerate}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="button"
+                    >
+                      Generate New
+                    </button>
+                    <button
+                      className={`rounded-[999px] px-[14px] py-[5px] font-['Roboto:SemiBold',sans-serif] text-[12px] transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${isEditMode ? "bg-[#0083DA] text-white" : "bg-transparent text-[#41576A] hover:bg-[#F7FBFF] hover:text-[#0083DA] disabled:hover:bg-transparent disabled:hover:text-[#41576A]"}`}
+                      disabled={optionsForPrimary.length === 0}
+                      onClick={switchToEditExisting}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      title={optionsForPrimary.length === 0 ? "No existing attributes yet for this primary" : "Switch to editing an existing attribute"}
+                      type="button"
+                    >
+                      Edit Existing
+                    </button>
+                  </div>
+                  <p className="font-['Roboto:Regular',sans-serif] text-[12px] leading-[1.4] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {isCreateMode ? (
+                      <>New attribute set under <span className="font-['Roboto:SemiBold',sans-serif] text-[#102C3F]">{attributePicker.primaryLabel}</span> — pick a lot code and describe what makes it distinct.</>
+                    ) : (
+                      <>Editing <span className="font-['Roboto:SemiBold',sans-serif] text-[#102C3F]">{editingAttribute?.originalCode ?? "attribute"}</span> — lot code stays the same; refine the descriptive fields.</>
+                    )}
+                  </p>
+                </div>
+              ) : null}
             </div>
 
             <div className="flex h-[360px] flex-col">
-            {isCreateMode ? (
-              <div className="flex-1 overflow-y-auto px-[20px] pb-[16px] pt-[16px]">
-                <div className="grid grid-cols-2 gap-x-[12px] gap-y-[12px]">
-                  <div className="flex flex-col gap-[4px]">
-                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      Code <span className="text-[#D14545]">*</span>
-                    </label>
-                    <input
-                      autoFocus
-                      className={formInputClass}
-                      onChange={(e) => {
-                        setNewAttribute((c) => ({ ...c, code: e.target.value }));
-                        if (newAttributeError) setNewAttributeError("");
-                      }}
-                      placeholder="e.g. BL-2XL"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                      type="text"
-                      value={newAttribute.code}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      Description <span className="text-[#D14545]">*</span>
-                    </label>
-                    <input
-                      className={formInputClass}
-                      onChange={(e) => {
-                        setNewAttribute((c) => ({ ...c, label: e.target.value }));
-                        if (newAttributeError) setNewAttributeError("");
-                      }}
-                      placeholder="Short human label"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                      type="text"
-                      value={newAttribute.label}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {specHeader}
-                    </label>
-                    <input
-                      className={formInputClass}
-                      onChange={(e) => setNewAttribute((c) => ({ ...c, spec: e.target.value }))}
-                      placeholder={isProduct ? "e.g. 1500 CFM" : "e.g. Express"}
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                      type="text"
-                      value={newAttribute.spec}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-[4px]">
-                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      Δ Price
-                    </label>
-                    <input
-                      className={formInputClass}
-                      onChange={(e) => setNewAttribute((c) => ({ ...c, priceDelta: e.target.value }))}
-                      placeholder="e.g. +30% or —"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                      type="text"
-                      value={newAttribute.priceDelta}
-                    />
-                  </div>
-                  <div className="col-span-2 flex flex-col gap-[4px]">
-                    <label className="font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {availabilityHeader}
-                    </label>
-                    <input
-                      className={formInputClass}
-                      onChange={(e) => setNewAttribute((c) => ({ ...c, availability: e.target.value }))}
-                      placeholder={isProduct ? "e.g. 24 in stock" : "e.g. 3 days lead"}
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                      type="text"
-                      value={newAttribute.availability}
-                    />
-                  </div>
-                </div>
-                {newAttributeError ? (
-                  <p className="mt-[12px] font-['Roboto:Regular',sans-serif] text-[12px] text-[#D14545]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    {newAttributeError}
-                  </p>
-                ) : null}
-              </div>
-            ) : (
+            {isListMode ? (
+              // ============ List mode — original table grid with pencil per row ============
               <>
                 <div className={`${gridCols} shrink-0 border-b border-solid border-[#C5D2DD] bg-[#FBFDFF] px-[20px] py-[8px]`}>
                   <span />
-                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Code</span>
+                  <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Lot Code</span>
                   <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Description</span>
                   <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>{specHeader}</span>
                   <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>Δ Price</span>
                   <span className="font-['Roboto:SemiBold',sans-serif] text-[10px] uppercase tracking-[0.04em] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>{availabilityHeader}</span>
+                  <span />
                 </div>
-
                 <div className="flex-1 overflow-y-auto">
                   {filteredOptions.length === 0 ? (
                     <p className="px-[20px] py-[20px] text-center font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      No matches for "{attributeSearch}"
+                      {optionsForPrimary.length === 0
+                        ? `No attributes yet for ${attributePicker.primaryLabel}. Click + New attribute to create one.`
+                        : `No matches for "${attributeSearch}"`}
                     </p>
                   ) : (
                     filteredOptions.map((opt) => {
                       const isSelected = attributePicker.selectedAttribute === opt.code;
                       const isBaseline = opt.priceDelta === "—";
                       const isLowStock = opt.availability.toLowerCase().includes("low");
+                      const selectRow = () =>
+                        setAttributePicker((current) => (current ? { ...current, selectedAttribute: opt.code } : current));
                       return (
-                        <button
-                          className={`${gridCols} w-full items-center border-b border-solid border-[#EEF3F8] px-[20px] py-[10px] text-left transition-colors last:border-b-0 ${isSelected ? "bg-[#eef7ff]" : "hover:bg-[#f7fbff]"}`}
+                        <div
+                          className={`${gridCols} group w-full cursor-pointer items-center border-b border-solid border-[#EEF3F8] px-[20px] py-[10px] text-left transition-colors last:border-b-0 ${isSelected ? "bg-[#eef7ff]" : "hover:bg-[#f7fbff]"}`}
                           key={opt.code}
-                          onClick={() => setAttributePicker((current) => (current ? { ...current, selectedAttribute: opt.code } : current))}
-                          type="button"
+                          onClick={selectRow}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              selectRow();
+                            }
+                          }}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span className={`flex size-[16px] shrink-0 items-center justify-center rounded-full border-2 border-solid ${isSelected ? "border-[#0083da]" : "border-[#c5d2dd]"}`}>
                             {isSelected ? <span className="size-[8px] rounded-full bg-[#0083da]" /> : null}
@@ -11471,40 +11707,225 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                           <span className={`truncate font-['Roboto:Regular',sans-serif] text-[12px] ${isLowStock ? "text-[#D14545]" : "text-[#41576A]"}`} style={{ fontVariationSettings: "'wdth' 100" }} title={opt.availability}>
                             {opt.availability}
                           </span>
-                        </button>
+                          <button
+                            aria-label={`Edit ${opt.code}`}
+                            className="flex size-[24px] items-center justify-center rounded-[6px] text-[#5F7283] opacity-60 transition-all hover:bg-[#EAF8FF] hover:text-[#0083DA] hover:opacity-100 group-hover:opacity-100 focus:opacity-100"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setEditingAttribute({ originalCode: opt.code, draft: { ...opt } });
+                              setAttributePickerMode("edit");
+                              setEditAttributeError("");
+                            }}
+                            title={`Edit ${opt.code}`}
+                            type="button"
+                          >
+                            <Pencil className="size-[12px]" strokeWidth={2} />
+                          </button>
+                        </div>
                       );
                     })
                   )}
                 </div>
               </>
-            )}
+            ) : isCreateMode ? (
+              // ============ Create mode — lot dropdown + form ============
+              <div className="flex-1 overflow-y-auto px-[24px] pb-[16px] pt-[18px]">
+                <div className="flex flex-col gap-[18px]">
+                  {/* Lot Code dropdown — auto-gen + existing lots (combined) */}
+                  <div className="flex flex-col gap-[6px]">
+                    <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Lot Code <span className="text-[#D14545]">*</span>
+                    </span>
+                    <div className="relative">
+                      <select
+                        autoFocus
+                        className="block w-full appearance-none border-0 border-b border-solid border-[#D7D7D7] bg-transparent pb-[6px] pl-0 pr-[24px] pt-[6px] font-['Roboto:SemiBold',sans-serif] text-[14px] text-[#102C3F] outline-none transition-colors hover:border-[#0083DA] focus:border-[#0083DA] cursor-pointer"
+                        onChange={(e) => {
+                          setNewAttribute((c) => ({ ...c, lotCode: e.target.value }));
+                          if (newAttributeError) setNewAttributeError("");
+                        }}
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                        value={newAttribute.lotCode}
+                      >
+                        <option value={nextLotPreview}>Generate new — {nextLotPreview}</option>
+                        {availableExistingLots.length > 0 ? (
+                          <optgroup label="Use existing lot">
+                            {availableExistingLots.map((code) => (
+                              <option key={code} value={code}>{code}</option>
+                            ))}
+                          </optgroup>
+                        ) : null}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-[14px] -translate-y-1/2 text-[#5F7283]" strokeWidth={1.8} />
+                    </div>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {availableExistingLots.length === 0
+                        ? "No unassigned lots yet — first option auto-generates the next code."
+                        : `${availableExistingLots.length} unassigned lot${availableExistingLots.length === 1 ? "" : "s"} in the pool — pick one or use the auto-generated.`}
+                    </p>
+                  </div>
+
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Description <span className="text-[#D14545]">*</span>
+                    </span>
+                    <input
+                      className={editInputClass}
+                      onChange={(e) => {
+                        setNewAttribute((c) => ({ ...c, label: e.target.value }));
+                        if (newAttributeError) setNewAttributeError("");
+                      }}
+                      placeholder="Short human label (e.g., Batch 2026-04, Extra-large)"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.label}
+                    />
+                  </label>
+
+                  <div className="grid grid-cols-2 gap-x-[24px]">
+                    <label className="flex flex-col gap-[6px]">
+                      <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>{specHeader}</span>
+                      <input
+                        className={editInputClass}
+                        onChange={(e) => setNewAttribute((c) => ({ ...c, spec: e.target.value }))}
+                        placeholder={isProduct ? "e.g. 1500 CFM" : "e.g. Express"}
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                        type="text"
+                        value={newAttribute.spec}
+                      />
+                    </label>
+                    <label className="flex flex-col gap-[6px]">
+                      <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Δ Price</span>
+                      <input
+                        className={editInputClass}
+                        onChange={(e) => setNewAttribute((c) => ({ ...c, priceDelta: e.target.value }))}
+                        placeholder="e.g. +30% or —"
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                        type="text"
+                        value={newAttribute.priceDelta}
+                      />
+                    </label>
+                  </div>
+
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>{availabilityHeader}</span>
+                    <input
+                      className={editInputClass}
+                      onChange={(e) => setNewAttribute((c) => ({ ...c, availability: e.target.value }))}
+                      placeholder={isProduct ? "e.g. 24 in stock" : "e.g. 3 days lead"}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={newAttribute.availability}
+                    />
+                  </label>
+
+                  {newAttributeError ? (
+                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#D14545]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {newAttributeError}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            ) : isEditMode && editingAttribute ? (
+              // ============ Edit mode — dropdown (which to edit) + editable form ============
+              <div className="flex-1 overflow-y-auto px-[24px] pb-[16px] pt-[18px]">
+                <div className="flex flex-col gap-[18px]">
+                  {/* Lot Code dropdown — pick which existing attribute to edit */}
+                  <div className="flex flex-col gap-[6px]">
+                    <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Lot Code</span>
+                    <div className="relative">
+                      <select
+                        className="block w-full appearance-none border-0 border-b border-solid border-[#D7D7D7] bg-transparent pb-[6px] pl-0 pr-[24px] pt-[6px] font-['Roboto:SemiBold',sans-serif] text-[14px] text-[#102C3F] outline-none transition-colors hover:border-[#0083DA] focus:border-[#0083DA] cursor-pointer"
+                        onChange={(e) => {
+                          const target = optionsForPrimary.find((o) => o.code === e.target.value);
+                          if (target) {
+                            setEditingAttribute({ originalCode: target.code, draft: { ...target } });
+                            if (editAttributeError) setEditAttributeError("");
+                          }
+                        }}
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                        value={editingAttribute.originalCode}
+                      >
+                        {optionsForPrimary.map((opt) => (
+                          <option key={opt.code} value={opt.code}>
+                            {opt.code}{opt.label && opt.label !== "—" ? ` — ${opt.label}` : ""}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-[14px] -translate-y-1/2 text-[#5F7283]" strokeWidth={1.8} />
+                    </div>
+                    <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Lot code is read-only — pick a different one to edit, or refine the descriptive fields below.
+                    </p>
+                  </div>
+
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>
+                      Description <span className="text-[#D14545]">*</span>
+                    </span>
+                    <input
+                      autoFocus
+                      className={editInputClass}
+                      onChange={(e) => {
+                        setEditingAttribute((c) => (c ? { ...c, draft: { ...c.draft, label: e.target.value } } : c));
+                        if (editAttributeError) setEditAttributeError("");
+                      }}
+                      placeholder="Short human label"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={editingAttribute.draft.label}
+                    />
+                  </label>
+
+                  <div className="grid grid-cols-2 gap-x-[24px]">
+                    <label className="flex flex-col gap-[6px]">
+                      <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>{specHeader}</span>
+                      <input
+                        className={editInputClass}
+                        onChange={(e) => setEditingAttribute((c) => (c ? { ...c, draft: { ...c.draft, spec: e.target.value } } : c))}
+                        placeholder={isProduct ? "e.g. 1500 CFM" : "e.g. Express"}
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                        type="text"
+                        value={editingAttribute.draft.spec}
+                      />
+                    </label>
+                    <label className="flex flex-col gap-[6px]">
+                      <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Δ Price</span>
+                      <input
+                        className={editInputClass}
+                        onChange={(e) => setEditingAttribute((c) => (c ? { ...c, draft: { ...c.draft, priceDelta: e.target.value } } : c))}
+                        placeholder="e.g. +30% or —"
+                        style={{ fontVariationSettings: "'wdth' 100" }}
+                        type="text"
+                        value={editingAttribute.draft.priceDelta}
+                      />
+                    </label>
+                  </div>
+
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>{availabilityHeader}</span>
+                    <input
+                      className={editInputClass}
+                      onChange={(e) => setEditingAttribute((c) => (c ? { ...c, draft: { ...c.draft, availability: e.target.value } } : c))}
+                      placeholder={isProduct ? "e.g. 24 in stock" : "e.g. 3 days lead"}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                      value={editingAttribute.draft.availability}
+                    />
+                  </label>
+
+                  {editAttributeError ? (
+                    <p className="font-['Roboto:Regular',sans-serif] text-[12px] text-[#D14545]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                      {editAttributeError}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
             </div>
 
             <div className="flex items-center justify-end gap-[8px] border-t border-solid border-[#e2eaf1] px-[20px] py-[12px]">
-              {isCreateMode ? (
-                <>
-                  <button
-                    className="rounded-[999px] border border-solid border-[#D9E2EB] bg-white px-[18px] py-[8px] font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#41576A] transition-colors hover:bg-[#f7fbff]"
-                    onClick={() => {
-                      setAttributePickerMode("list");
-                      setNewAttributeError("");
-                    }}
-                    style={{ fontVariationSettings: "'wdth' 100" }}
-                    type="button"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className={`rounded-[999px] border border-solid px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors ${canSubmitNew ? "border-[#0083da] bg-[#0083da] hover:bg-[#0069ae]" : "cursor-not-allowed border-[#9FCDEC] bg-[#9FCDEC]"}`}
-                    disabled={!canSubmitNew}
-                    onClick={submitNewAttribute}
-                    style={{ fontVariationSettings: "'wdth' 100" }}
-                    type="button"
-                  >
-                    Add attribute
-                  </button>
-                </>
-              ) : (
+              {isListMode ? (
                 <button
                   className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
                   onClick={() => {
@@ -11519,10 +11940,184 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
                 >
                   OK
                 </button>
-              )}
+              ) : isEditMode ? (
+                <>
+                  <button
+                    className="rounded-[999px] border border-solid border-[#D9E2EB] bg-white px-[18px] py-[8px] font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#41576A] transition-colors hover:bg-[#f7fbff]"
+                    onClick={() => {
+                      setAttributePickerMode("list");
+                      setEditingAttribute(null);
+                      setEditAttributeError("");
+                    }}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                    onClick={saveAttributeEdit}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Save changes
+                  </button>
+                </>
+              ) : isCreateMode ? (
+                <>
+                  <button
+                    className="rounded-[999px] border border-solid border-[#D9E2EB] bg-white px-[18px] py-[8px] font-['Roboto:SemiBold',sans-serif] text-[13px] text-[#41576A] transition-colors hover:bg-[#f7fbff]"
+                    onClick={() => {
+                      setAttributePickerMode("list");
+                      setNewAttribute({ lotCode: "", label: "", spec: "", priceDelta: "", availability: "" });
+                      setNewAttributeError("");
+                    }}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[18px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                    onClick={submitNewAttribute}
+                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    type="button"
+                  >
+                    Add attribute
+                  </button>
+                </>
+              ) : null}
             </div>
           </div>
         </div>
+        );
+      })() : null}
+
+      {moreRowOpen ? (() => {
+        const line = invoiceLines.find((l) => l.lineNo === moreRowOpen);
+        if (!line) return null;
+        const primary = line.product || line.charge || "—";
+        // Canonical underline form field — matches design-specs/windows-and-panels.md > Form Field.
+        const fieldInputClass =
+          "block w-full border-0 border-b border-solid border-[#D7D7D7] bg-transparent px-0 py-[6px] font-['Roboto:Regular',sans-serif] text-[13px] text-[#102C3F] outline-none transition-colors hover:border-[#0083DA] focus:border-[#0083DA] placeholder:text-[#9F9F9F]";
+        const fieldLabelClass =
+          "font-['Roboto:SemiBold',sans-serif] text-[11px] uppercase tracking-[0.04em] text-[#5F7283]";
+        return (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(15,27,45,0.42)] px-[16px] backdrop-blur-[2px]"
+            onClick={() => setMoreRowOpen(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Additional fields for line ${line.lineNo}`}
+          >
+            <div
+              className="w-[min(720px,100%)] overflow-hidden rounded-[14px] bg-white shadow-[0_20px_50px_rgba(15,61,97,0.20)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-[12px] border-b border-solid border-[#e2eaf1] px-[24px] pb-[14px] pt-[16px]">
+                <div className="min-w-0">
+                  <p className="font-['Roboto:Bold',sans-serif] text-[16px] text-[#102C3F]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    Additional fields
+                  </p>
+                  <p className="mt-[2px] truncate font-['Roboto:Regular',sans-serif] text-[12px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }} title={`Line ${line.lineNo} · ${primary}`}>
+                    Line {line.lineNo} · {primary}
+                  </p>
+                </div>
+                <button
+                  aria-label="Close"
+                  className="flex size-[28px] shrink-0 items-center justify-center rounded-[8px] text-[#5F7283] transition-colors hover:bg-[#f1f8ff] hover:text-[#0083DA]"
+                  onClick={() => setMoreRowOpen(null)}
+                  type="button"
+                >
+                  <X className="size-[16px]" strokeWidth={2} />
+                </button>
+              </div>
+
+              <div className="min-h-[360px] px-[24px] pb-[20px] pt-[18px]">
+                <div className="grid grid-cols-2 gap-x-[24px] gap-y-[18px]">
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={fieldLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Discount (%)</span>
+                    <input
+                      autoFocus
+                      className={fieldInputClass}
+                      defaultValue={line.discount ?? ""}
+                      inputMode="decimal"
+                      onBlur={(e) => updateLineField(line.lineNo, "discount", e.target.value)}
+                      placeholder="0"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={fieldLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Cost Center</span>
+                    <input
+                      className={fieldInputClass}
+                      defaultValue={getAdditionalField(line.lineNo, "costCenter")}
+                      onBlur={(e) => setAdditionalField(line.lineNo, "costCenter", e.target.value)}
+                      placeholder="e.g. CC-101"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={fieldLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Project Code</span>
+                    <input
+                      className={fieldInputClass}
+                      defaultValue={getAdditionalField(line.lineNo, "projectCode")}
+                      onBlur={(e) => setAdditionalField(line.lineNo, "projectCode", e.target.value)}
+                      placeholder="e.g. P-2026-04"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-[6px]">
+                    <span className={fieldLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Department</span>
+                    <input
+                      className={fieldInputClass}
+                      defaultValue={getAdditionalField(line.lineNo, "department")}
+                      onBlur={(e) => setAdditionalField(line.lineNo, "department", e.target.value)}
+                      placeholder="e.g. Operations"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="col-span-2 flex flex-col gap-[6px]">
+                    <span className={fieldLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>PO Reference</span>
+                    <input
+                      className={fieldInputClass}
+                      defaultValue={getAdditionalField(line.lineNo, "poReference")}
+                      onBlur={(e) => setAdditionalField(line.lineNo, "poReference", e.target.value)}
+                      placeholder="e.g. PO-44218"
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="col-span-2 flex flex-col gap-[6px]">
+                    <span className={fieldLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>Notes</span>
+                    <textarea
+                      className={`${fieldInputClass} resize-y`}
+                      defaultValue={line.notes ?? ""}
+                      onBlur={(e) => updateLineField(line.lineNo, "notes", e.target.value)}
+                      placeholder="Optional note for this line…"
+                      rows={3}
+                      style={{ fontVariationSettings: "'wdth' 100" }}
+                    />
+                  </label>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-[8px] border-t border-solid border-[#e2eaf1] px-[24px] py-[12px]">
+                <button
+                  className="rounded-[999px] border border-solid border-[#0083da] bg-[#0083da] px-[20px] py-[8px] font-['Roboto:Bold',sans-serif] text-[13px] text-white transition-colors hover:bg-[#0069ae]"
+                  onClick={() => setMoreRowOpen(null)}
+                  style={{ fontVariationSettings: "'wdth' 100" }}
+                  type="button"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
         );
       })() : null}
 
