@@ -9611,6 +9611,9 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     lotCode: "", label: "", spec: "", priceDelta: "", availability: "",
   });
   const [newAttributeError, setNewAttributeError] = useState<string>("");
+  // Lot Code unlock state in create mode — false (default) shows the auto-generated code as
+  // read-only display; true reveals an editable text input so the user can override it.
+  const [isLotCodeManual, setIsLotCodeManual] = useState(false);
   // Edit-mode state — holds the original code (so we can find the row to replace) and the
   // current draft values from the form. Code is read-only by design; changing identity
   // would cascade to every line that already references this attribute.
@@ -9647,6 +9650,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
     setEditAttributeError("");
     setNewAttribute({ lotCode: "", label: "", spec: "", priceDelta: "", availability: "" });
     setNewAttributeError("");
+    setIsLotCodeManual(false);
   }, [attributePicker?.lineNo, attributePicker?.primaryLabel]);
   // Derive a lot-code SKU prefix from the primary's catalog key.
   //   "PRD-BLW-001" → "BLW"  ·  "CHG-INS-001" → "INS"
@@ -11480,6 +11484,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
             label: "", spec: "", priceDelta: "", availability: "",
           });
           setNewAttributeError("");
+          setIsLotCodeManual(false);
           setAttributePickerMode("create");
         };
         // Toggle handlers for the "Generate New / Edit Existing" pill inside the form body.
@@ -11492,6 +11497,7 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
           });
           setNewAttributeError("");
           setEditAttributeError("");
+          setIsLotCodeManual(false);
           setAttributePickerMode("create");
         };
         const switchToEditExisting = () => {
@@ -11731,37 +11737,73 @@ function FinanceApInvoiceView({ onClose }: { onClose: () => void }) {
               // ============ Create mode — lot dropdown + form ============
               <div className="flex-1 overflow-y-auto px-[24px] pb-[16px] pt-[18px]">
                 <div className="flex flex-col gap-[18px]">
-                  {/* Lot Code dropdown — auto-gen + existing lots (combined) */}
+                  {/* Lot Code — auto-generated read-only display by default. Right side has
+                      "Edit code manually" toggle that unlocks the field for a custom value;
+                      after unlock, the same button becomes "Use generated" to revert. */}
                   <div className="flex flex-col gap-[6px]">
                     <span className={editLabelClass} style={{ fontVariationSettings: "'wdth' 100" }}>
                       Lot Code <span className="text-[#D14545]">*</span>
                     </span>
-                    <div className="relative">
-                      <select
-                        autoFocus
-                        className="block w-full appearance-none border-0 border-b border-solid border-[#D7D7D7] bg-transparent pb-[6px] pl-0 pr-[24px] pt-[6px] font-['Roboto:SemiBold',sans-serif] text-[14px] text-[#102C3F] outline-none transition-colors hover:border-[#0083DA] focus:border-[#0083DA] cursor-pointer"
-                        onChange={(e) => {
-                          setNewAttribute((c) => ({ ...c, lotCode: e.target.value }));
+                    <div className="flex flex-wrap items-end gap-[12px]">
+                      {isLotCodeManual ? (
+                        <input
+                          autoFocus
+                          className="block min-w-[220px] flex-1 border-0 border-b border-solid border-[#0083DA] bg-transparent px-0 py-[6px] font-['Roboto:SemiBold',sans-serif] text-[14px] text-[#102C3F] outline-none placeholder:text-[#9F9F9F]"
+                          onChange={(e) => {
+                            setNewAttribute((c) => ({ ...c, lotCode: e.target.value }));
+                            if (newAttributeError) setNewAttributeError("");
+                          }}
+                          placeholder={`LOT-${lotSkuFor(attributePicker.primaryLabel)}-${new Date().getFullYear()}-0001`}
+                          style={{ fontVariationSettings: "'wdth' 100" }}
+                          type="text"
+                          value={newAttribute.lotCode}
+                        />
+                      ) : (
+                        <input
+                          aria-label="Auto-generated lot code (locked — click Edit code manually to override)"
+                          className="block min-w-[220px] flex-1 cursor-not-allowed border-0 border-b border-solid border-[#D7D7D7] bg-transparent px-0 py-[6px] font-['Roboto:SemiBold',sans-serif] text-[14px] text-[#102C3F] outline-none placeholder:text-[#9F9F9F] disabled:text-[#102C3F] disabled:opacity-100"
+                          disabled
+                          readOnly
+                          style={{ fontVariationSettings: "'wdth' 100" }}
+                          title={`${newAttribute.lotCode} — auto-generated; click Edit code manually to override`}
+                          type="text"
+                          value={newAttribute.lotCode}
+                        />
+                      )}
+                      <button
+                        className="flex shrink-0 items-center gap-[6px] rounded-[999px] border border-solid border-[#0083DA] bg-white px-[12px] py-[6px] font-['Roboto:SemiBold',sans-serif] text-[12px] text-[#0083DA] transition-colors hover:bg-[#EAF8FF]"
+                        onClick={() => {
+                          if (isLotCodeManual) {
+                            // Revert to auto-generated
+                            setNewAttribute((c) => ({ ...c, lotCode: generateLotCode(attributePicker.primaryLabel) }));
+                            setIsLotCodeManual(false);
+                          } else {
+                            // Unlock for manual entry
+                            setIsLotCodeManual(true);
+                          }
                           if (newAttributeError) setNewAttributeError("");
                         }}
                         style={{ fontVariationSettings: "'wdth' 100" }}
-                        value={newAttribute.lotCode}
+                        title={isLotCodeManual ? "Discard custom code and revert to the auto-generated value" : "Override the auto-generated value with a custom code"}
+                        type="button"
                       >
-                        <option value={nextLotPreview}>Generate new — {nextLotPreview}</option>
-                        {availableExistingLots.length > 0 ? (
-                          <optgroup label="Use existing lot">
-                            {availableExistingLots.map((code) => (
-                              <option key={code} value={code}>{code}</option>
-                            ))}
-                          </optgroup>
-                        ) : null}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-0 top-1/2 size-[14px] -translate-y-1/2 text-[#5F7283]" strokeWidth={1.8} />
+                        {isLotCodeManual ? (
+                          <>
+                            <RotateCcw className="size-[12px]" strokeWidth={2} />
+                            Use generated
+                          </>
+                        ) : (
+                          <>
+                            <Pencil className="size-[12px]" strokeWidth={2} />
+                            Edit code manually
+                          </>
+                        )}
+                      </button>
                     </div>
                     <p className="font-['Roboto:Regular',sans-serif] text-[11px] text-[#5F7283]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                      {availableExistingLots.length === 0
-                        ? "No unassigned lots yet — first option auto-generates the next code."
-                        : `${availableExistingLots.length} unassigned lot${availableExistingLots.length === 1 ? "" : "s"} in the pool — pick one or use the auto-generated.`}
+                      {isLotCodeManual
+                        ? "Manual override — type a custom code, or click Use generated to revert to the next sequential value."
+                        : "Auto-generated as the next sequential code. Click Edit code manually to override."}
                     </p>
                   </div>
 
